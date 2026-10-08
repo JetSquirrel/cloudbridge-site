@@ -1,0 +1,44 @@
+# CloudBridge
+
+> CloudBridge is a free, open-source (MIT) desktop app that reads cloud and AI provider bills into one local ledger on the user's own computer, shows where the money went, and alerts when spend starts running away. It reads AWS (Cost Explorer, or a FOCUS 1.2 Data Export in S3), Alibaba Cloud and Cloudflare billing APIs and DeepSeek's balance API, and imports bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek. No sign-up, no sync, no telemetry. It runs on macOS (Apple silicon) and 64-bit Windows; Linux and Intel Macs build from source.
+
+Key facts:
+
+- Every bill lands in one DuckDB file on the user's disk, as rows named after FinOps FOCUS columns (`billed_cost`, `effective_cost`, `charge_category`, `service_name`, `service_category`, `resource_id`, `region_id`, `pricing_quantity`), with each charge's original currency kept beside the converted one.
+- Bills are read per day, so a spike is in the ledger the next day rather than on the month's invoice.
+- Cloudflare's daily bill can be split across R2 buckets, Workers, D1 databases and Durable Object namespaces using the GraphQL Analytics API; the split rows add up to the bill and are marked as estimates.
+- On macOS and Windows the app stays in the menu bar after its window closes, with the month's spend as the icon's title; every 15 minutes it fetches accounts that are due (at most once per refresh interval, 24 hours by default), runs alert rules and posts system notifications. Open at login starts it after a restart.
+- Alert rules: cost growth anomalies against a trailing 7-day baseline, prepaid balance floors, untagged spend ratio and account budgets (cost to date or month-end forecast).
+- Pages: Overview (month to date, 30 days, 12 months, forecast, biggest movers), Attribution (Sankey to business lines; breakdown by tag, service, region, FOCUS service category), Models (per-model tokens and cost per million), Insights (a read-only resource scan of AWS and Cloudflare priced from the bill), Query (read-only SQL over the ledger).
+- Credentials are kept in the OS keyring; the app only reads from providers and never creates or changes a resource. The only paid calls it makes are AWS Cost Explorer requests and S3 reads.
+- A browser demo of the same application, compiled to WebAssembly, runs on a sample bill: https://cloudbridge.jetsquirrel.cloud/demo/
+- Download: https://github.com/JetSquirrel/cloudbridge/releases/latest
+- Source code: https://github.com/JetSquirrel/cloudbridge
+
+Every documentation page is also served as Markdown: add `.md` to its address (for example https://cloudbridge.jetsquirrel.cloud/docs/cloudflare.md). All English pages in one file: https://cloudbridge.jetsquirrel.cloud/docs/llms-full.txt; Chinese: https://cloudbridge.jetsquirrel.cloud/docs/zh/llms-full.txt
+
+## Docs
+
+- [Getting started](https://cloudbridge.jetsquirrel.cloud/docs/getting-started.md): install on macOS or Windows, the demo bill, add an account, read the first bill
+- [AWS](https://cloudbridge.jetsquirrel.cloud/docs/aws.md): Cost Explorer with a one-action IAM policy, or a FOCUS Data Export in S3; what it costs
+- [Alibaba Cloud](https://cloudbridge.jetsquirrel.cloud/docs/alibaba-cloud.md): billing API with a read-only RAM user, or the bill details export
+- [Cloudflare](https://cloudbridge.jetsquirrel.cloud/docs/cloudflare.md): daily billable usage, the per-resource split, and the token's permissions
+- [DeepSeek](https://cloudbridge.jetsquirrel.cloud/docs/deepseek.md): balance API and the usage download
+- [Bill file import](https://cloudbridge.jetsquirrel.cloud/docs/bill-import.md): exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek
+- [Provider permissions](https://cloudbridge.jetsquirrel.cloud/docs/permissions.md): least-privilege credentials for each provider
+- [Overview and accounts](https://cloudbridge.jetsquirrel.cloud/docs/overview.md): net and gross spend, the forecast, data health, reporting currency
+- [Attribution](https://cloudbridge.jetsquirrel.cloud/docs/attribution.md): business lines, dimensions and FOCUS service categories
+- [Models](https://cloudbridge.jetsquirrel.cloud/docs/models.md): per-model token economics and findings
+- [Insights](https://cloudbridge.jetsquirrel.cloud/docs/insights.md): the read-only resource scan and what it finds
+- [Query](https://cloudbridge.jetsquirrel.cloud/docs/query.md): read-only SQL over the ledger
+- [Alerts, rules and budgets](https://cloudbridge.jetsquirrel.cloud/docs/alerts.md): rules, budgets and notifications
+- [Menu bar and background](https://cloudbridge.jetsquirrel.cloud/docs/background.md): the menu bar icon, the background refresh, Open at login, failure handling
+- [Settings, data and security](https://cloudbridge.jetsquirrel.cloud/docs/settings-and-data.md): settings, storage locations, backups and security
+- [Keyboard shortcuts](https://cloudbridge.jetsquirrel.cloud/docs/shortcuts.md)
+- [Troubleshooting](https://cloudbridge.jetsquirrel.cloud/docs/troubleshooting.md)
+
+## Optional
+
+- [Blog](https://cloudbridge.jetsquirrel.cloud/docs/blog/): release notes and design decisions
+- [Roadmap](https://github.com/JetSquirrel/cloudbridge/blob/main/docs/roadmap.md)
+- [Changelog](https://github.com/JetSquirrel/cloudbridge/blob/main/CHANGELOG.md)

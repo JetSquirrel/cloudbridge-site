@@ -1,0 +1,23 @@
+// cloudbridge.jetsquirrel.cloud — the product page at the root, the docs under
+// /docs/ and the browser demo under /demo/, built by scripts/build.sh into
+// dist/site and served as static assets by one Worker. Cloudflare builds it
+// from the repository (Workers Builds); the Worker there is named
+// cloudbridge-site, and the name here has to match it.
+{
+  "name": "cloudbridge-site",
+  "compatibility_date": "2026-09-24",
+  // `wrangler deploy` builds first, so the deploy is complete on its own,
+  // whatever the dashboard's build-command field holds.
+  "build": {
+    "command": "sh scripts/build.sh"
+  },
+  "assets": {
+    "directory": "./dist/site",
+    // VitePress writes getting-started.html and links /docs/getting-started:
+    // the file is served at the clean path, and /zh/ serves zh/index.html. An
+    // unknown path gets the nearest 404.html — the docs' own under /docs/,
+    // the product page's elsewhere — with a 404 status.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,0 +1,38 @@
+# Response headers for cloudbridge.jetsquirrel.cloud, applied by Cloudflare's
+# static assets.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: interest-cohort=()
+
+# The product page points agents at its machine-readable neighbours (RFC
+# 8288): the documentation, and the llms.txt summary of CloudBridge.
+/
+  Link: </docs/>; rel="service-doc"; type="text/html", </llms.txt>; rel="describedby"; type="text/plain"
+/zh/
+  Link: </docs/zh/>; rel="service-doc"; type="text/html"; hreflang="zh-CN", </llms.txt>; rel="describedby"; type="text/plain"
+
+# The plain-text copies for language models (llms.txt, llms-full.txt and each
+# docs page as .md) are for reading, not for search results: the HTML pages
+# are the ones to index. The charset keeps the Chinese pages legible.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+/docs/*.txt
+  Content-Type: text/plain; charset=utf-8
+  X-Robots-Tag: noindex
+/docs/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+
+# The docs' built scripts and styles are fingerprinted by VitePress, so they
+# never change in place. Everything else — pages, the product page's
+# stylesheet, images, the demo, which keeps its names across builds —
+# revalidates.
+/docs/assets/*.js
+  Cache-Control: public, max-age=31536000, immutable
+/docs/assets/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+# The demo is a sample bill in the browser; nothing about it is for search.
+/demo/*
+  X-Robots-Tag: noindex

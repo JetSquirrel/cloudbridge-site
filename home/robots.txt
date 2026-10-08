@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /demo/
+
+# Which AI crawlers may read the site is set in Cloudflare (AI Crawl Control),
+# not here. For those that may: /llms.txt summarises CloudBridge and its docs
+# (https://llmstxt.org), and every docs page is also served as Markdown.
+
+Sitemap: https://cloudbridge.jetsquirrel.cloud/sitemap.xml
+Sitemap: https://cloudbridge.jetsquirrel.cloud/docs/sitemap.xml

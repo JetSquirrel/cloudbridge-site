@@ -1,0 +1,26 @@
+# Redirects for cloudbridge.jetsquirrel.cloud, applied by Cloudflare's static
+# assets. The site used to be a few hand-written pages on GitHub Pages; their
+# addresses are linked from the app, the README, release notes and other
+# people's posts, so each goes to where its content lives now.
+
+/docs.html /docs/ 301
+/docs.html/ /docs/ 301
+/policies.html /docs/permissions 301
+/policies.md /docs/permissions 301
+/blog.html /docs/blog/ 301
+/blog/ /docs/blog/ 301
+/blog/cloudbridge-0-5-0.html /docs/blog/cloudbridge-0-5-0 301
+/blog/cloudbridge-0-5-0.md /docs/blog/cloudbridge-0-5-0 301
+/blog/cloudbridge-0-4-0.html /docs/blog/cloudbridge-0-4-0 301
+/blog/cloudbridge-0-4-0.md /docs/blog/cloudbridge-0-4-0 301
+/blog/cloudbridge-vs-optscale.html /docs/blog/cloudbridge-vs-optscale 301
+/blog/cloudbridge-vs-optscale.md /docs/blog/cloudbridge-vs-optscale 301
+/blog/cloudbridge-0-3-1.html /docs/blog/cloudbridge-0-3-1 301
+/blog/cloudbridge-0-3-1.md /docs/blog/cloudbridge-0-3-1 301
+/blog/cloudbridge-0-3-0.html /docs/blog/cloudbridge-0-3-0 301
+/blog/cloudbridge-0-3-0.md /docs/blog/cloudbridge-0-3-0 301
+/blog/cloudbridge-0-2-0.html /docs/blog/cloudbridge-0-2-0 301
+/blog/cloudbridge-0-2-0.md /docs/blog/cloudbridge-0-2-0 301
+# A post added after the move lives under /docs/blog/ from the start.
+/blog/* /docs/blog/:splat 301
+/roadmap.md https://github.com/JetSquirrel/cloudbridge/blob/main/docs/roadmap.md 301

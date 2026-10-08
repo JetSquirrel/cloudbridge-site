@@ -1,0 +1,11 @@
+# Build output
+/dist/
+
+# Docs dependencies and VitePress cache
+docs/node_modules/
+docs/.vitepress/cache/
+
+# The demo the build downloads (scripts/build.sh)
+/.demo/
+
+.DS_Store
