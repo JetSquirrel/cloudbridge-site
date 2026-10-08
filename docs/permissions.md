@@ -18,6 +18,9 @@ CloudBridge sync service and no telemetry. Never post real keys,
 credential files or unredacted billing exports in public issues, logs,
 screenshots or pull requests, and revoke any key that has been exposed.
 
+<!-- The old permissions page, linked from CloudBridge 0.5.0 and earlier, called this section aws-cost-explorer. -->
+<a id="aws-cost-explorer"></a>
+
 ## AWS Cost Explorer {#aws}
 
 [`aws-cost-explorer-policy.json`](https://cloudbridge.jetsquirrel.cloud/aws-cost-explorer-policy.json)

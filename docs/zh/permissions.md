@@ -14,6 +14,9 @@ CloudBridge 把凭据存在系统钥匙串里，只用它向对应的云平台�
 CloudBridge 同步服务，也没有遥测。不要在公开的 issue、日志、截图或 PR 里贴出真实的
 key、凭据文件或未脱敏的账单导出；任何泄露过的 key 都要吊销。
 
+<!-- The old permissions page, linked from CloudBridge 0.5.0 and earlier, called this section aws-cost-explorer. -->
+<a id="aws-cost-explorer"></a>
+
 ## AWS Cost Explorer {#aws}
 
 [`aws-cost-explorer-policy.json`](https://cloudbridge.jetsquirrel.cloud/aws-cost-explorer-policy.json)
