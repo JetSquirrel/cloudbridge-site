@@ -1,5 +1,5 @@
 ---
-description: "Keep CloudBridge watching with its window closed: the menu bar icon and panel, the 15-minute background refresh, notifications, Open at login, and how failures are retried without paying twice."
+description: "Keep CloudBridge watching with its window closed: the menu bar icon and panel, the daily background refresh, notifications, Open at login, and how failures are retried without paying twice."
 ---
 
 # Menu bar and background
@@ -23,17 +23,26 @@ Alerts page. Right-click the icon — or use **Quit** in the panel — to quit;
 closing the window no longer does. The Dock icon comes and goes with the
 window.
 
+To have closing the window quit instead, turn off **Settings → Background →
+Keep running in the menu bar**. The icon goes at once; the schedule and
+notifications then run only while the window is open, and a login launch
+opens the window rather than starting hidden.
+
 Linux builds have no tray icon and still quit with their window; the
 schedule and notifications run while it is open.
 
 ## The background refresh {#schedule}
 
-Every 15 minutes CloudBridge fetches the accounts that are due, runs the
-[alert rules](alerts.md) and posts a notification for each new alert. "Due"
-is the refresh interval's call (**Settings → Refreshing**, 24 hours by
-default), so the schedule costs what a daily Refresh would — the 15
-minutes only decides how soon a due account is noticed. Turn it off under
-**Settings → Background → Refresh in the background**.
+CloudBridge fetches each account once its refresh interval has passed
+(**Settings → Refreshing**, 24 hours by default), runs the
+[alert rules](alerts.md) and posts a notification for each new alert. So
+the schedule costs what clicking Refresh once a day would.
+
+Every 15 minutes it checks whether an account has become due. That check
+reads only the local ledger; it sends nothing to a provider. The 15 minutes
+decides how soon after a laptop wakes, or a failure clears, a due account is
+fetched — not how often one is. Turn the schedule off under **Settings →
+Background → Refresh in the background**.
 
 ## Open at login {#login}
 
