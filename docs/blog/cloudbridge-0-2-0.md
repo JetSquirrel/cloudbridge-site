@@ -7,7 +7,7 @@ tag: Release
 
 # 0.2.0: a cost viewer becomes a ledger
 
-<p class="post-meta">2026-09-01 · Release · <a href="./">All posts</a></p>
+<p class="post-meta">2026-09-01&emsp;Release&emsp;<a href="./">All posts</a></p>
 
 Version 0.1 showed you a number per provider and called it a total. If you had an AWS account in dollars and an Alibaba Cloud account in yuan, the "total" added the two. Credits read as usage. A balance read as spend. 0.2.0 rebuilds the ground those numbers stand on.
 

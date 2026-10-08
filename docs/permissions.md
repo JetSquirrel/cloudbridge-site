@@ -4,7 +4,7 @@ description: "The least-privilege credentials CloudBridge needs for each provide
 
 # Provider permissions
 
-**[中文](zh/permissions.md)** · [Docs](index.md)
+**[中文](zh/permissions.md)**&emsp;[Docs](index.md)
 
 Use dedicated credentials with the least privilege the channel needs.
 Read-only behaviour in the app does not make an unrestricted key

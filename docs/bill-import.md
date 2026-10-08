@@ -4,7 +4,7 @@ description: "Import bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthro
 
 # Bill file import
 
-**[中文](zh/bill-import.md)** · [Docs](index.md)
+**[中文](zh/bill-import.md)**&emsp;[Docs](index.md)
 
 A bill export downloaded from a provider's console parses into the same
 ledger rows a fetch produces. Downstream — totals, charts, alerts,

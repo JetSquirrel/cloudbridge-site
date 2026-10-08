@@ -7,7 +7,7 @@ tag: Release
 
 # 0.3.1: one of everything
 
-<p class="post-meta">2026-09-12 · Release · <a href="./">All posts</a></p>
+<p class="post-meta">2026-09-12&emsp;Release&emsp;<a href="./">All posts</a></p>
 
 0.3.0 rebuilt the interface on GPUI Kit, but it rebuilt it page by page. Each page got the new look; each page also kept its own copy of what a card, a primary button or a table header is. Copies drift: the Settings page still had the pre-rebuild styles, and elsewhere the same "pick one of three" control appeared in four different shapes. 0.3.1 is the pass that makes the design system real — one definition per element, in the theme, with every page drawing from it.
 

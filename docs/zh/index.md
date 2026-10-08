@@ -39,7 +39,7 @@ features:
     linkText: 状态栏与后台运行
 ---
 
-<p align="center"><strong><a href="../">English</a></strong> · <a href="https://cloudbridge.jetsquirrel.cloud/zh/">cloudbridge.jetsquirrel.cloud</a> · <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a></p>
+<p align="center"><strong><a href="../">English</a></strong>&emsp;<a href="https://cloudbridge.jetsquirrel.cloud/zh/">cloudbridge.jetsquirrel.cloud</a>&emsp;<a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a></p>
 
 ## 按需查找
 

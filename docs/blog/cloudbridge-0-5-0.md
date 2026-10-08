@@ -7,7 +7,7 @@ tag: Release
 
 # 0.5.0: it keeps watching
 
-<p class="post-meta">2026-10-08 · Release · <a href="./">All posts</a></p>
+<p class="post-meta">2026-10-08&emsp;Release&emsp;<a href="./">All posts</a></p>
 
 A cost alert is worth something only while the money is still being spent. Until now CloudBridge fetched a bill when someone opened it and pressed Refresh, so an alert could sit unread for as long as the window stayed closed. This release is about that gap: the app keeps running after its window closes, the bill it reads goes down to the resource that spent it, and a refresh that goes wrong no longer costs anything twice.
 
@@ -21,9 +21,9 @@ Linux builds have no tray icon and still quit with their window; the schedule an
 
 ## Cloudflare, down to the resource
 
-Cloudflare is the seventh source. An account ID and an API token with Billing · Read read its billable usage: spend per service, per day. Daily matters here. A Worker or Durable Object that starts looping is in the ledger the next day, not on the invoice at the end of the month.
+Cloudflare is the seventh source. An account ID and an API token with Billing → Read read its billable usage: spend per service, per day. Daily matters here. A Worker or Durable Object that starts looping is in the ledger the next day, not on the invoice at the end of the month.
 
-The bill stops at the service, though: "R2 Class B operations, 734 on 3 October", not which bucket. Add Account Analytics · Read to the token and CloudBridge asks Cloudflare's GraphQL Analytics API for each resource's usage of the meters the bill names, then splits each day's row by those shares. R2 buckets, Workers, D1 databases and Durable Object namespaces each get their part, and the parts still add up to what Cloudflare billed. They are marked as estimates, because analytics are sampled and a free allowance belongs to the account, not to any one resource.
+The bill stops at the service, though: "R2 Class B operations, 734 on 3 October", not which bucket. Add Account Analytics → Read to the token and CloudBridge asks Cloudflare's GraphQL Analytics API for each resource's usage of the meters the bill names, then splits each day's row by those shares. R2 buckets, Workers, D1 databases and Durable Object namespaces each get their part, and the parts still add up to what Cloudflare billed. They are marked as estimates, because analytics are sampled and a free allowance belongs to the account, not to any one resource.
 
 Usage inside the free allowance is kept too, with a cost of zero beside it. That is usually where a runaway starts: usage climbs for days before the first cent is billed.
 

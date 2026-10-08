@@ -4,7 +4,7 @@ description: "CloudBridge 模型页：每个大模型每个 token 花多少钱�
 
 # 模型
 
-**[English](../models.md)** · [文档](index.md)
+**[English](../models.md)**&emsp;[文档](index.md)
 
 **Models** 页面按模型读取账单里大模型相关的部分，时间范围由页头选择。OpenAI、
 Anthropic 和 DeepSeek 账号总会出现；其他数据源只要带有按 token 计量的用量也会出现，

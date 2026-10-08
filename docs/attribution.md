@@ -4,7 +4,7 @@ description: "CloudBridge's Attribution page: a Sankey from source to service or
 
 # Attribution
 
-**[中文](zh/attribution.md)** · [Docs](index.md)
+**[中文](zh/attribution.md)**&emsp;[Docs](index.md)
 
 The Attribution page draws the month as a Sankey: source, then service or
 model, then business line, with an explicit **Unallocated** node. Flows are

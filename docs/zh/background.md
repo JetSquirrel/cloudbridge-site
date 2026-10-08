@@ -4,7 +4,7 @@ description: "关掉窗口后让 CloudBridge 继续盯着花费：状态栏图�
 
 # 状态栏与后台运行
 
-**[English](../background.md)** · [文档](index.md)
+**[English](../background.md)**&emsp;[文档](index.md)
 
 费用告警只有在钱还在被花的时候才有价值。所以 CloudBridge 在关掉窗口后会继续运行，
 按计划刷新，有告警触发时通知你。
@@ -12,7 +12,7 @@ description: "关掉窗口后让 CloudBridge 继续盯着花费：状态栏图�
 ## 状态栏图标 {#menu-bar}
 
 在 macOS 和 Windows 上，关掉窗口后 CloudBridge 会留在菜单栏（Windows 上是通知区域）。
-图标旁的文字是本月花费，有未处理告警时会在后面加上告警数：`$2.8k · 2`。
+图标旁的文字是本月花费，比如 `$2.8k`；有未处理告警时，云朵图标上会出现一个感叹号。
 
 点击图标会弹出一个面板，显示本月至今的花费、月底预测、未处理的告警，以及相比上个月
 变化最大的服务，并提供 **Refresh** 和 **Open CloudBridge**。点击其中一条告警会在

@@ -4,7 +4,7 @@ description: "用 Account ID 和 API token 把 Cloudflare 接入 CloudBridge：�
 
 # Cloudflare
 
-**[English](../cloudflare.md)** · [文档](index.md)
+**[English](../cloudflare.md)**&emsp;[文档](index.md)
 
 CloudBridge 读取 Cloudflare 的计费用量：按服务、**按天**的花费。关键就在"按天"。
 一个开始死循环的 Worker 或 Durable Object，第二天就会出现在账本里，而不是等到月底

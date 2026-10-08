@@ -4,7 +4,7 @@ description: "Keep CloudBridge watching with its window closed: the menu bar ico
 
 # Menu bar and background
 
-**[中文](zh/background.md)** · [Docs](index.md)
+**[中文](zh/background.md)**&emsp;[Docs](index.md)
 
 A cost alert is worth something only while the money is still being spent.
 So CloudBridge keeps running after its window closes, refreshes on a
@@ -14,7 +14,7 @@ schedule, and tells you when something fires.
 
 On macOS and Windows, closing the window leaves CloudBridge in the menu bar
 (the notification area on Windows). The icon's title is the month's spend,
-with the number of open alerts beside it when there are any: `$2.8k · 2`.
+`$2.8k`, and the cloud carries an exclamation mark while any alert is open.
 
 Click it for a panel with the month to date, the month-end forecast, the
 open alerts and the services that moved most against last month, with

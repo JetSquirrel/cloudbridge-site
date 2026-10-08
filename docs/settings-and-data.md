@@ -4,7 +4,7 @@ description: "What CloudBridge stores and where — the DuckDB ledger, account d
 
 # Settings, data and security
 
-**[中文](zh/settings-and-data.md)** · [Docs](index.md)
+**[中文](zh/settings-and-data.md)**&emsp;[Docs](index.md)
 
 ## Settings {#settings}
 

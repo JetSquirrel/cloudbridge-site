@@ -7,7 +7,7 @@ tag: Release
 
 # 0.4.0: more ways in, more ways to read it
 
-<p class="post-meta">2026-10-05 · Release · <a href="./">All posts</a></p>
+<p class="post-meta">2026-10-05&emsp;Release&emsp;<a href="./">All posts</a></p>
 
 0.3.0 put every bill into one ledger; 0.3.1 made the interface agree with itself. 0.4.0 works on both ends of that ledger. On the way in, an AWS account can now read its bill from the export AWS writes to S3 rather than asking Cost Explorer for it. On the way out, there are four new ways to read what is already there: per model, per dimension, against a budget, and in SQL. And the same application now runs in a browser, so you can try all of it before installing anything.
 

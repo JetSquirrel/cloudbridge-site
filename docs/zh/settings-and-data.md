@@ -4,7 +4,7 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 
 # 设置、数据与安全
 
-**[English](../settings-and-data.md)** · [文档](index.md)
+**[English](../settings-and-data.md)**&emsp;[文档](index.md)
 
 ## 设置 {#settings}
 

@@ -4,7 +4,7 @@ description: "CloudBridge 成本归属页：从数据源到服务或模型再到
 
 # 成本归属
 
-**[English](../attribution.md)** · [文档](index.md)
+**[English](../attribution.md)**&emsp;[文档](index.md)
 
 成本归属页把当月画成一张桑基图：数据源，然后是服务或模型，最后是业务线，并有一个
 明确的 **Unallocated**（未归属）节点。流向用的是总用量——净额可能为负，在桑基图里

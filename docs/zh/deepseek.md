@@ -4,7 +4,7 @@ description: "把 DeepSeek 接入 CloudBridge：用 API key 读取预付费余�
 
 # DeepSeek
 
-**[English](../deepseek.md)** · [文档](index.md)
+**[English](../deepseek.md)**&emsp;[文档](index.md)
 
 DeepSeek 的 API 只报告**余额**——赠送余额和充值余额——不提供花费明细。要看花费明细，
 请导入控制台的下载文件。

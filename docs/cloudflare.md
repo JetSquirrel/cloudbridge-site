@@ -4,7 +4,7 @@ description: "Connect Cloudflare to CloudBridge with an account ID and an API to
 
 # Cloudflare
 
-**[中文](zh/cloudflare.md)** · [Docs](index.md)
+**[中文](zh/cloudflare.md)**&emsp;[Docs](index.md)
 
 CloudBridge reads Cloudflare's billable usage: spend per service, **per
 day**. That is the point. A Worker or Durable Object that starts looping is

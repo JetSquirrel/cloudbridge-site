@@ -7,7 +7,7 @@ tag: Release
 
 # 0.3.0: bring your own bill
 
-<p class="post-meta">2026-09-11 · Release · <a href="./">All posts</a></p>
+<p class="post-meta">2026-09-11&emsp;Release&emsp;<a href="./">All posts</a></p>
 
 0.2.0 gave CloudBridge one fact table and one currency. It left one thing out: a billing API is not always the best reading of a bill, and sometimes it is not a reading at all. Alibaba Cloud's `QueryBillOverview` reports Model Studio (百炼) as one figure a month. DeepSeek's API reports a balance and nothing about what the money went on. Volcengine, OpenAI and Anthropic have an admin API you may not have a key for.
 

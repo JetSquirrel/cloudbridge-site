@@ -4,7 +4,7 @@ description: "CloudBridge Insights compares the bill with a read-only resource s
 
 # Insights
 
-**[中文](zh/insights.md)** · [Docs](index.md)
+**[中文](zh/insights.md)**&emsp;[Docs](index.md)
 
 Insights compares the bill with what is actually running, and lists what
 is worth a look, each priced from this period's bill.

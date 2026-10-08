@@ -4,7 +4,7 @@ description: "CloudBridge 在各云平台需要的最小权限——AWS Cost Exp
 
 # 云平台权限
 
-**[English](../permissions.md)** · [文档](index.md)
+**[English](../permissions.md)**&emsp;[文档](index.md)
 
 为每种接入方式使用专用凭据，只给它需要的最小权限。应用里只做读取，并不会让一个
 权限不受限的 key 变成只读：key 能做什么，由云平台上附加的策略决定。不要为了读账单

@@ -4,7 +4,7 @@ description: "CloudBridge 总览页怎么读花费——净额与总额、抵扣
 
 # 总览与账号
 
-**[English](../overview.md)** · [文档](index.md)
+**[English](../overview.md)**&emsp;[文档](index.md)
 
 ## 总览 {#overview}
 

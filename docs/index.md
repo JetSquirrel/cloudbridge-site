@@ -39,7 +39,7 @@ features:
     linkText: Menu bar and background
 ---
 
-<p align="center"><strong><a href="./zh/">中文文档</a></strong> · <a href="https://cloudbridge.jetsquirrel.cloud/">cloudbridge.jetsquirrel.cloud</a> · <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a></p>
+<p align="center"><strong><a href="./zh/">中文文档</a></strong>&emsp;<a href="https://cloudbridge.jetsquirrel.cloud/">cloudbridge.jetsquirrel.cloud</a>&emsp;<a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a></p>
 
 ## Find your way
 

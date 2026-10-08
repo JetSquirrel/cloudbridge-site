@@ -4,12 +4,12 @@ description: "CloudBridge alert rules — cost anomalies, balance floors, untagg
 
 # Alerts, rules and budgets
 
-**[中文](zh/alerts.md)** · [Docs](index.md)
+**[中文](zh/alerts.md)**&emsp;[Docs](index.md)
 
 Rules are evaluated against the ledger when the app opens and after each
-refresh — including the [background refresh](background.md) that runs
-every 15 minutes while CloudBridge runs, with its window closed too on
-macOS and Windows. Each new alert posts a system notification. Opening the
+refresh — including the [background refresh](background.md), which
+fetches each account once its refresh interval has passed while CloudBridge
+runs, with its window closed too on macOS and Windows. Each new alert posts a system notification. Opening the
 Alerts page re-checks whether open alerts have resolved.
 
 ## The rules {#rules}

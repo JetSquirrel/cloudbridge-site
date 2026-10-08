@@ -4,7 +4,7 @@ description: "Connect Alibaba Cloud (阿里云) to CloudBridge through the billi
 
 # Alibaba Cloud
 
-**[中文](zh/alibaba-cloud.md)** · [Docs](index.md)
+**[中文](zh/alibaba-cloud.md)**&emsp;[Docs](index.md)
 
 Alibaba Cloud has both channels. The **billing API** gives each product's
 total for the month; the **bill details export** gives instance-level rows,

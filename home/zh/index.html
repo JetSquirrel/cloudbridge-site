@@ -45,7 +45,7 @@
   "isAccessibleForFree": true,
   "image": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
   "screenshot": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
-  "featureList": ["通过账单 API 读取 AWS（Cost Explorer 或 FOCUS 格式的 Data Export）、阿里云和 Cloudflare", "导入阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 的账单导出文件", "一本本地 DuckDB 账，列名沿用 FOCUS，保留每笔费用的原始币种", "Cloudflare 每天的账单拆分到 R2 bucket、Worker、D1 数据库和 Durable Object", "菜单栏图标显示本月花费，每 15 分钟后台刷新，有告警就发系统通知", "告警规则覆盖费用异常、余额下限、未打标签的花费和账号预算", "按业务线归属成本，按模型看 token 成本，用只读 SQL 查账", "资源洞察：只读扫描 AWS 和 Cloudflare 的资源，并按账单定价", "无需注册，不同步，不上报数据；凭据存放在系统钥匙串"],
+  "featureList": ["通过账单 API 读取 AWS（Cost Explorer 或 FOCUS 格式的 Data Export）、阿里云和 Cloudflare", "导入阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 的账单导出文件", "一本本地 DuckDB 账，列名沿用 FOCUS，保留每笔费用的原始币种", "Cloudflare 每天的账单拆分到 R2 bucket、Worker、D1 数据库和 Durable Object", "菜单栏图标显示本月花费，每天后台刷新，有告警就发系统通知", "告警规则覆盖费用异常、余额下限、未打标签的花费和账号预算", "按业务线归属成本，按模型看 token 成本，用只读 SQL 查账", "资源洞察：只读扫描 AWS 和 Cloudflare 的资源，并按账单定价", "无需注册，不同步，不上报数据；凭据存放在系统钥匙串"],
   "author": { "@type": "Person", "name": "JetSquirrel", "url": "https://github.com/JetSquirrel" },
   "inLanguage": "zh-CN"
 }
@@ -60,7 +60,7 @@
     { "@type": "Question", "name": "支持哪些平台？", "acceptedAnswer": { "@type": "Answer", "text": "AWS（Cost Explorer，或存在 S3 里的 FOCUS 格式 Data Export）、阿里云和 Cloudflare 通过账单 API 接入；DeepSeek 通过余额 API 接入；阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 还可以导入账单文件。暂不支持 Azure 和 Google Cloud。" } },
     { "@type": "Question", "name": "CloudBridge 会把我的账单传到别处吗？", "acceptedAnswer": { "@type": "Answer", "text": "不会。账单从服务商直接写进你电脑上的一个 DuckDB 文件。CloudBridge 没有账号体系，没有同步服务，也不上报任何数据，凭据存放在系统钥匙串里。" } },
     { "@type": "Question", "name": "CloudBridge 自己会让我的账单变多吗？", "acceptedAnswer": { "@type": "Answer", "text": "只有 AWS 会产生费用：Cost Explorer 按请求收费，S3 读取也收费。CloudBridge 每个刷新间隔（默认 24 小时）最多向每个服务商请求一次，每个 AWS 账号一天大约两次 Cost Explorer 请求；已经付过费的拉取不会重复，没有变化的 S3 导出也不会重新下载。它调用的其他 API 都免费，而且从不创建或修改任何资源。" } },
-    { "@type": "Question", "name": "它怎么发现账单失控？", "acceptedAnswer": { "@type": "Answer", "text": "它按天读取账单，所以花费一飙升，第二天就进了账本，不用等月底发票。规则会标出超过近期基线的花费、预算和余额过低；CloudBridge 运行期间（包括窗口关掉、只留在菜单栏的时候）每 15 分钟刷新一次，每条告警都会发系统通知。Cloudflare 的账单还能拆到背后具体的 bucket、Worker 或 Durable Object。" } },
+    { "@type": "Question", "name": "它怎么发现账单失控？", "acceptedAnswer": { "@type": "Answer", "text": "它按天读取账单，所以花费一飙升，第二天就进了账本，不用等月底发票。规则会标出超过近期基线的花费、预算和余额过低；CloudBridge 运行期间（包括窗口关掉、只留在菜单栏的时候）每个账号每天刷新一次，每条告警都会发系统通知。Cloudflare 的账单还能拆到背后具体的 bucket、Worker 或 Durable Object。" } },
     { "@type": "Question", "name": "支持哪些系统？", "acceptedAnswer": { "@type": "Answer", "text": "Apple 芯片的 macOS（已签名并公证）和 64 位 Windows。Linux 和 Intel Mac 可以从源码自行编译。" } },
     { "@type": "Question", "name": "CloudBridge 免费吗？", "acceptedAnswer": { "@type": "Answer", "text": "免费。它以 MIT 许可开源，完整源码在 GitHub 上。服务商的 API 费用（如果有的话）另算。" } },
     { "@type": "Question", "name": "不安装能先试试吗？", "acceptedAnswer": { "@type": "Answer", "text": "能。同一套应用可以编译成 WebAssembly，在浏览器演示站里运行，用的是一份涵盖多家服务商、长达十二个月的示例账单。" } }
@@ -101,7 +101,7 @@
         </div>
         <div class="win-body" aria-hidden="true">
           <div class="win-side">
-            <div class="side-brand"><b>CloudBridge</b><small>LOCAL LEDGER · V0.5.0</small></div>
+            <div class="side-brand"><b>CloudBridge</b><small>LOCAL LEDGER, V0.5.0</small></div>
             <ul class="nav">
               <li class="on"><svg class="i" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>Overview</li>
               <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Alerts<span class="badge">2</span></li>
@@ -115,13 +115,13 @@
           </div>
           <div class="win-main">
             <div class="page-head">
-              <div><b>Overview</b><small>October 2026, month to date · USD</small></div>
+              <div><b>Overview</b><small>October 2026, month to date, reported in USD</small></div>
               <span class="range"><span class="on">MTD</span><span>30d</span><span>12m</span></span>
             </div>
             <div class="stats">
               <div class="stat"><small>MONTH TO DATE</small><b>$2,846</b><span class="up">+18.4% vs same day last month</span></div>
               <div class="stat"><small>FORECAST</small><b>$9,120</b><span>$8,400 – $10,300 by month end</span></div>
-              <div class="stat alert"><small>OPEN ALERTS</small><b>2</b><span>1 critical · 1 warning</span></div>
+              <div class="stat alert"><small>OPEN ALERTS</small><b>2</b><span>1 critical, 1 warning</span></div>
             </div>
             <div class="chart-card">
               <small>Daily spend, all sources</small>
@@ -137,14 +137,14 @@
             </table>
           </div>
         </div>
-        <div class="win-status" aria-hidden="true"><i class="dot"></i>Synced 2 h ago · 5 sources<span class="grow"></span><code>billing.duckdb</code></div>
+        <div class="win-status" aria-hidden="true"><i class="dot"></i>Synced 2 h ago. 5 sources, current for 21h 4m<span class="grow"></span><code>billing.duckdb</code></div>
       </figure>
     </div>
 
     <ul class="facts" aria-label="一览">
       <li><svg class="i" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>一本 DuckDB 账，存在本地</li>
       <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>菜单栏里收告警</li>
-      <li><svg class="i" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>macOS · Windows</li>
+      <li><svg class="i" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>macOS 和 Windows</li>
       <li><svg class="i" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>开源，MIT 许可</li>
     </ul>
   </div>
@@ -160,10 +160,10 @@
         <div>
           <p class="group">云平台</p>
           <ul class="platform-grid">
-            <li><img src="/logos/aws.svg" alt="" width="32" height="32"><div><b>AWS</b><small>Cost Explorer · Data Exports</small></div></li>
-            <li><img src="/logos/alibaba-cloud.svg" alt="" width="32" height="32"><div><b>阿里云</b><small>账单 API · 导入账单</small></div></li>
-            <li><img src="/logos/cloudflare.svg" alt="" width="32" height="32"><div><b>Cloudflare</b><small>按天用量 · 拆到资源</small></div></li>
-            <li><img src="/logos/volcengine.svg" alt="" width="32" height="32"><div><b>火山引擎</b><small>导入账单 · 方舟接入点</small></div></li>
+            <li><img src="/logos/aws.svg" alt="" width="32" height="32"><div><b>AWS</b><small>Cost Explorer, Data Exports</small></div></li>
+            <li><img src="/logos/alibaba-cloud.svg" alt="" width="32" height="32"><div><b>阿里云</b><small>账单 API、导入账单</small></div></li>
+            <li><img src="/logos/cloudflare.svg" alt="" width="32" height="32"><div><b>Cloudflare</b><small>按天用量、拆到资源</small></div></li>
+            <li><img src="/logos/volcengine.svg" alt="" width="32" height="32"><div><b>火山引擎</b><small>导入账单、方舟接入点</small></div></li>
           </ul>
         </div>
         <div>
@@ -171,7 +171,7 @@
           <ul class="platform-grid">
             <li><img src="/logos/openai.svg" alt="" width="32" height="32"><div><b>OpenAI</b><small>导入费用或用量</small></div></li>
             <li><img src="/logos/anthropic.svg" alt="" width="32" height="32"><div><b>Anthropic</b><small>导入费用或用量</small></div></li>
-            <li><img src="/logos/deepseek.svg" alt="" width="32" height="32"><div><b>DeepSeek</b><small>余额 API · 导入账单</small></div></li>
+            <li><img src="/logos/deepseek.svg" alt="" width="32" height="32"><div><b>DeepSeek</b><small>余额 API、导入账单</small></div></li>
             <li><img src="/logos/model-studio.svg" alt="" width="32" height="32"><div><b>百炼（Model Studio）</b><small>按模型，在阿里云账单里</small></div></li>
           </ul>
         </div>
@@ -195,7 +195,7 @@
         </li>
         <li>
           <div class="app-ui mini" aria-hidden="true">
-            <ul class="ingest"><li><span class="tag api">API</span>AWS · 2026-10<small>127 charges</small></li><li><span class="tag api">API</span>Cloudflare · 2026-10<small>14 charges</small></li><li><span class="tag file">File</span>OpenAI · 2026-09<small>412 charges</small></li></ul>
+            <ul class="ingest"><li><span class="tag api">API</span>AWS 2026-10<small>127 charges</small></li><li><span class="tag api">API</span>Cloudflare 2026-10<small>14 charges</small></li><li><span class="tag file">File</span>OpenAI 2026-09<small>412 charges</small></li></ul>
           </div>
           <h3>把账单拿进来</h3>
           <p>从服务商拉取，或者导入你下载的账单文件——两种方式写进账本的都是同样的行，列名沿用 FOCUS。</p>
@@ -217,14 +217,14 @@
         <div class="feature-text">
           <p class="eyebrow">持续盯着</p>
           <h2>窗口关了，它还在盯着</h2>
-          <p>花费告警只有在钱还在往外流的时候才有用。关掉窗口后，CloudBridge 会留在菜单栏（Windows 上是通知区域），标题就是本月花费。它每 15 分钟拉取一次到期的账号、跑一遍告警规则，有规则触发就通知你。打开“登录时启动”，重启电脑后它也会自己回到菜单栏。</p>
-          <p><a href="/docs/zh/background">菜单栏与后台运行</a> · <a href="/docs/zh/alerts">告警与预算</a></p>
+          <p>花费告警只有在钱还在往外流的时候才有用。关掉窗口后，CloudBridge 会留在菜单栏（Windows 上是通知区域），标题就是本月花费。每个账号过了刷新间隔（默认一天）才拉取一次，随后跑一遍告警规则，有规则触发就通知你。打开“登录时启动”，重启电脑后它也会自己回到菜单栏。</p>
+          <p><a href="/docs/zh/background">菜单栏与后台运行</a>&emsp;<a href="/docs/zh/alerts">告警与预算</a></p>
         </div>
-        <figure class="menubar-demo" aria-label="macOS 菜单栏上显示 CloudBridge 图标和“$2.8k · 2”，即本月花费和 2 条未处理告警；弹出的面板里列出一条 Durable Objects 的严重告警，系统通知写着：Durable Objects 的花费是基线的 12 倍。">
-          <div class="menubar" aria-hidden="true"><span class="grow"></span><span class="mb-item on"><svg class="i" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>$2.8k · 2</span><span class="mb-item">Wed 9:41</span></div>
+        <figure class="menubar-demo" aria-label="macOS 菜单栏上显示 CloudBridge 图标和本月花费“$2.8k”，图标带感叹号表示有未处理告警；弹出的面板里列出一条 Durable Objects 的严重告警，系统通知写着：Durable Objects 的花费是基线的 12 倍。">
+          <div class="menubar" aria-hidden="true"><span class="grow"></span><span class="mb-item on"><svg class="i" viewBox="0 0 24 24"><path d="M12 12v4"/><path d="M12 20h.01"/><path d="M17 18h.5a1 1 0 0 0 0-9h-1.79A7 7 0 1 0 7 17.708"/></svg>$2.8k</span><span class="mb-item">Wed 9:41</span></div>
           <div class="toast" aria-hidden="true"><b>CloudBridge — critical alert</b><span>Durable Objects cost 12× its 7-day baseline, two days running.</span></div>
           <div class="panel" aria-hidden="true">
-            <small>October, month to date · USD</small>
+            <small>October to date, in USD</small>
             <b class="big">$2,846.20</b>
             <span class="muted">Forecast $9,120 by month end</span>
             <div class="alerts-row"><svg class="i" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>2 open alerts</div>
@@ -240,10 +240,10 @@
           <p class="eyebrow">拆到资源</p>
           <h2>是哪个 bucket、哪个 Worker、哪个 Durable Object</h2>
           <p>Cloudflare 的账单只会写“10 月 3 日 R2 Class B 操作 734 次”，从不告诉你是哪个 bucket。CloudBridge 会去 Cloudflare 的分析接口查每个资源当天的用量占比，按比例把账单拆下去，失控的命名空间会直接以名字出现。免费额度内的用量也会记下来：失控往往就是从这里开始的，比第一笔扣费早好几天。</p>
-          <p><a href="/docs/zh/cloudflare">Cloudflare</a> · <a href="/docs/zh/aws#data-exports">AWS Data Exports</a></p>
+          <p><a href="/docs/zh/cloudflare">Cloudflare</a>&emsp;<a href="/docs/zh/aws#data-exports">AWS Data Exports</a></p>
         </div>
         <div class="app-ui split-card" aria-hidden="true">
-          <div class="card-head"><b>Cloudflare resources</b><small>48 from the last scan · this period</small></div>
+          <div class="card-head"><b>Cloudflare resources</b><small>48 from the last scan, this period</small></div>
           <table class="split">
             <tbody>
               <tr class="group"><td><span class="chev">▾</span>Durable Object namespaces</td><td class="num">3</td><td class="num">$2,410.50</td></tr>
@@ -277,7 +277,7 @@
           <p class="eyebrow">一本账</p>
           <h2>每份账单，同一套列</h2>
           <p>不管账单从哪条路进来，落进账本的都是同样的行，列名沿用 FinOps 的 FOCUS 规范，每笔费用的原始币种和换算后的金额并排保留。所以阿里云的 ECS 实例和 AWS 的 EC2 实例都算作 Compute，账本里的问题直接用 SQL 来问。</p>
-          <p><a href="/docs/zh/query">SQL 查询</a> · <a href="/docs/zh/attribution">成本归属</a> · <a href="/docs/zh/models">模型</a></p>
+          <p><a href="/docs/zh/query">SQL 查询</a>&emsp;<a href="/docs/zh/attribution">成本归属</a>&emsp;<a href="/docs/zh/models">模型</a></p>
         </div>
 <pre class="snippet" aria-label="一条 SQL：按服务商和服务类别汇总本月的计费金额。"><span class="k">SELECT</span> provider, service_category,
        <span class="k">round</span>(<span class="k">sum</span>(billed_cost), <span class="n">2</span>) <span class="k">AS</span> cost
@@ -313,7 +313,7 @@
         <div><dt>支持哪些平台？</dt><dd>AWS（Cost Explorer，或存在 S3 里的 FOCUS 格式 Data Export）、阿里云和 Cloudflare 通过账单 API 接入；DeepSeek 通过余额 API 接入；阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 还可以导入账单文件。暂不支持 Azure 和 Google Cloud。</dd></div>
         <div><dt>CloudBridge 会把我的账单传到别处吗？</dt><dd>不会。账单从服务商直接写进你电脑上的一个 DuckDB 文件。CloudBridge 没有账号体系，没有同步服务，也不上报任何数据，凭据存放在系统钥匙串里。</dd></div>
         <div><dt>CloudBridge 自己会让我的账单变多吗？</dt><dd>只有 AWS 会产生费用：Cost Explorer 按请求收费，S3 读取也收费。CloudBridge 每个刷新间隔（默认 24 小时）最多向每个服务商请求一次，每个 AWS 账号一天大约两次 Cost Explorer 请求；已经付过费的拉取不会重复，没有变化的 S3 导出也不会重新下载。它调用的其他 API 都免费，而且从不创建或修改任何资源。</dd></div>
-        <div><dt>它怎么发现账单失控？</dt><dd>它按天读取账单，所以花费一飙升，第二天就进了账本，不用等月底发票。规则会标出超过近期基线的花费、预算和余额过低；CloudBridge 运行期间（包括窗口关掉、只留在菜单栏的时候）每 15 分钟刷新一次，每条告警都会发系统通知。Cloudflare 的账单还能拆到背后具体的 bucket、Worker 或 Durable Object。</dd></div>
+        <div><dt>它怎么发现账单失控？</dt><dd>它按天读取账单，所以花费一飙升，第二天就进了账本，不用等月底发票。规则会标出超过近期基线的花费、预算和余额过低；CloudBridge 运行期间（包括窗口关掉、只留在菜单栏的时候）每个账号每天刷新一次，每条告警都会发系统通知。Cloudflare 的账单还能拆到背后具体的 bucket、Worker 或 Durable Object。</dd></div>
         <div><dt>支持哪些系统？</dt><dd>Apple 芯片的 macOS（已签名并公证）和 64 位 Windows。Linux 和 Intel Mac 可以从源码自行编译。</dd></div>
         <div><dt>CloudBridge 免费吗？</dt><dd>免费。它以 MIT 许可开源，完整源码在 GitHub 上。服务商的 API 费用（如果有的话）另算。</dd></div>
         <div><dt>不安装能先试试吗？</dt><dd>能。同一套应用可以编译成 WebAssembly，在<a href="/demo/">浏览器演示站</a>里运行，用的是一份涵盖多家服务商、长达十二个月的示例账单。</dd></div>

@@ -4,7 +4,7 @@ description: "把 AWS 账号接入 CloudBridge：通过只含一个操作的 IAM
 
 # AWS
 
-**[English](../aws.md)** · [文档](index.md)
+**[English](../aws.md)**&emsp;[文档](index.md)
 
 AWS 账号有两种接入方式。**Cost Explorer** 最快：一对访问密钥加一条只含一个操作的
 策略，账单按服务、按天进来。S3 里的 **Data Export** 最细：每一行都有资源 ID、

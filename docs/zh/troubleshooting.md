@@ -4,7 +4,7 @@ description: "CloudBridge 常见问题的解决办法：钥匙串授权提示、
 
 # 常见问题排查
 
-**[English](../troubleshooting.md)** · [文档](index.md)
+**[English](../troubleshooting.md)**&emsp;[文档](index.md)
 
 ## macOS 请求钥匙串访问权限 {#keychain}
 

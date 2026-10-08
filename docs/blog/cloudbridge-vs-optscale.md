@@ -7,7 +7,7 @@ tag: Comparison
 
 # CloudBridge vs OptScale
 
-<p class="post-meta">2026-09-24 · Comparison · <a href="./">All posts</a></p>
+<p class="post-meta">2026-09-24&emsp;Comparison&emsp;<a href="./">All posts</a></p>
 
 Both projects are open source and both read cloud bills. They are built for different people. [OptScale](https://github.com/hystax/optscale), from Hystax, is a self-hosted FinOps platform an organization runs on a server so that engineering and finance can share one view of cloud spend and act on it. CloudBridge is a desktop app one person runs on their own machine, reading their own bills into a local file.
 
@@ -77,6 +77,6 @@ Yes, and they do not interfere. Each reads the provider's billing data on its ow
 
 ## Links
 
-- CloudBridge: [browser demo](https://cloudbridge.jetsquirrel.cloud/demo/) · [documentation](https://cloudbridge.jetsquirrel.cloud/docs/) · [source](https://github.com/JetSquirrel/cloudbridge)
-- OptScale: [repository and README](https://github.com/hystax/optscale) · [documentation](https://hystax.com/documentation/optscale/) · [roles and permissions](https://hystax.com/documentation/optscale/roles-and-permissions.html) · [anomaly detection](https://hystax.com/documentation/optscale/anomaly-detection.html) · [quotas and budgets](https://hystax.com/documentation/optscale/quotas-and-budgets.html) · [live demo](https://my.optscale.com/live-demo)
+- CloudBridge: [browser demo](https://cloudbridge.jetsquirrel.cloud/demo/)&emsp;[documentation](https://cloudbridge.jetsquirrel.cloud/docs/)&emsp;[source](https://github.com/JetSquirrel/cloudbridge)
+- OptScale: [repository and README](https://github.com/hystax/optscale)&emsp;[documentation](https://hystax.com/documentation/optscale/)&emsp;[roles and permissions](https://hystax.com/documentation/optscale/roles-and-permissions.html)&emsp;[anomaly detection](https://hystax.com/documentation/optscale/anomaly-detection.html)&emsp;[quotas and budgets](https://hystax.com/documentation/optscale/quotas-and-budgets.html)&emsp;[live demo](https://my.optscale.com/live-demo)
 - The commit that removed OptScale's ML services: [OSN-943](https://github.com/hystax/optscale/commit/a20a22259582bda9181956618f05f2f2072a871d)

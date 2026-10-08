@@ -4,7 +4,7 @@ description: "How CloudBridge's Overview reads your spend — net and gross, cre
 
 # Overview and accounts
 
-**[中文](zh/overview.md)** · [Docs](index.md)
+**[中文](zh/overview.md)**&emsp;[Docs](index.md)
 
 ## The Overview {#overview}
 
