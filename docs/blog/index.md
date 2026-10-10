@@ -7,6 +7,12 @@ description: "What shipped in each CloudBridge release, and why it is built the 
 
 What shipped, and why it is built the way it is.
 
+## [A $10,811 Durable Object alarm](./cloudflare-durable-object-runaway.md)
+
+<p class="post-meta">2026-10-10&emsp;Incident</p>
+
+A dormant Cloudflare project looped through six trillion reads and writes before anyone knew. Why nothing warned anyone, which CloudBridge rule would have caught it on day one, and which would not.
+
 ## [0.5.0: it keeps watching](./cloudbridge-0-5-0.md)
 
 <p class="post-meta">2026-10-08&emsp;Release</p>

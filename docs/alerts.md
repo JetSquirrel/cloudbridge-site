@@ -23,6 +23,13 @@ the ones you do not need.
 | Balance floor | A prepaid balance falls below the account's monthly budget amount, or the default floor without one | 200, in the balance's own currency |
 | Untagged spend ratio | The month's unallocated usage share exceeds the threshold and is higher than last month's | Above 15% and growing |
 
+The anomaly rule needs a baseline: a service that cost nothing over the
+past seven days never fires it, however much it spends next. A workload
+that goes from nothing to a runaway — a forgotten project that starts
+looping — is caught by an [Account budget](#budgets) rule based on the
+month-end forecast instead; [Cloudflare](cloudflare.md#runaway) walks
+through it.
+
 **New rule** on the Rules page creates more: pick a kind, adjust its
 settings and click **Create rule**. A new rule is enabled at once, and an
 anomaly rule can be scoped to one account.

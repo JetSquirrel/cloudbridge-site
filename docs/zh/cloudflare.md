@@ -40,6 +40,30 @@ GraphQL Analytics API 查询每个资源在账单所列计量项上的用量，�
 任何无法识别的——或者 token 没有这项权限时，该行保持整行记在账号上。
 [资源洞察](insights.md)会显示每个资源分到的费用和本期用量。
 
+## 及早发现失控 {#runaway}
+
+按量付费的 Cloudflare 账号没有到某个金额就停下的上限，一个死循环的 Durable Object
+alarm 或 Worker 跑多久就计费多久。CloudBridge 也停不了它，但能让你在第一天就知道，
+而不是等到发票上才看见。给每个 Cloudflare 账号都这样设置一遍，包括那些没什么动静的
+——没人用的项目，往往也没人盯着：
+
+1. 在 **Rules** 页面给这个账号设一个 **Monthly budget**（月度预算）：正常一个月的
+   花费，再留些余量。下面的规则以它为准；没设预算的账号，规则什么也不做。
+2. 点 **New rule**，为这个账号选择 **Account budget**，把 **Based on** 设为
+   **Month-end forecast**（月底预测）。
+3. 在 **Settings → Refreshing** 里把刷新间隔缩短到 6 小时，并让 CloudBridge 留在
+   [状态栏](background.md)里运行，打开 **Open at login**。
+
+关键在于预测的算法。它从本月第一个有花费的日子开始求日均，所以死循环的第一天就会
+被外推到整个月剩下的日子，读到那一天的第一次刷新就会触发规则。
+
+**费用增长异常**规则抓不到这种情况。它拿一个服务和它自己过去七天比，而一直不花钱的
+服务没有基线可以"增长"——一个沉睡的项目突然醒来死循环，永远不会触发它。
+
+告警触发后，到 Cloudflare 控制台停掉那个 Worker 或 Durable Object。token 带有
+Account Analytics 权限时，[资源洞察](insights.md)会列出每个 Worker 和命名空间分到的
+费用，罪魁祸首一眼就能看出来。
+
 ## 扫描资源 {#insights}
 
 [资源洞察](insights.md)用同一个 token 扫描账号，只做读取。为此需要在同一账号上
