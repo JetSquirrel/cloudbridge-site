@@ -1,5 +1,5 @@
 ---
-description: "CloudBridge 常见问题的解决办法：钥匙串授权提示、AWS AccessDenied、总览为空、Windows SmartScreen、导入报错，以及 Cloudflare 扫描被拒。"
+description: "CloudBridge 常见问题的解决办法：钥匙串授权提示、AWS AccessDenied、总览为空、Windows SmartScreen、导入报错、Cloudflare 扫描被拒，以及该来却没来的告警。"
 ---
 
 # 常见问题排查
@@ -63,6 +63,18 @@ Windows 版本没有代码签名，所以 SmartScreen 会提示 *Windows protect
 表示 token 有效，但缺少某个服务的 Read 权限，请补上
 [Cloudflare](cloudflare.md#insights) 里列出的权限。没有这些权限的 token
 仍然可以读取账单。
+
+## 该来的告警没来 {#alert-silent}
+
+- **Account budget 规则没有预算可比。** 账号没设 **Monthly budget** 时，这条规则不管
+  阈值选哪种类型都不会触发。请在 Rules 页面设好预算。
+- **花费是从零开始的。** 费用增长异常规则拿一个服务和它自己过去七天比，一直不花钱的
+  服务没有基线，永远不会触发它。这种情况要靠基于月底预测的预算规则，见
+  [及早发现失控](cloudflare.md#runaway)。
+- **那一天还没进账本。** 规则只看已经拉取到的数据。后台刷新每个刷新间隔才拉取一次
+  账号，而且只在 CloudBridge 运行时进行；见[状态栏与后台运行](background.md)。
+- **通知被关掉了**，或者应用启动时这条告警就已经存在。不管哪种情况，未处理的告警都会
+  列在 Alerts 页面上。
 
 ## 还是没解决 {#help}
 

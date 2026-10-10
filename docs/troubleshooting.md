@@ -1,5 +1,5 @@
 ---
-description: "Fixes for common CloudBridge problems: Keychain prompts, AWS AccessDenied, an empty Overview, Windows SmartScreen, import errors and Cloudflare scans that are refused."
+description: "Fixes for common CloudBridge problems: Keychain prompts, AWS AccessDenied, an empty Overview, Windows SmartScreen, import errors, Cloudflare scans that are refused, and alerts that did not fire."
 ---
 
 # Troubleshooting
@@ -78,6 +78,21 @@ the Accounts page. *The token cannot read …* means the token is valid but
 lacks a service's Read permission; add the permissions listed under
 [Cloudflare](cloudflare.md#insights). A token without them still reads the
 bill.
+
+## An alert did not fire {#alert-silent}
+
+- **The Account budget rule has no budget to measure against.** The rule
+  does nothing for an account without a **Monthly budget**, whatever its
+  threshold type. Set one on the Rules page.
+- **The spend started from nothing.** The cost growth anomaly rule compares
+  a service with its own last seven days, so a service that cost nothing
+  has no baseline and never fires it. A budget rule on the month-end
+  forecast covers that case: see [Catch a runaway](cloudflare.md#runaway).
+- **The day is not in the ledger yet.** Rules run on what has been fetched.
+  The background refresh fetches an account once per refresh interval, and
+  only while CloudBridge runs; see [Menu bar and background](background.md).
+- **Notifications are off,** or the alert was already open when the app
+  started. Open alerts are listed on the Alerts page either way.
 
 ## Still stuck {#help}
 

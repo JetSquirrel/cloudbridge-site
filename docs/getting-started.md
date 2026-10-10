@@ -68,12 +68,12 @@ Open **Accounts**, click **Add account**, pick the source and enter a name.
 | OpenAI | Bill export | Nothing |
 | Anthropic (Claude) | Bill export | Nothing |
 
-Click **Save**. An API source is validated and its current month fetched
-straight away.
+Click **Save**. An API source fetches this month's and last month's bill
+straight away, so a wrong key shows up as that fetch failing.
 
 ## 4. Get the bill in {#bill}
 
-- **An API source** fetched its month when you saved it. **Refresh** on the
+- **An API source** fetched its bill when you saved it. **Refresh** on the
   Overview fetches again once the refresh interval has passed.
 - **A file source** — Volcengine, OpenAI, Anthropic, or Alibaba Cloud and
   DeepSeek when you want finer detail — needs its export: download it from

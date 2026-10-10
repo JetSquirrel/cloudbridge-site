@@ -49,6 +49,10 @@ A budget on its own only draws that line. To be alerted, create an
   forecast* for the run-rate projection;
 - **Threshold type** — *% of budget*, or a fixed *Amount*.
 
+It works the other way too: the rule measures against the budget, so an
+**Account budget** rule on an account with no budget never fires, even
+with an *Amount* threshold. Set the budget first.
+
 An account's budget also serves as its floor in the Balance floor rule.
 
 ## Reading an alert {#alerts}

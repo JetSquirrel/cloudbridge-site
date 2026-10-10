@@ -59,6 +59,7 @@ features:
 | Find stopped instances, idle addresses and resources nobody owns | [Insights](insights.md) |
 | Ask the ledger a question in SQL | [Query](query.md) |
 | Be told when spend jumps, or a budget is near | [Alerts, rules and budgets](alerts.md) |
+| Hear about a looping Worker or Durable Object on day one, not on the invoice | [Catch a runaway](cloudflare.md#runaway) |
 | Keep CloudBridge running with its window closed | [Menu bar and background](background.md) |
 | Know what CloudBridge stores, and back it up | [Settings, data and security](settings-and-data.md) |
 | Fix something that is not working | [Troubleshooting](troubleshooting.md) |

@@ -14,7 +14,7 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 | Reporting → Currency | 所有总额用 USD 还是 CNY；每条费用保留自己的币种 |
 | Refreshing → Refresh interval | 一个月份过多久会被再次拉取：6、12、24（默认）或 48 小时 |
 | Background | [开机启动、后台刷新、告警通知](background.md) |
-| Demo data | 加载或清除三个示例账号及其十二个月的历史 |
+| Demo data | 加载或清除五个示例账号（AWS、阿里云、DeepSeek、OpenAI、Anthropic）及其十二个月的历史 |
 
 **Refresh** 拉取早于刷新间隔的月份；**Force Refresh** 拉取全部月份，可能产生云平台
 费用。两者都不会覆盖导入的月份。演示账号以 `demo-` 为前缀，不带凭据，刷新时会被跳过。

@@ -59,6 +59,7 @@ features:
 | 找出已停止的实例、闲置的 IP 和无人认领的资源 | [资源洞察](insights.md) |
 | 用 SQL 查账本 | [SQL 查询](query.md) |
 | 花费突增或预算快用完时收到提醒 | [告警、规则与预算](alerts.md) |
+| Worker 或 Durable Object 死循环时第一天就知道，而不是等到发票 | [及早发现失控](cloudflare.md#runaway) |
 | 关掉窗口后让 CloudBridge 继续运行 | [状态栏与后台运行](background.md) |
 | 了解 CloudBridge 存了什么、怎么备份 | [设置、数据与安全](settings-and-data.md) |
 | 解决遇到的问题 | [常见问题排查](troubleshooting.md) |

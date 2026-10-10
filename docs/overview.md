@@ -37,11 +37,11 @@ dimension breakdown as [Attribution](attribution.md) is there too.
 ## Adding and removing accounts {#accounts}
 
 To add one, go to **Accounts**, pick the source, enter a name and — for an
-API source — the credential, then **Save**. An API source is validated
-and its current month fetched at once; **Validate** on its row re-checks
-the credential later. On a Mac or Windows machine where the provider's own
-tooling is set up, the form can read the credential from the environment
-or the CLI's profile instead of storing a copy.
+API source — the credential, then **Save**. An API source fetches this
+month's and last month's bill at once; **Validate** on its row checks the
+credential on its own. Where the provider's own tooling is set up on the
+machine, the form can read the credential from the environment or the
+CLI's profile instead of storing a copy.
 
 Deleting an account always removes its row and its credentials from the
 keyring. If the ledger holds charges for it, the dialog also offers **Also

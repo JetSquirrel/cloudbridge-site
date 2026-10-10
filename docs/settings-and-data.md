@@ -14,7 +14,7 @@ description: "What CloudBridge stores and where — the DuckDB ledger, account d
 | Reporting → Currency | USD or CNY for every total; charges keep their own currency |
 | Refreshing → Refresh interval | 6, 12, 24 (default) or 48 hours before a month is fetched again |
 | Background | [Open at login, background refresh, alert notifications](background.md) |
-| Demo data | Load or clear three sample accounts with twelve months of history |
+| Demo data | Load or clear five sample accounts (AWS, Alibaba Cloud, DeepSeek, OpenAI, Anthropic) with twelve months of history |
 
 **Refresh** fetches months older than the refresh interval; **Force
 Refresh** fetches them all and can incur provider charges. Neither
