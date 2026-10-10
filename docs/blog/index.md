@@ -5,7 +5,8 @@ description: "What shipped in each CloudBridge release, and why it is built the 
 
 # Blog
 
-What shipped, and why it is built the way it is.
+What shipped, and why it is built the way it is. Posts in Chinese are on
+[the Chinese blog](../zh/blog/index.md).
 
 ## [A $10,811 Durable Object alarm](./cloudflare-durable-object-runaway.md)
 

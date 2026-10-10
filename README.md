@@ -33,7 +33,9 @@ SKIP_DEMO=1 sh scripts/build.sh  # the whole site in dist/site; fails on a dead 
 English pages live in `docs/`, Chinese pages in `docs/zh/`, with the same file
 names and the same heading anchors. Every page carries a `description` in its
 frontmatter — it is the text search results and link previews show. Blog
-posts are English only.
+posts are written for one language and are not translated: English ones in
+`docs/blog/`, Chinese ones in `docs/zh/blog/`, each folder with its own
+`index.md` listing them.
 
 The product page loads nothing from anyone else: no web fonts, no third-party
 scripts, no analytics — its one script is the few inline lines that offer the

@@ -94,8 +94,13 @@ function sidebar(zh = false): DefaultTheme.SidebarItem[] {
       ],
     },
     {
-      text: zh ? '博客（英文）' : 'Blog',
-      items: [{ text: zh ? '发布说明与设计' : 'Release notes and decisions', link: '/blog/' }],
+      text: zh ? '博客' : 'Blog',
+      items: zh
+        ? [
+            { text: '中文文章', link: '/zh/blog/' },
+            { text: '发布说明与设计（英文）', link: '/blog/' },
+          ]
+        : [{ text: 'Release notes and decisions', link: '/blog/' }],
     },
   ]
 }
@@ -129,13 +134,14 @@ export default defineConfig({
     ['meta', { name: 'twitter:image', content: ogImage }],
   ],
   // What differs page to page: its canonical address, its title and summary
-  // for link previews, and its other-language twin. Blog posts are English
-  // only and have no twin.
+  // for link previews, and its other-language twin. A blog post is written
+  // for one language — English under blog/, Chinese under zh/blog/ — and
+  // has no twin.
   transformHead({ pageData, title, description }) {
     const path = pageUrl(pageData.relativePath)
     const url = `${site}${path}`
     const zh = pageData.relativePath.startsWith('zh/')
-    const blog = pageData.relativePath.startsWith('blog/')
+    const blog = /^(zh\/)?blog\//.test(pageData.relativePath)
     const english = zh ? path.replace(/^zh\//, '') : path
     const chinese = zh ? path : `zh/${path}`
     const head: HeadConfig[] = [
@@ -211,6 +217,7 @@ export default defineConfig({
           { text: '官网', link: `${home}zh/` },
           { text: '快速上手', link: '/zh/getting-started' },
           { text: '在线演示', link: `${home}demo/` },
+          { text: '博客', link: '/zh/blog/' },
           { text: '下载', link: `${repository}/releases/latest` },
         ],
         sidebar: sidebar(true),
