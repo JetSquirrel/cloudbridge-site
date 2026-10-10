@@ -1,7 +1,8 @@
 #!/bin/sh
 # Build the whole of cloudbridge.jetsquirrel.cloud into dist/site: the product
-# page from home/ at the root, the VitePress docs under /docs/, and the
-# browser demo under /demo/. One Worker serves the result (wrangler.jsonc);
+# page from home/ at the root, the VitePress docs under /docs/, the blog
+# (a second VitePress site) under /blog/, and the browser demo under /demo/.
+# One Worker serves the result (wrangler.jsonc);
 # Cloudflare runs this as the build command.
 #
 # The demo is the CloudBridge app compiled to WebAssembly, which needs a
@@ -18,6 +19,8 @@ DEMO_URL="${DEMO_URL:-https://github.com/JetSquirrel/cloudbridge/releases/downlo
 rm -rf dist/site
 npm --prefix docs ci
 npm --prefix docs run build          # writes dist/site/docs (see outDir)
+npm --prefix blog ci
+npm --prefix blog run build          # writes dist/site/blog
 cp -R home/. dist/site/
 
 if [ "${SKIP_DEMO:-}" = "1" ]; then

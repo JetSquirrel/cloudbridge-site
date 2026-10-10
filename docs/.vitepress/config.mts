@@ -93,15 +93,6 @@ function sidebar(zh = false): DefaultTheme.SidebarItem[] {
         item('shortcuts', 'Keyboard shortcuts', '键盘快捷键'),
       ],
     },
-    {
-      text: zh ? '博客' : 'Blog',
-      items: zh
-        ? [
-            { text: '中文文章', link: '/zh/blog/' },
-            { text: '发布说明与设计（英文）', link: '/blog/' },
-          ]
-        : [{ text: 'Release notes and decisions', link: '/blog/' }],
-    },
   ]
 }
 
@@ -134,14 +125,12 @@ export default defineConfig({
     ['meta', { name: 'twitter:image', content: ogImage }],
   ],
   // What differs page to page: its canonical address, its title and summary
-  // for link previews, and its other-language twin. A blog post is written
-  // for one language — English under blog/, Chinese under zh/blog/ — and
-  // has no twin.
+  // for link previews, and its other-language twin. The blog is a site of its
+  // own, at /blog/ (blog/ in this repository).
   transformHead({ pageData, title, description }) {
     const path = pageUrl(pageData.relativePath)
     const url = `${site}${path}`
     const zh = pageData.relativePath.startsWith('zh/')
-    const blog = /^(zh\/)?blog\//.test(pageData.relativePath)
     const english = zh ? path.replace(/^zh\//, '') : path
     const chinese = zh ? path : `zh/${path}`
     const head: HeadConfig[] = [
@@ -153,13 +142,11 @@ export default defineConfig({
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
     ]
-    if (!blog) {
-      head.push(
-        ['link', { rel: 'alternate', hreflang: 'en', href: `${site}${english}` }],
-        ['link', { rel: 'alternate', hreflang: 'zh-CN', href: `${site}${chinese}` }],
-        ['link', { rel: 'alternate', hreflang: 'x-default', href: `${site}${english}` }],
-      )
-    }
+    head.push(
+      ['link', { rel: 'alternate', hreflang: 'en', href: `${site}${english}` }],
+      ['link', { rel: 'alternate', hreflang: 'zh-CN', href: `${site}${chinese}` }],
+      ['link', { rel: 'alternate', hreflang: 'x-default', href: `${site}${english}` }],
+    )
     // Structured data for search engines and AI answer engines: where the
     // page sits in the site, and — for every page but the landing ones —
     // that it is technical documentation about CloudBridge, and when it
@@ -176,12 +163,11 @@ export default defineConfig({
     }]
     if (url !== docsHome) {
       graph.push({
-        '@type': blog ? 'BlogPosting' : 'TechArticle',
+        '@type': 'TechArticle',
         headline: pageData.title || title,
         description,
         url,
         inLanguage: zh ? 'zh-CN' : 'en',
-        ...(pageData.frontmatter.date ? { datePublished: new Date(pageData.frontmatter.date).toISOString() } : {}),
         ...(pageData.lastUpdated ? { dateModified: new Date(pageData.lastUpdated).toISOString() } : {}),
         isPartOf: { '@type': 'WebSite', name: 'CloudBridge', url: home },
         about: { '@type': 'SoftwareApplication', name: 'CloudBridge', url: home },
@@ -202,7 +188,7 @@ export default defineConfig({
           { text: 'Home', link: home },
           { text: 'Get started', link: '/getting-started' },
           { text: 'Demo', link: `${home}demo/` },
-          { text: 'Blog', link: '/blog/' },
+          { text: 'Blog', link: `${home}blog/` },
           { text: 'Download', link: `${repository}/releases/latest` },
         ],
         sidebar: sidebar(),
@@ -217,7 +203,7 @@ export default defineConfig({
           { text: '官网', link: `${home}zh/` },
           { text: '快速上手', link: '/zh/getting-started' },
           { text: '在线演示', link: `${home}demo/` },
-          { text: '博客', link: '/zh/blog/' },
+          { text: '博客', link: `${home}blog/zh/` },
           { text: '下载', link: `${repository}/releases/latest` },
         ],
         sidebar: sidebar(true),

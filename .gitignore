@@ -4,6 +4,8 @@
 # Docs dependencies and VitePress cache
 docs/node_modules/
 docs/.vitepress/cache/
+blog/node_modules/
+blog/.vitepress/cache/
 
 # The demo the build downloads (scripts/build.sh)
 /.demo/

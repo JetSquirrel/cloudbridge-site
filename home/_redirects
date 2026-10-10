@@ -7,20 +7,24 @@
 /docs.html/ /docs/ 301
 /policies.html /docs/permissions 301
 /policies.md /docs/permissions 301
-/blog.html /docs/blog/ 301
-/blog/ /docs/blog/ 301
-/blog/cloudbridge-0-5-0.html /docs/blog/cloudbridge-0-5-0 301
-/blog/cloudbridge-0-5-0.md /docs/blog/cloudbridge-0-5-0 301
-/blog/cloudbridge-0-4-0.html /docs/blog/cloudbridge-0-4-0 301
-/blog/cloudbridge-0-4-0.md /docs/blog/cloudbridge-0-4-0 301
-/blog/cloudbridge-vs-optscale.html /docs/blog/cloudbridge-vs-optscale 301
-/blog/cloudbridge-vs-optscale.md /docs/blog/cloudbridge-vs-optscale 301
-/blog/cloudbridge-0-3-1.html /docs/blog/cloudbridge-0-3-1 301
-/blog/cloudbridge-0-3-1.md /docs/blog/cloudbridge-0-3-1 301
-/blog/cloudbridge-0-3-0.html /docs/blog/cloudbridge-0-3-0 301
-/blog/cloudbridge-0-3-0.md /docs/blog/cloudbridge-0-3-0 301
-/blog/cloudbridge-0-2-0.html /docs/blog/cloudbridge-0-2-0 301
-/blog/cloudbridge-0-2-0.md /docs/blog/cloudbridge-0-2-0 301
-# A post added after the move lives under /docs/blog/ from the start.
-/blog/* /docs/blog/:splat 301
+
+# The blog is a section of its own at /blog/ (blog/ in this repository). It
+# was first on GitHub Pages as /blog/*.html, then inside the docs at
+# /docs/blog/; both older forms land on the post's address here.
+/blog.html /blog/ 301
+/blog/cloudbridge-0-5-0.html /blog/cloudbridge-0-5-0 301
+/blog/cloudbridge-0-5-0.md /blog/cloudbridge-0-5-0 301
+/blog/cloudbridge-0-4-0.html /blog/cloudbridge-0-4-0 301
+/blog/cloudbridge-0-4-0.md /blog/cloudbridge-0-4-0 301
+/blog/cloudbridge-vs-optscale.html /blog/cloudbridge-vs-optscale 301
+/blog/cloudbridge-vs-optscale.md /blog/cloudbridge-vs-optscale 301
+/blog/cloudbridge-0-3-1.html /blog/cloudbridge-0-3-1 301
+/blog/cloudbridge-0-3-1.md /blog/cloudbridge-0-3-1 301
+/blog/cloudbridge-0-3-0.html /blog/cloudbridge-0-3-0 301
+/blog/cloudbridge-0-3-0.md /blog/cloudbridge-0-3-0 301
+/blog/cloudbridge-0-2-0.html /blog/cloudbridge-0-2-0 301
+/blog/cloudbridge-0-2-0.md /blog/cloudbridge-0-2-0 301
+/docs/zh/blog/* /blog/zh/:splat 301
+/docs/blog/* /blog/:splat 301
+
 /roadmap.md https://github.com/JetSquirrel/cloudbridge/blob/main/docs/roadmap.md 301

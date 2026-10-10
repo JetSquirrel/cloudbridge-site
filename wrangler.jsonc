@@ -1,5 +1,6 @@
 // cloudbridge.jetsquirrel.cloud — the product page at the root, the docs under
-// /docs/ and the browser demo under /demo/, built by scripts/build.sh into
+// /docs/, the blog under /blog/ and the browser demo under /demo/, built by
+// scripts/build.sh into
 // dist/site and served as static assets by one Worker. Cloudflare builds it
 // from the repository (Workers Builds); the Worker there is named
 // cloudbridge-site, and the name here has to match it.

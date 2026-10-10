@@ -1,13 +1,14 @@
 # cloudbridge.jetsquirrel.cloud
 
 The website for [CloudBridge](https://github.com/JetSquirrel/cloudbridge): the
-product page, the documentation and the browser demo, one site served by a
-Cloudflare Worker as static assets.
+product page, the documentation, the blog and the browser demo, one site
+served by a Cloudflare Worker as static assets.
 
 | Address | Source |
 | --- | --- |
 | [cloudbridge.jetsquirrel.cloud](https://cloudbridge.jetsquirrel.cloud/) | `home/` — static HTML and CSS, English and `zh/` |
-| [cloudbridge.jetsquirrel.cloud/docs](https://cloudbridge.jetsquirrel.cloud/docs/) | `docs/` — a VitePress site with base `/docs/`, English and `zh/`, plus the blog in `docs/blog/` (English) |
+| [cloudbridge.jetsquirrel.cloud/docs](https://cloudbridge.jetsquirrel.cloud/docs/) | `docs/` — a VitePress site with base `/docs/`, English and `zh/` |
+| [cloudbridge.jetsquirrel.cloud/blog](https://cloudbridge.jetsquirrel.cloud/blog/) | `blog/` — a second VitePress site with base `/blog/`, English posts and `zh/` |
 | [cloudbridge.jetsquirrel.cloud/demo](https://cloudbridge.jetsquirrel.cloud/demo/) | built in the app repository, downloaded at build time (see below) |
 
 The app itself, and the code these pages describe, live in
@@ -22,20 +23,26 @@ The product page has no build step; serve the folder:
 python3 -m http.server -d home 8000   # http://localhost:8000/
 ```
 
-The docs need Node.js 22 or newer:
+The docs and the blog need Node.js 22 or newer:
 
 ```bash
 npm --prefix docs ci             # install the locked dependencies
 npm --prefix docs run dev        # http://localhost:5173/docs/
+npm --prefix blog ci
+npm --prefix blog run dev        # http://localhost:5173/blog/
 SKIP_DEMO=1 sh scripts/build.sh  # the whole site in dist/site; fails on a dead link
 ```
 
 English pages live in `docs/`, Chinese pages in `docs/zh/`, with the same file
 names and the same heading anchors. Every page carries a `description` in its
-frontmatter — it is the text search results and link previews show. Blog
-posts are written for one language and are not translated: English ones in
-`docs/blog/`, Chinese ones in `docs/zh/blog/`, each folder with its own
-`index.md` listing them.
+frontmatter — it is the text search results and link previews show.
+
+A blog post is written for one language and not translated: English ones in
+`blog/`, Chinese ones in `blog/zh/`. Its frontmatter needs a `title`,
+`description`, `date` and `tag`; the blog's front page lists posts from
+those, newest first, so a new post needs no list edited. Images go in
+`blog/images/`. The blog reuses the docs' stylesheet, and links to a docs
+page by its full address, since the two are separate builds.
 
 The product page loads nothing from anyone else: no web fonts, no third-party
 scripts, no analytics — its one script is the few inline lines that offer the
@@ -75,11 +82,14 @@ puts the product page, the docs and the demo together in `dist/site`, and
 The custom domain is `cloudbridge.jetsquirrel.cloud` (Settings → Domains &
 Routes). It used to point at the app repository's GitHub Pages; the old
 addresses (`/docs.html`, `/policies.html`, `/blog.html`, `/blog/*.html`) are
-redirected to their new homes by `home/_redirects`.
+redirected to their new homes by `home/_redirects`, as are the blog's
+addresses from when it lived inside the docs (`/docs/blog/*`,
+`/docs/zh/blog/*`).
 
-For search engines, submit both sitemaps,
-`https://cloudbridge.jetsquirrel.cloud/sitemap.xml` and
-`https://cloudbridge.jetsquirrel.cloud/docs/sitemap.xml`; `robots.txt` lists
+For search engines, submit all three sitemaps,
+`https://cloudbridge.jetsquirrel.cloud/sitemap.xml`,
+`https://cloudbridge.jetsquirrel.cloud/docs/sitemap.xml` and
+`https://cloudbridge.jetsquirrel.cloud/blog/sitemap.xml`; `robots.txt` lists
 them too.
 
 For AI assistants and answer engines: `home/llms.txt` (served at `/llms.txt`)

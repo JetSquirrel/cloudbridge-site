@@ -51,7 +51,7 @@ CloudBridge pulls Cloudflare's billable usage each day and, when given Account A
 - **A forecast budget rule would have fired on the first refresh.** The month-end forecast averages spend starting from the first day that had charges, projecting that rate through the remainder of the month. To put numbers on it: a loop billing $300 on day one, with 20 days left, projects to more than $6,000. Set against a modest $20 monthly budget, that rule fires on the first refresh that reads the day.
 - **It would not have stopped anything.** CloudBridge reads bills with a read-only token. It cannot pause a Worker, and it should not have the power to. What changes is your timeline: you find out within one refresh interval (as short as six hours) of Cloudflare reporting the day, instead of waiting for the invoice to arrive.
 
-The setup takes about a minute per account: define a monthly budget, add an Account budget rule based on the month-end forecast, pick a 6-hour refresh interval, and keep the app running in the menu bar. [Catch a runaway](../cloudflare.md#runaway) walks through the steps. It is worth doing for quiet accounts too, because those are precisely the ones nobody is watching.
+The setup takes about a minute per account: define a monthly budget, add an Account budget rule based on the month-end forecast, pick a 6-hour refresh interval, and keep the app running in the menu bar. [Catch a runaway](https://cloudbridge.jetsquirrel.cloud/docs/cloudflare#runaway) walks through the steps. It is worth doing for quiet accounts too, because those are precisely the ones nobody is watching.
 
 ## Guarding the alarm itself
 

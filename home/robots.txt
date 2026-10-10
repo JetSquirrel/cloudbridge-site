@@ -8,3 +8,4 @@ Disallow: /demo/
 
 Sitemap: https://cloudbridge.jetsquirrel.cloud/sitemap.xml
 Sitemap: https://cloudbridge.jetsquirrel.cloud/docs/sitemap.xml
+Sitemap: https://cloudbridge.jetsquirrel.cloud/blog/sitemap.xml
