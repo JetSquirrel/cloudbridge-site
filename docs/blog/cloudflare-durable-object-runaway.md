@@ -56,6 +56,6 @@ A warning shortens a runaway; it does not prevent one. Inside the Durable Object
 
 ## What's next
 
-The 0.5.0 release notes said that Cloudflare findings would start with Durable Object namespaces whose objects keep alarms set. This incident is the reason. The anomaly rule's blind spot for spend starting from zero is a known gap; until it is closed, the budget rule covers it.
+The 0.5.0 release notes said that Cloudflare findings would start with Durable Object namespaces whose objects keep alarms set. This is exactly the case it is meant to catch. The anomaly rule's blind spot for spend starting from zero is a known gap; until it is closed, the budget rule covers it.
 
 Thanks to the author of the thread for telling the whole story in public, refund and all.
