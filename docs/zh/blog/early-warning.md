@@ -11,6 +11,10 @@ tag: 实践
 
 上周有位开发者晒出一张 10,811.41 美元的 Cloudflare 账单：一个没人用的研究项目里，Durable Object 的 alarm 进了死循环，读写了大约六万亿次。代码里的 bug 躺了 23 天，跑起来之后没有任何报错，第一个信号就是发票。Cloudflare 后来同意退款，来龙去脉见我们英文博客里的[复盘](../../blog/cloudflare-durable-object-runaway.md)。
 
+![Cloudflare 发票：10,811.41 美元，2026 年 10 月 6 日开具、当天到期](../../blog/images/cloudflare-invoice.jpg)
+
+<p class="caption">发票截图来自 <a href="https://x.com/shmily7">@shmily7</a>，账单信息由作者本人打码。</p>
+
 这样的事并不罕见。同一条讨论下，还有人晒出从一千到一万美元不等的账单，原因都是一个没注意到的循环或轮询。
 
 ## 为什么总是月底才知道

@@ -11,6 +11,10 @@ tag: Incident
 
 On 6 October a developer who posts as [浮世绘 (@shmily7)](https://x.com/shmily7) shared a Cloudflare invoice for **$10,811.41**. The cause, in their words: a Durable Object alarm caught in an infinite loop, churning through roughly six trillion reads and writes. The project itself was just an idle research prototype nobody was using. [The thread](https://x.com/shmily7/status/2108060782302990699) drew hundreds of thousands of views, and quite a few developers quietly went to check their own dashboards.
 
+![The Cloudflare invoice: $10,811.41 USD, issued and due 6 October 2026](./images/cloudflare-invoice.jpg)
+
+<p class="caption">The invoice, as posted by <a href="https://x.com/shmily7">@shmily7</a>, with the billing details blurred by its author.</p>
+
 The story ended well, so that part first: Cloudflare has agreed to refund the charges. Still, the way it happened is common enough that it is worth taking apart.
 
 ## What happened
@@ -19,6 +23,10 @@ The story ended well, so that part first: Cloudflare has agreed to refund the ch
 - **The invoice was the first signal.** Cloudflare issued it on 6 October, due the same day.
 - **They paid it.** A support request for a one-time waiver ran into automated replies, and emails warning that account services would be suspended kept arriving, so on 8 October they paid in full. Asked in the replies why they did not simply walk away, they answered (in our translation): *you make a mistake, you own it — you take the hit standing up.*
 - **Then Cloudflare stepped in.** Ashley Peacock took it up internally, Cloudflare's CTO escalated it, and on 9 October Cloudflare decided to refund everything charged during the bug, accompanied by a detailed write-up of what had gone wrong.
+
+![Cloudflare's payment page with the outstanding balance of $10,811.41 due today, mid-payment](./images/cloudflare-payment.jpg){.portrait}
+
+<p class="caption">Paying the balance on 8 October. Posted by <a href="https://x.com/shmily7">@shmily7</a>; we removed the invoice number and the card's last four digits.</p>
 
 They were not alone. Other developers in the replies mentioned bills ranging from $1,000 to $10,000, each triggered by an unnoticed loop or polling routine.
 

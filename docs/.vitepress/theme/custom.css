@@ -39,3 +39,16 @@
   font-size: 0.875rem;
   margin-top: -0.5rem;
 }
+
+/* A tall screenshot (a phone-shaped page) at a readable width, not the
+   column's. Mark it with `{.portrait}` after the image. */
+.vp-doc img.portrait {
+  max-width: min(100%, 360px);
+}
+
+/* The line under an image: who made it and what was changed. */
+.vp-doc .caption {
+  color: var(--vp-c-text-2);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
