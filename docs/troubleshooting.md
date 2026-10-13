@@ -1,5 +1,6 @@
 ---
-description: "Fixes for common CloudBridge problems: Keychain prompts, AWS AccessDenied, an empty Overview, Windows SmartScreen, import errors, Cloudflare scans that are refused, and alerts that did not fire."
+title: "Fix common CloudBridge problems"
+description: "Fixes for common CloudBridge problems: Keychain prompts, AWS AccessDenied, an empty Overview, SmartScreen, import errors and alerts that did not fire."
 ---
 
 # Troubleshooting

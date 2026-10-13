@@ -37,8 +37,13 @@ Every documentation page is also served as Markdown: add `.md` to its address (f
 - [Keyboard shortcuts](https://cloudbridge.jetsquirrel.cloud/docs/shortcuts.md)
 - [Troubleshooting](https://cloudbridge.jetsquirrel.cloud/docs/troubleshooting.md)
 
+## Use cases
+
+- [Cloud cost alerts](https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/): catching a runaway AWS, Cloudflare or AI API bill within a day or two, and which alert rule fits which situation (Chinese: /zh/use-cases/cloud-cost-alerts/)
+- [LLM API cost tracking](https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/): per-model spend, tokens and cost per million tokens from OpenAI, Anthropic, DeepSeek, Model Studio and Volcengine Ark (Chinese: /zh/use-cases/llm-api-cost-tracking/)
+
 ## Optional
 
-- [Blog](https://cloudbridge.jetsquirrel.cloud/blog/): release notes, design decisions and field notes (Chinese posts at /blog/zh/)
+- [Blog](https://cloudbridge.jetsquirrel.cloud/blog/): release notes, design decisions and field notes (Chinese posts at /blog/zh/); Atom feeds at /blog/feed.xml and /blog/zh/feed.xml
 - [Roadmap](https://github.com/JetSquirrel/cloudbridge/blob/main/docs/roadmap.md)
 - [Changelog](https://github.com/JetSquirrel/cloudbridge/blob/main/CHANGELOG.md)

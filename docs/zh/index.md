@@ -2,7 +2,7 @@
 layout: home
 title: "CloudBridge 文档 — 连接账单、读懂账单、盯住花费"
 titleTemplate: false
-description: "CloudBridge 文档：把 AWS、阿里云、Cloudflare、火山引擎、OpenAI、Anthropic 和 DeepSeek 的账单读进本机的一本账，涵盖接入、权限、各个页面、告警与状态栏。"
+description: "CloudBridge 文档：把 AWS、阿里云、Cloudflare、火山引擎、OpenAI、Anthropic 和 DeepSeek 的账单读进本机的一本账，并盯住花费。"
 hero:
   name: CloudBridge 文档
   text: 云与 AI 账单，一本账。

@@ -1,5 +1,6 @@
 ---
-description: "What CloudBridge stores and where — the DuckDB ledger, account database, raw payloads and config — plus refresh interval, currency, demo data, backups and security."
+title: "Settings, data storage and security"
+description: "What CloudBridge stores and where: the DuckDB ledger, accounts, raw payloads and config, plus refresh interval, currency, backups and security."
 ---
 
 # Settings, data and security

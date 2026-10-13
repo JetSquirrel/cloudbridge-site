@@ -1,5 +1,6 @@
 ---
-description: "The least-privilege credentials CloudBridge needs for each provider — AWS Cost Explorer and S3, Alibaba Cloud RAM, Cloudflare API tokens, DeepSeek keys — and how it handles them."
+title: "Least-privilege billing permissions per provider"
+description: "The least-privilege credentials CloudBridge needs for AWS Cost Explorer and S3, Alibaba Cloud RAM, Cloudflare API tokens and DeepSeek keys."
 ---
 
 # Provider permissions

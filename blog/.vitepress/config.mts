@@ -1,4 +1,6 @@
-import { defineConfig, type HeadConfig } from 'vitepress'
+import { writeFile } from 'node:fs/promises'
+import { resolve } from 'node:path'
+import { createContentLoader, defineConfig, type HeadConfig } from 'vitepress'
 
 // The blog, at /blog/ beside the product page and the docs rather than inside
 // the docs: posts read without the docs' sidebar and outline, and the list is
@@ -10,6 +12,24 @@ const home = 'https://cloudbridge.jetsquirrel.cloud/'
 const site = `${home}blog/`
 const docs = `${home}docs/`
 const ogImage = `${docs}og-image.png`
+// Who writes the posts and who publishes them, for the structured data and
+// the feeds.
+const author = { '@type': 'Person', name: 'JetSquirrel', url: 'https://github.com/JetSquirrel' }
+const publisher = {
+  '@type': 'Organization',
+  name: 'CloudBridge',
+  url: home,
+  logo: { '@type': 'ImageObject', url: `${home}assets/logo-160.png`, width: 160, height: 160 },
+}
+// One Atom feed per language, since a post is written for one of them.
+const feeds = {
+  en: { url: `${site}feed.xml`, file: 'feed.xml', title: 'CloudBridge Blog', blog: site, lang: 'en' },
+  zh: { url: `${site}zh/feed.xml`, file: 'zh/feed.xml', title: 'CloudBridge 博客', blog: `${site}zh/`, lang: 'zh-CN' },
+}
+
+function xml(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
+}
 
 // A page's path under the blog, as `cleanUrls` publishes it.
 function pageUrl(relativePath: string): string {
@@ -24,8 +44,11 @@ export default defineConfig({
   outDir: '../dist/site/blog',
   cleanUrls: true,
   ignoreDeadLinks: false,
+  // Per-post "last updated" dates for dateModified and the sitemap's lastmod.
+  lastUpdated: true,
   sitemap: { hostname: site },
   head: [
+    ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large' }],
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
     ['meta', { name: 'theme-color', content: '#0e1420' }],
     ['meta', { property: 'og:site_name', content: 'CloudBridge' }],
@@ -54,19 +77,51 @@ export default defineConfig({
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
     ]
+    const feed = zh ? feeds.zh : feeds.en
+    head.push(['link', { rel: 'alternate', type: 'application/atom+xml', title: feed.title, href: feed.url }])
+    // Structured data: where the page sits, and for a post, who wrote it and
+    // when.
+    const blogHome = feed.blog
+    const crumbs = [
+      { name: 'CloudBridge', item: zh ? `${home}zh/` : home },
+      { name: zh ? '博客' : 'Blog', item: blogHome },
+    ]
+    if (url !== blogHome) crumbs.push({ name: pageData.title || title, item: url })
+    const graph: object[] = [{
+      '@type': 'BreadcrumbList',
+      itemListElement: crumbs.map((crumb, i) => ({ '@type': 'ListItem', position: i + 1, ...crumb })),
+    }]
     if (post) {
-      head.push(['script', { type: 'application/ld+json' }, JSON.stringify({
-        '@context': 'https://schema.org',
+      const published = new Date(pageData.frontmatter.date).toISOString()
+      head.push(['meta', { property: 'article:published_time', content: published }])
+      if (pageData.frontmatter.tag) head.push(['meta', { property: 'article:tag', content: pageData.frontmatter.tag }])
+      graph.push({
         '@type': 'BlogPosting',
         headline: pageData.title || title,
         description,
         url,
+        mainEntityOfPage: url,
         inLanguage: zh ? 'zh-CN' : 'en',
-        datePublished: new Date(pageData.frontmatter.date).toISOString(),
-        isPartOf: { '@type': 'Blog', name: 'CloudBridge Blog', url: site },
+        datePublished: published,
+        ...(pageData.lastUpdated ? { dateModified: new Date(pageData.lastUpdated).toISOString() } : {}),
+        image: ogImage,
+        author,
+        publisher,
+        ...(pageData.frontmatter.tag ? { keywords: pageData.frontmatter.tag } : {}),
+        isPartOf: { '@type': 'Blog', name: feed.title, url: blogHome },
         about: { '@type': 'SoftwareApplication', name: 'CloudBridge', url: home },
-      })])
+      })
+    } else if (url === blogHome) {
+      graph.push({
+        '@type': 'Blog',
+        name: feed.title,
+        description,
+        url,
+        inLanguage: zh ? 'zh-CN' : 'en',
+        publisher,
+      })
     }
+    head.push(['script', { type: 'application/ld+json' }, JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })])
     return head
   },
   locales: {
@@ -122,5 +177,48 @@ export default defineConfig({
     editLink: { pattern: `${siteRepository}/edit/main/blog/:path` },
     socialLinks: [{ icon: 'github', link: repository }],
     footer: { message: 'Released under the MIT License.' },
+  },
+  // An Atom feed for each language's posts, newest first: /blog/feed.xml and
+  // /blog/zh/feed.xml.
+  async buildEnd(config) {
+    const pages = await createContentLoader(['*.md', 'zh/*.md']).load()
+    for (const [key, feed] of Object.entries(feeds)) {
+      const posts = pages
+        .filter((page) => page.frontmatter.date && page.url.startsWith('/zh/') === (key === 'zh'))
+        .map((page) => ({
+          url: `${site}${page.url.replace(/^\//, '')}`,
+          title: String(page.frontmatter.title),
+          description: String(page.frontmatter.description ?? ''),
+          date: new Date(page.frontmatter.date).toISOString(),
+          tag: page.frontmatter.tag ? String(page.frontmatter.tag) : '',
+        }))
+        .sort((a, b) => b.date.localeCompare(a.date))
+      const entries = posts.map((post) => [
+        '  <entry>',
+        `    <title>${xml(post.title)}</title>`,
+        `    <link href="${post.url}"/>`,
+        `    <id>${post.url}</id>`,
+        `    <published>${post.date}</published>`,
+        `    <updated>${post.date}</updated>`,
+        `    <summary>${xml(post.description)}</summary>`,
+        ...(post.tag ? [`    <category term="${xml(post.tag)}"/>`] : []),
+        '  </entry>',
+      ].join('\n'))
+      const body = [
+        '<?xml version="1.0" encoding="utf-8"?>',
+        `<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="${feed.lang}">`,
+        `  <title>${xml(feed.title)}</title>`,
+        `  <id>${feed.blog}</id>`,
+        `  <link rel="self" href="${feed.url}"/>`,
+        `  <link rel="alternate" type="text/html" href="${feed.blog}"/>`,
+        `  <updated>${posts[0]?.date ?? new Date().toISOString()}</updated>`,
+        '  <author><name>JetSquirrel</name><uri>https://github.com/JetSquirrel</uri></author>',
+        `  <icon>${home}favicon.png</icon>`,
+        ...entries,
+        '</feed>',
+        '',
+      ].join('\n')
+      await writeFile(resolve(config.outDir, feed.file), body)
+    }
   },
 })

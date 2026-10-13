@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge's Models page: what each LLM model costs per token — spend, input, output and cache tokens, blended cost per million, cache share and findings."
+title: "LLM token cost per model"
+description: "CloudBridge’s Models page: what each LLM costs per token, with spend, input, output and cache tokens, blended cost per million and findings."
 ---
 
 # Models

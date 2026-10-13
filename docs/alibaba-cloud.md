@@ -1,5 +1,6 @@
 ---
-description: "Connect Alibaba Cloud (阿里云) to CloudBridge through the billing API with a read-only RAM user, or import its bill details for per-model Model Studio (百炼) costs."
+title: "Alibaba Cloud billing API and bill import"
+description: "Connect Alibaba Cloud (阿里云) to CloudBridge with a read-only RAM user, or import bill details for per-model Model Studio (百炼) costs."
 ---
 
 # Alibaba Cloud

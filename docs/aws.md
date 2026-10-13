@@ -1,4 +1,5 @@
 ---
+title: "AWS cost tracking with Cost Explorer or FOCUS"
 description: "Connect an AWS account to CloudBridge through Cost Explorer with a one-action IAM policy, or through a FOCUS Data Export in S3 for resource-level rows."
 ---
 

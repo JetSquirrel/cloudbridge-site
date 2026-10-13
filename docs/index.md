@@ -2,7 +2,7 @@
 layout: home
 title: "CloudBridge documentation — connect your bills, read them, keep watch"
 titleTemplate: false
-description: "Documentation for CloudBridge, the desktop app that reads AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic and DeepSeek bills into one local ledger: setup, permissions, the pages, alerts and the menu bar."
+description: "CloudBridge docs: read AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic and DeepSeek bills into one local ledger, then keep watch."
 hero:
   name: CloudBridge Docs
   text: Your cloud and AI bills, in one ledger.

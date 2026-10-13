@@ -1,4 +1,5 @@
 ---
+title: "安装 CloudBridge，读到第一份账单"
 description: "在 macOS 或 Windows 上安装 CloudBridge，用演示账单先看一看，然后添加第一个账号、读到第一份账单，几分钟即可完成。"
 ---
 

@@ -1,4 +1,5 @@
 ---
+title: "键盘快捷键"
 description: "CloudBridge 键盘快捷键：用 ⌘1–⌘0（Windows 上为 Ctrl）切换页面，以及重新加载、执行查询和关闭对话框。"
 ---
 

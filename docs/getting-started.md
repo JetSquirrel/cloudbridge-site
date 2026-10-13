@@ -1,4 +1,5 @@
 ---
+title: "Install CloudBridge and read your first bill"
 description: "Install CloudBridge on macOS or Windows, look around with the demo bill, add your first account and read your first bill in a few minutes."
 ---
 

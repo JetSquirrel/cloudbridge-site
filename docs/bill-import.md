@@ -1,5 +1,6 @@
 ---
-description: "Import bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek into CloudBridge: where each comes from, what it adds, and how a month is replaced."
+title: "Import OpenAI, Anthropic and cloud bill exports"
+description: "Import bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek into CloudBridge: where each comes from and what it adds."
 ---
 
 # Bill file import

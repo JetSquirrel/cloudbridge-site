@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge 在各云平台需要的最小权限——AWS Cost Explorer 与 S3、阿里云 RAM、Cloudflare API token、DeepSeek key——以及它如何保管这些凭据。"
+title: "各云平台的最小账单权限"
+description: "CloudBridge 在各平台需要的最小权限：AWS Cost Explorer 与 S3、阿里云 RAM、Cloudflare API token 和 DeepSeek key，以及凭据如何保管。"
 ---
 
 # 云平台权限

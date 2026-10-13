@@ -24,6 +24,12 @@
   Content-Type: text/markdown; charset=utf-8
   X-Robots-Tag: noindex
 
+# The blog's Atom feeds, one per language.
+/blog/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/zh/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+
 # The docs' built scripts and styles are fingerprinted by VitePress, so they
 # never change in place. Everything else — pages, the product page's
 # stylesheet, images, the demo, which keeps its names across builds —

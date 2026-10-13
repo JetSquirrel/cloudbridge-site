@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge's Query page: read-only SQL over the local DuckDB billing ledger, with starter templates for spend, services, business lines, forecasts and resources."
+title: "Query your billing ledger with SQL"
+description: "CloudBridge’s Query page: read-only SQL over the local DuckDB billing ledger, with templates for spend, services, business lines and forecasts."
 ---
 
 # Query
