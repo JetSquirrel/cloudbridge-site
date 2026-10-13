@@ -1,5 +1,6 @@
 ---
-description: "用 Account ID 和 API token 把 Cloudflare 接入 CloudBridge：按天读取计费用量，拆分到 R2 bucket、Worker、D1 数据库和 Durable Object，并支持只读的资源扫描。"
+title: "Cloudflare 费用按 R2、Worker、D1 拆分"
+description: "用 API token 把 Cloudflare 接入 CloudBridge：按天读取计费用量，拆分到 R2、Worker、D1 和 Durable Object，并支持只读资源扫描。"
 ---
 
 # Cloudflare

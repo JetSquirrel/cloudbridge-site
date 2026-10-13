@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>云费用异常告警：AWS、Cloudflare 与大模型 API | CloudBridge</title>
+<meta name="description" content="在一两天内发现失控的 AWS、Cloudflare 或大模型 API 账单，而不是等到月底的发票。按天读账单，异常规则、预算和状态栏告警，全部在本地运行。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#0e1420">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
+<meta property="og:title" content="云费用异常告警：AWS、Cloudflare 与大模型 API | CloudBridge">
+<meta property="og:description" content="账单开始失控的那一天就知道。CloudBridge 按天读取账单，从状态栏发出告警。免费开源，数据只在本地。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge 总览页：各云平台和模型平台的本月花费、每日花费图和变化最大的服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="云费用异常告警：AWS、Cloudflare 与大模型 API | CloudBridge">
+<meta name="twitter:description" content="账单开始失控的那一天就知道。CloudBridge 按天读取账单，从状态栏发出告警。免费开源，数据只在本地。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge 博客" href="https://cloudbridge.jetsquirrel.cloud/blog/zh/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/",
+      "name": "云费用异常告警：AWS、Cloudflare 与大模型 API",
+      "description": "在一两天内发现失控的 AWS、Cloudflare 或大模型 API 账单，而不是等到月底的发票。按天读账单，异常规则、预算和状态栏告警，全部在本地运行。",
+      "inLanguage": "zh-CN",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+        { "@type": "ListItem", "position": 2, "name": "云费用异常告警", "item": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "zh-CN",
+      "mainEntity": [
+        { "@type": "Question", "name": "CloudBridge 多快能发现费用突增？", "acceptedAnswer": { "@type": "Answer", "text": "一两天之内。账单是按天读取的，服务商报出当天的用量、下一次刷新运行之后，突增就会出现在账本里，不用等到月底的发票。它不是实时监控。" } },
+        { "@type": "Question", "name": "要一直开着 CloudBridge 才能收到告警吗？", "acceptedAnswer": { "@type": "Answer", "text": "需要它在运行，但不需要开着窗口。在 macOS 和 Windows 上它会留在状态栏，每个账号每个刷新间隔拉取一次，有新告警就发系统通知。打开开机启动后，重启电脑也照常运行。" } },
+        { "@type": "Question", "name": "从零突然失控的项目也能发现吗？", "acceptedAnswer": { "@type": "Answer", "text": "能，用基于月底预测的账号预算规则。异常规则拿一个服务和它自己过去七天比，一分钱没花过的服务没有基线；月底预测会把第一天的高额花费外推到本月剩下的日子。" } },
+        { "@type": "Question", "name": "盯着账单本身会产生费用吗？", "acceptedAnswer": { "@type": "Answer", "text": "只有 AWS 会：Cost Explorer 按请求收费，S3 按读取收费。CloudBridge 每个账号每个刷新间隔只拉取一次，默认每个 AWS 账号每天大约两次 Cost Explorer 请求，同样的数据不会付两次钱。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/zh/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="站点">
+        <a href="/docs/zh/">文档</a>
+        <a class="optional" href="/blog/zh/">博客</a>
+        <a class="optional" href="/demo/">在线演示</a>
+        <a href="/use-cases/cloud-cost-alerts/" hreflang="en" lang="en">English</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="/zh/">首页</a><span aria-hidden="true">›</span><span>云费用异常告警</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">失控当天就知道，不用等发票</p>
+      <h1>在发票到来之前，先收到费用告警</h1>
+      <p class="lede">CloudBridge 把 AWS、阿里云、Cloudflare 和各家模型平台的账单按天读进你电脑上的一本账，在账本上跑告警规则，花费一突增就从状态栏发出通知。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-ghost" href="/docs/zh/alerts">查看告警文档</a>
+      </div>
+      <p class="fineprint">免费开源，支持 macOS 和 Windows。无需注册，不同步，不上报任何数据。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">为什么总是月底才知道</p>
+      <h2>天价账单总是意外，因为三件事凑在一起</h2>
+      <p class="intro">按量计费没有上限，账单比用量晚，真正失控的项目往往没人盯着。</p>
+      <ol class="steps">
+        <li>
+          <h3>没有上限</h3>
+          <p>按量付费的账号用多少收多少。程序出错时往往不是崩溃，而是一直成功、一直计费。</p>
+        </li>
+        <li>
+          <h3>账单有延迟</h3>
+          <p>用量要先汇总、定价才进账单。Cost Explorer 可能滞后一天左右，发票更是一个月才一张。</p>
+        </li>
+        <li>
+          <h3>没人盯着</h3>
+          <p>线上服务有监控。测试项目和被遗忘的原型没有流量，也就没人去看它的图表。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">告警规则</p>
+      <h2>每种失控，都有对应的规则</h2>
+      <p class="intro">默认启用三条规则。给重要的账号加上预算规则，异常规则也可以限定到某一个账号。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>场景</th><th>用哪条规则</th><th>默认值</th></tr></thead>
+          <tbody>
+            <tr><td>平时花费稳定的服务突然翻倍</td><td>费用增长异常，和该服务自己过去 7 天的基线比</td><td>连续 2 天超过 2.5 倍</td></tr>
+            <tr><td>沉睡的项目突然跑起来，或新上线的东西失控</td><td>账号预算，按月底预测计算</td><td>需要先给账号设月度预算</td></tr>
+            <tr><td>预付费余额被快速消耗，比如 DeepSeek</td><td>余额下限</td><td>200，按余额自身的币种；设了预算则以预算为准</td></tr>
+            <tr><td>新出现的花费没人认领</td><td>未打标签花费占比</td><td>超过 15% 且比上个月高</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/zh/alerts">告警、规则与预算 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">持续盯着</p>
+          <h2>关掉窗口，它也在盯着</h2>
+          <p>在 macOS 和 Windows 上，CloudBridge 留在状态栏，标题就是本月花费。每个账号过了刷新间隔（默认 24 小时，最短可设 6 小时）就拉取一次，跑完规则，有新告警就发系统通知。打开开机启动，重启电脑后也照常运行。</p>
+          <p><a href="/docs/zh/background">状态栏与后台运行</a></p>
+        </div>
+        <ul class="promise">
+          <li>账单按天读取，突增第二天就能看到，不用等到月底。</li>
+          <li>Cloudflare 的每日账单可以拆到具体的 R2 bucket、Worker、D1 数据库和 Durable Object。</li>
+          <li>每 15 分钟在本地检查一次有没有该刷新的账号，这个检查不会请求任何云平台。</li>
+          <li>每个服务商每个刷新间隔最多请求一次，盯得再紧也不会多花 API 费用。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">真实案例</p>
+          <h2>一张 10,811 美元的 Cloudflare 账单</h2>
+          <p>一个没人用的项目里，Durable Object 的 alarm 进了死循环，读写了大约六万亿次，第一个信号就是发票。这篇文章讲清楚发生了什么、为什么没有任何提醒，以及哪条规则本可以提前发现。</p>
+          <p><a href="/blog/zh/early-warning">阅读文章</a></p>
+        </div>
+        <ul class="promise">
+          <li>异常规则看不到这种情况：一分钱没花过的服务没有基线。</li>
+          <li>基于月底预测的账号预算规则可以，从出现高额花费的第一天就能发现。</li>
+          <li>Cloudflare 免费额度内的用量也会记下来，费用记为零，因为失控往往从那里开始。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">隐私</p>
+          <h2>你的账单只留在你的电脑上</h2>
+          <p>账单记录了你在跑什么、为谁跑。CloudBridge 把账本存成你磁盘上的一个 DuckDB 文件，凭据存在系统钥匙串里，对服务商只读不写。</p>
+        </div>
+        <ul class="promise">
+          <li>没有 CloudBridge 账号，没有同步服务，不上报任何数据。</li>
+          <li>只用只读凭据，不会创建或修改任何云资源。</li>
+          <li>基于 MIT 许可开源。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">常见问题</p>
+      <h2>大家常问的问题</h2>
+      <dl class="faq">
+        <div><dt>CloudBridge 多快能发现费用突增？</dt><dd>一两天之内。账单是按天读取的，服务商报出当天的用量、下一次刷新运行之后，突增就会出现在账本里，不用等到月底的发票。它不是实时监控。</dd></div>
+        <div><dt>要一直开着 CloudBridge 才能收到告警吗？</dt><dd>需要它在运行，但不需要开着窗口。在 macOS 和 Windows 上它会留在状态栏，每个账号每个刷新间隔拉取一次，有新告警就发系统通知。打开开机启动后，重启电脑也照常运行。</dd></div>
+        <div><dt>从零突然失控的项目也能发现吗？</dt><dd>能，用基于月底预测的账号预算规则。异常规则拿一个服务和它自己过去七天比，一分钱没花过的服务没有基线；月底预测会把第一天的高额花费外推到本月剩下的日子。</dd></div>
+        <div><dt>盯着账单本身会产生费用吗？</dt><dd>只有 AWS 会：Cost Explorer 按请求收费，S3 按读取收费。CloudBridge 每个账号每个刷新间隔只拉取一次，默认每个 AWS 账号每天大约两次 Cost Explorer 请求，同样的数据不会付两次钱。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>第二天就知道，而不是下个月</h2>
+      <p>下载 CloudBridge，接入一个账号，设好预算，让它在状态栏里替你盯着。也可以先看看在线演示。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">在线演示</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/zh/">文档</a>
+    <a href="/blog/zh/">博客</a>
+    <a href="/demo/">在线演示</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/">大模型 API 成本</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/cloud-cost-alerts/" hreflang="en" lang="en">English</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

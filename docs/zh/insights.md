@@ -1,4 +1,5 @@
 ---
+title: "资源洞察：找出闲置的 AWS 和 Cloudflare 资源"
 description: "CloudBridge 资源洞察把账单和对 AWS、Cloudflare 的只读资源扫描放在一起比对：已停止的实例、闲置的 IP、无人认领的资源，以及每个资源的费用，按类型汇总。"
 ---
 

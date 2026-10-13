@@ -12,6 +12,14 @@ const siteRepository = 'https://github.com/JetSquirrel/cloudbridge-site'
 const home = 'https://cloudbridge.jetsquirrel.cloud/'
 const site = `${home}docs/`
 const ogImage = `${site}og-image.png`
+// Who wrote the pages and who publishes them, for the structured data.
+const author = { '@type': 'Person', name: 'JetSquirrel', url: 'https://github.com/JetSquirrel' }
+const publisher = {
+  '@type': 'Organization',
+  name: 'CloudBridge',
+  url: home,
+  logo: { '@type': 'ImageObject', url: `${home}assets/logo-160.png`, width: 160, height: 160 },
+}
 
 // A page's path under the site root, as `cleanUrls` publishes it — the form
 // Cloudflare serves without a redirect: `index.md` → ``,
@@ -115,6 +123,7 @@ export default defineConfig({
     // Head links are not given the base; the product page serves the icon.
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon.png' }],
     ['meta', { name: 'theme-color', content: '#0e1420' }],
+    ['meta', { name: 'robots', content: 'index,follow,max-image-preview:large' }],
     ['meta', { property: 'og:site_name', content: 'CloudBridge' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:image', content: ogImage }],
@@ -156,7 +165,7 @@ export default defineConfig({
       { name: 'CloudBridge', item: zh ? `${home}zh/` : home },
       { name: zh ? '文档' : 'Docs', item: docsHome },
     ]
-    if (url !== docsHome) crumbs.push({ name: title.replace(/ \| CloudBridge Docs$/, ''), item: url })
+    if (url !== docsHome) crumbs.push({ name: pageData.title || title, item: url })
     const graph: object[] = [{
       '@type': 'BreadcrumbList',
       itemListElement: crumbs.map((crumb, i) => ({ '@type': 'ListItem', position: i + 1, ...crumb })),
@@ -169,6 +178,9 @@ export default defineConfig({
         url,
         inLanguage: zh ? 'zh-CN' : 'en',
         ...(pageData.lastUpdated ? { dateModified: new Date(pageData.lastUpdated).toISOString() } : {}),
+        image: ogImage,
+        author,
+        publisher,
         isPartOf: { '@type': 'WebSite', name: 'CloudBridge', url: home },
         about: { '@type': 'SoftwareApplication', name: 'CloudBridge', url: home },
         encoding: { '@type': 'MediaObject', encodingFormat: 'text/markdown', contentUrl: `${url}.md` },
@@ -197,6 +209,8 @@ export default defineConfig({
     zh: {
       label: '简体中文',
       lang: 'zh-CN',
+      // The suffix of every Chinese page's title: "AWS 费用 | CloudBridge 文档".
+      title: 'CloudBridge 文档',
       description: '本地优先的云与 AI 账单桌面应用：把各家账单读进你电脑上的一本账。',
       themeConfig: {
         nav: [

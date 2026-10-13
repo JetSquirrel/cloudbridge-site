@@ -1,4 +1,5 @@
 ---
+title: "DeepSeek 余额与按模型的 API 花费"
 description: "把 DeepSeek 接入 CloudBridge：用 API key 读取预付费余额，导入用量下载文件获得按天、按模型的花费。"
 ---
 

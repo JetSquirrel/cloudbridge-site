@@ -2,12 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cloudbridge.jetsquirrel.cloud/</loc>
+    <lastmod>2026-10-14</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/"/>
   </url>
   <url>
     <loc>https://cloudbridge.jetsquirrel.cloud/zh/</loc>
+    <lastmod>2026-10-14</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/"/>
     <xhtml:link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/"/>
+  </url>
+  <url>
+    <loc>https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/"/>
+  </url>
+  <url>
+    <loc>https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/"/>
+  </url>
+  <url>
+    <loc>https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/"/>
+  </url>
+  <url>
+    <loc>https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/</loc>
+    <lastmod>2026-10-14</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/"/>
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/"/>
   </url>
 </urlset>

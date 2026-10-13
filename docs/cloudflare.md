@@ -1,5 +1,6 @@
 ---
-description: "Connect Cloudflare to CloudBridge with an account ID and an API token: daily billable usage, split across R2 buckets, Workers, D1 databases and Durable Objects, and a read-only resource scan."
+title: "Cloudflare costs per R2 bucket, Worker and D1"
+description: "Connect Cloudflare to CloudBridge with an API token: daily billable usage split across R2 buckets, Workers, D1 and Durable Objects."
 ---
 
 # Cloudflare

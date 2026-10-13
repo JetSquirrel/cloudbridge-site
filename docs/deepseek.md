@@ -1,4 +1,5 @@
 ---
+title: "DeepSeek balance and per-model API spend"
 description: "Connect DeepSeek to CloudBridge with an API key for the prepaid balance, and import its usage download for per-day, per-model spend."
 ---
 

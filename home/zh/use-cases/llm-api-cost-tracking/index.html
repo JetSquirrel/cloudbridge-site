@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>统计 OpenAI、Anthropic、DeepSeek 的 API 成本 | CloudBridge</title>
+<meta name="description" content="按模型看清 OpenAI、Anthropic、DeepSeek、阿里云百炼和火山方舟每个 token 花了多少钱，全部记在本地的一本账里。免费开源。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#0e1420">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<meta property="og:title" content="统计 OpenAI、Anthropic、DeepSeek 的 API 成本 | CloudBridge">
+<meta property="og:description" content="每个模型的花费、token 用量和每百万 token 成本，和云账单放在一起，只存在你自己的电脑上。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge 总览页：各云平台和模型平台的本月花费、每日花费图和变化最大的服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="统计 OpenAI、Anthropic、DeepSeek 的 API 成本 | CloudBridge">
+<meta name="twitter:description" content="每个模型的花费、token 用量和每百万 token 成本，和云账单放在一起，只存在你自己的电脑上。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge 博客" href="https://cloudbridge.jetsquirrel.cloud/blog/zh/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/",
+      "name": "统计 OpenAI、Anthropic、DeepSeek 的 API 成本",
+      "description": "按模型看清 OpenAI、Anthropic、DeepSeek、阿里云百炼和火山方舟每个 token 花了多少钱，全部记在本地的一本账里。免费开源。",
+      "inLanguage": "zh-CN",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+        { "@type": "ListItem", "position": 2, "name": "大模型 API 成本统计", "item": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "zh-CN",
+      "mainEntity": [
+        { "@type": "Question", "name": "需要把 OpenAI 或 Anthropic 的 API key 交给 CloudBridge 吗？", "acceptedAnswer": { "@type": "Answer", "text": "不需要。OpenAI 和 Anthropic 目前只支持导入：添加账号时只填名字、不填凭据，然后导入从控制台下载的费用或用量文件。" } },
+        { "@type": "Question", "name": "导出文件里只有 token 没有金额怎么办？", "acceptedAnswer": { "@type": "Answer", "text": "只有 token 的用量文件会作为用量记录保存。CloudBridge 会在模型页统计它的 token，但不会按标价把它换算成估算账单。" } },
+        { "@type": "Question", "name": "支持哪些模型平台？", "acceptedAnswer": { "@type": "Answer", "text": "OpenAI 和 Anthropic 的导出文件，DeepSeek 的余额 API 和用量下载，阿里云账单里的百炼，以及火山引擎账单导出里的火山方舟。" } },
+        { "@type": "Question", "name": "模型花费突增时能提醒我吗？", "acceptedAnswer": { "@type": "Answer", "text": "能。费用增长异常规则会在某个数据源和服务的每日花费连续几天超过它过去 7 天的基线时告警；余额下限规则会在 DeepSeek 这样的预付费余额快用完时提醒。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/zh/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="站点">
+        <a href="/docs/zh/">文档</a>
+        <a class="optional" href="/blog/zh/">博客</a>
+        <a class="optional" href="/demo/">在线演示</a>
+        <a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="/zh/">首页</a><span aria-hidden="true">›</span><span>大模型 API 成本统计</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">你付费的每个模型，都在一张表里</p>
+      <h1>每个模型到底花了多少钱</h1>
+      <p class="lede">导入 OpenAI 和 Anthropic 的用量文件，加上 DeepSeek 和阿里云账单里的百炼费用，按模型看清花费、token 用量和每百万 token 成本，和其他云账单放在一起。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-ghost" href="/docs/zh/models">查看模型页文档</a>
+      </div>
+      <p class="fineprint">免费开源，支持 macOS 和 Windows。无需注册，不同步，不上报任何数据。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">怎么用</p>
+      <h2>从控制台导出文件，到每个 token 的成本</h2>
+      <p class="intro">不需要 OpenAI 或 Anthropic 的 API key，控制台给的导出文件就够了。</p>
+      <ol class="steps">
+        <li>
+          <h3>下载导出文件</h3>
+          <p>OpenAI 在 Usage 页导出，Anthropic 在 Usage 或 Cost 页导出，DeepSeek 在用量信息页导出。</p>
+        </li>
+        <li>
+          <h3>导入</h3>
+          <p>添加账号时只填名字、不填凭据，然后在这一行点导入。同一个月再导入一次会整月替换，不会重复计费。</p>
+        </li>
+        <li>
+          <h3>打开模型页</h3>
+          <p>每个模型的花费和变化，输入、输出和缓存 token，以及每百万 token 的成本。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">数据来源</p>
+      <h2>能读的模型账单</h2>
+      <p class="intro">任何数据源里按 token 计量的记录都会出现在模型页，模型名取账单里写的。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>平台</th><th>接入方式</th><th>能看到什么</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI</td><td>导入用量文件</td><td>按项目和模型的费用或 token 用量</td></tr>
+            <tr><td>Anthropic（Claude）</td><td>导入用量或费用文件</td><td>按 workspace 和模型的费用或 token 用量</td></tr>
+            <tr><td>DeepSeek</td><td>余额 API，导入用量文件</td><td>预付费余额；按天、按模型的花费</td></tr>
+            <tr><td>阿里云百炼</td><td>导入账单明细</td><td>按模型的百炼费用</td></tr>
+            <tr><td>火山方舟</td><td>导入火山引擎账单明细</td><td>按接入点和 token 类型的费用</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/zh/bill-import">导入账单文件 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">模型页</p>
+          <h2>按模型算清 token 账</h2>
+          <p>统计行显示 AI 花费、总 token 数、综合每百万 token 成本和缓存占比。下面列出每个模型的花费和变化、输入、输出和缓存 token、占模型总花费的比例，还有每天的 token 用量图。</p>
+          <p><a href="/docs/zh/models">模型</a>&emsp;<a href="/demo/">在演示里试试</a></p>
+        </div>
+        <ul class="promise">
+          <li>缓存读取不到输入侧 5% 的模型会被标出来：本可以按缓存价付的，却按输入价付了。</li>
+          <li>单个模型占模型总花费超过 70% 时会提示。</li>
+          <li>能分清花费上涨是因为单价变了，还是用量变多了。</li>
+          <li>计费时没有 token 计量、算不出单位成本的模型也会指出来。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">持续盯着</p>
+          <h2>模型花费一突增就知道</h2>
+          <p>费用增长异常规则会在某个数据源和服务的每日花费连续两天超过它过去 7 天的基线时告警；余额下限规则会在 DeepSeek 这样的预付费余额快用完之前提醒你。两种告警都从状态栏发出。</p>
+          <p><a href="/zh/use-cases/cloud-cost-alerts/">云费用异常告警</a></p>
+        </div>
+        <ul class="promise">
+          <li>模型花费和 AWS、阿里云、Cloudflare 的账单记在同一本账里，一个总览页全看到。</li>
+          <li>保留每笔费用的原始币种，缺少汇率时会明确标出，而不是当成一比一。</li>
+          <li>账本是你磁盘上的一个 DuckDB 文件，查询页可以直接写只读 SQL。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">常见问题</p>
+      <h2>大家常问的问题</h2>
+      <dl class="faq">
+        <div><dt>需要把 OpenAI 或 Anthropic 的 API key 交给 CloudBridge 吗？</dt><dd>不需要。OpenAI 和 Anthropic 目前只支持导入：添加账号时只填名字、不填凭据，然后导入从控制台下载的费用或用量文件。</dd></div>
+        <div><dt>导出文件里只有 token 没有金额怎么办？</dt><dd>只有 token 的用量文件会作为用量记录保存。CloudBridge 会在模型页统计它的 token，但不会按标价把它换算成估算账单。</dd></div>
+        <div><dt>支持哪些模型平台？</dt><dd>OpenAI 和 Anthropic 的导出文件，DeepSeek 的余额 API 和用量下载，阿里云账单里的百炼，以及火山引擎账单导出里的火山方舟。</dd></div>
+        <div><dt>模型花费突增时能提醒我吗？</dt><dd>能。费用增长异常规则会在每日花费连续几天超过过去 7 天的基线时告警；余额下限规则会在 DeepSeek 这样的预付费余额快用完时提醒。</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>按模型看清你的大模型账单</h2>
+      <p>下载 CloudBridge，导入上个月的导出文件，打开模型页。也可以先看看在线演示。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">在线演示</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/zh/">文档</a>
+    <a href="/blog/zh/">博客</a>
+    <a href="/demo/">在线演示</a>
+    <a href="/zh/use-cases/cloud-cost-alerts/">云费用异常告警</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

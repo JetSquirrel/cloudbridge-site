@@ -1,5 +1,6 @@
 ---
-description: "Keep CloudBridge watching with its window closed: the menu bar icon and panel, the daily background refresh, notifications, Open at login, and how failures are retried without paying twice."
+title: "Menu bar spend and background refresh"
+description: "Keep CloudBridge watching with its window closed: spend in the menu bar, a daily background refresh, notifications, Open at login and safe retries."
 ---
 
 # Menu bar and background

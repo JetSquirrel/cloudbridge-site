@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge Insights compares the bill with a read-only resource scan of AWS and Cloudflare: stopped instances, idle addresses, unclaimed resources and per-resource cost, summarized by type."
+title: "Find idle AWS and Cloudflare resources"
+description: "CloudBridge Insights sets a read-only scan of AWS and Cloudflare beside the bill: stopped instances, idle addresses, unclaimed resources and their cost."
 ---
 
 # Insights

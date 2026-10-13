@@ -1,4 +1,5 @@
 ---
+title: "大模型 token 成本：按模型统计"
 description: "CloudBridge 模型页：每个大模型每个 token 花多少钱——花费、输入/输出/缓存 token、每百万 token 综合成本、缓存占比和相关提示。"
 ---
 

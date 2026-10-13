@@ -1,4 +1,5 @@
 ---
+title: "Keyboard shortcuts"
 description: "Keyboard shortcuts in CloudBridge: switch pages with ⌘1–⌘0 (Ctrl on Windows), reload, run a query and close dialogs."
 ---
 

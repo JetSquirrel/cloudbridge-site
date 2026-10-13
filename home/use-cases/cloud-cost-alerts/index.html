@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloud Cost Alerts for AWS, Cloudflare and AI APIs | CloudBridge</title>
+<meta name="description" content="Catch a runaway AWS, Cloudflare or AI API bill within a day or two, not on the invoice. Daily anomaly rules, budgets and menu bar alerts, all local.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#0e1420">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<meta property="og:title" content="Cloud Cost Alerts for AWS, Cloudflare and AI APIs | CloudBridge">
+<meta property="og:description" content="Know the day a cloud or AI bill starts running away. CloudBridge reads bills per day and alerts from the menu bar. Free, open source, local.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="The CloudBridge Overview: month-to-date spend across clouds and model providers, a daily spend chart and the biggest movers">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cloud Cost Alerts for AWS, Cloudflare and AI APIs | CloudBridge">
+<meta name="twitter:description" content="Know the day a cloud or AI bill starts running away. CloudBridge reads bills per day and alerts from the menu bar. Free, open source, local.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/",
+      "name": "Cloud cost alerts for AWS, Cloudflare and AI APIs",
+      "description": "Catch a runaway AWS, Cloudflare or AI API bill within a day or two, not on the invoice. Daily anomaly rules, budgets and menu bar alerts, all local.",
+      "inLanguage": "en",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "Cloud cost alerts", "item": "https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "en",
+      "mainEntity": [
+        { "@type": "Question", "name": "How soon will CloudBridge notice a cost spike?", "acceptedAnswer": { "@type": "Answer", "text": "Within a day or two. Bills are read per day, so a spike is in the ledger once the provider reports that day's usage and the next refresh runs, rather than on the month's invoice. It is not a real-time monitor." } },
+        { "@type": "Question", "name": "Does CloudBridge have to stay open to send alerts?", "acceptedAnswer": { "@type": "Answer", "text": "It has to be running, but not with its window open. On macOS and Windows it stays in the menu bar, refreshes each account once per refresh interval and posts a system notification for each new alert. Open at login keeps it running after a restart." } },
+        { "@type": "Question", "name": "Can it catch a project that goes from zero spend to a runaway?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, with an Account budget rule based on the month-end forecast. The anomaly rule compares a service with its own past seven days, so a service that cost nothing has no baseline; the forecast rule projects the first expensive day across the rest of the month." } },
+        { "@type": "Question", "name": "Does watching my bills add to them?", "acceptedAnswer": { "@type": "Answer", "text": "Only on AWS, where Cost Explorer charges per request and S3 charges for reads. CloudBridge fetches each account once per refresh interval, about two Cost Explorer requests per AWS account a day by default, and never pays twice for the same data." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/">Docs</a>
+        <a class="optional" href="/blog/">Blog</a>
+        <a class="optional" href="/demo/">Demo</a>
+        <a href="/zh/use-cases/cloud-cost-alerts/" hreflang="zh-CN" lang="zh-CN">中文</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><span>Cloud cost alerts</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">Know the day it starts, not the day the invoice comes</p>
+      <h1>Cloud cost alerts that arrive before the invoice</h1>
+      <p class="lede">CloudBridge reads your AWS, Alibaba Cloud, Cloudflare and model-provider bills per day into a ledger on your computer, runs alert rules on it, and posts a notification from the menu bar when spend jumps.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download CloudBridge</a>
+        <a class="button button-ghost" href="/docs/alerts">Read the alert docs</a>
+      </div>
+      <p class="fineprint">Free and open source for macOS and Windows. No account, no sync, no telemetry.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Why the invoice is too late</p>
+      <h2>Three things make a runaway bill a surprise</h2>
+      <p class="intro">Usage billing has no ceiling, the bill lags behind the usage, and the project that runs away is usually the one nobody watches.</p>
+      <ol class="steps">
+        <li>
+          <h3>No ceiling</h3>
+          <p>A pay-as-you-go account bills what it uses. Code that goes wrong often does not crash: it keeps succeeding, and keeps billing.</p>
+        </li>
+        <li>
+          <h3>A lagging bill</h3>
+          <p>Usage is aggregated and priced before it reaches the bill. Cost Explorer can be a day behind, and the invoice comes once a month.</p>
+        </li>
+        <li>
+          <h3>Nobody watching</h3>
+          <p>Production has dashboards. The test project and the forgotten prototype have no traffic, so nobody looks at their charts.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Alert rules</p>
+      <h2>A rule for each way a bill goes wrong</h2>
+      <p class="intro">Three rules ship enabled. Add budget rules for the accounts that matter, and scope an anomaly rule to one account if you like.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Situation</th><th>Rule</th><th>Default</th></tr></thead>
+          <tbody>
+            <tr><td>A service with steady spend suddenly doubles</td><td>Cost growth anomaly against the service's own trailing 7-day baseline</td><td>Above 2.5× for 2 consecutive days</td></tr>
+            <tr><td>A dormant project wakes up, or something new runs away</td><td>Account budget, based on the month-end forecast</td><td>Set a monthly budget for the account first</td></tr>
+            <tr><td>A prepaid balance drains fast, such as DeepSeek's</td><td>Balance floor</td><td>200 in the balance's own currency, or the account's budget</td></tr>
+            <tr><td>New spend that nobody owns</td><td>Untagged spend ratio</td><td>Above 15% and higher than last month</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/alerts">Alerts, rules and budgets →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">Keep watch</p>
+          <h2>It keeps watching with the window closed</h2>
+          <p>On macOS and Windows, CloudBridge stays in the menu bar with the month's spend as its title. It fetches each account once its refresh interval has passed (24 hours by default, down to 6), runs the rules, and posts a system notification for each new alert. Open at login keeps that going after a restart.</p>
+          <p><a href="/docs/background">Menu bar and background</a></p>
+        </div>
+        <ul class="promise">
+          <li>Bills are read per day, so a spike shows up the next day instead of at month end.</li>
+          <li>Cloudflare's daily bill splits down to the R2 bucket, Worker, D1 database and Durable Object.</li>
+          <li>A 15-minute local check notices when an account is due, without contacting the provider.</li>
+          <li>Each provider is asked at most once per refresh interval, so watching closely costs no extra API fees.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">A real case</p>
+          <h2>A $10,811 Durable Object alarm</h2>
+          <p>A dormant Cloudflare project looped through about six trillion reads and writes, and the first sign was the invoice. The write-up walks through what happened, why nothing warned anyone, and which rule would have.</p>
+          <p><a href="/blog/cloudflare-durable-object-runaway">Read the post</a></p>
+        </div>
+        <ul class="promise">
+          <li>The anomaly rule cannot see it: a service that cost nothing has no baseline.</li>
+          <li>An Account budget rule on the month-end forecast can, from the first expensive day.</li>
+          <li>Cloudflare usage inside the free allowance is recorded too, at zero cost, because that is where a runaway starts.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Privacy</p>
+          <h2>Your bills stay on your machine</h2>
+          <p>A bill says what you run and for whom. CloudBridge keeps the ledger in a DuckDB file on your disk and credentials in the OS keyring, and only ever reads from providers.</p>
+        </div>
+        <ul class="promise">
+          <li>No CloudBridge account, no sync service, no telemetry.</li>
+          <li>Read-only credentials; no provider resource is created or changed.</li>
+          <li>Open source under MIT.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions people ask</h2>
+      <dl class="faq">
+        <div><dt>How soon will CloudBridge notice a cost spike?</dt><dd>Within a day or two. Bills are read per day, so a spike is in the ledger once the provider reports that day's usage and the next refresh runs, rather than on the month's invoice. It is not a real-time monitor.</dd></div>
+        <div><dt>Does CloudBridge have to stay open to send alerts?</dt><dd>It has to be running, but not with its window open. On macOS and Windows it stays in the menu bar, refreshes each account once per refresh interval and posts a notification for each new alert. Open at login keeps it running after a restart.</dd></div>
+        <div><dt>Can it catch a project that goes from zero to a runaway?</dt><dd>Yes, with an Account budget rule based on the month-end forecast. The anomaly rule compares a service with its own past seven days, so a service that cost nothing has no baseline; the forecast projects the first expensive day across the rest of the month.</dd></div>
+        <div><dt>Does watching my bills add to them?</dt><dd>Only on AWS, where Cost Explorer charges per request and S3 charges for reads. CloudBridge fetches each account once per refresh interval, about two Cost Explorer requests per AWS account a day by default, and never pays twice for the same data.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Find out the next day, not the next month</h2>
+      <p>Download CloudBridge, connect an account, set a budget, and let it watch from the menu bar. Or look around the demo first.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">Try the demo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/">Docs</a>
+    <a href="/blog/">Blog</a>
+    <a href="/demo/">Demo</a>
+    <a href="/use-cases/llm-api-cost-tracking/">LLM API costs</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/zh/use-cases/cloud-cost-alerts/" hreflang="zh-CN" lang="zh-CN">中文</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

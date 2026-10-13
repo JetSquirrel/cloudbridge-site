@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge alert rules — cost anomalies, balance floors, untagged spend and account budgets — when they run, what they measure, and how alerts are snoozed, dismissed and resolved."
+title: "Cloud cost anomaly alerts, rules and budgets"
+description: "CloudBridge alert rules for cost anomalies, balance floors, untagged spend and budgets: when they run, what they measure, and how alerts resolve."
 ---
 
 # Alerts, rules and budgets

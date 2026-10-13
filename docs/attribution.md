@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge's Attribution page: a Sankey from source to service or model to business line, and a breakdown by tag, service, region or FOCUS service category."
+title: "Cost attribution by business line, tag and service"
+description: "CloudBridge Attribution: a Sankey from source to service or model to business line, and breakdowns by tag, service, region or FOCUS category."
 ---
 
 # Attribution

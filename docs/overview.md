@@ -1,5 +1,6 @@
 ---
-description: "How CloudBridge's Overview reads your spend — net and gross, credits, the chart, biggest movers and unallocated usage — plus account pages, data health, adding and removing accounts."
+title: "Overview: net spend, forecast and accounts"
+description: "How CloudBridge’s Overview reads spend: net and gross, credits, the forecast, biggest movers and unallocated usage, plus accounts and data health."
 ---
 
 # Overview and accounts

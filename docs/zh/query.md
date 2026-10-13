@@ -1,4 +1,5 @@
 ---
+title: "用 SQL 查询本地账单账本"
 description: "CloudBridge 查询页：对本地 DuckDB 账单账本执行只读 SQL，内置花费、服务、业务线、预测和资源等常用查询模板。"
 ---
 

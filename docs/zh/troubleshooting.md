@@ -1,5 +1,6 @@
 ---
-description: "CloudBridge 常见问题的解决办法：钥匙串授权提示、AWS AccessDenied、总览为空、Windows SmartScreen、导入报错、Cloudflare 扫描被拒，以及该来却没来的告警。"
+title: "CloudBridge 常见问题排查"
+description: "CloudBridge 常见问题：钥匙串提示、AWS AccessDenied、总览为空、Windows SmartScreen、导入报错、Cloudflare 扫描被拒和没来的告警。"
 ---
 
 # 常见问题排查

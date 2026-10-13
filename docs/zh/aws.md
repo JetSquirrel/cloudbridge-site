@@ -1,4 +1,5 @@
 ---
+title: "AWS 费用：Cost Explorer 与 FOCUS 数据导出"
 description: "把 AWS 账号接入 CloudBridge：通过只含一个操作的 IAM 策略使用 Cost Explorer，或读取 S3 里的 FOCUS Data Export 获得资源级明细。"
 ---
 
