@@ -70,6 +70,8 @@ function sidebar(zh = false): DefaultTheme.SidebarItem[] {
       text: zh ? '连接账单' : 'Connect your bills',
       items: [
         item('aws', 'AWS', 'AWS'),
+        item('azure', 'Microsoft Azure', 'Microsoft Azure'),
+        item('google-cloud', 'Google Cloud', 'Google Cloud'),
         item('alibaba-cloud', 'Alibaba Cloud', '阿里云'),
         item('cloudflare', 'Cloudflare', 'Cloudflare'),
         item('deepseek', 'DeepSeek', 'DeepSeek'),

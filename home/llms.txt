@@ -1,6 +1,6 @@
 # CloudBridge
 
-> CloudBridge is a free, open-source (MIT) desktop app that reads cloud and AI provider bills into one local ledger on the user's own computer, shows where the money went, and alerts when spend starts running away. It reads AWS (Cost Explorer, or a FOCUS 1.2 Data Export in S3), Alibaba Cloud and Cloudflare billing APIs and DeepSeek's balance API, and imports bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek. No sign-up, no sync, no telemetry. It runs on macOS (Apple silicon) and 64-bit Windows; Linux and Intel Macs build from source.
+> CloudBridge is a free, open-source (MIT) desktop app that reads cloud and AI provider bills into one local ledger on the user's own computer, shows where the money went, and alerts when spend starts running away. It reads AWS (Cost Explorer, or a FOCUS 1.2 Data Export in S3), Azure (Cost Management), Alibaba Cloud and Cloudflare billing APIs, Google Cloud's BigQuery billing export and DeepSeek's balance API, and imports bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek. No sign-up, no sync, no telemetry. It runs on macOS (Apple silicon) and 64-bit Windows; Linux and Intel Macs build from source.
 
 Key facts:
 
@@ -10,7 +10,7 @@ Key facts:
 - On macOS and Windows the app stays in the menu bar after its window closes, with the month's spend as the icon's title; it fetches each account once per refresh interval (24 hours by default; a 15-minute local check notices when one is due, without contacting the provider), runs alert rules and posts system notifications. Open at login starts it after a restart.
 - Alert rules: cost growth anomalies against a trailing 7-day baseline, prepaid balance floors, untagged spend ratio and account budgets (cost to date or month-end forecast).
 - Pages: Overview (month to date, 30 days, 12 months, forecast, biggest movers), Attribution (Sankey to business lines; breakdown by tag, service, region, FOCUS service category), Models (per-model tokens and cost per million), Insights (a read-only resource scan of AWS and Cloudflare priced from the bill), Query (read-only SQL over the ledger).
-- Credentials are kept in the OS keyring; the app only reads from providers and never creates or changes a resource. The only paid calls it makes are AWS Cost Explorer requests and S3 reads.
+- Credentials are kept in the OS keyring; the app only reads from providers and never creates or changes a resource. The only calls that can cost money are AWS Cost Explorer requests, S3 reads and, for Google Cloud, BigQuery queries past the monthly free tier.
 - A browser demo of the same application, compiled to WebAssembly, runs on a sample bill: https://cloudbridge.jetsquirrel.cloud/demo/
 - Download: https://github.com/JetSquirrel/cloudbridge/releases/latest
 - Source code: https://github.com/JetSquirrel/cloudbridge
@@ -21,6 +21,8 @@ Every documentation page is also served as Markdown: add `.md` to its address (f
 
 - [Getting started](https://cloudbridge.jetsquirrel.cloud/docs/getting-started.md): install on macOS or Windows, the demo bill, add an account, read the first bill
 - [AWS](https://cloudbridge.jetsquirrel.cloud/docs/aws.md): Cost Explorer with a one-action IAM policy, or a FOCUS Data Export in S3; what it costs
+- [Microsoft Azure](https://cloudbridge.jetsquirrel.cloud/docs/azure.md): a subscription's actual cost from Cost Management, with a Cost Management Reader service principal
+- [Google Cloud](https://cloudbridge.jetsquirrel.cloud/docs/google-cloud.md): the billing account's BigQuery export, read with a service account key
 - [Alibaba Cloud](https://cloudbridge.jetsquirrel.cloud/docs/alibaba-cloud.md): billing API with a read-only RAM user, or the bill details export
 - [Cloudflare](https://cloudbridge.jetsquirrel.cloud/docs/cloudflare.md): daily billable usage, the per-resource split, and the token's permissions
 - [DeepSeek](https://cloudbridge.jetsquirrel.cloud/docs/deepseek.md): balance API and the usage download
