@@ -59,7 +59,7 @@
   "inLanguage": "zh-CN",
   "mainEntity": [
     { "@type": "Question", "name": "CloudBridge 是什么？", "acceptedAnswer": { "@type": "Answer", "text": "一个免费开源的桌面应用。它把你在各家云平台和 AI 服务商的账单读进你电脑上的一本账——要么通过服务商的账单 API，要么用你下载的账单导出文件——然后画出钱花在了哪里。它会在这本账上跑告警规则，窗口关掉后还会在菜单栏里继续盯着。" } },
-    { "@type": "Question", "name": "支持哪些平台？", "acceptedAnswer": { "@type": "Answer", "text": "AWS（Cost Explorer，或存在 S3 里的 FOCUS 格式 Data Export）、阿里云和 Cloudflare 通过账单 API 接入；DeepSeek 通过余额 API 接入；阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 还可以导入账单文件。暂不支持 Azure 和 Google Cloud。" } },
+    { "@type": "Question", "name": "支持哪些平台？", "acceptedAnswer": { "@type": "Answer", "text": "AWS（Cost Explorer，或存在 S3 里的 FOCUS 格式 Data Export）、Azure（Cost Management）、阿里云和 Cloudflare 通过账单 API 接入；Google Cloud 通过 BigQuery 账单导出接入；DeepSeek 通过余额 API 接入；阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 还可以导入账单文件。" } },
     { "@type": "Question", "name": "CloudBridge 会把我的账单传到别处吗？", "acceptedAnswer": { "@type": "Answer", "text": "不会。账单从服务商直接写进你电脑上的一个 DuckDB 文件。CloudBridge 没有账号体系，没有同步服务，也不上报任何数据，凭据存放在系统钥匙串里。" } },
     { "@type": "Question", "name": "CloudBridge 自己会让我的账单变多吗？", "acceptedAnswer": { "@type": "Answer", "text": "只有 AWS 会产生费用：Cost Explorer 按请求收费，S3 读取也收费。CloudBridge 每个刷新间隔（默认 24 小时）最多向每个服务商请求一次，每个 AWS 账号一天大约两次 Cost Explorer 请求；已经付过费的拉取不会重复，没有变化的 S3 导出也不会重新下载。它调用的其他 API 都免费，而且从不创建或修改任何资源。" } },
     { "@type": "Question", "name": "它怎么发现账单失控？", "acceptedAnswer": { "@type": "Answer", "text": "它按天读取账单，所以花费一飙升，第二天就进了账本，不用等月底发票。规则会标出超过近期基线的花费、预算和余额过低；CloudBridge 运行期间（包括窗口关掉、只留在菜单栏的时候）每个账号每天刷新一次，每条告警都会发系统通知。Cloudflare 的账单还能拆到背后具体的 bucket、Worker 或 Durable Object。" } },
@@ -179,7 +179,7 @@
           </ul>
         </div>
       </div>
-      <p class="note">暂不支持 Azure 和 Google Cloud。各 logo 是其所有者的商标，在这里只用来说明 CloudBridge 能读哪些账单。</p>
+      <p class="note">各 logo 是其所有者的商标，在这里只用来说明 CloudBridge 能读哪些账单。</p>
     </div>
   </section>
 
@@ -324,7 +324,7 @@
       <h2>大家常问的</h2>
       <dl class="faq">
         <div><dt>CloudBridge 是什么？</dt><dd>一个免费开源的桌面应用。它把你在各家云平台和 AI 服务商的账单读进你电脑上的一本账——要么通过服务商的账单 API，要么用你下载的账单导出文件——然后画出钱花在了哪里。它会在这本账上跑告警规则，窗口关掉后还会在菜单栏里继续盯着。</dd></div>
-        <div><dt>支持哪些平台？</dt><dd>AWS（Cost Explorer，或存在 S3 里的 FOCUS 格式 Data Export）、阿里云和 Cloudflare 通过账单 API 接入；DeepSeek 通过余额 API 接入；阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 还可以导入账单文件。暂不支持 Azure 和 Google Cloud。</dd></div>
+        <div><dt>支持哪些平台？</dt><dd>AWS（Cost Explorer，或存在 S3 里的 FOCUS 格式 Data Export）、Azure（Cost Management）、阿里云和 Cloudflare 通过账单 API 接入；Google Cloud 通过 BigQuery 账单导出接入；DeepSeek 通过余额 API 接入；阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 还可以导入账单文件。</dd></div>
         <div><dt>CloudBridge 会把我的账单传到别处吗？</dt><dd>不会。账单从服务商直接写进你电脑上的一个 DuckDB 文件。CloudBridge 没有账号体系，没有同步服务，也不上报任何数据，凭据存放在系统钥匙串里。</dd></div>
         <div><dt>CloudBridge 自己会让我的账单变多吗？</dt><dd>只有 AWS 会产生费用：Cost Explorer 按请求收费，S3 读取也收费。CloudBridge 每个刷新间隔（默认 24 小时）最多向每个服务商请求一次，每个 AWS 账号一天大约两次 Cost Explorer 请求；已经付过费的拉取不会重复，没有变化的 S3 导出也不会重新下载。它调用的其他 API 都免费，而且从不创建或修改任何资源。</dd></div>
         <div><dt>它怎么发现账单失控？</dt><dd>它按天读取账单，所以花费一飙升，第二天就进了账本，不用等月底发票。规则会标出超过近期基线的花费、预算和余额过低；CloudBridge 运行期间（包括窗口关掉、只留在菜单栏的时候）每个账号每天刷新一次，每条告警都会发系统通知。Cloudflare 的账单还能拆到背后具体的 bucket、Worker 或 Durable Object。</dd></div>

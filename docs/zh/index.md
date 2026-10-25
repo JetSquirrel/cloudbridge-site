@@ -2,7 +2,7 @@
 layout: home
 title: "CloudBridge 文档 — 连接账单、读懂账单、盯住花费"
 titleTemplate: false
-description: "CloudBridge 文档：把 AWS、阿里云、Cloudflare、火山引擎、OpenAI、Anthropic 和 DeepSeek 的账单读进本机的一本账，并盯住花费。"
+description: "CloudBridge 文档：把 AWS、Azure、Google Cloud、阿里云、Cloudflare、火山引擎、OpenAI、Anthropic 和 DeepSeek 的账单读进本机的一本账，并盯住花费。"
 hero:
   name: CloudBridge 文档
   text: 云与 AI 账单，一本账。
@@ -22,7 +22,7 @@ hero:
       link: https://cloudbridge.jetsquirrel.cloud/zh/
 features:
   - title: 连接账单
-    details: AWS、阿里云和 Cloudflare 通过账单 API 接入；火山引擎、OpenAI、Anthropic 和 DeepSeek 导入控制台导出的账单文件。
+    details: AWS、Azure、阿里云和 Cloudflare 通过账单 API 接入，Google Cloud 通过 BigQuery 账单导出接入；火山引擎、OpenAI、Anthropic 和 DeepSeek 导入控制台导出的账单文件。
     link: /zh/aws
     linkText: 数据源
   - title: 看清钱花在哪
@@ -48,6 +48,8 @@ features:
 | 安装 CloudBridge，看到第一份账单 | [快速上手](getting-started.md) |
 | 先不安装，看看长什么样 | [浏览器演示](https://cloudbridge.jetsquirrel.cloud/demo/) |
 | 通过 Cost Explorer 或 Data Export 接入 AWS | [AWS](aws.md) |
+| 接入 Azure 订阅 | [Microsoft Azure](azure.md) |
+| 通过 BigQuery 账单导出接入 Google Cloud | [Google Cloud](google-cloud.md) |
 | 接入阿里云 | [阿里云](alibaba-cloud.md) |
 | 接入 Cloudflare，并按 bucket、Worker、Durable Object 拆分 | [Cloudflare](cloudflare.md) |
 | 接入 DeepSeek | [DeepSeek](deepseek.md) |

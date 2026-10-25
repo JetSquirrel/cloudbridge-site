@@ -1,6 +1,6 @@
 ---
 title: "各云平台的最小账单权限"
-description: "CloudBridge 在各平台需要的最小权限：AWS Cost Explorer 与 S3、阿里云 RAM、Cloudflare API token 和 DeepSeek key，以及凭据如何保管。"
+description: "CloudBridge 在各平台需要的最小权限：AWS Cost Explorer 与 S3、Azure Cost Management、Google Cloud BigQuery、阿里云 RAM、Cloudflare API token 和 DeepSeek key，以及凭据如何保管。"
 ---
 
 # 云平台权限
@@ -59,6 +59,37 @@ bucket 和前缀，把 `s3:GetObject` 限定到该前缀下的对象。如果对
 3. 创建 AccessKey 并填进 CloudBridge。
 
 不要使用主账号的 AccessKey。导入账单文件不需要凭据。
+
+## Microsoft Azure {#azure}
+
+一个服务主体——带客户端密码的应用注册——在订阅上授予内置的 **Cost Management Reader**
+（成本管理读者）角色。这个角色只能读取成本和用量数据；不要为了让它工作而给应用授予
+Reader、Contributor 或 Owner。
+
+| 请求 | 用途 |
+| --- | --- |
+| `GET https://management.azure.com/subscriptions/{id}`，不带凭据 | 从 `401` 质询中找出订阅所属的租户。订阅填成 `租户ID/订阅ID` 时跳过 |
+| `POST https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token` | 以客户端凭据授权方式获取 Azure Resource Manager 的 token |
+| `POST /subscriptions/{id}/providers/Microsoft.CostManagement/query` | 当月实际成本，按天、按服务和费用类型 |
+
+客户端 ID 和订阅 ID 不是机密。客户端密码是机密，保存在系统钥匙串里；把它的有效期设得
+尽量短，轮换后在 CloudBridge 里替换。
+
+## Google Cloud {#google-cloud}
+
+在账单导出所在项目里建一个服务账号，在项目上授予 **BigQuery Job User**，只在导出数据集
+上授予 **BigQuery Data Viewer**——不要授予在项目上，否则它能读取其他所有数据集。
+
+| 请求 | 用途 |
+| --- | --- |
+| `POST https://oauth2.googleapis.com/token` | 用服务账号密钥签名的断言换取 token |
+| `POST https://bigquery.googleapis.com/bigquery/v2/projects/{project}/queries` | 每个月对导出表运行一次查询作业 |
+| `GET https://bigquery.googleapis.com/bigquery/v2/projects/{project}/queries/{job}` | 读取作业结果的其余分页 |
+
+查询作业在表所在的项目里运行，超出免费额度后按 BigQuery 按需价格计入该项目。CloudBridge
+保存的是密钥文件的路径，不是密钥本身；像保护任何服务账号密钥一样保护这个文件，不再使用
+时在控制台删除密钥。也可以用 `gcloud auth application-default login` 生成的用户凭据文件，
+那样查询就以该用户的权限运行。
 
 ## Cloudflare {#cloudflare}
 

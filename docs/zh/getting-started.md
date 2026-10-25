@@ -57,6 +57,8 @@ cargo run --release
 | 数据源 | 账单怎么进来 | 需要什么 |
 | --- | --- | --- |
 | Amazon Web Services | 账单 API | Access Key ID + Secret — [AWS](aws.md) |
+| Microsoft Azure | Cost Management API | 客户端 ID + 密码 + 订阅 ID — [Azure](azure.md) |
+| Google Cloud | BigQuery 账单导出 | 服务账号密钥文件 + 导出表 — [Google Cloud](google-cloud.md) |
 | 阿里云 | 账单 API，或账单导出文件 | AccessKey ID + Secret — [阿里云](alibaba-cloud.md) |
 | Cloudflare | 账单 API | Account ID + API token — [Cloudflare](cloudflare.md) |
 | DeepSeek | 余额 API，或账单导出文件 | API key — [DeepSeek](deepseek.md) |

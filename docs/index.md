@@ -2,7 +2,7 @@
 layout: home
 title: "CloudBridge documentation — connect your bills, read them, keep watch"
 titleTemplate: false
-description: "CloudBridge docs: read AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic and DeepSeek bills into one local ledger, then keep watch."
+description: "CloudBridge docs: read AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic and DeepSeek bills into one local ledger, then keep watch."
 hero:
   name: CloudBridge Docs
   text: Your cloud and AI bills, in one ledger.
@@ -22,7 +22,7 @@ hero:
       link: https://cloudbridge.jetsquirrel.cloud/
 features:
   - title: Connect your bills
-    details: AWS, Alibaba Cloud and Cloudflare through their billing APIs; Volcengine, OpenAI, Anthropic and DeepSeek through the exports their consoles produce.
+    details: AWS, Azure, Alibaba Cloud and Cloudflare through their billing APIs, Google Cloud through its BigQuery billing export; Volcengine, OpenAI, Anthropic and DeepSeek through the exports their consoles produce.
     link: /aws
     linkText: Sources
   - title: Read where it went
@@ -48,6 +48,8 @@ features:
 | Install CloudBridge and see a first bill | [Getting started](getting-started.md) |
 | See it before installing anything | [The browser demo](https://cloudbridge.jetsquirrel.cloud/demo/) |
 | Connect AWS with Cost Explorer or a Data Export | [AWS](aws.md) |
+| Connect an Azure subscription | [Microsoft Azure](azure.md) |
+| Connect Google Cloud through its BigQuery billing export | [Google Cloud](google-cloud.md) |
 | Connect Alibaba Cloud | [Alibaba Cloud](alibaba-cloud.md) |
 | Connect Cloudflare, and split it by bucket, Worker and Durable Object | [Cloudflare](cloudflare.md) |
 | Connect DeepSeek | [DeepSeek](deepseek.md) |

@@ -1,6 +1,6 @@
 ---
 title: "Least-privilege billing permissions per provider"
-description: "The least-privilege credentials CloudBridge needs for AWS Cost Explorer and S3, Alibaba Cloud RAM, Cloudflare API tokens and DeepSeek keys."
+description: "The least-privilege credentials CloudBridge needs for AWS Cost Explorer and S3, Azure Cost Management, Google Cloud BigQuery, Alibaba Cloud RAM, Cloudflare API tokens and DeepSeek keys."
 ---
 
 # Provider permissions
@@ -73,6 +73,42 @@ review its scope against your requirements.
 
 Do not use the primary account's AccessKey. Importing a bill export needs
 no credential.
+
+## Microsoft Azure {#azure}
+
+A service principal — an app registration with a client secret — with the
+built-in **Cost Management Reader** role on the subscription. That role
+reads cost and usage data and nothing else; do not give the app Reader,
+Contributor or Owner to make it work.
+
+| Request | What it is for |
+| --- | --- |
+| `GET https://management.azure.com/subscriptions/{id}`, unauthenticated | Finding the subscription's tenant from the `401` challenge. Skipped when the subscription is entered as `tenant-id/subscription-id` |
+| `POST https://login.microsoftonline.com/{tenant}/oauth2/v2.0/token` | A token for Azure Resource Manager, by the client credentials grant |
+| `POST /subscriptions/{id}/providers/Microsoft.CostManagement/query` | The month's actual cost, daily, by service and charge type |
+
+The client ID and subscription ID are not secrets. The client secret is,
+and is kept in the OS keyring; give it the shortest expiry your
+organization allows and replace it in CloudBridge when it is rotated.
+
+## Google Cloud {#google-cloud}
+
+A service account in the billing export's project, with **BigQuery Job
+User** on the project and **BigQuery Data Viewer** on the export dataset
+only — not on the project, where it would read every other dataset too.
+
+| Request | What it is for |
+| --- | --- |
+| `POST https://oauth2.googleapis.com/token` | A token, from an assertion signed with the service account's key |
+| `POST https://bigquery.googleapis.com/bigquery/v2/projects/{project}/queries` | One query job per month over the export table |
+| `GET https://bigquery.googleapis.com/bigquery/v2/projects/{project}/queries/{job}` | The rest of the job's result pages |
+
+The query job runs in the table's project and is billed to it at BigQuery's
+on-demand rate past the free tier. CloudBridge stores the key file's path,
+not the key; protect the file as you would any service account key, and
+delete the key in the console once it is no longer used. A user
+credentials file from `gcloud auth application-default login` also works,
+and queries with that user's access instead.
 
 ## Cloudflare {#cloudflare}
 

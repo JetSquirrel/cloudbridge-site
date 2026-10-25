@@ -62,6 +62,8 @@ Open **Accounts**, click **Add account**, pick the source and enter a name.
 | Source | How the bill arrives | What it needs |
 | --- | --- | --- |
 | Amazon Web Services | Billing API | Access Key ID + Secret — [AWS](aws.md) |
+| Microsoft Azure | Cost Management API | Client ID + secret + subscription ID — [Azure](azure.md) |
+| Google Cloud | BigQuery billing export | Service account key file + export table — [Google Cloud](google-cloud.md) |
 | Alibaba Cloud | Billing API, or a bill export | AccessKey ID + Secret — [Alibaba Cloud](alibaba-cloud.md) |
 | Cloudflare | Billing API | Account ID + API token — [Cloudflare](cloudflare.md) |
 | DeepSeek | Balance API, or a bill export | API key — [DeepSeek](deepseek.md) |
