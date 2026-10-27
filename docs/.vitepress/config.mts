@@ -100,6 +100,7 @@ function sidebar(zh = false): DefaultTheme.SidebarItem[] {
       text: zh ? '参考' : 'Reference',
       items: [
         item('settings-and-data', 'Settings, data and security', '设置、数据与安全'),
+        item('focus', 'FOCUS and token data', 'FOCUS 与 token 数据'),
         item('shortcuts', 'Keyboard shortcuts', '键盘快捷键'),
       ],
     },

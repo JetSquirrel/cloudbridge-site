@@ -31,6 +31,9 @@ The ledger is named after [FOCUS](https://focus.finops.org/) columns:
 `Purchase`, `Credit`, `Tax`, `Adjustment`), `service_name`,
 `service_category`, `resource_id`, `region_id`, `pricing_quantity` and
 `pricing_unit`, plus `x_model` for the model a model-provider row bills.
+Token rows also carry FOCUS 1.5's `consumed_quantity`, `consumed_unit`,
+`sku_meter` and `sku_price_details`; see [FOCUS and token
+data](focus.md#query) for a query over them.
 `cost_basis` says how much weight an amount carries: `authoritative` from
 the bill, `estimated` for an allocation such as Cloudflare's per-resource
 split, `absent` for usage with no amount.

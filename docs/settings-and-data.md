@@ -15,6 +15,7 @@ description: "What CloudBridge stores and where: the DuckDB ledger, accounts, ra
 | Reporting → Currency | USD or CNY for every total; charges keep their own currency |
 | Refreshing → Refresh interval | 6, 12, 24 (default) or 48 hours before a month is fetched again |
 | Background | [Open at login, background refresh, alert notifications](background.md) |
+| Data → Export as FOCUS | Every charge as a CSV with FOCUS column names, for another FinOps tool ([details](focus.md#export)) |
 | Demo data | Load or clear five sample accounts (AWS, Alibaba Cloud, DeepSeek, OpenAI, Anthropic) with twelve months of history |
 
 **Refresh** fetches months older than the refresh interval; **Force

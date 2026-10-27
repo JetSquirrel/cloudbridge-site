@@ -15,6 +15,7 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 | Reporting → Currency | 所有总额用 USD 还是 CNY；每条费用保留自己的币种 |
 | Refreshing → Refresh interval | 一个月份过多久会被再次拉取：6、12、24（默认）或 48 小时 |
 | Background | [开机启动、后台刷新、告警通知](background.md) |
+| Data → Export as FOCUS | 把所有费用导出为使用 FOCUS 列名的 CSV，供其他 FinOps 工具读取（[详情](focus.md#export)） |
 | Demo data | 加载或清除五个示例账号（AWS、阿里云、DeepSeek、OpenAI、Anthropic）及其十二个月的历史 |
 
 **Refresh** 拉取早于刷新间隔的月份；**Force Refresh** 拉取全部月份，可能产生云平台
