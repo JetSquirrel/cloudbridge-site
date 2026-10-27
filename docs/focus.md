@@ -36,6 +36,20 @@ Alibaba Cloud Model Studio and Volcengine Ark bill a single `Tokens`
 count for input and output together, so their rows have no
 `TokenDirection`. Output tokens have no `TokenCacheAction`.
 
+## Who spent it {#requester}
+
+FOCUS 1.5 also records the requester behind a charge. `PrincipalId` is
+the user, `CredentialId` is the published id of the API key (never the key
+itself), and `RequesterDetails` is a JSON array describing them, with the
+key's display name. CloudBridge fills them in the ledger's `principal_id`,
+`credential_id` and `requester_details` columns from these exports:
+
+- an OpenAI export grouped by user or API key;
+- an Anthropic export grouped by API key.
+
+DeepSeek's export has only the masked key and its name, which FOCUS does
+not allow as an identifier, so its rows have none.
+
 ## Where the values come from {#sources}
 
 - **OpenAI, Anthropic, DeepSeek, Model Studio and Ark imports.**

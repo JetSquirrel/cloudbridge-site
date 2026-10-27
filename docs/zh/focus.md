@@ -32,6 +32,19 @@ CloudBridge 的账本沿用 FinOps 基金会的开放成本与用量规范 [FOCU
 账单答不出来的属性就不写，不去猜。阿里云百炼和火山方舟的账单只有一个输入输出合在一起的
 `Tokens` 数，所以这些行没有 `TokenDirection`；输出 token 没有 `TokenCacheAction`。
 
+## 谁花的 {#requester}
+
+FOCUS 1.5 还记录一笔费用背后的请求方：`PrincipalId` 是用户，`CredentialId` 是 API key
+公开的 ID（绝不是 key 本身），`RequesterDetails` 是描述它们的 JSON 数组，包含 key 的显示
+名称。CloudBridge 从以下导出填写账本里的 `principal_id`、`credential_id` 和
+`requester_details` 列：
+
+- 按用户或 API key 分组的 OpenAI 导出；
+- 按 API key 分组的 Anthropic 导出。
+
+DeepSeek 的导出只有打码后的 key 和它的名称，FOCUS 不允许把它们当作标识，所以这些行
+没有请求方信息。
+
 ## 这些值从哪来 {#sources}
 
 - **OpenAI、Anthropic、DeepSeek、百炼和方舟的导入。** 按每份导出报告的 token 类型填写。
