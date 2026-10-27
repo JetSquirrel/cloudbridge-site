@@ -25,5 +25,7 @@ description: "CloudBridge 查询页：对本地 DuckDB 账单账本执行只读 
 `effective_cost`，`charge_category`（`Usage`、`Purchase`、`Credit`、`Tax`、
 `Adjustment`），`service_name`，`service_category`，`resource_id`，`region_id`，
 `pricing_quantity` 和 `pricing_unit`，另有 `x_model` 表示模型平台账单行对应的模型。
+token 行还带有 FOCUS 1.5 的 `consumed_quantity`、`consumed_unit`、`sku_meter` 和
+`sku_price_details`，查询示例见 [FOCUS 与 token 数据](focus.md#query)。
 `cost_basis` 说明一个金额有多可靠：`authoritative` 来自账单，`estimated` 是分摊值
 （比如 Cloudflare 按资源的拆分），`absent` 表示只有用量没有金额。

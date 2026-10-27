@@ -33,6 +33,7 @@ Every documentation page is also served as Markdown: add `.md` to its address (f
 - [Models](https://cloudbridge.jetsquirrel.cloud/docs/models.md): per-model token economics and findings
 - [Insights](https://cloudbridge.jetsquirrel.cloud/docs/insights.md): the read-only resource scan and what it finds
 - [Query](https://cloudbridge.jetsquirrel.cloud/docs/query.md): read-only SQL over the ledger
+- [FOCUS and token data](https://cloudbridge.jetsquirrel.cloud/docs/focus.md): LLM tokens recorded in FOCUS 1.5's terms (ConsumedQuantity, SkuMeter, and ModelId, TokenDirection and TokenCacheAction in SkuPriceDetails), and the FOCUS CSV export
 - [Alerts, rules and budgets](https://cloudbridge.jetsquirrel.cloud/docs/alerts.md): rules, budgets and notifications
 - [Menu bar and background](https://cloudbridge.jetsquirrel.cloud/docs/background.md): the menu bar icon, the background refresh, Open at login, failure handling
 - [Settings, data and security](https://cloudbridge.jetsquirrel.cloud/docs/settings-and-data.md): settings, storage locations, backups and security
