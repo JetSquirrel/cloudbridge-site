@@ -1,6 +1,6 @@
 ---
 title: "Fix common CloudBridge problems"
-description: "Fixes for common CloudBridge problems: Keychain prompts, AWS AccessDenied, an empty Overview, SmartScreen, import errors and alerts that did not fire."
+description: "Fixes for common CloudBridge problems: Keychain prompts, AWS AccessDenied, an empty Overview, SmartScreen, a console window on Windows, import errors and alerts that did not fire."
 ---
 
 # Troubleshooting
@@ -54,6 +54,14 @@ The Windows build is not code-signed, so SmartScreen shows *Windows
 protected your PC*. After checking the file came from the official
 [Releases](https://github.com/JetSquirrel/cloudbridge/releases) page, click
 **More info**, then **Run anyway**.
+
+## A console window opens with the app on Windows {#windows-console}
+
+Windows releases up to 0.7.1 open a black console window beside
+CloudBridge, and the `.exe` shows a generic icon instead of CloudBridge's.
+Closing that console quits CloudBridge, notification-area icon included, so
+minimize it rather than close it. Later releases open no console and carry
+their icon in the `.exe`, the title bar and the taskbar.
 
 ## Import errors {#import-errors}
 

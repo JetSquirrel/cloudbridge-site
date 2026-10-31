@@ -1,6 +1,6 @@
 ---
 title: "CloudBridge 常见问题排查"
-description: "CloudBridge 常见问题：钥匙串提示、AWS AccessDenied、总览为空、Windows SmartScreen、导入报错、Cloudflare 扫描被拒和没来的告警。"
+description: "CloudBridge 常见问题：钥匙串提示、AWS AccessDenied、总览为空、Windows SmartScreen、Windows 上的控制台窗口、导入报错、Cloudflare 扫描被拒和没来的告警。"
 ---
 
 # 常见问题排查
@@ -45,6 +45,13 @@ macOS 可能会询问是否允许 CloudBridge 使用对应的钥匙串项。点 
 Windows 版本没有代码签名，所以 SmartScreen 会提示 *Windows protected your PC*。
 确认文件来自官方 [Releases](https://github.com/JetSquirrel/cloudbridge/releases)
 页面后，点 **More info**，再点 **Run anyway**。
+
+## Windows 上启动时多出一个控制台窗口 {#windows-console}
+
+0.7.1 及更早的 Windows 版本启动时，会在 CloudBridge 旁边多开一个黑色控制台窗口，
+`.exe` 显示的也是通用图标，而不是 CloudBridge 的图标。关掉这个控制台会让
+CloudBridge 连同通知区域图标一起退出，所以请把它最小化，不要关闭。之后的版本不再打开
+控制台，`.exe`、标题栏和任务栏都会显示 CloudBridge 的图标。
 
 ## 导入报错 {#import-errors}
 
