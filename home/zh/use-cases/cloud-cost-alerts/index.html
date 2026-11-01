@@ -12,7 +12,7 @@
 <link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/styles.css">
-<meta name="theme-color" content="#0e1420">
+<meta name="theme-color" content="#f6f1e8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
@@ -184,12 +184,12 @@
     <div class="wrap">
       <p class="eyebrow">常见问题</p>
       <h2>大家常问的问题</h2>
-      <dl class="faq">
-        <div><dt>CloudBridge 多快能发现费用突增？</dt><dd>一两天之内。账单是按天读取的，服务商报出当天的用量、下一次刷新运行之后，突增就会出现在账本里，不用等到月底的发票。它不是实时监控。</dd></div>
-        <div><dt>要一直开着 CloudBridge 才能收到告警吗？</dt><dd>需要它在运行，但不需要开着窗口。在 macOS 和 Windows 上它会留在状态栏，每个账号每个刷新间隔拉取一次，有新告警就发系统通知。打开开机启动后，重启电脑也照常运行。</dd></div>
-        <div><dt>从零突然失控的项目也能发现吗？</dt><dd>能，用基于月底预测的账号预算规则。异常规则拿一个服务和它自己过去七天比，一分钱没花过的服务没有基线；月底预测会把第一天的高额花费外推到本月剩下的日子。</dd></div>
-        <div><dt>盯着账单本身会产生费用吗？</dt><dd>只有 AWS 会：Cost Explorer 按请求收费，S3 按读取收费。CloudBridge 每个账号每个刷新间隔只拉取一次，默认每个 AWS 账号每天大约两次 Cost Explorer 请求，同样的数据不会付两次钱。</dd></div>
-      </dl>
+      <div class="faq">
+        <details><summary>CloudBridge 多快能发现费用突增？</summary><p>一两天之内。账单是按天读取的，服务商报出当天的用量、下一次刷新运行之后，突增就会出现在账本里，不用等到月底的发票。它不是实时监控。</p></details>
+        <details><summary>要一直开着 CloudBridge 才能收到告警吗？</summary><p>需要它在运行，但不需要开着窗口。在 macOS 和 Windows 上它会留在状态栏，每个账号每个刷新间隔拉取一次，有新告警就发系统通知。打开开机启动后，重启电脑也照常运行。</p></details>
+        <details><summary>从零突然失控的项目也能发现吗？</summary><p>能，用基于月底预测的账号预算规则。异常规则拿一个服务和它自己过去七天比，一分钱没花过的服务没有基线；月底预测会把第一天的高额花费外推到本月剩下的日子。</p></details>
+        <details><summary>盯着账单本身会产生费用吗？</summary><p>只有 AWS 会：Cost Explorer 按请求收费，S3 按读取收费。CloudBridge 每个账号每个刷新间隔只拉取一次，默认每个 AWS 账号每天大约两次 Cost Explorer 请求，同样的数据不会付两次钱。</p></details>
+      </div>
     </div>
   </section>
 
