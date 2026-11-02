@@ -12,7 +12,7 @@
 <link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/styles.css">
-<meta name="theme-color" content="#0e1420">
+<meta name="theme-color" content="#f6f1e8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
@@ -184,12 +184,12 @@
     <div class="wrap">
       <p class="eyebrow">FAQ</p>
       <h2>Questions people ask</h2>
-      <dl class="faq">
-        <div><dt>How soon will CloudBridge notice a cost spike?</dt><dd>Within a day or two. Bills are read per day, so a spike is in the ledger once the provider reports that day's usage and the next refresh runs, rather than on the month's invoice. It is not a real-time monitor.</dd></div>
-        <div><dt>Does CloudBridge have to stay open to send alerts?</dt><dd>It has to be running, but not with its window open. On macOS and Windows it stays in the menu bar, refreshes each account once per refresh interval and posts a notification for each new alert. Open at login keeps it running after a restart.</dd></div>
-        <div><dt>Can it catch a project that goes from zero to a runaway?</dt><dd>Yes, with an Account budget rule based on the month-end forecast. The anomaly rule compares a service with its own past seven days, so a service that cost nothing has no baseline; the forecast projects the first expensive day across the rest of the month.</dd></div>
-        <div><dt>Does watching my bills add to them?</dt><dd>Only on AWS, where Cost Explorer charges per request and S3 charges for reads. CloudBridge fetches each account once per refresh interval, about two Cost Explorer requests per AWS account a day by default, and never pays twice for the same data.</dd></div>
-      </dl>
+      <div class="faq">
+        <details><summary>How soon will CloudBridge notice a cost spike?</summary><p>Within a day or two. Bills are read per day, so a spike is in the ledger once the provider reports that day's usage and the next refresh runs, rather than on the month's invoice. It is not a real-time monitor.</p></details>
+        <details><summary>Does CloudBridge have to stay open to send alerts?</summary><p>It has to be running, but not with its window open. On macOS and Windows it stays in the menu bar, refreshes each account once per refresh interval and posts a notification for each new alert. Open at login keeps it running after a restart.</p></details>
+        <details><summary>Can it catch a project that goes from zero to a runaway?</summary><p>Yes, with an Account budget rule based on the month-end forecast. The anomaly rule compares a service with its own past seven days, so a service that cost nothing has no baseline; the forecast projects the first expensive day across the rest of the month.</p></details>
+        <details><summary>Does watching my bills add to them?</summary><p>Only on AWS, where Cost Explorer charges per request and S3 charges for reads. CloudBridge fetches each account once per refresh interval, about two Cost Explorer requests per AWS account a day by default, and never pays twice for the same data.</p></details>
+      </div>
     </div>
   </section>
 

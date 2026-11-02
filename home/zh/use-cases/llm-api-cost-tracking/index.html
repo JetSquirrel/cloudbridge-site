@@ -12,7 +12,7 @@
 <link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/styles.css">
-<meta name="theme-color" content="#0e1420">
+<meta name="theme-color" content="#f6f1e8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
@@ -172,12 +172,12 @@
     <div class="wrap">
       <p class="eyebrow">常见问题</p>
       <h2>大家常问的问题</h2>
-      <dl class="faq">
-        <div><dt>需要把 OpenAI 或 Anthropic 的 API key 交给 CloudBridge 吗？</dt><dd>不需要。OpenAI 和 Anthropic 目前只支持导入：添加账号时只填名字、不填凭据，然后导入从控制台下载的费用或用量文件。</dd></div>
-        <div><dt>导出文件里只有 token 没有金额怎么办？</dt><dd>只有 token 的用量文件会作为用量记录保存。CloudBridge 会在模型页统计它的 token，但不会按标价把它换算成估算账单。</dd></div>
-        <div><dt>支持哪些模型平台？</dt><dd>OpenAI 和 Anthropic 的导出文件，DeepSeek 的余额 API 和用量下载，阿里云账单里的百炼，以及火山引擎账单导出里的火山方舟。</dd></div>
-        <div><dt>模型花费突增时能提醒我吗？</dt><dd>能。费用增长异常规则会在每日花费连续几天超过过去 7 天的基线时告警；余额下限规则会在 DeepSeek 这样的预付费余额快用完时提醒。</dd></div>
-      </dl>
+      <div class="faq">
+        <details><summary>需要把 OpenAI 或 Anthropic 的 API key 交给 CloudBridge 吗？</summary><p>不需要。OpenAI 和 Anthropic 目前只支持导入：添加账号时只填名字、不填凭据，然后导入从控制台下载的费用或用量文件。</p></details>
+        <details><summary>导出文件里只有 token 没有金额怎么办？</summary><p>只有 token 的用量文件会作为用量记录保存。CloudBridge 会在模型页统计它的 token，但不会按标价把它换算成估算账单。</p></details>
+        <details><summary>支持哪些模型平台？</summary><p>OpenAI 和 Anthropic 的导出文件，DeepSeek 的余额 API 和用量下载，阿里云账单里的百炼，以及火山引擎账单导出里的火山方舟。</p></details>
+        <details><summary>模型花费突增时能提醒我吗？</summary><p>能。费用增长异常规则会在每日花费连续几天超过过去 7 天的基线时告警；余额下限规则会在 DeepSeek 这样的预付费余额快用完时提醒。</p></details>
+      </div>
     </div>
   </section>
 

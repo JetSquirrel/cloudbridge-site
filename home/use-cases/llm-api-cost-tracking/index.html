@@ -12,7 +12,7 @@
 <link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/styles.css">
-<meta name="theme-color" content="#0e1420">
+<meta name="theme-color" content="#f6f1e8">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
@@ -172,12 +172,12 @@
     <div class="wrap">
       <p class="eyebrow">FAQ</p>
       <h2>Questions people ask</h2>
-      <dl class="faq">
-        <div><dt>Do I need to give CloudBridge my OpenAI or Anthropic API key?</dt><dd>No. OpenAI and Anthropic are import-only: add the account with a name and no credentials, then import the cost or usage export downloaded from the provider's console.</dd></div>
-        <div><dt>What if my export has tokens but no cost?</dt><dd>Token-only exports stay usage records. CloudBridge counts their tokens on the Models page but does not turn them into an estimated bill.</dd></div>
-        <div><dt>Which model providers does it read?</dt><dd>OpenAI and Anthropic exports, DeepSeek's balance API and usage download, Alibaba Cloud Model Studio through the Alibaba Cloud bill, and Volcengine Ark through the Volcengine bill export.</dd></div>
-        <div><dt>Can it warn me when model spend jumps?</dt><dd>Yes. The cost growth anomaly rule flags daily spend above its trailing 7-day baseline for consecutive days, and the balance floor rule warns when a prepaid balance such as DeepSeek's runs low.</dd></div>
-      </dl>
+      <div class="faq">
+        <details><summary>Do I need to give CloudBridge my OpenAI or Anthropic API key?</summary><p>No. OpenAI and Anthropic are import-only: add the account with a name and no credentials, then import the cost or usage export downloaded from the provider's console.</p></details>
+        <details><summary>What if my export has tokens but no cost?</summary><p>Token-only exports stay usage records. CloudBridge counts their tokens on the Models page but does not turn them into an estimated bill.</p></details>
+        <details><summary>Which model providers does it read?</summary><p>OpenAI and Anthropic exports, DeepSeek's balance API and usage download, Alibaba Cloud Model Studio through the Alibaba Cloud bill, and Volcengine Ark through the Volcengine bill export.</p></details>
+        <details><summary>Can it warn me when model spend jumps?</summary><p>Yes. The cost growth anomaly rule flags daily spend above its trailing 7-day baseline for consecutive days, and the balance floor rule warns when a prepaid balance such as DeepSeek's runs low.</p></details>
+      </div>
     </div>
   </section>
 

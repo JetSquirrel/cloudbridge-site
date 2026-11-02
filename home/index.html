@@ -4,28 +4,28 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<title>CloudBridge — your cloud and AI bills, in one ledger on your machine</title>
-<meta name="description" content="CloudBridge is a free, open-source desktop app that reads AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic and DeepSeek bills into one local ledger, and tells you when spend starts running away. No sign-up, no sync, no telemetry.">
+<title>CloudBridge: see your cloud and AI bills in one place</title>
+<meta name="description" content="CloudBridge is a free, open-source desktop app that collects your AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic and DeepSeek bills in a local database and alerts you when costs jump. No sign-up, no sync, no telemetry.">
 <link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/">
 <link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/">
 <link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/">
 <link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="stylesheet" href="/styles.css">
-<meta name="theme-color" content="#0e1420">
+<meta name="theme-color" content="#111111">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/">
-<meta property="og:title" content="CloudBridge — your cloud and AI bills, in one ledger on your machine">
-<meta property="og:description" content="Read AWS, Alibaba Cloud, Cloudflare and model-provider bills into one local ledger, and get told when spend starts running away. Free and open source, for macOS and Windows.">
+<meta property="og:title" content="CloudBridge: see your cloud and AI bills in one place">
+<meta property="og:description" content="Collect your AWS, Alibaba Cloud, Cloudflare and AI provider bills in a local database and get alerted when costs jump. Free and open source, for macOS and Windows.">
 <meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
 <meta property="og:image:alt" content="The CloudBridge Overview: month-to-date spend across clouds and model providers, a daily spend chart and the biggest movers">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="CloudBridge — your cloud and AI bills, in one ledger on your machine">
-<meta name="twitter:description" content="Read AWS, Alibaba Cloud, Cloudflare and model-provider bills into one local ledger, and get told when spend starts running away. Free and open source, for macOS and Windows.">
+<meta name="twitter:title" content="CloudBridge: see your cloud and AI bills in one place">
+<meta name="twitter:description" content="Collect your AWS, Alibaba Cloud, Cloudflare and AI provider bills in a local database and get alerted when costs jump. Free and open source, for macOS and Windows.">
 <meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
 <link rel="alternate" type="text/plain" title="llms.txt" href="https://cloudbridge.jetsquirrel.cloud/llms.txt">
 <link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/feed.xml">
@@ -34,7 +34,7 @@
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": "CloudBridge",
-  "description": "A local-first desktop app that reads cloud and AI provider bills into one local DuckDB ledger, with alerts, attribution, per-model token economics and a resource scan.",
+  "description": "A local-first desktop app that collects cloud and AI provider bills in a local DuckDB database, with alerts, attribution, per-model token economics and a resource scan.",
   "url": "https://cloudbridge.jetsquirrel.cloud/",
   "applicationCategory": "FinanceApplication",
   "operatingSystem": "macOS (Apple silicon), Windows 10 or later (x64)",
@@ -47,7 +47,7 @@
   "isAccessibleForFree": true,
   "image": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
   "screenshot": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
-  "featureList": ["Read AWS (Cost Explorer or FOCUS Data Exports), Alibaba Cloud and Cloudflare billing APIs", "Import bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek", "One local DuckDB ledger named after FOCUS columns, with original currencies kept", "Cloudflare's daily bill split across R2 buckets, Workers, D1 databases and Durable Objects", "Menu bar icon with month-to-date spend, a daily background refresh and system notifications", "Alert rules for cost anomalies, balance floors, untagged spend and account budgets", "Attribution to business lines, a Models page for per-token economics and read-only SQL", "Insights: a read-only resource scan of AWS and Cloudflare, priced from the bill", "No sign-up, no sync, no telemetry; credentials in the OS keyring"],
+  "featureList": ["Read AWS (Cost Explorer or FOCUS Data Exports), Alibaba Cloud and Cloudflare billing APIs", "Import bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek", "A local DuckDB database with FOCUS column names, with original currencies kept", "Cloudflare's daily bill split across R2 buckets, Workers, D1 databases and Durable Objects", "Menu bar icon with month-to-date spend, a daily background refresh and system notifications", "Alert rules for cost anomalies, balance floors, untagged spend and account budgets", "Attribution to business lines, a Models page for per-token economics and read-only SQL", "Insights: a read-only resource scan of AWS and Cloudflare, priced from the bill", "No sign-up, no sync, no telemetry; credentials in the OS keyring"],
   "author": { "@type": "Person", "name": "JetSquirrel", "url": "https://github.com/JetSquirrel" },
   "inLanguage": "en"
 }
@@ -58,45 +58,111 @@
   "@type": "FAQPage",
   "inLanguage": "en",
   "mainEntity": [
-    { "@type": "Question", "name": "What is CloudBridge?", "acceptedAnswer": { "@type": "Answer", "text": "A free, open-source desktop app that reads your cloud and AI provider bills into one ledger on your machine — from each provider's billing API, or from the export you downloaded — and draws where the money went. It runs alerts on that ledger and keeps watching from the menu bar after its window closes." } },
-    { "@type": "Question", "name": "Which providers does it support?", "acceptedAnswer": { "@type": "Answer", "text": "AWS (Cost Explorer, or a FOCUS Data Export in S3), Azure (Cost Management), Alibaba Cloud and Cloudflare through their billing APIs; Google Cloud through its BigQuery billing export; DeepSeek through its balance API; and bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek." } },
-    { "@type": "Question", "name": "Does CloudBridge send my bills anywhere?", "acceptedAnswer": { "@type": "Answer", "text": "No. Bills go from the provider straight into a DuckDB file on your computer. There is no CloudBridge account, no sync service and no telemetry, and credentials are kept in the OS keyring." } },
-    { "@type": "Question", "name": "Can CloudBridge itself add to my bill?", "acceptedAnswer": { "@type": "Answer", "text": "Only through AWS: Cost Explorer charges per request and S3 charges for reads. CloudBridge asks each provider at most once per refresh interval (24 hours by default), about two Cost Explorer requests per AWS account a day, never repeats a fetch that was already paid for, and does not re-download an S3 export that has not changed. Every other API it calls is free, and it never creates or changes a resource." } },
-    { "@type": "Question", "name": "How does it catch a runaway bill?", "acceptedAnswer": { "@type": "Answer", "text": "It reads bills per day, so a spike is in the ledger the next day rather than on the invoice. Rules flag spend above its trailing baseline, budgets and low balances; while CloudBridge runs — in the menu bar, with its window closed — it refreshes each account once a day and posts a notification for each alert. Cloudflare's bill is split down to the bucket, Worker or Durable Object behind it." } },
-    { "@type": "Question", "name": "Which systems does it run on?", "acceptedAnswer": { "@type": "Answer", "text": "macOS on Apple silicon (signed and notarized) and 64-bit Windows. Linux and Intel Macs can build it from source." } },
-    { "@type": "Question", "name": "Is CloudBridge free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. It is free and open source under the MIT license, with the full source code on GitHub. Provider API fees, where there are any, are separate." } },
-    { "@type": "Question", "name": "Can I try it without installing it?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. The same application compiles to WebAssembly and runs in the browser demo, on a sample bill of twelve months across several providers." } }
+    {"@type": "Question", "name": "What is CloudBridge?", "acceptedAnswer": {"@type": "Answer", "text": "A free, open-source desktop app that collects your cloud and AI provider bills in a database on your computer, using each provider's billing API or a file you downloaded. It shows what you're spending on, checks your alert rules, and keeps running in the menu bar after you close the window."}},
+    {"@type": "Question", "name": "Which providers does it support?", "acceptedAnswer": {"@type": "Answer", "text": "AWS (Cost Explorer, or a FOCUS Data Export in S3), Azure (Cost Management), Alibaba Cloud and Cloudflare through their billing APIs; Google Cloud through its BigQuery billing export; DeepSeek through its balance API; and bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek."}},
+    {"@type": "Question", "name": "Does CloudBridge send my bills anywhere?", "acceptedAnswer": {"@type": "Answer", "text": "No. Bills go directly from the provider to a DuckDB file on your computer. There's no CloudBridge account, sync service or telemetry, and credentials are stored in your system keyring."}},
+    {"@type": "Question", "name": "Will CloudBridge add to my bill?", "acceptedAnswer": {"@type": "Answer", "text": "Only on AWS, where Cost Explorer charges per request and S3 charges for reads. CloudBridge contacts each provider at most once per refresh interval (24 hours by default), which is about two Cost Explorer requests per AWS account a day. It doesn't repeat a fetch it has already paid for or download an unchanged S3 export again. The other APIs it calls are free, and it never creates or changes a resource."}},
+    {"@type": "Question", "name": "How does it detect cost spikes?", "acceptedAnswer": {"@type": "Answer", "text": "It reads bills by day, so a spike shows up in the data the next day. Rules check for spending above its recent baseline, budgets and low balances. While CloudBridge is running, even with its window closed, it refreshes each account once a day and sends a notification for each alert. Cloudflare bills can also be split down to the bucket, Worker or Durable Object."}},
+    {"@type": "Question", "name": "Which systems does it run on?", "acceptedAnswer": {"@type": "Answer", "text": "macOS on Apple silicon (signed and notarized) and 64-bit Windows. Linux and Intel Macs can build it from source."}},
+    {"@type": "Question", "name": "Is CloudBridge free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. It's free and open source under the MIT license, with the full source code on GitHub. Any provider API fees are separate."}},
+    {"@type": "Question", "name": "Can I try it without installing it?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The browser demo runs the same app, compiled to WebAssembly, on a sample bill covering twelve months and several providers."}}
   ]
 }
 </script>
 </head>
 <body>
 
-<header class="hero">
-  <div class="wrap">
-    <div class="topbar">
-      <a class="brand" href="/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
-      <nav aria-label="Site">
-        <a href="/docs/">Docs</a>
-        <a class="optional" href="/blog/">Blog</a>
-        <a class="optional" href="/demo/">Demo</a>
-        <a class="optional" href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
-        <a href="/zh/" hreflang="zh-CN" lang="zh-CN">中文</a>
-        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download="short">Download</a>
-      </nav>
-    </div>
-
-    <div class="hero-grid">
-      <div>
-        <h1>Cloud and AI bills.<br>One ledger.<br><span class="accent">On your machine.</span></h1>
-        <p class="lede">CloudBridge reads every bill you pay — AWS, Alibaba Cloud, Cloudflare, OpenAI, Anthropic, DeepSeek — into one ledger on your computer, shows where the money went, and tells you the day it starts running away.</p>
+<header class="hero hero-night">
+  <div class="night">
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand" href="/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+        <nav aria-label="Site">
+          <a href="/docs/">Docs</a>
+          <a class="optional" href="/blog/">Blog</a>
+          <a class="optional" href="/demo/">Demo</a>
+          <a class="optional" href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+          <a href="/zh/" hreflang="zh-CN" lang="zh-CN">中文</a>
+          <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download="short">Download</a>
+        </nav>
+      </div>
+      <div class="hero-copy">
+        <h1>See all your cloud and AI bills <span class="accent">in one place.</span></h1>
+        <p class="lede">CloudBridge is a desktop app that collects your bills from AWS, Alibaba Cloud, Cloudflare, OpenAI, Anthropic and DeepSeek, shows what you're spending on, and alerts you when costs jump. Everything is stored on your computer.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Download for Mac</a>
           <a class="button button-ghost" href="/demo/">Try the demo</a>
         </div>
         <p class="fineprint">Free and open source. No sign-up, no sync, no telemetry. <span data-also>Also for <a href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-windows-x64.exe">Windows</a>.</span></p>
       </div>
+    </div>
+    <svg class="night-art" viewBox="0 0 1361 428" aria-hidden="true">
+      <defs>
+        <clipPath id="bridge-clip"><path clip-rule="evenodd" d="M1251.5 197.5L1331.5 197.8L1333.5 198.3L1334.7 199.5L1334.9 202.5L1333.7 204.5L1329.5 205.5L1258.5 214.1L1242.5 216.4L1228.5 219.0L1211.5 223.1L1197.5 227.2L1180.5 234.2L1168.5 240.0L1151.5 250.5L1136.5 262.2L1123.4 274.5L1111.5 287.6L1101.1 301.5L1093.3 314.5L1089.6 323.5L1088.3 329.5L1087.8 334.5L1088.7 340.5L1091.3 347.5L1096.5 353.7L1103.7 359.5L1115.5 365.9L1173.5 391.2L1203.5 405.4L1243.8 425.5L1246.4 427.5L1246.4 435.5L1244.5 435.8L1111.5 435.9L1106.5 435.6L1106.3 427.5L1103.9 424.5L1083.5 406.9L1068.2 395.5L1053.5 385.9L1029.5 372.2L1007.3 361.5L990.5 354.0L957.5 341.4L932.5 333.3L908.5 326.4L882.5 320.1L846.5 313.1L810.5 307.9L781.5 305.0L746.5 303.0L718.5 302.5L679.5 303.5L649.5 305.6L609.5 310.0L586.5 313.2L546.5 320.0L517.5 326.3L489.5 333.2L467.5 339.2L428.5 351.4L400.5 361.3L360.5 377.2L326.5 392.2L289.5 410.2L261.5 425.7L259.5 427.5L259.5 435.5L258.5 435.7L99.5 435.7L98.6 435.5L98.6 427.5L100.7 425.5L118.7 415.5L148.5 400.2L179.5 385.4L192.5 379.8L210.5 371.0L224.5 362.5L236.5 353.6L245.5 345.5L252.0 337.5L255.0 332.5L257.6 326.5L259.0 321.5L259.3 314.5L258.5 307.5L257.0 303.5L253.3 297.5L249.9 293.5L246.2 290.5L239.5 286.2L233.5 283.2L225.5 280.1L216.5 277.8L192.5 274.7L179.5 274.2L64.5 276.8L61.5 276.3L60.5 275.5L59.9 273.5L60.2 271.5L61.0 270.5L64.5 269.3L122.5 263.4L178.5 258.4L383.5 242.3L724.5 218.5L865.5 210.1L942.5 206.7L1122.5 200.3ZM1115.5 217.5L1051.5 219.6L1039.5 222.2L1031.5 225.0L1025.5 228.5L1022.0 232.5L1020.0 236.5L1019.2 241.5L1019.8 247.5L1022.1 256.5L1034.4 286.5L1047.4 313.5L1051.5 320.3L1052.5 320.6L1054.5 319.5L1070.9 300.5L1084.8 285.5L1109.5 261.5L1140.3 233.5L1146.3 226.5L1147.3 223.5L1146.9 220.5L1145.5 218.3L1143.5 217.2L1139.5 216.9ZM894.5 225.4L858.5 226.8L810.5 229.4L699.5 236.1L614.5 242.2L553.5 247.1L536.5 249.3L514.5 254.3L502.5 258.0L482.5 266.2L467.5 274.1L446.5 287.9L431.5 300.1L417.7 313.5L415.5 316.5L415.1 318.5L416.5 319.5L418.5 319.4L463.5 310.7L502.5 304.1L541.5 298.2L588.5 292.5L631.5 288.8L654.5 287.4L693.5 286.2L735.5 286.2L765.5 287.6L796.5 289.8L832.5 293.6L870.5 299.2L923.5 309.4L948.5 314.9L977.5 322.1L1005.5 329.8L1017.5 332.9L1019.5 333.0L1020.5 332.5L1021.0 331.5L1021.2 329.5L1019.9 312.5L1016.0 296.5L1013.7 289.5L1009.1 277.5L1003.7 265.5L995.7 252.5L988.5 244.3L980.5 238.4L971.5 233.2L963.5 230.3L951.5 227.4L941.5 226.0L927.5 225.2L908.5 224.8ZM426.5 256.4L373.5 260.4L353.5 262.4L343.5 264.3L328.5 268.5L321.5 271.0L313.5 275.1L304.5 280.8L297.5 287.2L292.4 293.5L287.5 301.5L283.3 313.5L282.3 322.5L282.6 330.5L285.4 337.5L287.5 340.5L289.5 342.4L292.5 344.1L295.5 345.1L301.5 345.5L310.5 343.8L328.5 338.9L340.5 334.7L358.5 326.9L376.1 317.5L393.5 306.5L411.5 292.9L428.5 277.9L436.2 269.5L438.3 266.5L439.2 263.5L439.0 260.5L438.0 258.5L436.5 257.2L434.5 256.4Z"/></clipPath>
+        <radialGradient id="node-halo"><stop offset="0" stop-color="#34d3bc" stop-opacity=".24"/><stop offset="1" stop-color="#34d3bc" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g class="bridge">
+        <path class="bridge-shape" fill-rule="evenodd" d="M1251.5 197.5L1331.5 197.8L1333.5 198.3L1334.7 199.5L1334.9 202.5L1333.7 204.5L1329.5 205.5L1258.5 214.1L1242.5 216.4L1228.5 219.0L1211.5 223.1L1197.5 227.2L1180.5 234.2L1168.5 240.0L1151.5 250.5L1136.5 262.2L1123.4 274.5L1111.5 287.6L1101.1 301.5L1093.3 314.5L1089.6 323.5L1088.3 329.5L1087.8 334.5L1088.7 340.5L1091.3 347.5L1096.5 353.7L1103.7 359.5L1115.5 365.9L1173.5 391.2L1203.5 405.4L1243.8 425.5L1246.4 427.5L1246.4 435.5L1244.5 435.8L1111.5 435.9L1106.5 435.6L1106.3 427.5L1103.9 424.5L1083.5 406.9L1068.2 395.5L1053.5 385.9L1029.5 372.2L1007.3 361.5L990.5 354.0L957.5 341.4L932.5 333.3L908.5 326.4L882.5 320.1L846.5 313.1L810.5 307.9L781.5 305.0L746.5 303.0L718.5 302.5L679.5 303.5L649.5 305.6L609.5 310.0L586.5 313.2L546.5 320.0L517.5 326.3L489.5 333.2L467.5 339.2L428.5 351.4L400.5 361.3L360.5 377.2L326.5 392.2L289.5 410.2L261.5 425.7L259.5 427.5L259.5 435.5L258.5 435.7L99.5 435.7L98.6 435.5L98.6 427.5L100.7 425.5L118.7 415.5L148.5 400.2L179.5 385.4L192.5 379.8L210.5 371.0L224.5 362.5L236.5 353.6L245.5 345.5L252.0 337.5L255.0 332.5L257.6 326.5L259.0 321.5L259.3 314.5L258.5 307.5L257.0 303.5L253.3 297.5L249.9 293.5L246.2 290.5L239.5 286.2L233.5 283.2L225.5 280.1L216.5 277.8L192.5 274.7L179.5 274.2L64.5 276.8L61.5 276.3L60.5 275.5L59.9 273.5L60.2 271.5L61.0 270.5L64.5 269.3L122.5 263.4L178.5 258.4L383.5 242.3L724.5 218.5L865.5 210.1L942.5 206.7L1122.5 200.3ZM1115.5 217.5L1051.5 219.6L1039.5 222.2L1031.5 225.0L1025.5 228.5L1022.0 232.5L1020.0 236.5L1019.2 241.5L1019.8 247.5L1022.1 256.5L1034.4 286.5L1047.4 313.5L1051.5 320.3L1052.5 320.6L1054.5 319.5L1070.9 300.5L1084.8 285.5L1109.5 261.5L1140.3 233.5L1146.3 226.5L1147.3 223.5L1146.9 220.5L1145.5 218.3L1143.5 217.2L1139.5 216.9ZM894.5 225.4L858.5 226.8L810.5 229.4L699.5 236.1L614.5 242.2L553.5 247.1L536.5 249.3L514.5 254.3L502.5 258.0L482.5 266.2L467.5 274.1L446.5 287.9L431.5 300.1L417.7 313.5L415.5 316.5L415.1 318.5L416.5 319.5L418.5 319.4L463.5 310.7L502.5 304.1L541.5 298.2L588.5 292.5L631.5 288.8L654.5 287.4L693.5 286.2L735.5 286.2L765.5 287.6L796.5 289.8L832.5 293.6L870.5 299.2L923.5 309.4L948.5 314.9L977.5 322.1L1005.5 329.8L1017.5 332.9L1019.5 333.0L1020.5 332.5L1021.0 331.5L1021.2 329.5L1019.9 312.5L1016.0 296.5L1013.7 289.5L1009.1 277.5L1003.7 265.5L995.7 252.5L988.5 244.3L980.5 238.4L971.5 233.2L963.5 230.3L951.5 227.4L941.5 226.0L927.5 225.2L908.5 224.8ZM426.5 256.4L373.5 260.4L353.5 262.4L343.5 264.3L328.5 268.5L321.5 271.0L313.5 275.1L304.5 280.8L297.5 287.2L292.4 293.5L287.5 301.5L283.3 313.5L282.3 322.5L282.6 330.5L285.4 337.5L287.5 340.5L289.5 342.4L292.5 344.1L295.5 345.1L301.5 345.5L310.5 343.8L328.5 338.9L340.5 334.7L358.5 326.9L376.1 317.5L393.5 306.5L411.5 292.9L428.5 277.9L436.2 269.5L438.3 266.5L439.2 263.5L439.0 260.5L438.0 258.5L436.5 257.2L434.5 256.4Z"/>
+        <g class="bridge-flow" clip-path="url(#bridge-clip)">
+          <path class="trail" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="mid" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="head" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/>
+          <path class="trail comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="mid comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="head comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/>
+          <path class="trail comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/><path class="mid comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/><path class="head comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/>
+        </g>
+      </g>
+      <g class="node node-1" style="--x:434.5px;--y:181.3px"><g class="node-bob"><circle class="node-halo" cx="434.5" cy="181.3" r="61.9"/><circle class="node-ring" cx="434.5" cy="181.3" r="23.8"/><circle class="node-core" cx="434.5" cy="181.3" r="23.8"/></g><circle class="node-drop" cx="434.5" cy="205.1" r="4.8" style="--drop:31px"/></g><g class="node node-2" style="--x:882.6px;--y:108.8px"><g class="node-bob"><circle class="node-halo" cx="882.6" cy="108.8" r="88.7"/><circle class="node-ring" cx="882.6" cy="108.8" r="34.1"/><circle class="node-core" cx="882.6" cy="108.8" r="34.1"/></g><circle class="node-drop" cx="882.6" cy="142.9" r="6.8" style="--drop:65px"/></g><g class="node node-3" style="--x:1143.7px;--y:154.8px"><g class="node-bob"><circle class="node-halo" cx="1143.7" cy="154.8" r="60.8"/><circle class="node-ring" cx="1143.7" cy="154.8" r="23.4"/><circle class="node-core" cx="1143.7" cy="154.8" r="23.4"/></g><circle class="node-drop" cx="1143.7" cy="178.2" r="4.7" style="--drop:20px"/></g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <ul class="facts" aria-label="At a glance">
+      <li><svg class="i" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>Data stored locally in DuckDB</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Alerts from the menu bar</li>
+      <li><svg class="i" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>macOS and Windows</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>Open source (MIT)</li>
+    </ul>
+  </div>
+</header>
 
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Get started</p>
+      <h2>Get started in three steps</h2>
+      <p class="intro">Install the app, then follow these steps. You don't need a server or an account.</p>
+      <ol class="steps path">
+        <li>
+          <h3>Add an account</h3>
+          <p>Enter a read-only API key for providers with a billing API, or just a name if you'll import files. Keys are saved in your system keyring.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <div class="form"><small>Source</small><span class="field">Cloudflare</span><small>Account ID</small><span class="field mono">023e105f…c353</span><small>API token</small><span class="field mono">••••••••••••</span><span class="field save">Save</span></div>
+          </div>
+        </li>
+        <li>
+          <h3>Import your bills</h3>
+          <p>CloudBridge can fetch bills from the provider, or you can import a file you downloaded. Both end up in the same format, with column names from the FOCUS standard.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <ul class="ingest"><li><span class="tag api">API</span>AWS 2026-10<small>127 charges</small></li><li><span class="tag api">API</span>Cloudflare 2026-10<small>14 charges</small></li><li><span class="tag file">File</span>OpenAI 2026-09<small>412 charges</small></li></ul>
+          </div>
+        </li>
+        <li>
+          <h3>Check costs and set alerts</h3>
+          <p>Break down spending by account, service, model or business line. You'll get a notification when a cost jumps.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <div class="bars small"><i style="height:30%"></i><i style="height:34%"></i><i style="height:31%"></i><i style="height:38%"></i><i style="height:36%"></i><i style="height:41%"></i><i class="spike" style="height:92%"></i></div>
+          </div>
+        </li>
+      </ol>
+      <div class="path-notes">
+        <p><b>Want to look around first?</b> An empty Overview offers <b>Load demo data</b>, or you can try the <a href="/demo/">browser demo</a> with a sample bill.</p>
+        <p><b>On Windows,</b> the installer isn't code-signed, so SmartScreen will probably show a warning. See <a href="/docs/getting-started#install">Getting started</a> for what to do.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase">
+    <div class="wrap">
+      <p class="eyebrow">Overview</p>
+      <h2>This month's spending on one page</h2>
+      <p class="intro">See costs from every provider, what changed most, and any open alerts.</p>
       <figure class="window app-ui" aria-label="The CloudBridge Overview: 2,846 dollars spent this month to date, a month-end forecast of 9,120 dollars, two open alerts, a daily spend chart with a spike on the last two days, and Durable Objects as the biggest mover at plus 412 percent.">
         <div class="win-title" aria-hidden="true">
           <span class="dots"><i></i><i></i><i></i></span>
@@ -143,22 +209,13 @@
         <div class="win-status" aria-hidden="true"><i class="dot"></i>Synced 2 h ago. 5 sources, current for 21h 4m<span class="grow"></span><code>billing.duckdb</code></div>
       </figure>
     </div>
+  </section>
 
-    <ul class="facts" aria-label="At a glance">
-      <li><svg class="i" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>One DuckDB ledger, on your disk</li>
-      <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Alerts from the menu bar</li>
-      <li><svg class="i" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>macOS and Windows</li>
-      <li><svg class="i" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>Open source, MIT</li>
-    </ul>
-  </div>
-</header>
-
-<main>
   <section>
     <div class="wrap">
       <p class="eyebrow">Supported platforms</p>
-      <h2>Reads the bills you already pay</h2>
-      <p class="intro">From each provider's billing API, or from the export its console gives you.</p>
+      <h2>Supported clouds and AI platforms</h2>
+      <p class="intro">Connect through a provider's billing API, or import the bill file from its console.</p>
       <div class="platforms">
         <div>
           <p class="group">Clouds</p>
@@ -179,38 +236,7 @@
           </ul>
         </div>
       </div>
-      <p class="note">Logos are trademarks of their owners, shown to say which bills CloudBridge reads.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <p class="eyebrow">How it works</p>
-      <h2>From a bill to an answer</h2>
-      <p class="intro">No server to run, no account to create.</p>
-      <ol class="steps">
-        <li>
-          <div class="app-ui mini" aria-hidden="true">
-            <div class="form"><small>Source</small><span class="field">Cloudflare</span><small>Account ID</small><span class="field mono">023e105f…c353</span><small>API token</small><span class="field mono">••••••••••••</span><span class="field save">Save</span></div>
-          </div>
-          <h3>Add an account</h3>
-          <p>A read-only key for a billing API, or just a name for a source you import. Keys go to the OS keyring.</p>
-        </li>
-        <li>
-          <div class="app-ui mini" aria-hidden="true">
-            <ul class="ingest"><li><span class="tag api">API</span>AWS 2026-10<small>127 charges</small></li><li><span class="tag api">API</span>Cloudflare 2026-10<small>14 charges</small></li><li><span class="tag file">File</span>OpenAI 2026-09<small>412 charges</small></li></ul>
-          </div>
-          <h3>Bring the bill in</h3>
-          <p>Fetched from the provider, or imported from the export you downloaded — the same rows either way, named after FOCUS columns.</p>
-        </li>
-        <li>
-          <div class="app-ui mini" aria-hidden="true">
-            <div class="bars small"><i style="height:30%"></i><i style="height:34%"></i><i style="height:31%"></i><i style="height:38%"></i><i style="height:36%"></i><i style="height:41%"></i><i class="spike" style="height:92%"></i></div>
-          </div>
-          <h3>Read it, and keep watching</h3>
-          <p>Where the money went, by account, service, model and business line — and a notification the day a line jumps.</p>
-        </li>
-      </ol>
+      <p class="note">Logos belong to their owners and are used here only to show which bills CloudBridge can read.</p>
     </div>
   </section>
 
@@ -218,9 +244,9 @@
     <div class="wrap">
       <div class="feature">
         <div class="feature-text">
-          <p class="eyebrow">Keep watch</p>
-          <h2>It keeps watching with the window closed</h2>
-          <p>A cost alert is only worth something while the money is still being spent. Close the window and CloudBridge stays in the menu bar with the month's spend as its title. It fetches each account once its refresh interval has passed, daily by default, runs the rules and notifies you when one fires. Open at login keeps it there after a restart.</p>
+          <p class="eyebrow">Alerts</p>
+          <h2>Alerts keep working after you close the window</h2>
+          <p>When you close the window, CloudBridge stays in the menu bar and shows this month's spending. It refreshes each account on a schedule (once a day by default), checks your alert rules, and sends a notification if one is triggered. Turn on Open at login to keep it running after a restart.</p>
           <p><a href="/docs/background">Menu bar and background</a>&emsp;<a href="/docs/alerts">Alerts and budgets</a></p>
         </div>
         <figure class="menubar-demo" aria-label="The macOS menu bar shows CloudBridge's icon, marked for open alerts, beside $2.8k; its panel lists a critical alert for Durable Objects, and a system notification reads: Durable Objects cost 12 times its baseline.">
@@ -240,9 +266,9 @@
 
       <div class="feature">
         <div class="feature-text">
-          <p class="eyebrow">Down to the resource</p>
-          <h2>Which bucket, which Worker, which Durable Object</h2>
-          <p>Cloudflare's bill says “R2 Class B operations, 734 on 3 October” — never which bucket. CloudBridge asks Cloudflare's analytics for each resource's share of the day and splits the bill across them, so a runaway namespace shows up by name. Usage inside the free allowance is kept too: that is where a runaway starts, days before the first cent.</p>
+          <p class="eyebrow">Cost by resource</p>
+          <h2>See what each bucket, Worker and Durable Object costs</h2>
+          <p>Cloudflare's bill might say “R2 Class B operations, 734 on 3 October” without naming the bucket. CloudBridge gets each resource's daily usage from Cloudflare's analytics and splits the cost across them, so you can see which one is responsible. It also records usage inside the free allowance, because a cost problem can start there before you're charged anything.</p>
           <p><a href="/docs/cloudflare">Cloudflare</a>&emsp;<a href="/docs/aws#data-exports">AWS Data Exports</a></p>
         </div>
         <div class="app-ui split-card" aria-hidden="true">
@@ -262,9 +288,9 @@
 
       <div class="feature">
         <div class="feature-text">
-          <p class="eyebrow">Find what to cut</p>
-          <h2>The bill, next to what is running</h2>
-          <p>Insights scans your AWS and Cloudflare accounts read-only and sets the result beside the bill: stopped instances whose volumes still bill, idle public addresses, resources nobody owns, and resources billed but missing from the scan — each with what it cost this period, summarized by type before it lists a single resource.</p>
+          <p class="eyebrow">Savings</p>
+          <h2>Find resources you can clean up</h2>
+          <p>Insights runs a read-only scan of your AWS and Cloudflare accounts and compares the results with your bill. It lists stopped instances whose volumes are still billed, idle public addresses, resources with no owner, and resources on the bill that the scan didn't find. Results are grouped by type with this period's cost, then listed by resource.</p>
           <p><a href="/docs/insights">Insights</a></p>
         </div>
         <ul class="app-ui findings" aria-hidden="true">
@@ -277,9 +303,9 @@
 
       <div class="row">
         <div>
-          <p class="eyebrow">One ledger</p>
-          <h2>Every bill, the same columns</h2>
-          <p>Whichever way a bill arrives, it lands as the same rows, named after the FinOps FOCUS columns, with each charge's own currency kept beside the converted one. So an Alibaba Cloud ECS instance and an AWS EC2 instance are both Compute, and the ledger answers questions in SQL.</p>
+          <p class="eyebrow">Data</p>
+          <h2>All bills use the same columns</h2>
+          <p>Bills are stored in the same format however they arrive, with column names from the FinOps FOCUS standard. Each charge keeps its original currency next to the converted amount. For example, an Alibaba Cloud ECS instance and an AWS EC2 instance both count as Compute, and you can query everything with SQL.</p>
           <p><a href="/docs/query">Query</a>&emsp;<a href="/docs/attribution">Attribution</a>&emsp;<a href="/docs/models">Models</a></p>
         </div>
 <pre class="snippet" aria-label="A SQL query summing this month's billed cost by provider and service category."><span class="k">SELECT</span> provider, service_category,
@@ -292,16 +318,16 @@
       <div class="row">
         <div>
           <p class="eyebrow">Privacy</p>
-          <h2>Your bills stay yours</h2>
-          <p>A bill says what you run, for whom, and how much it costs. CloudBridge keeps all of that on your computer.</p>
+          <h2>Your bills stay on your computer</h2>
+          <p>Bills show what you run, who it's for and what it costs. CloudBridge keeps all of that on your computer.</p>
         </div>
         <ul class="promise">
-          <li>The ledger is a DuckDB file on your disk; bills never pass through anyone else's server.</li>
-          <li>No account, no sync service, no telemetry.</li>
-          <li>Credentials live in the macOS Keychain or Windows Credential Manager.</li>
-          <li>It only reads: no provider resource is ever created or changed.</li>
-          <li>It asks each provider at most once per refresh interval, and never pays twice for the same data.</li>
-          <li>Open source under MIT: every line is there to read.</li>
+          <li>Bills are stored in a DuckDB file on your disk and don't pass through any other server.</li>
+          <li>No account, no sync service and no telemetry.</li>
+          <li>Credentials are stored in the macOS Keychain or Windows Credential Manager.</li>
+          <li>Read-only: it never creates or changes anything at your provider.</li>
+          <li>It contacts each provider at most once per refresh interval and doesn't pay for the same data twice.</li>
+          <li>Open source under the MIT license, so you can read the code.</li>
         </ul>
       </div>
     </div>
@@ -310,10 +336,10 @@
   <section>
     <div class="wrap">
       <p class="eyebrow">Use cases</p>
-      <h2>Start from the question you have</h2>
+      <h2>Common use cases</h2>
       <ul class="use-cases">
-        <li><a href="/use-cases/cloud-cost-alerts/"><b>Cloud cost alerts</b>Know the day an AWS, Cloudflare or AI API bill starts running away, not the day the invoice comes.</a></li>
-        <li><a href="/use-cases/llm-api-cost-tracking/"><b>LLM API cost tracking</b>What each OpenAI, Anthropic, DeepSeek or Model Studio model costs per token, from the exports you already have.</a></li>
+        <li><a href="/use-cases/cloud-cost-alerts/"><b>Cloud cost alerts</b>Find out when an AWS, Cloudflare or AI API bill jumps, without waiting for the invoice.</a></li>
+        <li><a href="/use-cases/llm-api-cost-tracking/"><b>LLM API cost tracking</b>See the per-token cost of each OpenAI, Anthropic, DeepSeek or Model Studio model, using the exports you already have.</a></li>
       </ul>
     </div>
   </section>
@@ -321,24 +347,24 @@
   <section id="faq">
     <div class="wrap">
       <p class="eyebrow">FAQ</p>
-      <h2>Questions people ask</h2>
-      <dl class="faq">
-        <div><dt>What is CloudBridge?</dt><dd>A free, open-source desktop app that reads your cloud and AI provider bills into one ledger on your machine — from each provider's billing API, or from the export you downloaded — and draws where the money went. It runs alerts on that ledger and keeps watching from the menu bar after its window closes.</dd></div>
-        <div><dt>Which providers does it support?</dt><dd>AWS (Cost Explorer, or a FOCUS Data Export in S3), Azure (Cost Management), Alibaba Cloud and Cloudflare through their billing APIs; Google Cloud through its BigQuery billing export; DeepSeek through its balance API; and bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek.</dd></div>
-        <div><dt>Does CloudBridge send my bills anywhere?</dt><dd>No. Bills go from the provider straight into a DuckDB file on your computer. There is no CloudBridge account, no sync service and no telemetry, and credentials are kept in the OS keyring.</dd></div>
-        <div><dt>Can CloudBridge itself add to my bill?</dt><dd>Only through AWS: Cost Explorer charges per request and S3 charges for reads. CloudBridge asks each provider at most once per refresh interval (24 hours by default), about two Cost Explorer requests per AWS account a day, never repeats a fetch that was already paid for, and does not re-download an S3 export that has not changed. Every other API it calls is free, and it never creates or changes a resource.</dd></div>
-        <div><dt>How does it catch a runaway bill?</dt><dd>It reads bills per day, so a spike is in the ledger the next day rather than on the invoice. Rules flag spend above its trailing baseline, budgets and low balances; while CloudBridge runs — in the menu bar, with its window closed — it refreshes each account once a day and posts a notification for each alert. Cloudflare's bill is split down to the bucket, Worker or Durable Object behind it.</dd></div>
-        <div><dt>Which systems does it run on?</dt><dd>macOS on Apple silicon (signed and notarized) and 64-bit Windows. Linux and Intel Macs can build it from source.</dd></div>
-        <div><dt>Is CloudBridge free?</dt><dd>Yes. It is free and open source under the MIT license, with the full source code on GitHub. Provider API fees, where there are any, are separate.</dd></div>
-        <div><dt>Can I try it without installing it?</dt><dd>Yes. The same application compiles to WebAssembly and runs in the <a href="/demo/">browser demo</a>, on a sample bill of twelve months across several providers.</dd></div>
-      </dl>
+      <h2>Frequently asked questions</h2>
+      <div class="faq">
+        <details><summary>What is CloudBridge?</summary><p>A free, open-source desktop app that collects your cloud and AI provider bills in a database on your computer, using each provider's billing API or a file you downloaded. It shows what you're spending on, checks your alert rules, and keeps running in the menu bar after you close the window.</p></details>
+        <details><summary>Which providers does it support?</summary><p>AWS (Cost Explorer, or a FOCUS Data Export in S3), Azure (Cost Management), Alibaba Cloud and Cloudflare through their billing APIs; Google Cloud through its BigQuery billing export; DeepSeek through its balance API; and bill exports from Alibaba Cloud, Volcengine, OpenAI, Anthropic and DeepSeek.</p></details>
+        <details><summary>Does CloudBridge send my bills anywhere?</summary><p>No. Bills go directly from the provider to a DuckDB file on your computer. There's no CloudBridge account, sync service or telemetry, and credentials are stored in your system keyring.</p></details>
+        <details><summary>Will CloudBridge add to my bill?</summary><p>Only on AWS, where Cost Explorer charges per request and S3 charges for reads. CloudBridge contacts each provider at most once per refresh interval (24 hours by default), which is about two Cost Explorer requests per AWS account a day. It doesn't repeat a fetch it has already paid for or download an unchanged S3 export again. The other APIs it calls are free, and it never creates or changes a resource.</p></details>
+        <details><summary>How does it detect cost spikes?</summary><p>It reads bills by day, so a spike shows up in the data the next day. Rules check for spending above its recent baseline, budgets and low balances. While CloudBridge is running, even with its window closed, it refreshes each account once a day and sends a notification for each alert. Cloudflare bills can also be split down to the bucket, Worker or Durable Object.</p></details>
+        <details><summary>Which systems does it run on?</summary><p>macOS on Apple silicon (signed and notarized) and 64-bit Windows. Linux and Intel Macs can build it from source.</p></details>
+        <details><summary>Is CloudBridge free?</summary><p>Yes. It's free and open source under the MIT license, with the full source code on GitHub. Any provider API fees are separate.</p></details>
+        <details><summary>Can I try it without installing it?</summary><p>Yes. The <a href="/demo/">browser demo</a> runs the same app, compiled to WebAssembly, on a sample bill covering twelve months and several providers.</p></details>
+      </div>
     </div>
   </section>
 
   <section class="closing">
     <div class="wrap">
-      <h2>Put your bills in one place</h2>
-      <p>Download CloudBridge, add an account or import an export, and see the month at a glance. Or look around the demo first.</p>
+      <h2>Get started with CloudBridge</h2>
+      <p>Download the app, add an account or import a bill, and see this month's costs. You can also try the demo first.</p>
       <div class="hero-actions">
         <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Download for Mac</a>
         <a class="button button-quiet" href="/docs/getting-started">Getting started</a>
