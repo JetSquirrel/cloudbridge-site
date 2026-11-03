@@ -32,6 +32,7 @@ Every documentation page is also served as Markdown: add `.md` to its address (f
 - [Attribution](https://cloudbridge.jetsquirrel.cloud/docs/attribution.md): business lines, dimensions and FOCUS service categories
 - [Models](https://cloudbridge.jetsquirrel.cloud/docs/models.md): per-model token economics and findings
 - [Insights](https://cloudbridge.jetsquirrel.cloud/docs/insights.md): the read-only resource scan and what it finds
+- [Reconciliation](https://cloudbridge.jetsquirrel.cloud/docs/reconciliation.md): comparing each provider's final invoice with the ledger or a month-end snapshot
 - [Query](https://cloudbridge.jetsquirrel.cloud/docs/query.md): read-only SQL over the ledger
 - [FOCUS and token data](https://cloudbridge.jetsquirrel.cloud/docs/focus.md): LLM tokens recorded in FOCUS 1.5's terms (ConsumedQuantity, SkuMeter, and ModelId, TokenDirection and TokenCacheAction in SkuPriceDetails), and the FOCUS CSV export
 - [Alerts, rules and budgets](https://cloudbridge.jetsquirrel.cloud/docs/alerts.md): rules, budgets and notifications

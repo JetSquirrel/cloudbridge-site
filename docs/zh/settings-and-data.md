@@ -12,6 +12,7 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 | 设置 | 作用 |
 | --- | --- |
 | Appearance → Theme | 浅色和深色主题，重启后保持 |
+| Appearance → Language | [界面语言](#language)：跟随系统、English 或简体中文 |
 | Reporting → Currency | 所有总额用 USD 还是 CNY；每条费用保留自己的币种 |
 | Refreshing → Refresh interval | 一个月份过多久会被再次拉取：6、12、24（默认）或 48 小时 |
 | Background | [开机启动、后台刷新、告警通知](background.md) |
@@ -21,6 +22,18 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 **Refresh** 拉取早于刷新间隔的月份；**Force Refresh** 拉取全部月份，可能产生云平台
 费用。两者都不会覆盖导入的月份。演示账号以 `demo-` 为前缀，不带凭据，刷新时会被跳过。
 
+## 界面语言 {#language}
+
+CloudBridge 0.9.0 及更高版本提供简体中文界面，包括每个页面和对话框、菜单栏面板及其菜单，以及系统
+通知。在 **设置 → 外观 → 语言** 里选择语言之前，应用会跟随系统语言；更改后立即生效。
+浏览器演示版跟随浏览器语言，侧边栏底部也有切换开关。
+
+- 托盘菜单要到下次启动应用时才会换成新语言。
+- 告警保留触发时的语言。低余额告警例外：它会随最新数字改写，使用当前语言。
+- 金额和币种的格式不变。
+
+本文档部分页面里的按钮名称来自英文界面。使用中文界面时，按钮上显示的是对应的中文名称。
+
 ## 数据存在哪里 {#storage}
 
 | 平台 | 位置 |
@@ -29,7 +42,7 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 | Windows | `%APPDATA%\CloudBridge\data\` |
 | Linux（源码构建） | `~/.local/share/CloudBridge/` |
 
-- `billing.duckdb` —— 账单账本，保留每条费用的原始币种；
+- `billing.duckdb` —— 账单账本，保留每条费用的原始币种，也存放[月末快照](overview.md#snapshots)和[发票](reconciliation.md)；
 - `cloudbridge.duckdb` —— 账号、预算、规则和告警状态；
 - `raw/` —— 每一次云平台响应和导入的文件，按数据源、账号和月份存放，修正映射后可以
   不再请求、直接重新读取（**Accounts → Replay normalization**）；

@@ -86,6 +86,7 @@ function sidebar(zh = false): DefaultTheme.SidebarItem[] {
         item('attribution', 'Attribution', '成本归属'),
         item('models', 'Models', '模型'),
         item('insights', 'Insights', '资源洞察'),
+        item('reconciliation', 'Reconciliation', '账单核对'),
         item('query', 'Query', 'SQL 查询'),
       ],
     },

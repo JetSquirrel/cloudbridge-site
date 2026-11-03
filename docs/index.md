@@ -59,6 +59,7 @@ features:
 | See which business line a cost belongs to | [Attribution](attribution.md) |
 | See what each LLM model costs per token | [Models](models.md) |
 | Find stopped instances, idle addresses and resources nobody owns | [Insights](insights.md) |
+| Check a provider's invoice against the ledger | [Reconciliation](reconciliation.md) |
 | Ask the ledger a question in SQL | [Query](query.md) |
 | Be told when spend jumps, or a budget is near | [Alerts, rules and budgets](alerts.md) |
 | Hear about a looping Worker or Durable Object on day one, not on the invoice | [Catch a runaway](cloudflare.md#runaway) |
