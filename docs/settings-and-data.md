@@ -12,6 +12,7 @@ description: "What CloudBridge stores and where: the DuckDB ledger, accounts, ra
 | Setting | What it does |
 | --- | --- |
 | Appearance → Theme | Light and dark themes, remembered across launches |
+| Appearance → Language | [The interface language](#language): System, English or 简体中文 |
 | Reporting → Currency | USD or CNY for every total; charges keep their own currency |
 | Refreshing → Refresh interval | 6, 12, 24 (default) or 48 hours before a month is fetched again |
 | Background | [Open at login, background refresh, alert notifications](background.md) |
@@ -23,6 +24,19 @@ Refresh** fetches them all and can incur provider charges. Neither
 overwrites an imported month. Demo accounts use a `demo-` prefix, carry no
 credentials and are skipped by refreshes.
 
+## Interface language {#language}
+
+CloudBridge 0.9.0 and later are translated into 简体中文: every page and dialog, the
+menu bar panel, its menu and system notifications. Until you pick a language
+under **Settings → Appearance → Language**, the app follows the system's, and
+a change applies at once. The browser demo follows the browser's language and
+has a switch in its sidebar footer.
+
+- The tray menu picks up a new language the next time the app starts.
+- An alert keeps the language it fired in. A low balance alert is the
+  exception: it is rewritten with its latest figures, in the current language.
+- Amounts and currencies are formatted as before.
+
 ## Where the data lives {#storage}
 
 | Platform | Location |
@@ -32,7 +46,8 @@ credentials and are skipped by refreshes.
 | Linux (source builds) | `~/.local/share/CloudBridge/` |
 
 - `billing.duckdb` — the billing ledger, with each charge's original
-  currency;
+  currency, [month-end snapshots](overview.md#snapshots) and
+  [invoices](reconciliation.md);
 - `cloudbridge.duckdb` — accounts, budgets, rules and alert state;
 - `raw/` — every provider response and imported file, by source, account
   and month, so a mapping fix can re-read them without another request

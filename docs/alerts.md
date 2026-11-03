@@ -64,6 +64,13 @@ data, not guaranteed month-end costs. **Snooze** hides an alert for a
 while; **Dismiss** closes it. An open alert is marked **resolved** when a
 later evaluation finds its condition no longer holds.
 
+**See the charges** opens the alert's service in [Query](query.md), across
+months.
+
+A low balance is one alert rather than a new card each day. It keeps the latest
+figures until the balance recovers or you dismiss it, and older cards for the
+same balance merge into it on the next check.
+
 ## Notifications {#notifications}
 
 Each alert that fires while CloudBridge runs is announced once as a system

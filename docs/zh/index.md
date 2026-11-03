@@ -59,6 +59,7 @@ features:
 | 看某项成本属于哪条业务线 | [成本归属](attribution.md) |
 | 看每个大模型每个 token 花多少钱 | [模型](models.md) |
 | 找出已停止的实例、闲置的 IP 和无人认领的资源 | [资源洞察](insights.md) |
+| 核对服务商发票与账本是否一致 | [账单核对](reconciliation.md) |
 | 用 SQL 查账本 | [SQL 查询](query.md) |
 | 花费突增或预算快用完时收到提醒 | [告警、规则与预算](alerts.md) |
 | Worker 或 Durable Object 死循环时第一天就知道，而不是等到发票 | [及早发现失控](cloudflare.md#runaway) |

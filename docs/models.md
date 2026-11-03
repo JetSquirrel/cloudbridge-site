@@ -29,6 +29,7 @@ data](focus.md).
   tokens written to the cache, and, for a bill that counts input and
   output together, that total. Its tooltip says which of those it holds.
   Rows with tokens but no cost still count toward the token columns.
+  Month to date compares with the same days of last month, not all of it.
 - **Tokens per day** charts the daily token volume.
 
 ## Findings {#findings}

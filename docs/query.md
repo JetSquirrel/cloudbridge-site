@@ -23,6 +23,8 @@ The **Query** page runs SQL over the local DuckDB ledger. Desktop only.
 - Large results stop at a row budget — at most 100,000 rows, fewer for wide
   results — and the status line says when a result was cut. Add a `LIMIT`
   or aggregate to see all of it.
+- A result stays on screen once you edit the SQL or change the reporting
+  currency, marked as no longer matching what is on the page.
 
 ## Useful columns {#columns}
 
