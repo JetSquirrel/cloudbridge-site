@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloudflare Costs per Worker, R2 Bucket and Durable Object | CloudBridge</title>
+<meta name="description" content="See which Worker, R2 bucket, D1 database or Durable Object is behind your Cloudflare bill. Daily billable usage, split per resource, kept on your computer.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<meta property="og:title" content="Cloudflare Costs per Worker, R2 Bucket and Durable Object | CloudBridge">
+<meta property="og:description" content="Cloudflare's bill stops at the service. CloudBridge splits each day's charge across your Workers, R2 buckets, D1 databases and Durable Objects. Free, open source, local.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="The CloudBridge Overview: month-to-date spend across clouds and model providers, a daily spend chart and the biggest movers">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cloudflare Costs per Worker, R2 Bucket and Durable Object | CloudBridge">
+<meta name="twitter:description" content="Cloudflare's bill stops at the service. CloudBridge splits each day's charge across your Workers, R2 buckets, D1 databases and Durable Objects. Free, open source, local.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/",
+      "name": "Cloudflare costs per Worker, R2 bucket and Durable Object",
+      "description": "See which Worker, R2 bucket, D1 database or Durable Object is behind your Cloudflare bill. Daily billable usage, split per resource, kept on your computer.",
+      "inLanguage": "en",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "Cloudflare cost breakdown", "item": "https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "en",
+      "mainEntity": [
+        { "@type": "Question", "name": "Does Cloudflare's bill show the cost of each Worker or R2 bucket?", "acceptedAnswer": { "@type": "Answer", "text": "No. The bill stops at the service: it says how many R2 Class B operations or Durable Object rows were billed on a day, not which bucket or namespace used them. CloudBridge reads each resource's usage from Cloudflare's GraphQL Analytics API and splits each day's charge by those shares." } },
+        { "@type": "Question", "name": "How accurate is the per-resource split?", "acceptedAnswer": { "@type": "Answer", "text": "The parts add up to what Cloudflare billed, and they are marked as estimates. Cloudflare's analytics are sampled, and a free allowance belongs to the account, not to any one resource." } },
+        { "@type": "Question", "name": "Which permissions does the API token need?", "acceptedAnswer": { "@type": "Answer", "text": "Account, Billing, Read for the bill, and Account, Account Analytics, Read for the split. Both are read-only. The Insights resource scan needs a few more Read permissions and says which ones it was refused." } },
+        { "@type": "Question", "name": "Does it work with a Cloudflare Enterprise account?", "acceptedAnswer": { "@type": "Answer", "text": "No. Cloudflare's billable usage API covers pay-as-you-go (self-serve) accounts only and is still an alpha API. CloudBridge reports an Enterprise account as not covered." } },
+        { "@type": "Question", "name": "Can CloudBridge stop a runaway Worker or Durable Object?", "acceptedAnswer": { "@type": "Answer", "text": "No. It only reads. It can alert you on the first refresh that reads the expensive day, and Insights shows which Worker or namespace is behind the charge, so you can stop it in the Cloudflare dashboard." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/">Docs</a>
+        <a class="optional" href="/blog/">Blog</a>
+        <a class="optional" href="/demo/">Demo</a>
+        <a href="/zh/use-cases/cloudflare-cost-breakdown/" hreflang="zh-CN" lang="zh-CN">中文</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><span>Cloudflare cost breakdown</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">The bill names the service, not the resource</p>
+      <h1>See which Worker, bucket or Durable Object is behind your Cloudflare bill</h1>
+      <p class="lede">CloudBridge reads your Cloudflare billable usage per day and splits each charge across your R2 buckets, Workers, D1 databases and Durable Object namespaces, in a ledger on your computer.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download CloudBridge</a>
+        <a class="button button-ghost" href="/docs/cloudflare">Read the Cloudflare docs</a>
+      </div>
+      <p class="fineprint">Free and open source for macOS and Windows. No account, no sync, no telemetry.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">How it works</p>
+      <h2>From an API token to cost per resource</h2>
+      <p class="intro">One read-only token is enough. It stays in your system keyring.</p>
+      <ol class="steps">
+        <li>
+          <h3>Create a token</h3>
+          <p>A custom API token with Account → Billing → Read. Add Account → Account Analytics → Read for the per-resource split.</p>
+        </li>
+        <li>
+          <h3>Add the account</h3>
+          <p>Enter the account ID and the token. CloudBridge reads the billable usage: spend per service, per day.</p>
+        </li>
+        <li>
+          <h3>Read the split</h3>
+          <p>Each day's charge is divided across the resources that used the meter. Insights lists each one's share and its usage this period.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">The split</p>
+      <h2>What gets split, and across what</h2>
+      <p class="intro">Cloudflare's bill might say “R2 Class B operations, 734 on 3 October”. CloudBridge asks the GraphQL Analytics API which bucket made them.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>On the bill</th><th>Split across</th><th>By</th></tr></thead>
+          <tbody>
+            <tr><td>R2 Class A and B operations, storage</td><td>R2 buckets</td><td>Each bucket's usage of that meter</td></tr>
+            <tr><td>Workers requests and CPU</td><td>Workers</td><td>Each Worker's requests</td></tr>
+            <tr><td>D1 rows read and written, storage</td><td>D1 databases</td><td>Each database's usage of that meter</td></tr>
+            <tr><td>Durable Objects requests, duration, rows, storage</td><td>Durable Object namespaces</td><td>Each namespace's usage of that meter</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/cloudflare#split">Split by resource →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">What the numbers are</p>
+          <h2>The parts add up to the bill</h2>
+          <p>The split divides what Cloudflare billed; it doesn't invent a price. The rows are marked as estimates, because the analytics are sampled and a free allowance belongs to the account, not to one resource.</p>
+          <p><a href="/docs/insights">Insights</a>&emsp;<a href="/docs/permissions#cloudflare">Token permissions</a></p>
+        </div>
+        <ul class="promise">
+          <li>A meter the analytics can't split, such as KV or Queues, keeps its row whole at the account.</li>
+          <li>Usage inside the free allowance is recorded too, at zero cost, because that is where a runaway starts.</li>
+          <li>Without the Account Analytics permission, the bill is still read; it just isn't split.</li>
+          <li>Pay-as-you-go accounts only. Cloudflare's billable usage API is in alpha and doesn't cover Enterprise.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Catch a runaway</p>
+          <h2>Find out the first day a Worker starts looping</h2>
+          <p>Nothing stops a pay-as-you-go Cloudflare account at a spending limit. Give the account a monthly budget and add an Account budget rule based on the month-end forecast: the first expensive day is projected across the month, and the alert fires on the first refresh that reads it.</p>
+          <p><a href="/docs/cloudflare#runaway">Catch a runaway</a>&emsp;<a href="/use-cases/cloud-cost-alerts/">Cloud cost alerts</a></p>
+        </div>
+        <ul class="promise">
+          <li>A real case: a dormant project's Durable Object alarm billed $10,811 before anyone knew. <a href="/blog/cloudflare-durable-object-runaway">Read the post</a>.</li>
+          <li>Shorten the refresh interval to 6 hours and keep CloudBridge in the menu bar with Open at login on.</li>
+          <li>When the alert fires, Insights shows each Worker's and namespace's share, so the one behind it stands out.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Privacy</p>
+          <h2>Your bills stay on your machine</h2>
+          <p>The ledger is a DuckDB file on your disk and the token is in the OS keyring. CloudBridge only reads from Cloudflare, and the bill sits beside your AWS, Azure, Google Cloud and model-provider bills in the same columns.</p>
+        </div>
+        <ul class="promise">
+          <li>No CloudBridge account, no sync service, no telemetry.</li>
+          <li>Read-only token; nothing in your Cloudflare account is created or changed.</li>
+          <li>Open source under MIT.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions people ask</h2>
+      <div class="faq">
+        <details><summary>Does Cloudflare's bill show the cost of each Worker or R2 bucket?</summary><p>No. The bill stops at the service: it says how many R2 Class B operations or Durable Object rows were billed on a day, not which bucket or namespace used them. CloudBridge reads each resource's usage from Cloudflare's GraphQL Analytics API and splits each day's charge by those shares.</p></details>
+        <details><summary>How accurate is the per-resource split?</summary><p>The parts add up to what Cloudflare billed, and they are marked as estimates. Cloudflare's analytics are sampled, and a free allowance belongs to the account, not to any one resource.</p></details>
+        <details><summary>Which permissions does the API token need?</summary><p>Account, Billing, Read for the bill, and Account, Account Analytics, Read for the split. Both are read-only. The Insights resource scan needs a few more Read permissions and says which ones it was refused.</p></details>
+        <details><summary>Does it work with a Cloudflare Enterprise account?</summary><p>No. Cloudflare's billable usage API covers pay-as-you-go (self-serve) accounts only and is still an alpha API. CloudBridge reports an Enterprise account as not covered.</p></details>
+        <details><summary>Can CloudBridge stop a runaway Worker or Durable Object?</summary><p>No. It only reads. It can alert you on the first refresh that reads the expensive day, and Insights shows which Worker or namespace is behind the charge, so you can stop it in the Cloudflare dashboard.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>See what each Cloudflare resource costs</h2>
+      <p>Download CloudBridge, add your Cloudflare account, and open Insights. Or look around the demo first.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">Try the demo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/">Docs</a>
+    <a href="/blog/">Blog</a>
+    <a href="/demo/">Demo</a>
+    <a href="/use-cases/cloud-cost-alerts/">Cloud cost alerts</a>
+    <a href="/use-cases/multi-cloud-cost-dashboard/">Multi-cloud costs</a>
+    <a href="/use-cases/llm-api-cost-tracking/">LLM API costs</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/zh/use-cases/cloudflare-cost-breakdown/" hreflang="zh-CN" lang="zh-CN">中文</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

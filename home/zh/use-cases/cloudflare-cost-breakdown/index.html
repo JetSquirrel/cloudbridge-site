@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cloudflare 费用拆到每个 Worker、R2 bucket 和 Durable Object | CloudBridge</title>
+<meta name="description" content="看清 Cloudflare 账单背后是哪个 Worker、R2 bucket、D1 数据库或 Durable Object 在花钱。按天读取计费用量，拆分到具体资源，数据只存在你的电脑上。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/">
+<meta property="og:title" content="Cloudflare 费用拆到每个 Worker、R2 bucket 和 Durable Object | CloudBridge">
+<meta property="og:description" content="Cloudflare 的账单只到服务这一级。CloudBridge 把每天的费用拆到具体的 Worker、R2 bucket、D1 数据库和 Durable Object。免费开源，数据只在本地。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge 总览页：各云平台和模型平台的本月花费、每日花费图和变化最大的服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cloudflare 费用拆到每个 Worker、R2 bucket 和 Durable Object | CloudBridge">
+<meta name="twitter:description" content="Cloudflare 的账单只到服务这一级。CloudBridge 把每天的费用拆到具体的 Worker、R2 bucket、D1 数据库和 Durable Object。免费开源，数据只在本地。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge 博客" href="https://cloudbridge.jetsquirrel.cloud/blog/zh/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/",
+      "name": "Cloudflare 费用拆到每个 Worker、R2 bucket 和 Durable Object",
+      "description": "看清 Cloudflare 账单背后是哪个 Worker、R2 bucket、D1 数据库或 Durable Object 在花钱。按天读取计费用量，拆分到具体资源，数据只存在你的电脑上。",
+      "inLanguage": "zh-CN",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+        { "@type": "ListItem", "position": 2, "name": "Cloudflare 费用拆分", "item": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "zh-CN",
+      "mainEntity": [
+        { "@type": "Question", "name": "Cloudflare 的账单能看到每个 Worker 或 R2 bucket 的费用吗？", "acceptedAnswer": { "@type": "Answer", "text": "不能。账单只到服务这一级：它告诉你某一天计费了多少次 R2 Class B 操作、多少行 Durable Object 读写，但不说是哪个 bucket 或 namespace 用的。CloudBridge 通过 Cloudflare 的 GraphQL Analytics API 读取每个资源的用量，再按占比拆分每一天的费用。" } },
+        { "@type": "Question", "name": "按资源拆分的结果有多准？", "acceptedAnswer": { "@type": "Answer", "text": "各部分加起来等于 Cloudflare 实际计费的金额，并且标记为估算值。原因是 Cloudflare 的分析数据是抽样的，而免费额度属于整个账号，不属于某一个资源。" } },
+        { "@type": "Question", "name": "API token 需要哪些权限？", "acceptedAnswer": { "@type": "Answer", "text": "读账单需要 Account → Billing → Read，按资源拆分需要 Account → Account Analytics → Read，两者都是只读权限。资源洞察的扫描还需要另外几项 Read 权限，缺了哪项它会明确告诉你。" } },
+        { "@type": "Question", "name": "企业版（Enterprise）账号能用吗？", "acceptedAnswer": { "@type": "Answer", "text": "不能。Cloudflare 的计费用量 API 只覆盖按量付费（自助）账号，而且还是 alpha 版本。企业版账号在 CloudBridge 里会提示不在覆盖范围内。" } },
+        { "@type": "Question", "name": "CloudBridge 能自动停掉失控的 Worker 或 Durable Object 吗？", "acceptedAnswer": { "@type": "Answer", "text": "不能，它只读不写。它能做的是在读到高额花费那一天的第一次刷新时发出告警，并在资源洞察里显示是哪个 Worker 或 namespace 在花钱，方便你去 Cloudflare 控制台把它停掉。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/zh/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="站点">
+        <a href="/docs/zh/">文档</a>
+        <a class="optional" href="/blog/zh/">博客</a>
+        <a class="optional" href="/demo/">在线演示</a>
+        <a href="/use-cases/cloudflare-cost-breakdown/" hreflang="en" lang="en">English</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="/zh/">首页</a><span aria-hidden="true">›</span><span>Cloudflare 费用拆分</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">账单只说是哪个服务，不说是哪个资源</p>
+      <h1>看清 Cloudflare 账单背后是哪个 Worker、bucket 或 Durable Object</h1>
+      <p class="lede">CloudBridge 按天读取 Cloudflare 的计费用量，把每一笔费用拆到具体的 R2 bucket、Worker、D1 数据库和 Durable Object namespace，记在你电脑上的一本账里。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-ghost" href="/docs/zh/cloudflare">查看 Cloudflare 文档</a>
+      </div>
+      <p class="fineprint">免费开源，支持 macOS 和 Windows。无需注册，不同步，不上报任何数据。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">怎么用</p>
+      <h2>从一个 API token 到每个资源的费用</h2>
+      <p class="intro">只需要一个只读 token，它保存在系统钥匙串里。</p>
+      <ol class="steps">
+        <li>
+          <h3>创建 token</h3>
+          <p>创建一个自定义 API token，授予 Account → Billing → Read。要按资源拆分，再加上 Account → Account Analytics → Read。</p>
+        </li>
+        <li>
+          <h3>添加账号</h3>
+          <p>填入 Account ID 和 token。CloudBridge 读取计费用量：按服务、按天的花费。</p>
+        </li>
+        <li>
+          <h3>查看拆分结果</h3>
+          <p>每天的费用按用量占比分给用到该计量项的资源。资源洞察会列出每个资源的份额和本期用量。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">拆分</p>
+      <h2>哪些费用会拆，拆给谁</h2>
+      <p class="intro">Cloudflare 的账单可能只写着“R2 Class B operations，10 月 3 日 734 次”。CloudBridge 会去 GraphQL Analytics API 查这些操作来自哪个 bucket。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>账单上的项目</th><th>拆分到</th><th>依据</th></tr></thead>
+          <tbody>
+            <tr><td>R2 Class A、Class B 操作和存储</td><td>R2 bucket</td><td>每个 bucket 在该计量项上的用量</td></tr>
+            <tr><td>Workers 请求数和 CPU</td><td>Worker</td><td>每个 Worker 的请求数</td></tr>
+            <tr><td>D1 读写行数和存储</td><td>D1 数据库</td><td>每个数据库在该计量项上的用量</td></tr>
+            <tr><td>Durable Objects 请求、时长、读写行数和存储</td><td>Durable Object namespace</td><td>每个 namespace 在该计量项上的用量</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/zh/cloudflare#split">按资源拆分 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">这些数字是什么</p>
+          <h2>拆出来的各部分，加起来等于账单</h2>
+          <p>拆分只是把 Cloudflare 已经计费的金额分下去，不会自己定价。拆出来的行都标记为估算值，因为分析数据是抽样的，而免费额度属于整个账号，不属于某一个资源。</p>
+          <p><a href="/docs/zh/insights">资源洞察</a>&emsp;<a href="/docs/zh/permissions#cloudflare">token 权限</a></p>
+        </div>
+        <ul class="promise">
+          <li>分析数据拆不了的计量项，比如 KV 和 Queues，整行保留在账号上。</li>
+          <li>免费额度内的用量也会记下来，费用记为零，因为失控往往从那里开始。</li>
+          <li>没有 Account Analytics 权限也能读账单，只是不做拆分。</li>
+          <li>只支持按量付费账号。Cloudflare 的计费用量 API 还是 alpha 版本，不覆盖企业版。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">发现失控</p>
+          <h2>Worker 开始死循环的第一天就知道</h2>
+          <p>按量付费的 Cloudflare 账号没有消费上限。给账号设一个月度预算，再加一条基于月底预测的账号预算规则：第一天的高额花费会被外推到整个月，读到这一天的第一次刷新就会触发告警。</p>
+          <p><a href="/docs/zh/cloudflare#runaway">发现失控的用量</a>&emsp;<a href="/zh/use-cases/cloud-cost-alerts/">云费用异常告警</a></p>
+        </div>
+        <ul class="promise">
+          <li>真实案例：一个没人用的项目里，Durable Object 的 alarm 在没人察觉的情况下跑出了 10,811 美元的账单。<a href="/blog/zh/early-warning">阅读文章</a>。</li>
+          <li>把刷新间隔缩短到 6 小时，让 CloudBridge 留在状态栏，并打开开机启动。</li>
+          <li>告警触发后，资源洞察会显示每个 Worker 和 namespace 的份额，一眼就能看出是谁。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">隐私</p>
+          <h2>你的账单只留在你的电脑上</h2>
+          <p>账本是你磁盘上的一个 DuckDB 文件，token 存在系统钥匙串里。CloudBridge 对 Cloudflare 只读不写，这份账单和 AWS、Azure、Google Cloud 以及各家模型平台的账单用的是同一套列。</p>
+        </div>
+        <ul class="promise">
+          <li>没有 CloudBridge 账号，没有同步服务，不上报任何数据。</li>
+          <li>只读 token，不会创建或修改你 Cloudflare 账号里的任何东西。</li>
+          <li>基于 MIT 许可开源。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">常见问题</p>
+      <h2>大家常问的问题</h2>
+      <div class="faq">
+        <details><summary>Cloudflare 的账单能看到每个 Worker 或 R2 bucket 的费用吗？</summary><p>不能。账单只到服务这一级：它告诉你某一天计费了多少次 R2 Class B 操作、多少行 Durable Object 读写，但不说是哪个 bucket 或 namespace 用的。CloudBridge 通过 Cloudflare 的 GraphQL Analytics API 读取每个资源的用量，再按占比拆分每一天的费用。</p></details>
+        <details><summary>按资源拆分的结果有多准？</summary><p>各部分加起来等于 Cloudflare 实际计费的金额，并且标记为估算值。原因是 Cloudflare 的分析数据是抽样的，而免费额度属于整个账号，不属于某一个资源。</p></details>
+        <details><summary>API token 需要哪些权限？</summary><p>读账单需要 Account → Billing → Read，按资源拆分需要 Account → Account Analytics → Read，两者都是只读权限。资源洞察的扫描还需要另外几项 Read 权限，缺了哪项它会明确告诉你。</p></details>
+        <details><summary>企业版（Enterprise）账号能用吗？</summary><p>不能。Cloudflare 的计费用量 API 只覆盖按量付费（自助）账号，而且还是 alpha 版本。企业版账号在 CloudBridge 里会提示不在覆盖范围内。</p></details>
+        <details><summary>CloudBridge 能自动停掉失控的 Worker 或 Durable Object 吗？</summary><p>不能，它只读不写。它能做的是在读到高额花费那一天的第一次刷新时发出告警，并在资源洞察里显示是哪个 Worker 或 namespace 在花钱，方便你去 Cloudflare 控制台把它停掉。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>看看每个 Cloudflare 资源花了多少钱</h2>
+      <p>下载 CloudBridge，添加你的 Cloudflare 账号，打开资源洞察。也可以先看看在线演示。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">在线演示</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/zh/">文档</a>
+    <a href="/blog/zh/">博客</a>
+    <a href="/demo/">在线演示</a>
+    <a href="/zh/use-cases/cloud-cost-alerts/">云费用告警</a>
+    <a href="/zh/use-cases/multi-cloud-cost-dashboard/">多云成本</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/">大模型 API 成本</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/cloudflare-cost-breakdown/" hreflang="en" lang="en">English</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>
