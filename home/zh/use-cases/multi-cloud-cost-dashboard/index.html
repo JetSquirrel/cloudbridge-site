@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>多云成本看板：AWS、Azure、Google Cloud、阿里云一本账 | CloudBridge</title>
+<meta name="description" content="把 AWS、Azure、Google Cloud、阿里云和 Cloudflare 的账单读进本地的一本账，统一成 FOCUS 列名。免费开源的桌面应用，不用部署服务器。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<meta property="og:title" content="多云成本看板：AWS、Azure、Google Cloud、阿里云一本账 | CloudBridge">
+<meta property="og:description" content="所有云账单放进你电脑上的一本账，同一套 FOCUS 列，合计换算成一种货币。免费开源，不用部署服务器。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge 总览页：各云平台和模型平台的本月花费、每日花费图和变化最大的服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="多云成本看板：AWS、Azure、Google Cloud、阿里云一本账 | CloudBridge">
+<meta name="twitter:description" content="所有云账单放进你电脑上的一本账，同一套 FOCUS 列，合计换算成一种货币。免费开源，不用部署服务器。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge 博客" href="https://cloudbridge.jetsquirrel.cloud/blog/zh/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/",
+      "name": "多云成本看板：AWS、Azure、Google Cloud、阿里云一本账",
+      "description": "把 AWS、Azure、Google Cloud、阿里云和 Cloudflare 的账单读进本地的一本账，统一成 FOCUS 列名。免费开源的桌面应用，不用部署服务器。",
+      "inLanguage": "zh-CN",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/zh/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/zh/" },
+        { "@type": "ListItem", "position": 2, "name": "多云成本看板", "item": "https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "zh-CN",
+      "mainEntity": [
+        { "@type": "Question", "name": "把多家云的费用放在一起看，需要部署服务器吗？", "acceptedAnswer": { "@type": "Answer", "text": "不需要。CloudBridge 是 macOS 和 Windows 上的桌面应用，用只读凭据读取各家云的账单，存进你磁盘上的一个 DuckDB 文件。不用搭服务器、数据库，也不用注册账号。" } },
+        { "@type": "Question", "name": "CloudBridge 支持哪些云？", "acceptedAnswer": { "@type": "Answer", "text": "AWS、Microsoft Azure、Google Cloud、阿里云和 Cloudflare 通过各自的账单 API 或导出接入，火山引擎通过账单导出接入。OpenAI、Anthropic 和 DeepSeek 这些模型平台的账单也记在同一本账里。" } },
+        { "@type": "Question", "name": "不同币种的账单怎么加在一起？", "acceptedAnswer": { "@type": "Answer", "text": "合计按一种报表货币显示。每笔费用都在换算后的金额旁边保留原始币种；没有汇率的费用会明确提示未计入，而不是随便假设一个汇率。" } },
+        { "@type": "Question", "name": "FOCUS 是什么，在这里有什么用？", "acceptedAnswer": { "@type": "Answer", "text": "FOCUS 是 FinOps 基金会制定的开放账单数据规范。CloudBridge 的列名沿用它，所以阿里云的 ECS 和 AWS 的 EC2 都归为 Compute，一条 SQL 就能查所有云。账本也可以导出为 FOCUS CSV。" } },
+        { "@type": "Question", "name": "CloudBridge 是给整个团队用的 FinOps 平台吗？", "acceptedAnswer": { "@type": "Answer", "text": "不是。它是一个人电脑上的一本账，没有同步，也没有共享的服务器。如果组织需要共享看板和权限角色，FinOps 服务端产品更合适；CloudBridge vs OptScale 这篇文章对比了两者。" } },
+        { "@type": "Question", "name": "读取账单本身要花钱吗？", "acceptedAnswer": { "@type": "Answer", "text": "只有服务商收费的地方才会：AWS 的 Cost Explorer 请求和 S3 读取，以及 Google Cloud 超出每月免费额度的 BigQuery 查询。CloudBridge 每个刷新间隔最多请求每家服务商一次，默认 24 小时。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/zh/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="站点">
+        <a href="/docs/zh/">文档</a>
+        <a class="optional" href="/blog/zh/">博客</a>
+        <a class="optional" href="/demo/">在线演示</a>
+        <a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="面包屑"><a href="/zh/">首页</a><span aria-hidden="true">›</span><span>多云成本看板</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">AWS、Azure、Google Cloud、阿里云和 Cloudflare，放在一起看</p>
+      <h1>所有云账单，记在一本账里</h1>
+      <p class="lede">CloudBridge 把每家云的账单按天读进你电脑上的同一个数据库，用同一套列、换算成一种报表货币。不用部署服务器，就能看清这个月在所有云上的花费。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-ghost" href="/demo/">在线演示</a>
+      </div>
+      <p class="fineprint">免费开源，支持 macOS 和 Windows。无需注册，不同步，不上报任何数据。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">数据来源</p>
+      <h2>每家云怎么接入</h2>
+      <p class="intro">每个连接用的都是只读、仅限账单的凭据，保存在系统钥匙串里。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>云平台</th><th>接入方式</th><th>能看到什么</th></tr></thead>
+          <tbody>
+            <tr><td><a href="/docs/zh/aws">AWS</a></td><td>Cost Explorer（只需一个 action 的 IAM 策略），或 S3 里的 FOCUS Data Export</td><td>按服务、按天的费用；用导出还能拿到资源 ID 和标签</td></tr>
+            <tr><td><a href="/docs/zh/azure">Microsoft Azure</a></td><td>带 Cost Management Reader 角色的服务主体</td><td>按天的实际费用，按服务和费用类型区分</td></tr>
+            <tr><td><a href="/docs/zh/google-cloud">Google Cloud</a></td><td>用服务账号读取 BigQuery 账单导出</td><td>按服务、SKU、项目和区域的每日费用，抵扣单独成行</td></tr>
+            <tr><td><a href="/docs/zh/alibaba-cloud">阿里云</a></td><td>只读 RAM 用户，或导入账单明细</td><td>API 给出每个产品的合计；导出给出实例级明细</td></tr>
+            <tr><td><a href="/docs/zh/cloudflare">Cloudflare</a></td><td>带 Billing Read 权限的 API token</td><td>按天的计费用量，拆到 Worker、bucket 和 Durable Object</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/zh/permissions">各家云的最小权限 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">同一种格式</p>
+          <h2>所有账单都用同一套列</h2>
+          <p>不管账单从哪来，都按 FinOps FOCUS 标准的列名保存。阿里云的 ECS 和 AWS 的 EC2 都归为 Compute，一条 SQL 就能查所有云。</p>
+          <p><a href="/docs/zh/query">SQL 查询</a>&emsp;<a href="/docs/zh/focus">FOCUS 与 token 数据</a></p>
+        </div>
+        <ul class="promise">
+          <li><code>billed_cost</code>、<code>effective_cost</code>、<code>service_category</code>、<code>region_id</code> 这些列，对每个来源含义都一样。</li>
+          <li>合计按一种报表货币显示；每笔费用在换算后的金额旁边保留原始币种。</li>
+          <li>抵扣、退款和一次性购买按原样记录，不会混进用量里。</li>
+          <li>账本是一个 DuckDB 文件，可以用只读 SQL 查询，也可以导出为 FOCUS CSV。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">读懂账单</p>
+          <h2>钱是谁花的，花在了什么上</h2>
+          <p>总览页显示所有来源的本月至今花费、月底预测和变化最大的项目。成本归属把花费对应到你的业务线，并按标签、服务、区域或 FOCUS 服务类别拆开。</p>
+          <p><a href="/docs/zh/overview">总览与账号</a>&emsp;<a href="/docs/zh/attribution">成本归属</a>&emsp;<a href="/docs/zh/reconciliation">账单核对</a></p>
+        </div>
+        <ul class="promise">
+          <li>告警规则跑在同一本账上：费用异常、账号预算、余额下限和未打标签花费。<a href="/zh/use-cases/cloud-cost-alerts/">云费用异常告警</a>。</li>
+          <li>模型平台的账单和云账单放在一起，还能看每个模型每百万 token 的成本。<a href="/zh/use-cases/llm-api-cost-tracking/">大模型 API 成本追踪</a>。</li>
+          <li>账单核对把每家服务商的最终发票和账本逐一比对，用发票自己的币种。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">不用服务器</p>
+          <h2>装上就能用的桌面应用，不是要部署的平台</h2>
+          <p>多云成本工具大多是要你把账单交出去的托管服务，或者要自己部署和维护的服务端。CloudBridge 只是一个安装即用的应用：账单从服务商直接到你磁盘上的文件，不经过别的地方。</p>
+          <p><a href="/blog/cloudbridge-vs-optscale" hreflang="en">CloudBridge vs OptScale（英文）</a></p>
+        </div>
+        <ul class="promise">
+          <li>没有 CloudBridge 账号，没有同步服务，不上报任何数据。</li>
+          <li>只读：不会创建或修改任何云资源。</li>
+          <li>它是给一个人看账单用的。需要共享看板和权限角色的团队，更适合用 FinOps 服务端产品。</li>
+          <li>基于 MIT 许可开源。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">常见问题</p>
+      <h2>大家常问的问题</h2>
+      <div class="faq">
+        <details><summary>把多家云的费用放在一起看，需要部署服务器吗？</summary><p>不需要。CloudBridge 是 macOS 和 Windows 上的桌面应用，用只读凭据读取各家云的账单，存进你磁盘上的一个 DuckDB 文件。不用搭服务器、数据库，也不用注册账号。</p></details>
+        <details><summary>CloudBridge 支持哪些云？</summary><p>AWS、Microsoft Azure、Google Cloud、阿里云和 Cloudflare 通过各自的账单 API 或导出接入，火山引擎通过账单导出接入。OpenAI、Anthropic 和 DeepSeek 这些模型平台的账单也记在同一本账里。</p></details>
+        <details><summary>不同币种的账单怎么加在一起？</summary><p>合计按一种报表货币显示。每笔费用都在换算后的金额旁边保留原始币种；没有汇率的费用会明确提示未计入，而不是随便假设一个汇率。</p></details>
+        <details><summary>FOCUS 是什么，在这里有什么用？</summary><p>FOCUS 是 FinOps 基金会制定的开放账单数据规范。CloudBridge 的列名沿用它，所以阿里云的 ECS 和 AWS 的 EC2 都归为 Compute，一条 SQL 就能查所有云。账本也可以导出为 FOCUS CSV。</p></details>
+        <details><summary>CloudBridge 是给整个团队用的 FinOps 平台吗？</summary><p>不是。它是一个人电脑上的一本账，没有同步，也没有共享的服务器。如果组织需要共享看板和权限角色，FinOps 服务端产品更合适；<a href="/blog/cloudbridge-vs-optscale" hreflang="en">CloudBridge vs OptScale</a> 这篇文章对比了两者。</p></details>
+        <details><summary>读取账单本身要花钱吗？</summary><p>只有服务商收费的地方才会：AWS 的 Cost Explorer 请求和 S3 读取，以及 Google Cloud 超出每月免费额度的 BigQuery 查询。CloudBridge 每个刷新间隔最多请求每家服务商一次，默认 24 小时。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>把所有云账单放到一个地方</h2>
+      <p>下载 CloudBridge，给每家云添加一个账号，就能看清这个月在所有云上的花费。也可以先看看在线演示。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">下载 CloudBridge</a>
+        <a class="button button-quiet" href="/docs/zh/getting-started">快速上手</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/zh/">文档</a>
+    <a href="/blog/zh/">博客</a>
+    <a href="/demo/">在线演示</a>
+    <a href="/zh/use-cases/cloud-cost-alerts/">云费用告警</a>
+    <a href="/zh/use-cases/cloudflare-cost-breakdown/">Cloudflare 费用</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/">大模型 API 成本</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

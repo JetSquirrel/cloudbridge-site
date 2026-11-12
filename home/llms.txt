@@ -44,6 +44,8 @@ Every documentation page is also served as Markdown: add `.md` to its address (f
 ## Use cases
 
 - [Cloud cost alerts](https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/): catching a runaway AWS, Cloudflare or AI API bill within a day or two, and which alert rule fits which situation (Chinese: /zh/use-cases/cloud-cost-alerts/)
+- [Cloudflare cost breakdown](https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/): which Worker, R2 bucket, D1 database or Durable Object namespace is behind a Cloudflare bill, how the per-resource split works and what it cannot split (Chinese: /zh/use-cases/cloudflare-cost-breakdown/)
+- [Multi-cloud cost dashboard](https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/): AWS, Azure, Google Cloud, Alibaba Cloud and Cloudflare bills in one local ledger with FOCUS columns and one reporting currency, with no server to deploy (Chinese: /zh/use-cases/multi-cloud-cost-dashboard/)
 - [LLM API cost tracking](https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/): per-model spend, tokens and cost per million tokens from OpenAI, Anthropic, DeepSeek, Model Studio and Volcengine Ark (Chinese: /zh/use-cases/llm-api-cost-tracking/)
 
 ## Optional

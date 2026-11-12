@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-Cloud Cost Dashboard for AWS, Azure and Google Cloud | CloudBridge</title>
+<meta name="description" content="AWS, Azure, Google Cloud, Alibaba Cloud and Cloudflare bills in one local ledger with FOCUS columns. A free, open-source desktop app, with no server to run.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<meta property="og:title" content="Multi-Cloud Cost Dashboard for AWS, Azure and Google Cloud | CloudBridge">
+<meta property="og:description" content="Every cloud bill in one ledger on your computer, in the same FOCUS columns, with totals in one currency. Free and open source, with no server to run.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="The CloudBridge Overview: month-to-date spend across clouds and model providers, a daily spend chart and the biggest movers">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Multi-Cloud Cost Dashboard for AWS, Azure and Google Cloud | CloudBridge">
+<meta name="twitter:description" content="Every cloud bill in one ledger on your computer, in the same FOCUS columns, with totals in one currency. Free and open source, with no server to run.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/",
+      "name": "Multi-cloud cost dashboard for AWS, Azure and Google Cloud",
+      "description": "AWS, Azure, Google Cloud, Alibaba Cloud and Cloudflare bills in one local ledger with FOCUS columns. A free, open-source desktop app, with no server to run.",
+      "inLanguage": "en",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "Multi-cloud cost dashboard", "item": "https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "en",
+      "mainEntity": [
+        { "@type": "Question", "name": "Do I need to deploy a server to see all my cloud costs together?", "acceptedAnswer": { "@type": "Answer", "text": "No. CloudBridge is a desktop app for macOS and Windows. It reads each provider with a read-only credential and keeps the bills in a DuckDB file on your disk. There is no server, database or account to set up." } },
+        { "@type": "Question", "name": "Which clouds does CloudBridge read?", "acceptedAnswer": { "@type": "Answer", "text": "AWS, Microsoft Azure, Google Cloud, Alibaba Cloud and Cloudflare through their billing APIs or exports, and Volcengine through its bill export. Model-provider bills from OpenAI, Anthropic and DeepSeek land in the same ledger." } },
+        { "@type": "Question", "name": "How does it add up bills in different currencies?", "acceptedAnswer": { "@type": "Answer", "text": "Totals are shown in one reporting currency. Each charge keeps its original currency beside the converted amount, and a charge with no exchange rate is reported as left out rather than assumed." } },
+        { "@type": "Question", "name": "What is FOCUS, and why does it matter here?", "acceptedAnswer": { "@type": "Answer", "text": "FOCUS is the FinOps Foundation's open specification for billing data. CloudBridge names its columns after it, so an Alibaba Cloud ECS instance and an AWS EC2 instance both count as Compute and one SQL query covers every provider. The ledger can also be exported as FOCUS CSV." } },
+        { "@type": "Question", "name": "Is CloudBridge a FinOps platform for a whole team?", "acceptedAnswer": { "@type": "Answer", "text": "No. It is a ledger on one person's computer, with no sync and no shared server. If an organization needs shared dashboards and roles, a FinOps server fits better; the CloudBridge vs OptScale post compares the two." } },
+        { "@type": "Question", "name": "Does reading the bills cost anything?", "acceptedAnswer": { "@type": "Answer", "text": "Only where the provider charges for it: AWS Cost Explorer requests and S3 reads, and Google Cloud BigQuery queries past the monthly free tier. CloudBridge contacts each provider at most once per refresh interval, 24 hours by default." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/">Docs</a>
+        <a class="optional" href="/blog/">Blog</a>
+        <a class="optional" href="/demo/">Demo</a>
+        <a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">中文</a>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">›</span><span>Multi-cloud cost dashboard</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">AWS, Azure, Google Cloud, Alibaba Cloud and Cloudflare, side by side</p>
+      <h1>One ledger for every cloud bill</h1>
+      <p class="lede">CloudBridge reads each cloud's bill per day into one database on your computer, in the same columns and one reporting currency, so you can see the month across all of them without running a server.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download CloudBridge</a>
+        <a class="button button-ghost" href="/demo/">Try the demo</a>
+      </div>
+      <p class="fineprint">Free and open source for macOS and Windows. No account, no sync, no telemetry.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Sources</p>
+      <h2>How each cloud connects</h2>
+      <p class="intro">Every connection uses a read-only credential scoped to billing, kept in your system keyring.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Cloud</th><th>How</th><th>What you get</th></tr></thead>
+          <tbody>
+            <tr><td><a href="/docs/aws">AWS</a></td><td>Cost Explorer with a one-action IAM policy, or a FOCUS Data Export in S3</td><td>Cost per service per day; resource IDs and tags with the export</td></tr>
+            <tr><td><a href="/docs/azure">Microsoft Azure</a></td><td>A service principal with Cost Management Reader</td><td>Actual cost per day, by service and charge type</td></tr>
+            <tr><td><a href="/docs/google-cloud">Google Cloud</a></td><td>A service account reading the BigQuery billing export</td><td>Daily cost by service, SKU, project and region, with credits as their own rows</td></tr>
+            <tr><td><a href="/docs/alibaba-cloud">Alibaba Cloud</a></td><td>A read-only RAM user, or the bill details export</td><td>Each product's total from the API; instance-level rows from the export</td></tr>
+            <tr><td><a href="/docs/cloudflare">Cloudflare</a></td><td>An API token with Billing Read</td><td>Daily billable usage, split per Worker, bucket and Durable Object</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/permissions">Least-privilege permissions for each provider →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">One format</p>
+          <h2>Every bill in the same columns</h2>
+          <p>Bills are stored with column names from the FinOps FOCUS standard, however they arrive. An Alibaba Cloud ECS instance and an AWS EC2 instance both count as Compute, and one SQL query covers every provider.</p>
+          <p><a href="/docs/query">Query</a>&emsp;<a href="/docs/focus">FOCUS and token data</a></p>
+        </div>
+        <ul class="promise">
+          <li>Columns such as <code>billed_cost</code>, <code>effective_cost</code>, <code>service_category</code> and <code>region_id</code> mean the same thing for every source.</li>
+          <li>Totals are in one reporting currency; each charge keeps its original currency beside the converted amount.</li>
+          <li>Credits, refunds and one-off purchases are kept as what they are, not added to usage.</li>
+          <li>The ledger is a DuckDB file you can query with read-only SQL or export as FOCUS CSV.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Read the bill</p>
+          <h2>Who spent it, and on what</h2>
+          <p>The Overview shows the month to date, the forecast and the biggest movers across every source. Attribution maps spend to your business lines and breaks it down by tag, service, region or FOCUS service category.</p>
+          <p><a href="/docs/overview">Overview</a>&emsp;<a href="/docs/attribution">Attribution</a>&emsp;<a href="/docs/reconciliation">Reconciliation</a></p>
+        </div>
+        <ul class="promise">
+          <li>Alert rules run on the same ledger: cost anomalies, account budgets, balance floors and untagged spend. <a href="/use-cases/cloud-cost-alerts/">Cloud cost alerts</a>.</li>
+          <li>Model-provider bills sit beside the clouds, with cost per million tokens per model. <a href="/use-cases/llm-api-cost-tracking/">LLM API cost tracking</a>.</li>
+          <li>Reconciliation compares each provider's final invoice with the ledger, in the invoice's currency.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">No server</p>
+          <h2>A desktop app, not a platform to deploy</h2>
+          <p>Most multi-cloud cost tools are a hosted service you send your bills to, or a server you deploy and maintain. CloudBridge is an app you install: the bills go from the provider to a file on your disk and nowhere else.</p>
+          <p><a href="/blog/cloudbridge-vs-optscale">CloudBridge vs OptScale</a></p>
+        </div>
+        <ul class="promise">
+          <li>No CloudBridge account, no sync service, no telemetry.</li>
+          <li>Read-only: no provider resource is created or changed.</li>
+          <li>Built for one person's view of the bills. A team that needs shared dashboards and roles wants a FinOps server instead.</li>
+          <li>Open source under MIT.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions people ask</h2>
+      <div class="faq">
+        <details><summary>Do I need to deploy a server to see all my cloud costs together?</summary><p>No. CloudBridge is a desktop app for macOS and Windows. It reads each provider with a read-only credential and keeps the bills in a DuckDB file on your disk. There is no server, database or account to set up.</p></details>
+        <details><summary>Which clouds does CloudBridge read?</summary><p>AWS, Microsoft Azure, Google Cloud, Alibaba Cloud and Cloudflare through their billing APIs or exports, and Volcengine through its bill export. Model-provider bills from OpenAI, Anthropic and DeepSeek land in the same ledger.</p></details>
+        <details><summary>How does it add up bills in different currencies?</summary><p>Totals are shown in one reporting currency. Each charge keeps its original currency beside the converted amount, and a charge with no exchange rate is reported as left out rather than assumed.</p></details>
+        <details><summary>What is FOCUS, and why does it matter here?</summary><p>FOCUS is the FinOps Foundation's open specification for billing data. CloudBridge names its columns after it, so an Alibaba Cloud ECS instance and an AWS EC2 instance both count as Compute and one SQL query covers every provider. The ledger can also be exported as FOCUS CSV.</p></details>
+        <details><summary>Is CloudBridge a FinOps platform for a whole team?</summary><p>No. It is a ledger on one person's computer, with no sync and no shared server. If an organization needs shared dashboards and roles, a FinOps server fits better; the <a href="/blog/cloudbridge-vs-optscale">CloudBridge vs OptScale</a> post compares the two.</p></details>
+        <details><summary>Does reading the bills cost anything?</summary><p>Only where the provider charges for it: AWS Cost Explorer requests and S3 reads, and Google Cloud BigQuery queries past the monthly free tier. CloudBridge contacts each provider at most once per refresh interval, 24 hours by default.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Put your cloud bills in one place</h2>
+      <p>Download CloudBridge, add an account for each cloud, and read the month across all of them. Or look around the demo first.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Download CloudBridge</a>
+        <a class="button button-quiet" href="/docs/getting-started">Getting started</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/">Docs</a>
+    <a href="/blog/">Blog</a>
+    <a href="/demo/">Demo</a>
+    <a href="/use-cases/cloud-cost-alerts/">Cloud cost alerts</a>
+    <a href="/use-cases/cloudflare-cost-breakdown/">Cloudflare costs</a>
+    <a href="/use-cases/llm-api-cost-tracking/">LLM API costs</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">中文</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

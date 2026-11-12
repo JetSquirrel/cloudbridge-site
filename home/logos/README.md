@@ -8,6 +8,8 @@ serves them itself.
 | File | Source icon |
 | --- | --- |
 | `aws.svg` | `aws-color` |
+| `azure.svg` | `azure-color` |
+| `google-cloud.svg` | `googlecloud-color` |
 | `alibaba-cloud.svg` | `alibabacloud-color` |
 | `cloudflare.svg` | `cloudflare-color` |
 | `volcengine.svg` | `volcengine-color` |
