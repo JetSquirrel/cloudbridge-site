@@ -15,7 +15,7 @@ Key facts:
 - Download: https://github.com/JetSquirrel/cloudbridge/releases/latest
 - Source code: https://github.com/JetSquirrel/cloudbridge
 
-Every documentation page is also served as Markdown: add `.md` to its address (for example https://cloudbridge.jetsquirrel.cloud/docs/cloudflare.md). All English pages in one file: https://cloudbridge.jetsquirrel.cloud/docs/llms-full.txt; Chinese: https://cloudbridge.jetsquirrel.cloud/docs/zh/llms-full.txt
+Every documentation page is also served as Markdown: add `.md` to its address (for example https://cloudbridge.jetsquirrel.cloud/docs/cloudflare.md). All English pages in one file: https://cloudbridge.jetsquirrel.cloud/docs/llms-full.txt; the docs are also translated, with one file per language: Chinese https://cloudbridge.jetsquirrel.cloud/docs/zh/llms-full.txt, Japanese https://cloudbridge.jetsquirrel.cloud/docs/ja/llms-full.txt, Korean https://cloudbridge.jetsquirrel.cloud/docs/ko/llms-full.txt, French https://cloudbridge.jetsquirrel.cloud/docs/fr/llms-full.txt. The product page is translated at /zh/, /ja/, /ko/ and /fr/, and the blog at /blog/zh/, /blog/ja/, /blog/ko/ and /blog/fr/.
 
 ## Docs
 
@@ -42,11 +42,11 @@ Every documentation page is also served as Markdown: add `.md` to its address (f
 
 ## Use cases
 
-- [Cloud cost alerts](https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/): catching a runaway AWS, Cloudflare or AI API bill within a day or two, and which alert rule fits which situation (Chinese: /zh/use-cases/cloud-cost-alerts/)
-- [LLM API cost tracking](https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/): per-model spend, tokens and cost per million tokens from OpenAI, Anthropic, DeepSeek, Model Studio and Volcengine Ark (Chinese: /zh/use-cases/llm-api-cost-tracking/)
+- [Cloud cost alerts](https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/): catching a runaway AWS, Cloudflare or AI API bill within a day or two, and which alert rule fits which situation (translated at /zh/, /ja/, /ko/ and /fr/)
+- [LLM API cost tracking](https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/): per-model spend, tokens and cost per million tokens from OpenAI, Anthropic, DeepSeek, Model Studio and Volcengine Ark (translated at /zh/, /ja/, /ko/ and /fr/)
 
 ## Optional
 
-- [Blog](https://cloudbridge.jetsquirrel.cloud/blog/): release notes, design decisions and field notes (Chinese posts at /blog/zh/); Atom feeds at /blog/feed.xml and /blog/zh/feed.xml
+- [Blog](https://cloudbridge.jetsquirrel.cloud/blog/): release notes, design decisions and field notes (Chinese posts at /blog/zh/, Japanese at /blog/ja/, Korean at /blog/ko/, French at /blog/fr/); Atom feeds at /blog/feed.xml, /blog/zh/feed.xml, /blog/ja/feed.xml, /blog/ko/feed.xml and /blog/fr/feed.xml
 - [Roadmap](https://github.com/JetSquirrel/cloudbridge/blob/main/docs/roadmap.md)
 - [Changelog](https://github.com/JetSquirrel/cloudbridge/blob/main/CHANGELOG.md)

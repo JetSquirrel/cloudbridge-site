@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS、Cloudflare、AI API のクラウド費用アラート | CloudBridge</title>
+<meta name="description" content="AWS、Cloudflare、AI API の請求が暴走しても、請求書ではなく 1〜2 日以内に気づけます。日次の異常検知ルール、予算、メニューバーのアラートを、すべてローカルで。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloud-cost-alerts/">
+<meta property="og:title" content="AWS、Cloudflare、AI API のクラウド費用アラート | CloudBridge">
+<meta property="og:description" content="クラウドや AI の請求が暴走し始めた日に気づけます。CloudBridge は請求書を日次で読み込み、メニューバーから通知します。無料・オープンソース・ローカル。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge の概要画面：クラウドとモデルプロバイダーごとの月初来の支出、日次支出のグラフ、変動の大きい項目">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AWS、Cloudflare、AI API のクラウド費用アラート | CloudBridge">
+<meta name="twitter:description" content="クラウドや AI の請求が暴走し始めた日に気づけます。CloudBridge は請求書を日次で読み込み、メニューバーから通知します。無料・オープンソース・ローカル。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/ja/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloud-cost-alerts/",
+      "name": "AWS、Cloudflare、AI API のクラウド費用アラート",
+      "description": "AWS、Cloudflare、AI API の請求が暴走しても、請求書ではなく 1〜2 日以内に気づけます。日次の異常検知ルール、予算、メニューバーのアラートを、すべてローカルで。",
+      "inLanguage": "ja",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "クラウド費用アラート", "item": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloud-cost-alerts/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "ja",
+      "mainEntity": [
+        { "@type": "Question", "name": "CloudBridge はどのくらい早くコストの急増に気づきますか？", "acceptedAnswer": { "@type": "Answer", "text": "1〜2 日以内です。請求書は日次で読み込まれるため、プロバイダーがその日の使用量を報告し、次の更新が走れば台帳に反映されます。月次の請求書を待つ必要はありません。ただしリアルタイムの監視ではありません。" } },
+        { "@type": "Question", "name": "アラートを送るために CloudBridge を開いておく必要がありますか？", "acceptedAnswer": { "@type": "Answer", "text": "起動している必要はありますが、ウィンドウを開いておく必要はありません。macOS と Windows ではメニューバーに残り、更新間隔ごとに各アカウントを更新して、新しいアラートごとにシステム通知を出します。「ログイン時に開く」を有効にすれば、再起動後も動き続けます。" } },
+        { "@type": "Question", "name": "支出がゼロだったプロジェクトの暴走も捉えられますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい、月末予測に基づくアカウント予算ルールで捉えられます。異常検知ルールはサービスをその過去 7 日間と比較するため、コストが 0 だったサービスには基準値がありません。予測ルールは最初の高額な日をその月の残りに投影します。" } },
+        { "@type": "Question", "name": "請求書を見張ることで請求額は増えますか？", "acceptedAnswer": { "@type": "Answer", "text": "AWS のみ増える可能性があります。Cost Explorer はリクエストごとに、S3 は読み取りに対して課金されます。CloudBridge は更新間隔ごとに各アカウントを 1 回取得し（既定では AWS アカウントあたり 1 日およそ 2 回の Cost Explorer リクエスト）、同じデータに二度払いすることはありません。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/ja/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="サイト">
+        <a href="/docs/ja/">ドキュメント</a>
+        <a class="optional" href="/blog/ja/">ブログ</a>
+        <a class="optional" href="/demo/">デモ</a>
+        <details class="lang">
+          <summary aria-label="言語">日本語</summary>
+          <ul>
+            <li><a href="/use-cases/cloud-cost-alerts/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/cloud-cost-alerts/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/cloud-cost-alerts/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li>
+            <li><a href="/ko/use-cases/cloud-cost-alerts/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/cloud-cost-alerts/" hreflang="fr-FR" lang="fr">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">ダウンロード</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/ja/">ホーム</a><span aria-hidden="true">›</span><span>クラウド費用アラート</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">請求書が届く日ではなく、始まった日に気づく</p>
+      <h1>請求書より先に届くクラウド費用アラート</h1>
+      <p class="lede">CloudBridge は AWS、Alibaba Cloud、Cloudflare、モデルプロバイダーの請求書を日次でお使いのコンピューター上の台帳に読み込み、アラートルールを実行し、支出が跳ね上がったときにメニューバーから通知します。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-ghost" href="/docs/ja/alerts">アラートのドキュメントを読む</a>
+      </div>
+      <p class="fineprint">macOS と Windows 向けの無料オープンソース。アカウントも同期もテレメトリもありません。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">請求書では遅すぎる理由</p>
+      <h2>暴走する請求を不意打ちにする 3 つの要因</h2>
+      <p class="intro">従量課金には上限がなく、請求書は使用量より遅れて届き、暴走するプロジェクトはたいてい誰も見ていないものです。</p>
+      <ol class="steps">
+        <li>
+          <h3>上限がない</h3>
+          <p>従量課金のアカウントは使った分だけ請求されます。壊れたコードは多くの場合クラッシュしません。成功し続け、課金され続けます。</p>
+        </li>
+        <li>
+          <h3>遅れて届く請求書</h3>
+          <p>使用量は集計され、価格が付いてから請求書に届きます。Cost Explorer は 1 日遅れることがあり、請求書は月に 1 回です。</p>
+        </li>
+        <li>
+          <h3>誰も見ていない</h3>
+          <p>本番環境にはダッシュボードがあります。テストプロジェクトや忘れられたプロトタイプにはトラフィックがないので、誰もそのグラフを見ません。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">アラートルール</p>
+      <h2>請求のつまずき方ごとに 1 つのルール</h2>
+      <p class="intro">3 つのルールが有効な状態で用意されています。重要なアカウントには予算ルールを追加し、必要なら異常検知ルールを 1 つのアカウントに絞り込めます。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>状況</th><th>ルール</th><th>既定値</th></tr></thead>
+          <tbody>
+            <tr><td>安定して支出しているサービスの支出が突然 2 倍になる</td><td>サービス自身の直近 7 日間の基準値に対するコスト増加の異常</td><td>2 日連続で 2.5 倍を超えた場合</td></tr>
+            <tr><td>休眠していたプロジェクトが動き出す、または新しい何かが暴走する</td><td>月末予測に基づくアカウント予算</td><td>まずアカウントの月次予算を設定</td></tr>
+            <tr><td>DeepSeek のような前払い残高が急速に減る</td><td>残高の下限</td><td>残高の通貨で 200、またはアカウントの予算</td></tr>
+            <tr><td>誰のものでもない新しい支出</td><td>タグなし支出の比率</td><td>15% を超え、かつ前月より高い</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/ja/alerts">アラート、ルール、予算 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">見守る</p>
+          <h2>ウィンドウを閉じても見張り続けます</h2>
+          <p>macOS と Windows では、CloudBridge は今月の支出をタイトルにしたメニューバーに残ります。更新間隔（既定は 24 時間、最短 6 時間）が過ぎたアカウントを取得し、ルールを実行し、新しいアラートごとにシステム通知を出します。「ログイン時に開く」を有効にすると、再起動後も続きます。</p>
+          <p><a href="/docs/ja/background">メニューバーとバックグラウンド</a></p>
+        </div>
+        <ul class="promise">
+          <li>請求書は日次で読み込まれるので、急増は月末ではなく翌日に現れます。</li>
+          <li>Cloudflare の日次請求は R2 バケット、Worker、D1 データベース、Durable Object まで分割されます。</li>
+          <li>15 分ごとのローカルチェックで、プロバイダーに問い合わせずに更新時期を検知します。</li>
+          <li>各プロバイダーへの問い合わせは更新間隔ごとに最大 1 回なので、頻繁に見守っても追加の API 料金はかかりません。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">実際の事例</p>
+          <h2>10,811 ドルの Durable Object アラート</h2>
+          <p>休眠していた Cloudflare プロジェクトが約 6 兆回の読み取りと書き込みをループし、最初の兆候は請求書でした。記事では、何が起きたのか、なぜ誰も警告を受けなかったのか、どのルールなら気づけたのかを解説しています。</p>
+          <p><a href="/blog/ja/cloudflare-durable-object-runaway">記事を読む</a></p>
+        </div>
+        <ul class="promise">
+          <li>異常検知ルールでは捉えられません。コストが 0 のサービスには基準値がないからです。</li>
+          <li>月末予測に基づくアカウント予算ルールなら、最初の高額な日から捉えられます。</li>
+          <li>Cloudflare の無料枠内の使用量もコスト 0 として記録します。暴走はそこから始まるからです。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">プライバシー</p>
+          <h2>請求書はお使いのマシンに残ります</h2>
+          <p>請求書には、何を誰のために動かしているかが書かれています。CloudBridge は台帳をディスク上の DuckDB ファイルに、認証情報を OS のキーチェーンに保持し、プロバイダーに対しては読み取りしか行いません。</p>
+        </div>
+        <ul class="promise">
+          <li>CloudBridge のアカウントも同期サービスもテレメトリもありません。</li>
+          <li>読み取り専用の認証情報。プロバイダーのリソースは作成も変更もしません。</li>
+          <li>MIT のオープンソース。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>よくある質問</h2>
+      <div class="faq">
+        <details><summary>CloudBridge はどのくらい早くコストの急増に気づきますか？</summary><p>1〜2 日以内です。請求書は日次で読み込まれるため、プロバイダーがその日の使用量を報告し、次の更新が走れば台帳に反映されます。月次の請求書を待つ必要はありません。ただしリアルタイムの監視ではありません。</p></details>
+        <details><summary>アラートを送るために CloudBridge を開いておく必要がありますか？</summary><p>起動している必要はありますが、ウィンドウを開いておく必要はありません。macOS と Windows ではメニューバーに残り、更新間隔ごとに各アカウントを更新して、新しいアラートごとに通知を出します。「ログイン時に開く」を有効にすれば、再起動後も動き続けます。</p></details>
+        <details><summary>支出がゼロだったプロジェクトの暴走も捉えられますか？</summary><p>はい、月末予測に基づくアカウント予算ルールで捉えられます。異常検知ルールはサービスをその過去 7 日間と比較するため、コストが 0 だったサービスには基準値がありません。予測ルールは最初の高額な日をその月の残りに投影します。</p></details>
+        <details><summary>請求書を見張ることで請求額は増えますか？</summary><p>AWS のみ増える可能性があります。Cost Explorer はリクエストごとに、S3 は読み取りに対して課金されます。CloudBridge は更新間隔ごとに各アカウントを 1 回取得し（既定では AWS アカウントあたり 1 日およそ 2 回の Cost Explorer リクエスト）、同じデータに二度払いすることはありません。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>翌月ではなく、翌日に気づく</h2>
+      <p>CloudBridge をダウンロードし、アカウントを接続し、予算を設定すれば、あとはメニューバーから見張ってくれます。まずデモを見て回ることもできます。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-quiet" href="/demo/">デモを試す</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/ja/">ドキュメント</a>
+    <a href="/blog/ja/">ブログ</a>
+    <a href="/demo/">デモ</a>
+    <a href="/ja/use-cases/llm-api-cost-tracking/">LLM API コスト</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/cloud-cost-alerts/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/cloud-cost-alerts/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ko/use-cases/cloud-cost-alerts/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/cloud-cost-alerts/" hreflang="fr-FR" lang="fr">Français</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

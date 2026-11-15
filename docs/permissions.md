@@ -5,7 +5,7 @@ description: "The least-privilege credentials CloudBridge needs for AWS Cost Exp
 
 # Provider permissions
 
-**[中文](zh/permissions.md)**&emsp;[Docs](index.md)
+**[中文](zh/permissions.md)**&emsp;**[日本語](ja/permissions.md)**&emsp;**[한국어](ko/permissions.md)**&emsp;**[Français](fr/permissions.md)**&emsp;[Docs](index.md)
 
 Use dedicated credentials with the least privilege the channel needs.
 Read-only behaviour in the app does not make an unrestricted key

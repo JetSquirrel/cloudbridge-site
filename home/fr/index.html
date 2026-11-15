@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<title>CloudBridge : vos factures cloud et IA au même endroit</title>
+<meta name="description" content="CloudBridge est une application de bureau gratuite et open source qui rassemble vos factures AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic et DeepSeek dans une base de données locale et vous alerte lorsque les coûts augmentent. Sans inscription, sans synchronisation, sans télémétrie.">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/fr/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#111111">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/fr/">
+<meta property="og:title" content="CloudBridge : vos factures cloud et IA au même endroit">
+<meta property="og:description" content="Rassemblez vos factures AWS, Alibaba Cloud, Cloudflare et de vos fournisseurs d’IA dans une base locale et soyez alerté lorsque les coûts grimpent. Gratuit et open source, pour macOS et Windows.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="La vue d’ensemble de CloudBridge : dépenses du mois à ce jour sur l’ensemble des clouds et fournisseurs de modèles, graphique des dépenses quotidiennes et plus fortes variations">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CloudBridge : vos factures cloud et IA au même endroit">
+<meta name="twitter:description" content="Rassemblez vos factures AWS, Alibaba Cloud, Cloudflare et de vos fournisseurs d’IA dans une base locale et soyez alerté lorsque les coûts grimpent. Gratuit et open source, pour macOS et Windows.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="text/plain" title="llms.txt" href="https://cloudbridge.jetsquirrel.cloud/llms.txt">
+<link rel="alternate" type="application/atom+xml" title="Blog CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/fr/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "CloudBridge",
+  "description": "Une application de bureau pensée pour le local qui rassemble les factures des fournisseurs cloud et d’IA dans une base DuckDB locale, avec alertes, attribution, économie du coût par jeton et analyse des ressources.",
+  "url": "https://cloudbridge.jetsquirrel.cloud/fr/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "macOS (Apple silicon), Windows 10 ou ultérieur (x64)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://opensource.org/licenses/MIT",
+  "downloadUrl": "https://github.com/JetSquirrel/cloudbridge/releases/latest",
+  "softwareHelp": "https://cloudbridge.jetsquirrel.cloud/docs/fr/",
+  "codeRepository": "https://github.com/JetSquirrel/cloudbridge",
+  "sameAs": ["https://github.com/JetSquirrel/cloudbridge"],
+  "isAccessibleForFree": true,
+  "image": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
+  "screenshot": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
+  "featureList": ["Lecture des API de facturation AWS (Cost Explorer ou Data Exports FOCUS), Alibaba Cloud et Cloudflare", "Import des exports de factures d’Alibaba Cloud, Volcengine, OpenAI, Anthropic et DeepSeek", "Une base DuckDB locale avec les noms de colonnes FOCUS, devises d’origine conservées", "La facture quotidienne de Cloudflare répartie entre buckets R2, Workers, bases D1 et Durable Objects", "Icône dans la barre de menus avec les dépenses du mois, actualisation quotidienne en arrière-plan et notifications système", "Règles d’alerte pour les anomalies de coûts, les seuils de solde, les dépenses sans étiquette et les budgets de compte", "Attribution aux lignes métier, une page Modèles pour l’économie par jeton et du SQL en lecture seule", "Analyses : une analyse en lecture seule des ressources AWS et Cloudflare, valorisée à partir de la facture", "Sans inscription, sans synchronisation, sans télémétrie ; identifiants dans le trousseau du système"],
+  "author": { "@type": "Person", "name": "JetSquirrel", "url": "https://github.com/JetSquirrel" },
+  "inLanguage": "fr"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "fr",
+  "mainEntity": [
+    {"@type": "Question", "name": "Qu’est-ce que CloudBridge ?", "acceptedAnswer": {"@type": "Answer", "text": "Une application de bureau gratuite et open source qui rassemble vos factures de fournisseurs cloud et d’IA dans une base de données sur votre ordinateur, via l’API de facturation de chaque fournisseur ou un fichier que vous avez téléchargé. Elle montre ce que vous payez, vérifie vos règles d’alerte et continue de tourner dans la barre de menus après la fermeture de la fenêtre."}},
+    {"@type": "Question", "name": "Quels fournisseurs prend-elle en charge ?", "acceptedAnswer": {"@type": "Answer", "text": "AWS (Cost Explorer, ou un Data Export FOCUS dans S3), Azure (Cost Management), Alibaba Cloud et Cloudflare via leurs API de facturation ; Google Cloud via son export de facturation BigQuery ; DeepSeek via son API de solde ; et les exports de factures d’Alibaba Cloud, Volcengine, OpenAI, Anthropic et DeepSeek."}},
+    {"@type": "Question", "name": "CloudBridge envoie-t-elle mes factures quelque part ?", "acceptedAnswer": {"@type": "Answer", "text": "Non. Les factures vont directement du fournisseur à un fichier DuckDB sur votre ordinateur. Il n’y a ni compte CloudBridge, ni service de synchronisation, ni télémétrie, et les identifiants sont stockés dans le trousseau de votre système."}},
+    {"@type": "Question", "name": "CloudBridge va-t-elle augmenter ma facture ?", "acceptedAnswer": {"@type": "Answer", "text": "Uniquement sur AWS, où Cost Explorer facture chaque requête et S3 facture les lectures. CloudBridge contacte chaque fournisseur au plus une fois par intervalle d’actualisation (24 heures par défaut), soit environ deux requêtes Cost Explorer par compte AWS et par jour. Elle ne répète pas une récupération déjà payée et ne télécharge pas deux fois un export S3 inchangé. Les autres API qu’elle appelle sont gratuites, et elle ne crée ni ne modifie jamais une ressource."}},
+    {"@type": "Question", "name": "Comment détecte-t-elle les pics de coûts ?", "acceptedAnswer": {"@type": "Answer", "text": "Elle lit les factures jour par jour : un pic apparaît donc dans les données le lendemain. Les règles vérifient les dépenses au-dessus de leur référence récente, les budgets et les soldes bas. Tant que CloudBridge tourne, même fenêtre fermée, elle actualise chaque compte une fois par jour et envoie une notification pour chaque alerte. Les factures Cloudflare peuvent aussi être réparties jusqu’au bucket, au Worker ou au Durable Object."}},
+    {"@type": "Question", "name": "Sur quels systèmes fonctionne-t-elle ?", "acceptedAnswer": {"@type": "Answer", "text": "macOS sur Apple silicon (signé et notarié) et Windows 64 bits. Linux et les Mac Intel peuvent la compiler depuis les sources."}},
+    {"@type": "Question", "name": "CloudBridge est-elle gratuite ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. Elle est gratuite et open source sous licence MIT, avec le code source complet sur GitHub. Les éventuels frais d’API des fournisseurs sont à part."}},
+    {"@type": "Question", "name": "Puis-je l’essayer sans l’installer ?", "acceptedAnswer": {"@type": "Answer", "text": "Oui. La démo dans le navigateur exécute la même application, compilée en WebAssembly, sur une facture d’exemple couvrant douze mois et plusieurs fournisseurs."}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero hero-night">
+  <div class="night">
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand" href="/fr/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+        <nav aria-label="Site">
+          <a href="/docs/fr/">Documentation</a>
+          <a class="optional" href="/blog/fr/">Blog</a>
+          <a class="optional" href="/demo/">Démo</a>
+          <a class="optional" href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+          <details class="lang">
+            <summary aria-label="Langue">Français</summary>
+            <ul>
+              <li><a href="/" hreflang="en" lang="en">English</a></li>
+              <li><a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+              <li><a href="/ja/" hreflang="ja" lang="ja">日本語</a></li>
+              <li><a href="/ko/" hreflang="ko" lang="ko">한국어</a></li>
+              <li><a href="/fr/" hreflang="fr-FR" lang="fr" aria-current="true">Français</a></li>
+            </ul>
+          </details>
+          <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download="short">Télécharger</a>
+        </nav>
+      </div>
+      <div class="hero-copy">
+        <h1>Toutes vos factures cloud et IA <span class="accent">au même endroit.</span></h1>
+        <p class="lede">CloudBridge est une application de bureau qui rassemble vos factures AWS, Alibaba Cloud, Cloudflare, OpenAI, Anthropic et DeepSeek, montre ce que vous payez et vous alerte lorsque les coûts s’envolent. Tout est stocké sur votre ordinateur.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Télécharger pour Mac</a>
+          <a class="button button-ghost" href="/demo/">Essayer la démo</a>
+        </div>
+        <p class="fineprint">Gratuit et open source. Sans inscription, sans synchronisation, sans télémétrie. <span data-also>Aussi pour <a href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-windows-x64.exe">Windows</a>.</span></p>
+      </div>
+    </div>
+    <svg class="night-art" viewBox="0 0 1361 428" aria-hidden="true">
+      <defs>
+        <clipPath id="bridge-clip"><path clip-rule="evenodd" d="M1251.5 197.5L1331.5 197.8L1333.5 198.3L1334.7 199.5L1334.9 202.5L1333.7 204.5L1329.5 205.5L1258.5 214.1L1242.5 216.4L1228.5 219.0L1211.5 223.1L1197.5 227.2L1180.5 234.2L1168.5 240.0L1151.5 250.5L1136.5 262.2L1123.4 274.5L1111.5 287.6L1101.1 301.5L1093.3 314.5L1089.6 323.5L1088.3 329.5L1087.8 334.5L1088.7 340.5L1091.3 347.5L1096.5 353.7L1103.7 359.5L1115.5 365.9L1173.5 391.2L1203.5 405.4L1243.8 425.5L1246.4 427.5L1246.4 435.5L1244.5 435.8L1111.5 435.9L1106.5 435.6L1106.3 427.5L1103.9 424.5L1083.5 406.9L1068.2 395.5L1053.5 385.9L1029.5 372.2L1007.3 361.5L990.5 354.0L957.5 341.4L932.5 333.3L908.5 326.4L882.5 320.1L846.5 313.1L810.5 307.9L781.5 305.0L746.5 303.0L718.5 302.5L679.5 303.5L649.5 305.6L609.5 310.0L586.5 313.2L546.5 320.0L517.5 326.3L489.5 333.2L467.5 339.2L428.5 351.4L400.5 361.3L360.5 377.2L326.5 392.2L289.5 410.2L261.5 425.7L259.5 427.5L259.5 435.5L258.5 435.7L99.5 435.7L98.6 435.5L98.6 427.5L100.7 425.5L118.7 415.5L148.5 400.2L179.5 385.4L192.5 379.8L210.5 371.0L224.5 362.5L236.5 353.6L245.5 345.5L252.0 337.5L255.0 332.5L257.6 326.5L259.0 321.5L259.3 314.5L258.5 307.5L257.0 303.5L253.3 297.5L249.9 293.5L246.2 290.5L239.5 286.2L233.5 283.2L225.5 280.1L216.5 277.8L192.5 274.7L179.5 274.2L64.5 276.8L61.5 276.3L60.5 275.5L59.9 273.5L60.2 271.5L61.0 270.5L64.5 269.3L122.5 263.4L178.5 258.4L383.5 242.3L724.5 218.5L865.5 210.1L942.5 206.7L1122.5 200.3ZM1115.5 217.5L1051.5 219.6L1039.5 222.2L1031.5 225.0L1025.5 228.5L1022.0 232.5L1020.0 236.5L1019.2 241.5L1019.8 247.5L1022.1 256.5L1034.4 286.5L1047.4 313.5L1051.5 320.3L1052.5 320.6L1054.5 319.5L1070.9 300.5L1084.8 285.5L1109.5 261.5L1140.3 233.5L1146.3 226.5L1147.3 223.5L1146.9 220.5L1145.5 218.3L1143.5 217.2L1139.5 216.9ZM894.5 225.4L858.5 226.8L810.5 229.4L699.5 236.1L614.5 242.2L553.5 247.1L536.5 249.3L514.5 254.3L502.5 258.0L482.5 266.2L467.5 274.1L446.5 287.9L431.5 300.1L417.7 313.5L415.5 316.5L415.1 318.5L416.5 319.5L418.5 319.4L463.5 310.7L502.5 304.1L541.5 298.2L588.5 292.5L631.5 288.8L654.5 287.4L693.5 286.2L735.5 286.2L765.5 287.6L796.5 289.8L832.5 293.6L870.5 299.2L923.5 309.4L948.5 314.9L977.5 322.1L1005.5 329.8L1017.5 332.9L1019.5 333.0L1020.5 332.5L1021.0 331.5L1021.2 329.5L1019.9 312.5L1016.0 296.5L1013.7 289.5L1009.1 277.5L1003.7 265.5L995.7 252.5L988.5 244.3L980.5 238.4L971.5 233.2L963.5 230.3L951.5 227.4L941.5 226.0L927.5 225.2L908.5 224.8ZM426.5 256.4L373.5 260.4L353.5 262.4L343.5 264.3L328.5 268.5L321.5 271.0L313.5 275.1L304.5 280.8L297.5 287.2L292.4 293.5L287.5 301.5L283.3 313.5L282.3 322.5L282.6 330.5L285.4 337.5L287.5 340.5L289.5 342.4L292.5 344.1L295.5 345.1L301.5 345.5L310.5 343.8L328.5 338.9L340.5 334.7L358.5 326.9L376.1 317.5L393.5 306.5L411.5 292.9L428.5 277.9L436.2 269.5L438.3 266.5L439.2 263.5L439.0 260.5L438.0 258.5L436.5 257.2L434.5 256.4Z"/></clipPath>
+        <radialGradient id="node-halo"><stop offset="0" stop-color="#34d3bc" stop-opacity=".24"/><stop offset="1" stop-color="#34d3bc" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g class="bridge">
+        <path class="bridge-shape" fill-rule="evenodd" d="M1251.5 197.5L1331.5 197.8L1333.5 198.3L1334.7 199.5L1334.9 202.5L1333.7 204.5L1329.5 205.5L1258.5 214.1L1242.5 216.4L1228.5 219.0L1211.5 223.1L1197.5 227.2L1180.5 234.2L1168.5 240.0L1151.5 250.5L1136.5 262.2L1123.4 274.5L1111.5 287.6L1101.1 301.5L1093.3 314.5L1089.6 323.5L1088.3 329.5L1087.8 334.5L1088.7 340.5L1091.3 347.5L1096.5 353.7L1103.7 359.5L1115.5 365.9L1173.5 391.2L1203.5 405.4L1243.8 425.5L1246.4 427.5L1246.4 435.5L1244.5 435.8L1111.5 435.9L1106.5 435.6L1106.3 427.5L1103.9 424.5L1083.5 406.9L1068.2 395.5L1053.5 385.9L1029.5 372.2L1007.3 361.5L990.5 354.0L957.5 341.4L932.5 333.3L908.5 326.4L882.5 320.1L846.5 313.1L810.5 307.9L781.5 305.0L746.5 303.0L718.5 302.5L679.5 303.5L649.5 305.6L609.5 310.0L586.5 313.2L546.5 320.0L517.5 326.3L489.5 333.2L467.5 339.2L428.5 351.4L400.5 361.3L360.5 377.2L326.5 392.2L289.5 410.2L261.5 425.7L259.5 427.5L259.5 435.5L258.5 435.7L99.5 435.7L98.6 435.5L98.6 427.5L100.7 425.5L118.7 415.5L148.5 400.2L179.5 385.4L192.5 379.8L210.5 371.0L224.5 362.5L236.5 353.6L245.5 345.5L252.0 337.5L255.0 332.5L257.6 326.5L259.0 321.5L259.3 314.5L258.5 307.5L257.0 303.5L253.3 297.5L249.9 293.5L246.2 290.5L239.5 286.2L233.5 283.2L225.5 280.1L216.5 277.8L192.5 274.7L179.5 274.2L64.5 276.8L61.5 276.3L60.5 275.5L59.9 273.5L60.2 271.5L61.0 270.5L64.5 269.3L122.5 263.4L178.5 258.4L383.5 242.3L724.5 218.5L865.5 210.1L942.5 206.7L1122.5 200.3ZM1115.5 217.5L1051.5 219.6L1039.5 222.2L1031.5 225.0L1025.5 228.5L1022.0 232.5L1020.0 236.5L1019.2 241.5L1019.8 247.5L1022.1 256.5L1034.4 286.5L1047.4 313.5L1051.5 320.3L1052.5 320.6L1054.5 319.5L1070.9 300.5L1084.8 285.5L1109.5 261.5L1140.3 233.5L1146.3 226.5L1147.3 223.5L1146.9 220.5L1145.5 218.3L1143.5 217.2L1139.5 216.9ZM894.5 225.4L858.5 226.8L810.5 229.4L699.5 236.1L614.5 242.2L553.5 247.1L536.5 249.3L514.5 254.3L502.5 258.0L482.5 266.2L467.5 274.1L446.5 287.9L431.5 300.1L417.7 313.5L415.5 316.5L415.1 318.5L416.5 319.5L418.5 319.4L463.5 310.7L502.5 304.1L541.5 298.2L588.5 292.5L631.5 288.8L654.5 287.4L693.5 286.2L735.5 286.2L765.5 287.6L796.5 289.8L832.5 293.6L870.5 299.2L923.5 309.4L948.5 314.9L977.5 322.1L1005.5 329.8L1017.5 332.9L1019.5 333.0L1020.5 332.5L1021.0 331.5L1021.2 329.5L1019.9 312.5L1016.0 296.5L1013.7 289.5L1009.1 277.5L1003.7 265.5L995.7 252.5L988.5 244.3L980.5 238.4L971.5 233.2L963.5 230.3L951.5 227.4L941.5 226.0L927.5 225.2L908.5 224.8ZM426.5 256.4L373.5 260.4L353.5 262.4L343.5 264.3L328.5 268.5L321.5 271.0L313.5 275.1L304.5 280.8L297.5 287.2L292.4 293.5L287.5 301.5L283.3 313.5L282.3 322.5L282.6 330.5L285.4 337.5L287.5 340.5L289.5 342.4L292.5 344.1L295.5 345.1L301.5 345.5L310.5 343.8L328.5 338.9L340.5 334.7L358.5 326.9L376.1 317.5L393.5 306.5L411.5 292.9L428.5 277.9L436.2 269.5L438.3 266.5L439.2 263.5L439.0 260.5L438.0 258.5L436.5 257.2L434.5 256.4Z"/>
+        <g class="bridge-flow" clip-path="url(#bridge-clip)">
+          <path class="trail" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="mid" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="head" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/>
+          <path class="trail comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="mid comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="head comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/>
+          <path class="trail comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/><path class="mid comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/><path class="head comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/>
+        </g>
+      </g>
+      <g class="node node-1" style="--x:434.5px;--y:181.3px"><g class="node-bob"><circle class="node-halo" cx="434.5" cy="181.3" r="61.9"/><circle class="node-ring" cx="434.5" cy="181.3" r="23.8"/><circle class="node-core" cx="434.5" cy="181.3" r="23.8"/></g><circle class="node-drop" cx="434.5" cy="205.1" r="4.8" style="--drop:31px"/></g><g class="node node-2" style="--x:882.6px;--y:108.8px"><g class="node-bob"><circle class="node-halo" cx="882.6" cy="108.8" r="88.7"/><circle class="node-ring" cx="882.6" cy="108.8" r="34.1"/><circle class="node-core" cx="882.6" cy="108.8" r="34.1"/></g><circle class="node-drop" cx="882.6" cy="142.9" r="6.8" style="--drop:65px"/></g><g class="node node-3" style="--x:1143.7px;--y:154.8px"><g class="node-bob"><circle class="node-halo" cx="1143.7" cy="154.8" r="60.8"/><circle class="node-ring" cx="1143.7" cy="154.8" r="23.4"/><circle class="node-core" cx="1143.7" cy="154.8" r="23.4"/></g><circle class="node-drop" cx="1143.7" cy="178.2" r="4.7" style="--drop:20px"/></g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <ul class="facts" aria-label="En bref">
+      <li><svg class="i" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>Données stockées localement dans DuckDB</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Alertes depuis la barre de menus</li>
+      <li><svg class="i" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>macOS et Windows</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>Open source (MIT)</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Premiers pas</p>
+      <h2>Démarrez en trois étapes</h2>
+      <p class="intro">Installez l’application, puis suivez ces étapes. Aucun serveur ni compte n’est nécessaire.</p>
+      <ol class="steps path">
+        <li>
+          <h3>Ajouter un compte</h3>
+          <p>Saisissez une clé d’API en lecture seule pour les fournisseurs dotés d’une API de facturation, ou simplement un nom si vous importez des fichiers. Les clés sont enregistrées dans le trousseau de votre système.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <div class="form"><small>Source</small><span class="field">Cloudflare</span><small>ID de compte</small><span class="field mono">023e105f…c353</span><small>Jeton d’API</small><span class="field mono">••••••••••••</span><span class="field save">Enregistrer</span></div>
+          </div>
+        </li>
+        <li>
+          <h3>Importer vos factures</h3>
+          <p>CloudBridge peut récupérer les factures auprès du fournisseur, ou vous pouvez importer un fichier que vous avez téléchargé. Les deux aboutissent au même format, avec les noms de colonnes de la norme FOCUS.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <ul class="ingest"><li><span class="tag api">API</span>AWS 2026-10<small>127 lignes</small></li><li><span class="tag api">API</span>Cloudflare 2026-10<small>14 lignes</small></li><li><span class="tag file">Fichier</span>OpenAI 2026-09<small>412 lignes</small></li></ul>
+          </div>
+        </li>
+        <li>
+          <h3>Suivez les coûts et définissez des alertes</h3>
+          <p>Décomposez les dépenses par compte, service, modèle ou ligne métier. Vous recevrez une notification lorsqu’un coût s’envole.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <div class="bars small"><i style="height:30%"></i><i style="height:34%"></i><i style="height:31%"></i><i style="height:38%"></i><i style="height:36%"></i><i style="height:41%"></i><i class="spike" style="height:92%"></i></div>
+          </div>
+        </li>
+      </ol>
+      <div class="path-notes">
+        <p><b>Vous voulez d’abord jeter un œil ?</b> Une vue d’ensemble vide propose <b>Charger des données de démonstration</b>, ou vous pouvez essayer la <a href="/demo/">démo dans le navigateur</a> avec une facture d’exemple.</p>
+        <p><b>Sous Windows,</b> l’installateur n’est pas signé numériquement, SmartScreen affichera donc probablement un avertissement. Consultez <a href="/docs/fr/getting-started#install">Premiers pas</a> pour savoir quoi faire.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase">
+    <div class="wrap">
+      <p class="eyebrow">Vue d’ensemble</p>
+      <h2>Les dépenses du mois sur une seule page</h2>
+      <p class="intro">Voyez les coûts de chaque fournisseur, ce qui a le plus changé et les alertes ouvertes.</p>
+      <figure class="window app-ui" aria-label="La vue d’ensemble de CloudBridge : 2 846 dollars dépensés ce mois à ce jour, une prévision de fin de mois à 9 120 dollars, deux alertes ouvertes, un graphique des dépenses quotidiennes avec un pic sur les deux derniers jours, et Durable Objects comme plus forte hausse à plus 412 pour cent.">
+        <div class="win-title" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="win-name">CloudBridge — analyse locale des factures</span>
+        </div>
+        <div class="win-body" aria-hidden="true">
+          <div class="win-side">
+            <div class="side-brand"><b>CloudBridge</b><small>REGISTRE LOCAL, V0.5.0</small></div>
+            <ul class="nav">
+              <li class="on"><svg class="i" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>Vue d’ensemble</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>Alertes<span class="badge">2</span></li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"/><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/></svg>Attribution</li>
+              <li><svg class="i" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg>Modèles</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>Analyses</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>Requête</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>Comptes</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>Règles</li>
+            </ul>
+          </div>
+          <div class="win-main">
+            <div class="page-head">
+              <div><b>Vue d’ensemble</b><small>Octobre 2026, mois à ce jour, exprimé en USD</small></div>
+              <span class="range"><span class="on">MTD</span><span>30 j</span><span>12 m</span></span>
+            </div>
+            <div class="stats">
+              <div class="stat"><small>MOIS À CE JOUR</small><b>$2,846</b><span class="up">+18,4 % par rapport au même jour le mois dernier</span></div>
+              <div class="stat"><small>PRÉVISION</small><b>$9,120</b><span>$8,400 – $10,300 d’ici la fin du mois</span></div>
+              <div class="stat alert"><small>ALERTES OUVERTES</small><b>2</b><span>1 critique, 1 avertissement</span></div>
+            </div>
+            <div class="chart-card">
+              <small>Dépenses quotidiennes, toutes sources</small>
+              <div class="bars"><i style="height:22%"></i><i style="height:25%"></i><i style="height:21%"></i><i style="height:27%"></i><i style="height:24%"></i><i style="height:26%"></i><i style="height:23%"></i><i style="height:28%"></i><i style="height:25%"></i><i style="height:30%"></i><i style="height:27%"></i><i class="spike" style="height:74%"></i><i class="spike" style="height:96%"></i></div>
+            </div>
+            <table class="movers">
+              <thead><tr><th>Plus fortes variations</th><th class="num">MTD</th><th class="num">vs mois dernier</th></tr></thead>
+              <tbody>
+                <tr><td><b>Durable Objects</b><small>Cloudflare</small></td><td class="num">$1,250</td><td class="num hot">+412%</td></tr>
+                <tr><td><b>claude-sonnet-5-5</b><small>Anthropic</small></td><td class="num">$604</td><td class="num hot">+36%</td></tr>
+                <tr><td><b>Amazon EC2</b><small>AWS</small></td><td class="num">$512</td><td class="num">−4%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="win-status" aria-hidden="true"><i class="dot"></i>Synchronisé il y a 2 h. 5 sources, à jour depuis 21 h 4 min<span class="grow"></span><code>billing.duckdb</code></div>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Plateformes prises en charge</p>
+      <h2>Clouds et plateformes d’IA pris en charge</h2>
+      <p class="intro">Connectez-vous via l’API de facturation d’un fournisseur, ou importez le fichier de facture depuis sa console.</p>
+      <div class="platforms">
+        <div>
+          <p class="group">Clouds</p>
+          <ul class="platform-grid">
+            <li><img src="/logos/aws.svg" alt="" width="32" height="32"><div><b>AWS</b><small>Cost Explorer, Data Exports</small></div></li>
+            <li><img src="/logos/alibaba-cloud.svg" alt="" width="32" height="32"><div><b>Alibaba Cloud</b><small>API de facturation, import de factures</small></div></li>
+            <li><img src="/logos/cloudflare.svg" alt="" width="32" height="32"><div><b>Cloudflare</b><small>Usage quotidien, par ressource</small></div></li>
+            <li><img src="/logos/volcengine.svg" alt="" width="32" height="32"><div><b>Volcengine</b><small>Import de factures, endpoints Ark</small></div></li>
+          </ul>
+        </div>
+        <div>
+          <p class="group">Plateformes de modèles</p>
+          <ul class="platform-grid">
+            <li><img src="/logos/openai.svg" alt="" width="32" height="32"><div><b>OpenAI</b><small>Export de coûts ou d’usage</small></div></li>
+            <li><img src="/logos/anthropic.svg" alt="" width="32" height="32"><div><b>Anthropic</b><small>Export de coûts ou d’usage</small></div></li>
+            <li><img src="/logos/deepseek.svg" alt="" width="32" height="32"><div><b>DeepSeek</b><small>API de solde, import de factures</small></div></li>
+            <li><img src="/logos/model-studio.svg" alt="" width="32" height="32"><div><b>Model Studio</b><small>Par modèle, dans la facture Alibaba Cloud</small></div></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Les logos appartiennent à leurs propriétaires et ne servent ici qu’à indiquer quelles factures CloudBridge peut lire.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="feature">
+        <div class="feature-text">
+          <p class="eyebrow">Alertes</p>
+          <h2>Les alertes continuent après la fermeture de la fenêtre</h2>
+          <p>Lorsque vous fermez la fenêtre, CloudBridge reste dans la barre de menus et affiche les dépenses du mois. Il actualise chaque compte selon un calendrier (une fois par jour par défaut), vérifie vos règles d’alerte et envoie une notification si l’une est déclenchée. Activez « Ouvrir à la connexion » pour qu’il continue de tourner après un redémarrage.</p>
+          <p><a href="/docs/fr/background">Barre de menus et arrière-plan</a>&emsp;<a href="/docs/fr/alerts">Alertes et budgets</a></p>
+        </div>
+        <figure class="menubar-demo" aria-label="La barre de menus de macOS affiche l’icône de CloudBridge, marquée pour des alertes ouvertes, à côté de 2,8 k$ ; son panneau liste une alerte critique pour Durable Objects, et une notification système indique : Durable Objects coûte 12 fois sa référence.">
+          <div class="menubar" aria-hidden="true"><span class="grow"></span><span class="mb-item on"><svg class="i" viewBox="0 0 24 24"><path d="M12 12v4"/><path d="M12 20h.01"/><path d="M17 18h.5a1 1 0 0 0 0-9h-1.79A7 7 0 1 0 7 17.708"/></svg>2,8 k$</span><span class="mb-item">mer. 9:41</span></div>
+          <div class="toast" aria-hidden="true"><b>CloudBridge — alerte critique</b><span>Durable Objects coûte 12× sa référence sur 7 jours, deux jours de suite.</span></div>
+          <div class="panel" aria-hidden="true">
+            <small>Octobre à ce jour, en USD</small>
+            <b class="big">$2,846.20</b>
+            <span class="muted">Prévision de $9,120 d’ici la fin du mois</span>
+            <div class="alerts-row"><svg class="i" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>2 alertes ouvertes</div>
+            <div class="alert-line"><i class="crit"></i>Durable Objects : 12× la référence<small>il y a 3 h</small></div>
+            <div class="alert-line"><i class="warn"></i>Budget « prod-aws » à 82 %<small>il y a 1 j</small></div>
+            <div class="panel-foot"><span>Synchronisé il y a 12 min</span><span class="grow"></span><span class="pill">Ouvrir CloudBridge</span></div>
+          </div>
+        </figure>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <p class="eyebrow">Coût par ressource</p>
+          <h2>Voyez ce que coûte chaque bucket, Worker et Durable Object</h2>
+          <p>La facture Cloudflare peut indiquer « opérations R2 Classe B, 734 le 3 octobre » sans nommer le bucket. CloudBridge récupère l’usage quotidien de chaque ressource depuis les analytics de Cloudflare et répartit le coût entre elles, pour que vous voyiez laquelle est responsable. Il enregistre aussi l’usage effectué dans l’allocation gratuite, car un problème de coût peut commencer là avant que quoi que ce soit ne vous soit facturé.</p>
+          <p><a href="/docs/fr/cloudflare">Cloudflare</a>&emsp;<a href="/docs/fr/aws#data-exports">AWS Data Exports</a></p>
+        </div>
+        <div class="app-ui split-card" aria-hidden="true">
+          <div class="card-head"><b>Ressources Cloudflare</b><small>48 depuis la dernière analyse, sur cette période</small></div>
+          <table class="split">
+            <tbody>
+              <tr class="grp"><td><span class="chev">▾</span>Espaces de noms Durable Object</td><td class="num">3</td><td class="num">$2,410.50</td></tr>
+              <tr class="leaf"><td>ticker<small>Lignes écrites 2,4 Md</small></td><td></td><td class="num hot">$2,399.80</td></tr>
+              <tr class="leaf"><td>chat-rooms<small>Lignes écrites 10,5 M</small></td><td></td><td class="num">$10.70</td></tr>
+              <tr class="grp"><td><span class="chev">▸</span>Buckets R2</td><td class="num">10</td><td class="num">$0.36</td></tr>
+              <tr class="grp"><td><span class="chev">▸</span>Workers</td><td class="num">11</td><td class="num">$0.00</td></tr>
+              <tr class="grp"><td><span class="chev">▸</span>Bases D1</td><td class="num">3</td><td class="num">$0.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <p class="eyebrow">Économies</p>
+          <h2>Trouvez des ressources à nettoyer</h2>
+          <p>Analyses exécute une analyse en lecture seule de vos comptes AWS et Cloudflare et compare les résultats à votre facture. Elle liste les instances arrêtées dont les volumes sont toujours facturés, les adresses publiques inutilisées, les ressources sans propriétaire et les ressources présentes sur la facture que l’analyse n’a pas trouvées. Les résultats sont regroupés par type avec le coût de la période, puis listés par ressource.</p>
+          <p><a href="/docs/fr/insights">Analyses</a></p>
+        </div>
+        <ul class="app-ui findings" aria-hidden="true">
+          <li><b>Instances arrêtées</b><small>3 ressources</small><span>$184.20</span></li>
+          <li><b>Adresses inutilisées</b><small>2 ressources</small><span>$7.30</span></li>
+          <li><b>Sans propriétaire</b><small>14 ressources</small><span>$96.10</span></li>
+          <li><b>Absentes de l’analyse</b><small>1 ressource</small><span>$22.00</span></li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Données</p>
+          <h2>Toutes les factures utilisent les mêmes colonnes</h2>
+          <p>Les factures sont stockées dans le même format, quelle que soit leur provenance, avec les noms de colonnes de la norme FinOps FOCUS. Chaque ligne conserve sa devise d’origine à côté du montant converti. Par exemple, une instance ECS d’Alibaba Cloud et une instance AWS EC2 comptent toutes deux comme Compute, et vous pouvez tout interroger en SQL.</p>
+          <p><a href="/docs/fr/query">Requête</a>&emsp;<a href="/docs/fr/attribution">Attribution</a>&emsp;<a href="/docs/fr/models">Modèles</a></p>
+        </div>
+<pre class="snippet" aria-label="Une requête SQL qui additionne le coût facturé du mois par fournisseur et catégorie de service."><span class="k">SELECT</span> provider, service_category,
+       <span class="k">round</span>(<span class="k">sum</span>(billed_cost), <span class="n">2</span>) <span class="k">AS</span> cost
+<span class="k">FROM</span> v_charge_normalized
+<span class="k">WHERE</span> billing_period = <span class="s">'2026-10'</span>
+<span class="k">GROUP BY ALL ORDER BY</span> cost <span class="k">DESC</span>;</pre>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Confidentialité</p>
+          <h2>Vos factures restent sur votre ordinateur</h2>
+          <p>Les factures montrent ce que vous exploitez, pour qui et à quel prix. CloudBridge garde tout cela sur votre ordinateur.</p>
+        </div>
+        <ul class="promise">
+          <li>Les factures sont stockées dans un fichier DuckDB sur votre disque et ne passent par aucun autre serveur.</li>
+          <li>Aucun compte, aucun service de synchronisation et aucune télémétrie.</li>
+          <li>Les identifiants sont stockés dans le trousseau macOS ou le gestionnaire d’identifiants Windows.</li>
+          <li>Lecture seule : il ne crée ni ne modifie quoi que ce soit chez votre fournisseur.</li>
+          <li>Il contacte chaque fournisseur au plus une fois par intervalle d’actualisation et ne paie jamais deux fois les mêmes données.</li>
+          <li>Open source sous licence MIT, pour que vous puissiez lire le code.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Cas d’usage</p>
+      <h2>Cas d’usage courants</h2>
+      <ul class="use-cases">
+        <li><a href="/fr/use-cases/cloud-cost-alerts/"><b>Alertes de coûts cloud</b>Découvrez quand une facture AWS, Cloudflare ou d’API d’IA s’envole, sans attendre la facture.</a></li>
+        <li><a href="/fr/use-cases/llm-api-cost-tracking/"><b>Suivi des coûts d’API LLM</b>Voyez le coût par jeton de chaque modèle OpenAI, Anthropic, DeepSeek ou Model Studio, à partir des exports que vous avez déjà.</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions fréquentes</h2>
+      <div class="faq">
+        <details><summary>Qu’est-ce que CloudBridge ?</summary><p>Une application de bureau gratuite et open source qui rassemble vos factures de fournisseurs cloud et d’IA dans une base de données sur votre ordinateur, via l’API de facturation de chaque fournisseur ou un fichier que vous avez téléchargé. Elle montre ce que vous payez, vérifie vos règles d’alerte et continue de tourner dans la barre de menus après la fermeture de la fenêtre.</p></details>
+        <details><summary>Quels fournisseurs prend-elle en charge ?</summary><p>AWS (Cost Explorer, ou un Data Export FOCUS dans S3), Azure (Cost Management), Alibaba Cloud et Cloudflare via leurs API de facturation ; Google Cloud via son export de facturation BigQuery ; DeepSeek via son API de solde ; et les exports de factures d’Alibaba Cloud, Volcengine, OpenAI, Anthropic et DeepSeek.</p></details>
+        <details><summary>CloudBridge envoie-t-elle mes factures quelque part ?</summary><p>Non. Les factures vont directement du fournisseur à un fichier DuckDB sur votre ordinateur. Il n’y a ni compte CloudBridge, ni service de synchronisation, ni télémétrie, et les identifiants sont stockés dans le trousseau de votre système.</p></details>
+        <details><summary>CloudBridge va-t-elle augmenter ma facture ?</summary><p>Uniquement sur AWS, où Cost Explorer facture chaque requête et S3 facture les lectures. CloudBridge contacte chaque fournisseur au plus une fois par intervalle d’actualisation (24 heures par défaut), soit environ deux requêtes Cost Explorer par compte AWS et par jour. Elle ne répète pas une récupération déjà payée et ne télécharge pas deux fois un export S3 inchangé. Les autres API qu’elle appelle sont gratuites, et elle ne crée ni ne modifie jamais une ressource.</p></details>
+        <details><summary>Comment détecte-t-elle les pics de coûts ?</summary><p>Elle lit les factures jour par jour : un pic apparaît donc dans les données le lendemain. Les règles vérifient les dépenses au-dessus de leur référence récente, les budgets et les soldes bas. Tant que CloudBridge tourne, même fenêtre fermée, elle actualise chaque compte une fois par jour et envoie une notification pour chaque alerte. Les factures Cloudflare peuvent aussi être réparties jusqu’au bucket, au Worker ou au Durable Object.</p></details>
+        <details><summary>Sur quels systèmes fonctionne-t-elle ?</summary><p>macOS sur Apple silicon (signé et notarié) et Windows 64 bits. Linux et les Mac Intel peuvent la compiler depuis les sources.</p></details>
+        <details><summary>CloudBridge est-elle gratuite ?</summary><p>Oui. Elle est gratuite et open source sous licence MIT, avec le code source complet sur GitHub. Les éventuels frais d’API des fournisseurs sont à part.</p></details>
+        <details><summary>Puis-je l’essayer sans l’installer ?</summary><p>Oui. La <a href="/demo/">démo dans le navigateur</a> exécute la même application, compilée en WebAssembly, sur une facture d’exemple couvrant douze mois et plusieurs fournisseurs.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Démarrez avec CloudBridge</h2>
+      <p>Téléchargez l’application, ajoutez un compte ou importez une facture, et découvrez les coûts du mois. Vous pouvez aussi essayer la démo d’abord.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Télécharger pour Mac</a>
+        <a class="button button-quiet" href="/docs/fr/getting-started">Premiers pas</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/fr/">Documentation</a>
+    <a href="/blog/fr/">Blog</a>
+    <a href="/fr/use-cases/cloud-cost-alerts/">Alertes de coûts</a>
+    <a href="/fr/use-cases/llm-api-cost-tracking/">Coûts d’API LLM</a>
+    <a href="/demo/">Démo</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge/releases">Versions</a>
+    <span class="spacer"></span>
+    <a href="/" hreflang="en" lang="en">English</a>
+    <a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/" hreflang="ko" lang="ko">한국어</a>
+    <span>MIT</span>
+  </div>
+</footer>
+
+<script>
+// Like most download pages: the buttons fetch the build for the visitor's
+// system, and the line under the hero offers the other. Without script, or
+// on a phone, the Mac build is the default. First-party and self-contained.
+(() => {
+  const ua = navigator.userAgentData?.platform || navigator.platform || navigator.userAgent;
+  if (!/win/i.test(ua)) return;
+  const exe = "https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-windows-x64.exe";
+  for (const a of document.querySelectorAll("[data-download]")) {
+    a.href = exe;
+    if (a.dataset.download !== "short") a.textContent = "Télécharger pour Windows";
+  }
+  for (const el of document.querySelectorAll("[data-also]")) {
+    el.innerHTML = 'Aussi pour <a href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg">Mac</a> (Apple silicon).';
+  }
+})();
+</script>
+</body>
+</html>

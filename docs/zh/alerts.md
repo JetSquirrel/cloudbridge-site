@@ -5,7 +5,7 @@ description: "CloudBridge 告警规则——费用异常、余额下限、未打
 
 # 告警、规则与预算
 
-**[English](../alerts.md)**&emsp;[文档](index.md)
+**[English](../alerts.md)**&emsp;**[日本語](../ja/alerts.md)**&emsp;**[한국어](../ko/alerts.md)**&emsp;**[Français](../fr/alerts.md)**&emsp;[文档](index.md)
 
 规则会在应用启动时和每次刷新后对账本进行评估——包括 CloudBridge 运行期间的
 [后台刷新](background.md)（每个账号过了刷新间隔才拉取一次），在 macOS 和 Windows 上关掉窗口后也照常进行。每条新

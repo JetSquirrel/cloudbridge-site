@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alertes de coûts cloud pour AWS, Cloudflare et les API d’IA | CloudBridge</title>
+<meta name="description" content="Repérez une facture AWS, Cloudflare ou d’API d’IA qui s’emballe en un jour ou deux, et non sur la facture. Règles d’anomalie quotidiennes, budgets et alertes dans la barre de menus, en local.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloud-cost-alerts/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloud-cost-alerts/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloud-cost-alerts/">
+<meta property="og:title" content="Alertes de coûts cloud pour AWS, Cloudflare et les API d’IA | CloudBridge">
+<meta property="og:description" content="Sachez le jour où une facture cloud ou d’IA commence à s’emballer. CloudBridge lit les factures jour par jour et alerte depuis la barre de menus. Gratuit, open source, local.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="La vue d’ensemble de CloudBridge : dépenses du mois à ce jour sur l’ensemble des clouds et fournisseurs de modèles, graphique des dépenses quotidiennes et plus fortes variations">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alertes de coûts cloud pour AWS, Cloudflare et les API d’IA | CloudBridge">
+<meta name="twitter:description" content="Sachez le jour où une facture cloud ou d’IA commence à s’emballer. CloudBridge lit les factures jour par jour et alerte depuis la barre de menus. Gratuit, open source, local.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="Blog CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/fr/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloud-cost-alerts/",
+      "name": "Alertes de coûts cloud pour AWS, Cloudflare et les API d’IA",
+      "description": "Repérez une facture AWS, Cloudflare ou d’API d’IA qui s’emballe en un jour ou deux, et non sur la facture. Règles d’anomalie quotidiennes, budgets et alertes dans la barre de menus, en local.",
+      "inLanguage": "fr",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/fr/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/fr/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/fr/" },
+        { "@type": "ListItem", "position": 2, "name": "Alertes de coûts cloud", "item": "https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloud-cost-alerts/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "fr",
+      "mainEntity": [
+        { "@type": "Question", "name": "Au bout de combien de temps CloudBridge remarque-t-elle un pic de coûts ?", "acceptedAnswer": { "@type": "Answer", "text": "En un jour ou deux. Les factures sont lues jour par jour : un pic figure donc dans le registre dès que le fournisseur a déclaré l’usage du jour et que l’actualisation suivante a eu lieu, et non sur la facture du mois. Ce n’est pas un outil de surveillance en temps réel." } },
+        { "@type": "Question", "name": "CloudBridge doit-elle rester ouverte pour envoyer des alertes ?", "acceptedAnswer": { "@type": "Answer", "text": "Elle doit tourner, mais pas forcément avec sa fenêtre ouverte. Sous macOS et Windows, elle reste dans la barre de menus, actualise chaque compte une fois par intervalle d’actualisation et publie une notification système pour chaque nouvelle alerte. « Ouvrir à la connexion » la maintient après un redémarrage." } },
+        { "@type": "Question", "name": "Peut-elle repérer un projet qui passe de zéro dépense à l’emballement ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui, avec une règle de budget de compte fondée sur la prévision de fin de mois. La règle d’anomalie compare un service à ses sept derniers jours : un service qui ne coûtait rien n’a donc pas de référence ; la règle de prévision projette le premier jour coûteux sur le reste du mois." } },
+        { "@type": "Question", "name": "Surveiller mes factures les fait-il grossir ?", "acceptedAnswer": { "@type": "Answer", "text": "Uniquement sur AWS, où Cost Explorer facture chaque requête et S3 facture les lectures. CloudBridge récupère chaque compte une fois par intervalle d’actualisation, soit environ deux requêtes Cost Explorer par compte AWS et par jour par défaut, et ne paie jamais deux fois les mêmes données." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/fr/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/fr/">Documentation</a>
+        <a class="optional" href="/blog/fr/">Blog</a>
+        <a class="optional" href="/demo/">Démo</a>
+        <details class="lang">
+          <summary aria-label="Langue">Français</summary>
+          <ul>
+            <li><a href="/use-cases/cloud-cost-alerts/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/cloud-cost-alerts/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/cloud-cost-alerts/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/cloud-cost-alerts/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/cloud-cost-alerts/" hreflang="fr-FR" lang="fr" aria-current="true">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a><span aria-hidden="true">›</span><span>Alertes de coûts cloud</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">Sachez le jour où ça commence, pas le jour où la facture arrive</p>
+      <h1>Des alertes de coûts cloud qui arrivent avant la facture</h1>
+      <p class="lede">CloudBridge lit chaque jour vos factures AWS, Alibaba Cloud, Cloudflare et de vos fournisseurs de modèles dans un registre sur votre ordinateur, y applique des règles d’alerte et publie une notification depuis la barre de menus lorsque les dépenses s’envolent.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger CloudBridge</a>
+        <a class="button button-ghost" href="/docs/fr/alerts">Lire la documentation des alertes</a>
+      </div>
+      <p class="fineprint">Gratuit et open source pour macOS et Windows. Sans compte, sans synchronisation, sans télémétrie.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Pourquoi la facture arrive trop tard</p>
+      <h2>Trois choses transforment une facture qui s’emballe en surprise</h2>
+      <p class="intro">La facturation à l’usage n’a pas de plafond, la facture retarde sur l’usage, et le projet qui s’emballe est généralement celui que personne ne surveille.</p>
+      <ol class="steps">
+        <li>
+          <h3>Aucun plafond</h3>
+          <p>Un compte à l’usage facture ce qu’il consomme. Du code qui part de travers ne plante pas forcément : il continue de réussir, et de facturer.</p>
+        </li>
+        <li>
+          <h3>Une facture en retard</h3>
+          <p>L’usage est agrégé et tarifé avant d’arriver sur la facture. Cost Explorer peut avoir un jour de retard, et la facture n’arrive qu’une fois par mois.</p>
+        </li>
+        <li>
+          <h3>Personne ne surveille</h3>
+          <p>La production a des tableaux de bord. Le projet de test et le prototype oublié n’ont pas de trafic, donc personne ne regarde leurs courbes.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Règles d’alerte</p>
+      <h2>Une règle pour chaque façon dont une facture dérape</h2>
+      <p class="intro">Trois règles sont activées d’origine. Ajoutez des règles de budget pour les comptes qui comptent, et limitez une règle d’anomalie à un seul compte si vous le souhaitez.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Situation</th><th>Règle</th><th>Par défaut</th></tr></thead>
+          <tbody>
+            <tr><td>Un service aux dépenses stables double soudainement</td><td>Anomalie de croissance des coûts par rapport à la référence du service sur les 7 derniers jours</td><td>Au-dessus de 2,5× pendant 2 jours consécutifs</td></tr>
+            <tr><td>Un projet dormant se réveille, ou quelque chose de nouveau s’emballe</td><td>Budget de compte, fondé sur la prévision de fin de mois</td><td>Définir d’abord un budget mensuel pour le compte</td></tr>
+            <tr><td>Un solde prépayé se vide vite, comme celui de DeepSeek</td><td>Seuil de solde</td><td>200 dans la devise du solde, ou le budget du compte</td></tr>
+            <tr><td>De nouvelles dépenses sans propriétaire</td><td>Part des dépenses sans étiquette</td><td>Au-dessus de 15 % et plus élevé que le mois dernier</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/fr/alerts">Alertes, règles et budgets →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">Sous surveillance</p>
+          <h2>Il continue de surveiller fenêtre fermée</h2>
+          <p>Sous macOS et Windows, CloudBridge reste dans la barre de menus avec les dépenses du mois comme titre. Il récupère chaque compte une fois son intervalle d’actualisation écoulé (24 heures par défaut, jusqu’à 6), exécute les règles et publie une notification système pour chaque nouvelle alerte. « Ouvrir à la connexion » maintient le tout après un redémarrage.</p>
+          <p><a href="/docs/fr/background">Barre de menus et arrière-plan</a></p>
+        </div>
+        <ul class="promise">
+          <li>Les factures sont lues jour par jour : un pic apparaît dès le lendemain, et non à la fin du mois.</li>
+          <li>La facture quotidienne de Cloudflare se répartit jusqu’au bucket R2, au Worker, à la base D1 et au Durable Object.</li>
+          <li>Une vérification locale toutes les 15 minutes signale qu’un compte doit être actualisé, sans contacter le fournisseur.</li>
+          <li>Chaque fournisseur est interrogé au plus une fois par intervalle d’actualisation : une surveillance rapprochée ne coûte donc pas de frais d’API supplémentaires.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Un cas réel</p>
+          <h2>Une alerte Durable Object à 10 811 $</h2>
+          <p>Un projet Cloudflare dormant a bouclé sur environ six mille milliards de lectures et d’écritures, et le premier signe a été la facture. Le récit détaille ce qui s’est passé, pourquoi rien n’a alerté personne et quelle règle l’aurait fait.</p>
+          <p><a href="/blog/fr/cloudflare-durable-object-runaway">Lire l’article</a></p>
+        </div>
+        <ul class="promise">
+          <li>La règle d’anomalie ne peut pas le voir : un service qui ne coûtait rien n’a pas de référence.</li>
+          <li>Une règle de budget de compte fondée sur la prévision de fin de mois le peut, dès le premier jour coûteux.</li>
+          <li>L’usage Cloudflare dans l’allocation gratuite est aussi enregistré, à coût nul, car c’est là qu’un emballement commence.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Confidentialité</p>
+          <h2>Vos factures restent sur votre machine</h2>
+          <p>Une facture dit ce que vous exploitez et pour qui. CloudBridge garde le registre dans un fichier DuckDB sur votre disque et les identifiants dans le trousseau du système, et ne fait jamais que lire chez les fournisseurs.</p>
+        </div>
+        <ul class="promise">
+          <li>Aucun compte CloudBridge, aucun service de synchronisation, aucune télémétrie.</li>
+          <li>Identifiants en lecture seule ; aucune ressource du fournisseur n’est créée ni modifiée.</li>
+          <li>Open source sous licence MIT.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions fréquentes</h2>
+      <div class="faq">
+        <details><summary>Au bout de combien de temps CloudBridge remarque-t-elle un pic de coûts ?</summary><p>En un jour ou deux. Les factures sont lues jour par jour : un pic figure donc dans le registre dès que le fournisseur a déclaré l’usage du jour et que l’actualisation suivante a eu lieu, et non sur la facture du mois. Ce n’est pas un outil de surveillance en temps réel.</p></details>
+        <details><summary>CloudBridge doit-elle rester ouverte pour envoyer des alertes ?</summary><p>Elle doit tourner, mais pas forcément avec sa fenêtre ouverte. Sous macOS et Windows, elle reste dans la barre de menus, actualise chaque compte une fois par intervalle d’actualisation et publie une notification pour chaque nouvelle alerte. « Ouvrir à la connexion » la maintient après un redémarrage.</p></details>
+        <details><summary>Peut-elle repérer un projet qui passe de zéro à l’emballement ?</summary><p>Oui, avec une règle de budget de compte fondée sur la prévision de fin de mois. La règle d’anomalie compare un service à ses sept derniers jours : un service qui ne coûtait rien n’a donc pas de référence ; la prévision projette le premier jour coûteux sur le reste du mois.</p></details>
+        <details><summary>Surveiller mes factures les fait-il grossir ?</summary><p>Uniquement sur AWS, où Cost Explorer facture chaque requête et S3 facture les lectures. CloudBridge récupère chaque compte une fois par intervalle d’actualisation, soit environ deux requêtes Cost Explorer par compte AWS et par jour par défaut, et ne paie jamais deux fois les mêmes données.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Sachez-le le lendemain, pas le mois suivant</h2>
+      <p>Téléchargez CloudBridge, connectez un compte, définissez un budget et laissez-le surveiller depuis la barre de menus. Ou commencez par explorer la démo.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">Essayer la démo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/fr/">Documentation</a>
+    <a href="/blog/fr/">Blog</a>
+    <a href="/demo/">Démo</a>
+    <a href="/fr/use-cases/llm-api-cost-tracking/">Coûts d’API LLM</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/cloud-cost-alerts/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/cloud-cost-alerts/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/cloud-cost-alerts/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/use-cases/cloud-cost-alerts/" hreflang="ko" lang="ko">한국어</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

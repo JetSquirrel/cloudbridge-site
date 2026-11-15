@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OpenAI、Anthropic、DeepSeek の API コストを追跡 | CloudBridge</title>
+<meta name="description" content="OpenAI、Anthropic、DeepSeek、Model Studio、Volcengine Ark の各 LLM のトークンあたりコストを、1 つのローカル台帳で確認できます。無料のオープンソース。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/">
+<meta property="og:title" content="OpenAI、Anthropic、DeepSeek の API コストを追跡 | CloudBridge">
+<meta property="og:description" content="支払っているすべてのモデルの支出、トークン数、100 万トークンあたりのコストを、クラウドの請求書と並べて、お使いのコンピューター上で確認できます。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge の概要画面：クラウドとモデルプロバイダーごとの月初来の支出、日次支出のグラフ、変動の大きい項目">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OpenAI、Anthropic、DeepSeek の API コストを追跡 | CloudBridge">
+<meta name="twitter:description" content="支払っているすべてのモデルの支出、トークン数、100 万トークンあたりのコストを、クラウドの請求書と並べて、お使いのコンピューター上で確認できます。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/ja/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/",
+      "name": "OpenAI、Anthropic、DeepSeek の API コストを追跡",
+      "description": "OpenAI、Anthropic、DeepSeek、Model Studio、Volcengine Ark の各 LLM のトークンあたりコストを、1 つのローカル台帳で確認できます。無料のオープンソース。",
+      "inLanguage": "ja",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "LLM API のコスト管理", "item": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "ja",
+      "mainEntity": [
+        { "@type": "Question", "name": "CloudBridge に OpenAI や Anthropic の API キーを渡す必要がありますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。OpenAI と Anthropic は取り込み専用です。名前だけで認証情報なしのアカウントを追加し、プロバイダーのコンソールからダウンロードしたコストまたは使用量のエクスポートを取り込みます。" } },
+        { "@type": "Question", "name": "エクスポートにトークン数だけで金額がない場合は？", "acceptedAnswer": { "@type": "Answer", "text": "トークンだけのエクスポートは使用量の記録として残ります。CloudBridge はモデルページでトークンを集計しますが、推定の請求額に変換することはありません。" } },
+        { "@type": "Question", "name": "どのモデルプロバイダーを読み取りますか？", "acceptedAnswer": { "@type": "Answer", "text": "OpenAI と Anthropic のエクスポート、DeepSeek の残高 API と使用量のダウンロード、Alibaba Cloud の請求書経由の Alibaba Cloud Model Studio、Volcengine の請求書エクスポート経由の Volcengine Ark です。" } },
+        { "@type": "Question", "name": "モデル支出が跳ね上がったときに警告してくれますか？", "acceptedAnswer": { "@type": "Answer", "text": "はい。コスト増加の異常検知ルールが、日次支出が直近 7 日間の基準値を連日上回るソースとサービスを指摘し、残高下限ルールが DeepSeek のような前払い残高の不足を警告します。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/ja/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="サイト">
+        <a href="/docs/ja/">ドキュメント</a>
+        <a class="optional" href="/blog/ja/">ブログ</a>
+        <a class="optional" href="/demo/">デモ</a>
+        <details class="lang">
+          <summary aria-label="言語">日本語</summary>
+          <ul>
+            <li><a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li>
+            <li><a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr-FR" lang="fr">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">ダウンロード</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/ja/">ホーム</a><span aria-hidden="true">›</span><span>LLM API のコスト管理</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">支払っているすべてのモデルを 1 つの表に</p>
+      <h1>各モデルにかかっている本当のコスト</h1>
+      <p class="lede">OpenAI と Anthropic の使用量エクスポートを取り込み、DeepSeek と Alibaba Cloud の請求書にある Model Studio の明細を加えれば、各モデルの支出、トークン数、100 万トークンあたりのコストを、ほかのクラウドの請求書と並べて確認できます。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-ghost" href="/docs/ja/models">モデルのドキュメントを読む</a>
+      </div>
+      <p class="fineprint">macOS と Windows 向けの無料オープンソース。アカウントも同期もテレメトリもありません。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">仕組み</p>
+      <h2>コンソールのエクスポートからトークンあたりコストまで</h2>
+      <p class="intro">OpenAI と Anthropic の API キーは不要です。コンソールから取得できるエクスポートで十分です。</p>
+      <ol class="steps">
+        <li>
+          <h3>エクスポートをダウンロード</h3>
+          <p>OpenAI：Usage → Export。Anthropic：Usage または Cost → Export。DeepSeek：Usage → Download。</p>
+        </li>
+        <li>
+          <h3>取り込む</h3>
+          <p>名前だけで認証情報なしのアカウントを追加し、その行の「取り込み」をクリックします。同じ月をもう一度取り込むと置き換わります。</p>
+        </li>
+        <li>
+          <h3>モデルページを見る</h3>
+          <p>各モデルのコストと変化、入力・出力・キャッシュのトークン数、100 万トークンあたりのコストを確認できます。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">ソース</p>
+      <h2>読み取るモデルの請求書</h2>
+      <p class="intro">トークンで計測された明細はどのソースからでもモデルページに表示されます。モデル名は請求書に書かれているとおりです。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>プロバイダー</th><th>方法</th><th>追加される内容</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI</td><td>使用量のエクスポート</td><td>プロジェクトとモデルごとのコストまたはトークン使用量</td></tr>
+            <tr><td>Anthropic（Claude）</td><td>使用量またはコストのエクスポート</td><td>ワークスペースとモデルごとのコストまたはトークン使用量</td></tr>
+            <tr><td>DeepSeek</td><td>残高 API、使用量のダウンロード</td><td>前払い残高、日次・モデル別の支出</td></tr>
+            <tr><td>Alibaba Cloud Model Studio</td><td>請求明細のエクスポート</td><td>モデル別の Model Studio（百炼）コスト</td></tr>
+            <tr><td>Volcengine Ark</td><td>請求明細のエクスポート</td><td>エンドポイントとトークン種別ごとの Ark（火山方舟）コスト</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/ja/bill-import">請求ファイルの取り込み →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">モデルページ</p>
+          <h2>モデルごとのトークン経済性</h2>
+          <p>統計行には AI 支出、合計トークン数、100 万トークンあたりの混合コスト、キャッシュ比率が表示されます。その下に、各モデルのコストと変化、入力・出力・キャッシュのトークン数とモデル支出に占める割合、日次トークン数のグラフが続きます。</p>
+          <p><a href="/docs/ja/models">モデル</a>&emsp;<a href="/demo/">デモで試す</a></p>
+        </div>
+        <ul class="promise">
+          <li>キャッシュ読み取りが入力側の 5% 未満のモデルを指摘します。キャッシュ料金で済むはずのものを入力料金で払っている状態です。</li>
+          <li>モデル支出の 70% 以上を 1 つのモデルが占めている場合に指摘します。</li>
+          <li>単価の上昇と使用量の増加を区別します。</li>
+          <li>トークン計測なしで請求されているモデルを指摘します。その単価は計算できません。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">見守る</p>
+          <h2>モデル支出が跳ね上がったときに気づく</h2>
+          <p>コスト増加の異常検知ルールは、日次支出が直近 7 日間の基準値を 2 日連続で上回るソースとサービスを指摘します。残高下限ルールは、DeepSeek のような前払い残高が尽きる前に警告します。CloudBridge はどちらもメニューバーから通知します。</p>
+          <p><a href="/ja/use-cases/cloud-cost-alerts/">クラウド費用アラート</a></p>
+        </div>
+        <ul class="promise">
+          <li>モデル支出は AWS、Alibaba Cloud、Cloudflare と同じ台帳にあるので、概要 1 ページですべて把握できます。</li>
+          <li>元の通貨は換算後の金額の隣に保持されます。為替レートがない場合は推測せず、報告します。</li>
+          <li>台帳はディスク上の DuckDB ファイルで、クエリページから読み取り専用の SQL を実行できます。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>よくある質問</h2>
+      <div class="faq">
+        <details><summary>CloudBridge に OpenAI や Anthropic の API キーを渡す必要がありますか？</summary><p>いいえ。OpenAI と Anthropic は取り込み専用です。名前だけで認証情報なしのアカウントを追加し、プロバイダーのコンソールからダウンロードしたコストまたは使用量のエクスポートを取り込みます。</p></details>
+        <details><summary>エクスポートにトークン数だけで金額がない場合は？</summary><p>トークンだけのエクスポートは使用量の記録として残ります。CloudBridge はモデルページでトークンを集計しますが、推定の請求額に変換することはありません。</p></details>
+        <details><summary>どのモデルプロバイダーを読み取りますか？</summary><p>OpenAI と Anthropic のエクスポート、DeepSeek の残高 API と使用量のダウンロード、Alibaba Cloud の請求書経由の Alibaba Cloud Model Studio、Volcengine の請求書エクスポート経由の Volcengine Ark です。</p></details>
+        <details><summary>モデル支出が跳ね上がったときに警告してくれますか？</summary><p>はい。コスト増加の異常検知ルールが、日次支出が直近 7 日間の基準値を連日上回る場合に指摘し、残高下限ルールが DeepSeek のような前払い残高の不足を警告します。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>モデルごとの請求額を確認</h2>
+      <p>CloudBridge をダウンロードし、先月のエクスポートを取り込んで、モデルページを開いてください。まずデモを見て回ることもできます。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-quiet" href="/demo/">デモを試す</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/ja/">ドキュメント</a>
+    <a href="/blog/ja/">ブログ</a>
+    <a href="/demo/">デモ</a>
+    <a href="/ja/use-cases/cloud-cost-alerts/">クラウド費用アラート</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr-FR" lang="fr">Français</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>

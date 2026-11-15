@@ -4,8 +4,9 @@ import { createContentLoader, defineConfig, type HeadConfig } from 'vitepress'
 
 // The blog, at /blog/ beside the product page and the docs rather than inside
 // the docs: posts read without the docs' sidebar and outline, and the list is
-// a page of its own. English posts at the root, Chinese ones under zh/; a
-// post is written for one language and has no twin in the other.
+// a page of its own. Each language has its own posts under its folder — zh/,
+// ja/, ko/, fr/ — and a post is written for one language and has no twin in
+// the others.
 const repository = 'https://github.com/JetSquirrel/cloudbridge'
 const siteRepository = 'https://github.com/JetSquirrel/cloudbridge-site'
 const home = 'https://cloudbridge.jetsquirrel.cloud/'
@@ -21,19 +22,209 @@ const publisher = {
   url: home,
   logo: { '@type': 'ImageObject', url: `${home}assets/logo-160.png`, width: 160, height: 160 },
 }
+
+// The languages posts are written in. `prefix` is the folder under /blog/ and
+// `lang` what `lang`, `hreflang` and the feeds take.
+const languages = {
+  en: { prefix: '', lang: 'en', ogLocale: 'en_US', label: 'English' },
+  zh: { prefix: 'zh/', lang: 'zh-CN', ogLocale: 'zh_CN', label: '简体中文' },
+  ja: { prefix: 'ja/', lang: 'ja', ogLocale: 'ja_JP', label: '日本語' },
+  ko: { prefix: 'ko/', lang: 'ko', ogLocale: 'ko_KR', label: '한국어' },
+  fr: { prefix: 'fr/', lang: 'fr', ogLocale: 'fr_FR', label: 'Français' },
+} as const
+type Lang = keyof typeof languages
+
 // One Atom feed per language, since a post is written for one of them.
 const feeds = {
   en: { url: `${site}feed.xml`, file: 'feed.xml', title: 'CloudBridge Blog', blog: site, lang: 'en' },
   zh: { url: `${site}zh/feed.xml`, file: 'zh/feed.xml', title: 'CloudBridge 博客', blog: `${site}zh/`, lang: 'zh-CN' },
+  ja: { url: `${site}ja/feed.xml`, file: 'ja/feed.xml', title: 'CloudBridge ブログ', blog: `${site}ja/`, lang: 'ja' },
+  ko: { url: `${site}ko/feed.xml`, file: 'ko/feed.xml', title: 'CloudBridge 블로그', blog: `${site}ko/`, lang: 'ko' },
+  fr: { url: `${site}fr/feed.xml`, file: 'fr/feed.xml', title: 'CloudBridge Blog', blog: `${site}fr/`, lang: 'fr' },
+}
+
+// The blog's own wording, for the languages that are not English.
+const blogText: Record<Lang, { home: string; docs: string; blog: string; nav: [string, string, string, string, string]; editLink: string; prev: string; next: string; langMenu: string; returnToTop: string; skipToContent: string; appearance: string; light: string; dark: string; notFound: { title: string; quote: string; linkLabel: string; linkText: string }; footer: string }> = {
+  en: {
+    home: 'Home',
+    docs: 'Docs',
+    blog: 'Blog',
+    nav: ['Home', 'Docs', 'Blog', 'Demo', 'Download'],
+    editLink: 'Edit this page on GitHub',
+    prev: 'Previous post',
+    next: 'Next post',
+    langMenu: 'Change language',
+    returnToTop: 'Return to top',
+    skipToContent: 'Skip to content',
+    appearance: 'Appearance',
+    light: 'Switch to light theme',
+    dark: 'Switch to dark theme',
+    notFound: {
+      title: 'Page not found',
+      quote: 'This post does not exist. Have a look at the blog home for the other posts.',
+      linkLabel: 'Go to the blog home',
+      linkText: 'Go to the blog home',
+    },
+    footer: 'Released under the MIT License.',
+  },
+  zh: {
+    home: '官网',
+    docs: '文档',
+    blog: '博客',
+    nav: ['官网', '文档', '博客', '在线演示', '下载'],
+    editLink: '在 GitHub 上编辑此页',
+    prev: '上一篇',
+    next: '下一篇',
+    langMenu: '切换语言',
+    returnToTop: '返回顶部',
+    skipToContent: '跳转到内容',
+    appearance: '外观',
+    light: '切换到浅色主题',
+    dark: '切换到深色主题',
+    notFound: {
+      title: '页面未找到',
+      quote: '这篇文章不存在，回博客首页看看其他文章吧。',
+      linkLabel: '返回博客首页',
+      linkText: '返回博客首页',
+    },
+    footer: '基于 MIT 许可开源发布。',
+  },
+  ja: {
+    home: 'ホーム',
+    docs: 'ドキュメント',
+    blog: 'ブログ',
+    nav: ['ホーム', 'ドキュメント', 'ブログ', 'デモ', 'ダウンロード'],
+    editLink: 'GitHub でこのページを編集',
+    prev: '前の記事',
+    next: '次の記事',
+    langMenu: '言語を切り替える',
+    returnToTop: 'トップへ戻る',
+    skipToContent: 'コンテンツへスキップ',
+    appearance: '外観',
+    light: 'ライトテーマに切り替える',
+    dark: 'ダークテーマに切り替える',
+    notFound: {
+      title: 'ページが見つかりません',
+      quote: 'この記事は存在しません。ブログのホームで他の記事をご覧ください。',
+      linkLabel: 'ブログのホームへ',
+      linkText: 'ブログのホームへ',
+    },
+    footer: 'MIT ライセンスで公開しています。',
+  },
+  ko: {
+    home: '홈',
+    docs: '문서',
+    blog: '블로그',
+    nav: ['홈', '문서', '블로그', '데모', '다운로드'],
+    editLink: 'GitHub에서 이 페이지 편집',
+    prev: '이전 글',
+    next: '다음 글',
+    langMenu: '언어 전환',
+    returnToTop: '맨 위로',
+    skipToContent: '콘텐츠로 건너뛰기',
+    appearance: '테마',
+    light: '라이트 테마로 전환',
+    dark: '다크 테마로 전환',
+    notFound: {
+      title: '페이지를 찾을 수 없습니다',
+      quote: '이 글은 존재하지 않습니다. 블로그 홈에서 다른 글을 살펴보세요.',
+      linkLabel: '블로그 홈으로',
+      linkText: '블로그 홈으로',
+    },
+    footer: 'MIT 라이선스로 공개되었습니다.',
+  },
+  fr: {
+    home: 'Accueil',
+    docs: 'Documentation',
+    blog: 'Blog',
+    nav: ['Accueil', 'Documentation', 'Blog', 'Démo', 'Télécharger'],
+    editLink: 'Modifier cette page sur GitHub',
+    prev: 'Article précédent',
+    next: 'Article suivant',
+    langMenu: 'Changer de langue',
+    returnToTop: 'Retour en haut',
+    skipToContent: 'Aller au contenu',
+    appearance: 'Apparence',
+    light: 'Passer au thème clair',
+    dark: 'Passer au thème sombre',
+    notFound: {
+      title: 'Page introuvable',
+      quote: "Cet article n'existe pas. Retrouvez les autres articles sur la page d'accueil du blog.",
+      linkLabel: "Aller à l'accueil du blog",
+      linkText: "Aller à l'accueil du blog",
+    },
+    footer: 'Publié sous licence MIT.',
+  },
+}
+
+const blogSiteTitles: Record<Lang, string> = {
+  en: 'CloudBridge Blog',
+  zh: 'CloudBridge 博客',
+  ja: 'CloudBridge ブログ',
+  ko: 'CloudBridge 블로그',
+  fr: 'CloudBridge Blog',
+}
+const blogDescriptions: Record<Lang, string> = {
+  en: 'Release notes, design decisions and field notes from CloudBridge, the local-first desktop app for cloud and AI bills.',
+  zh: 'CloudBridge 的中文文章：怎么用好它，以及它为什么这样设计。',
+  ja: 'クラウドと AI の請求書を扱うローカル優先のデスクトップアプリ、CloudBridge のリリースノートと設計の話。',
+  ko: '클라우드와 AI 청구서를 다루는 로컬 우선 데스크톱 앱, CloudBridge의 릴리스 노트와 설계 이야기.',
+  fr: "Notes de version, décisions de conception et retours de terrain de CloudBridge, l'application de bureau locale-first pour les factures cloud et IA.",
+}
+
+// The posts that are translated into English, Japanese, Korean and French.
+// The Chinese blog has a post of its own, which has no twin.
+const translatedPosts = new Set([
+  'cloudbridge-0-2-0',
+  'cloudbridge-0-3-0',
+  'cloudbridge-0-3-1',
+  'cloudbridge-0-4-0',
+  'cloudbridge-0-5-0',
+  'cloudbridge-vs-optscale',
+  'cloudflare-durable-object-runaway',
+])
+
+function pageUrl(relativePath: string): string {
+  return relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+}
+
+function pageLang(relativePath: string): Lang {
+  const first = relativePath.split('/')[0]
+  return (first in languages && first !== 'en' ? first : 'en') as Lang
 }
 
 function xml(text: string): string {
   return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 }
 
-// A page's path under the blog, as `cleanUrls` publishes it.
-function pageUrl(relativePath: string): string {
-  return relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+function localeConfig(lang: Lang) {
+  const t = blogText[lang]
+  const language = languages[lang]
+  const prefix = `/${language.prefix}`
+  return {
+    label: language.label,
+    lang: language.lang,
+    ...(lang === 'en' ? {} : { title: blogSiteTitles[lang], description: blogDescriptions[lang] }),
+    themeConfig: {
+      nav: [
+        { text: t.nav[0], link: `${home}${language.prefix}` },
+        { text: t.nav[1], link: `${docs}${language.prefix}` },
+        { text: t.nav[2], link: prefix },
+        { text: t.nav[3], link: `${home}demo/` },
+        { text: t.nav[4], link: `${repository}/releases/latest` },
+      ],
+      editLink: { pattern: `${siteRepository}/edit/main/blog/:path`, text: t.editLink },
+      docFooter: { prev: t.prev, next: t.next },
+      langMenuLabel: t.langMenu,
+      returnToTopLabel: t.returnToTop,
+      skipToContentLabel: t.skipToContent,
+      darkModeSwitchLabel: t.appearance,
+      lightModeSwitchTitle: t.light,
+      darkModeSwitchTitle: t.dark,
+      notFound: t.notFound,
+      footer: { message: t.footer },
+    },
+  }
 }
 
 export default defineConfig({
@@ -64,27 +255,28 @@ export default defineConfig({
   },
   transformHead({ pageData, title, description }) {
     const path = pageUrl(pageData.relativePath)
+    const lang = pageLang(pageData.relativePath)
+    const language = languages[lang]
     const url = `${site}${path}`
-    const zh = pageData.relativePath.startsWith('zh/')
     const post = Boolean(pageData.frontmatter.date)
+    const feed = feeds[lang]
     const head: HeadConfig[] = [
       ['link', { rel: 'canonical', href: url }],
       ['meta', { property: 'og:type', content: post ? 'article' : 'website' }],
       ['meta', { property: 'og:url', content: url }],
       ['meta', { property: 'og:title', content: title }],
       ['meta', { property: 'og:description', content: description }],
-      ['meta', { property: 'og:locale', content: zh ? 'zh_CN' : 'en_US' }],
+      ['meta', { property: 'og:locale', content: language.ogLocale }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
+      ['link', { rel: 'alternate', type: 'application/atom+xml', title: feed.title, href: feed.url }],
     ]
-    const feed = zh ? feeds.zh : feeds.en
-    head.push(['link', { rel: 'alternate', type: 'application/atom+xml', title: feed.title, href: feed.url }])
     // Structured data: where the page sits, and for a post, who wrote it and
     // when.
     const blogHome = feed.blog
     const crumbs = [
-      { name: 'CloudBridge', item: zh ? `${home}zh/` : home },
-      { name: zh ? '博客' : 'Blog', item: blogHome },
+      { name: 'CloudBridge', item: `${home}${language.prefix}` },
+      { name: blogText[lang].blog, item: blogHome },
     ]
     if (url !== blogHome) crumbs.push({ name: pageData.title || title, item: url })
     const graph: object[] = [{
@@ -101,7 +293,7 @@ export default defineConfig({
         description,
         url,
         mainEntityOfPage: url,
-        inLanguage: zh ? 'zh-CN' : 'en',
+        inLanguage: language.lang,
         datePublished: published,
         ...(pageData.lastUpdated ? { dateModified: new Date(pageData.lastUpdated).toISOString() } : {}),
         image: ogImage,
@@ -117,57 +309,30 @@ export default defineConfig({
         name: feed.title,
         description,
         url,
-        inLanguage: zh ? 'zh-CN' : 'en',
+        inLanguage: language.lang,
         publisher,
       })
     }
+    // The front pages, and the posts that exist in every language, point at
+    // their twins so a reader who lands on the wrong one can move across; a
+    // post written for one language only carries no alternates.
+    const rest = path.startsWith(language.prefix) ? path.slice(language.prefix.length) : path
+    const twins: Lang[] = post
+      ? translatedPosts.has(rest) ? ['en', 'ja', 'ko', 'fr'] : []
+      : (Object.keys(languages) as Lang[])
+    for (const key of twins) {
+      head.push(['link', { rel: 'alternate', hreflang: languages[key].lang, href: `${site}${languages[key].prefix}${rest}` }])
+    }
+    if (twins.length) head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: `${site}${rest}` }])
     head.push(['script', { type: 'application/ld+json' }, JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })])
     return head
   },
   locales: {
-    root: {
-      label: 'English',
-      lang: 'en',
-      themeConfig: {
-        nav: [
-          { text: 'Home', link: home },
-          { text: 'Docs', link: docs },
-          { text: 'Blog', link: '/' },
-          { text: 'Demo', link: `${home}demo/` },
-          { text: 'Download', link: `${repository}/releases/latest` },
-        ],
-      },
-    },
-    zh: {
-      label: '简体中文',
-      lang: 'zh-CN',
-      title: 'CloudBridge 博客',
-      description: 'CloudBridge 的中文文章：怎么用好它，以及它为什么这样设计。',
-      themeConfig: {
-        nav: [
-          { text: '官网', link: `${home}zh/` },
-          { text: '文档', link: `${docs}zh/` },
-          { text: '博客', link: '/zh/' },
-          { text: '在线演示', link: `${home}demo/` },
-          { text: '下载', link: `${repository}/releases/latest` },
-        ],
-        editLink: { pattern: `${siteRepository}/edit/main/blog/:path`, text: '在 GitHub 上编辑此页' },
-        docFooter: { prev: '上一篇', next: '下一篇' },
-        langMenuLabel: '切换语言',
-        returnToTopLabel: '返回顶部',
-        skipToContentLabel: '跳转到内容',
-        darkModeSwitchLabel: '外观',
-        lightModeSwitchTitle: '切换到浅色主题',
-        darkModeSwitchTitle: '切换到深色主题',
-        notFound: {
-          title: '页面未找到',
-          quote: '这篇文章不存在，回博客首页看看其他文章吧。',
-          linkLabel: '返回博客首页',
-          linkText: '返回博客首页',
-        },
-        footer: { message: '基于 MIT 许可开源发布。' },
-      },
-    },
+    root: localeConfig('en'),
+    zh: localeConfig('zh'),
+    ja: localeConfig('ja'),
+    ko: localeConfig('ko'),
+    fr: localeConfig('fr'),
   },
   themeConfig: {
     logo: { src: '/logo.png', alt: 'CloudBridge' },
@@ -178,13 +343,14 @@ export default defineConfig({
     socialLinks: [{ icon: 'github', link: repository }],
     footer: { message: 'Released under the MIT License.' },
   },
-  // An Atom feed for each language's posts, newest first: /blog/feed.xml and
-  // /blog/zh/feed.xml.
+  // An Atom feed for each language's posts, newest first: /blog/feed.xml,
+  // /blog/zh/feed.xml, /blog/ja/feed.xml, /blog/ko/feed.xml and
+  // /blog/fr/feed.xml.
   async buildEnd(config) {
-    const pages = await createContentLoader(['*.md', 'zh/*.md']).load()
+    const pages = await createContentLoader(['*.md', 'zh/*.md', 'ja/*.md', 'ko/*.md', 'fr/*.md']).load()
     for (const [key, feed] of Object.entries(feeds)) {
       const posts = pages
-        .filter((page) => page.frontmatter.date && page.url.startsWith('/zh/') === (key === 'zh'))
+        .filter((page) => page.frontmatter.date && pageLang(page.url.replace(/^\//, '')) === key)
         .map((page) => ({
           url: `${site}${page.url.replace(/^\//, '')}`,
           title: String(page.frontmatter.title),

@@ -21,11 +21,29 @@ const publisher = {
   logo: { '@type': 'ImageObject', url: `${home}assets/logo-160.png`, width: 160, height: 160 },
 }
 
+// The languages the docs are written in. `prefix` is the page folder under
+// /docs/ (empty for English, at the root) and `lang` the value `lang`,
+// `hreflang` and `inLanguage` take.
+const languages = {
+  en: { prefix: '', lang: 'en', ogLocale: 'en_US', label: 'English' },
+  zh: { prefix: 'zh/', lang: 'zh-CN', ogLocale: 'zh_CN', label: '简体中文' },
+  ja: { prefix: 'ja/', lang: 'ja', ogLocale: 'ja_JP', label: '日本語' },
+  ko: { prefix: 'ko/', lang: 'ko', ogLocale: 'ko_KR', label: '한국어' },
+  fr: { prefix: 'fr/', lang: 'fr', ogLocale: 'fr_FR', label: 'Français' },
+} as const
+type Lang = keyof typeof languages
+
 // A page's path under the site root, as `cleanUrls` publishes it — the form
 // Cloudflare serves without a redirect: `index.md` → ``,
 // `zh/index.md` → `zh/`, `zh/alerts.md` → `zh/alerts`.
 function pageUrl(relativePath: string): string {
   return relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '')
+}
+
+// Which language a page belongs to, from the first folder of its path.
+function pageLang(relativePath: string): Lang {
+  const first = relativePath.split('/')[0]
+  return (first in languages && first !== 'en' ? first : 'en') as Lang
 }
 
 // A page's Markdown as a reader outside the site sees it: the frontmatter
@@ -52,59 +70,362 @@ function standaloneMarkdown(source: string, url: string): string {
   return `${lead}\n\n${body}\n`
 }
 
-function sidebar(zh = false): DefaultTheme.SidebarItem[] {
-  const prefix = zh ? '/zh/' : '/'
-  const item = (page: string, english: string, chinese: string) => ({
-    text: zh ? chinese : english,
-    link: `${prefix}${page}`,
-  })
+// The sidebar's wording in each language, in the order the pages appear.
+const sidebarText: Record<Lang, { groups: string[]; pages: Record<string, string> }> = {
+  en: {
+    groups: ['Getting started', 'Connect your bills', 'Read the bill', 'Keep watch', 'Reference'],
+    pages: {
+      'getting-started': 'Install and first bill',
+      'troubleshooting': 'Troubleshooting',
+      aws: 'AWS',
+      azure: 'Microsoft Azure',
+      'google-cloud': 'Google Cloud',
+      'alibaba-cloud': 'Alibaba Cloud',
+      cloudflare: 'Cloudflare',
+      deepseek: 'DeepSeek',
+      'bill-import': 'Bill file import',
+      permissions: 'Provider permissions',
+      overview: 'Overview and accounts',
+      attribution: 'Attribution',
+      models: 'Models',
+      insights: 'Insights',
+      query: 'Query',
+      alerts: 'Alerts, rules and budgets',
+      background: 'Menu bar and background',
+      'settings-and-data': 'Settings, data and security',
+      focus: 'FOCUS and token data',
+      shortcuts: 'Keyboard shortcuts',
+    },
+  },
+  zh: {
+    groups: ['入门', '连接账单', '读懂账单', '盯住花费', '参考'],
+    pages: {
+      'getting-started': '安装与第一份账单',
+      'troubleshooting': '常见问题排查',
+      aws: 'AWS',
+      azure: 'Microsoft Azure',
+      'google-cloud': 'Google Cloud',
+      'alibaba-cloud': '阿里云',
+      cloudflare: 'Cloudflare',
+      deepseek: 'DeepSeek',
+      'bill-import': '导入账单文件',
+      permissions: '云平台权限',
+      overview: '总览与账号',
+      attribution: '成本归属',
+      models: '模型',
+      insights: '资源洞察',
+      query: 'SQL 查询',
+      alerts: '告警、规则与预算',
+      background: '状态栏与后台运行',
+      'settings-and-data': '设置、数据与安全',
+      focus: 'FOCUS 与 token 数据',
+      shortcuts: '键盘快捷键',
+    },
+  },
+  ja: {
+    groups: ['はじめに', '請求書をつなぐ', '請求書を読む', 'コストを見張る', 'リファレンス'],
+    pages: {
+      'getting-started': 'インストールと最初の請求書',
+      'troubleshooting': 'トラブルシューティング',
+      aws: 'AWS',
+      azure: 'Microsoft Azure',
+      'google-cloud': 'Google Cloud',
+      'alibaba-cloud': 'Alibaba Cloud',
+      cloudflare: 'Cloudflare',
+      deepseek: 'DeepSeek',
+      'bill-import': '請求ファイルのインポート',
+      permissions: 'プロバイダーの権限',
+      overview: '概要とアカウント',
+      attribution: 'コスト配賦',
+      models: 'モデル',
+      insights: 'インサイト',
+      query: 'クエリ',
+      alerts: 'アラート・ルール・予算',
+      background: 'メニューバーとバックグラウンド',
+      'settings-and-data': '設定・データ・セキュリティ',
+      focus: 'FOCUS とトークンデータ',
+      shortcuts: 'キーボードショートカット',
+    },
+  },
+  ko: {
+    groups: ['시작하기', '청구서 연결', '청구서 읽기', '비용 지켜보기', '참고'],
+    pages: {
+      'getting-started': '설치와 첫 청구서',
+      'troubleshooting': '문제 해결',
+      aws: 'AWS',
+      azure: 'Microsoft Azure',
+      'google-cloud': 'Google Cloud',
+      'alibaba-cloud': 'Alibaba Cloud',
+      cloudflare: 'Cloudflare',
+      deepseek: 'DeepSeek',
+      'bill-import': '청구서 파일 가져오기',
+      permissions: '공급자 권한',
+      overview: '개요와 계정',
+      attribution: '비용 귀속',
+      models: '모델',
+      insights: '인사이트',
+      query: '쿼리',
+      alerts: '알림, 규칙과 예산',
+      background: '메뉴 막대와 백그라운드',
+      'settings-and-data': '설정, 데이터와 보안',
+      focus: 'FOCUS와 토큰 데이터',
+      shortcuts: '키보드 단축키',
+    },
+  },
+  fr: {
+    groups: ['Pour commencer', 'Connecter vos factures', 'Lire la facture', 'Garder un œil', 'Référence'],
+    pages: {
+      'getting-started': 'Installation et première facture',
+      'troubleshooting': 'Dépannage',
+      aws: 'AWS',
+      azure: 'Microsoft Azure',
+      'google-cloud': 'Google Cloud',
+      'alibaba-cloud': 'Alibaba Cloud',
+      cloudflare: 'Cloudflare',
+      deepseek: 'DeepSeek',
+      'bill-import': 'Importer un fichier de facture',
+      permissions: 'Autorisations des fournisseurs',
+      overview: "Vue d'ensemble et comptes",
+      attribution: 'Imputation',
+      models: 'Modèles',
+      insights: 'Analyses',
+      query: 'Requête',
+      alerts: 'Alertes, règles et budgets',
+      background: 'Barre des menus et arrière-plan',
+      'settings-and-data': 'Réglages, données et sécurité',
+      focus: 'FOCUS et données de tokens',
+      shortcuts: 'Raccourcis clavier',
+    },
+  },
+}
+
+function sidebar(lang: Lang): DefaultTheme.SidebarItem[] {
+  const t = sidebarText[lang]
+  const prefix = `/${languages[lang].prefix}`
+  const item = (page: string) => ({ text: t.pages[page], link: `${prefix}${page}` })
   return [
+    { text: t.groups[0], items: [item('getting-started'), item('troubleshooting')] },
     {
-      text: zh ? '入门' : 'Getting started',
+      text: t.groups[1],
       items: [
-        item('getting-started', 'Install and first bill', '安装与第一份账单'),
-        item('troubleshooting', 'Troubleshooting', '常见问题排查'),
+        item('aws'),
+        item('azure'),
+        item('google-cloud'),
+        item('alibaba-cloud'),
+        item('cloudflare'),
+        item('deepseek'),
+        item('bill-import'),
+        item('permissions'),
       ],
     },
     {
-      text: zh ? '连接账单' : 'Connect your bills',
-      items: [
-        item('aws', 'AWS', 'AWS'),
-        item('azure', 'Microsoft Azure', 'Microsoft Azure'),
-        item('google-cloud', 'Google Cloud', 'Google Cloud'),
-        item('alibaba-cloud', 'Alibaba Cloud', '阿里云'),
-        item('cloudflare', 'Cloudflare', 'Cloudflare'),
-        item('deepseek', 'DeepSeek', 'DeepSeek'),
-        item('bill-import', 'Bill file import', '导入账单文件'),
-        item('permissions', 'Provider permissions', '云平台权限'),
-      ],
+      text: t.groups[2],
+      items: [item('overview'), item('attribution'), item('models'), item('insights'), item('query')],
     },
+    { text: t.groups[3], items: [item('alerts'), item('background')] },
     {
-      text: zh ? '读懂账单' : 'Read the bill',
-      items: [
-        item('overview', 'Overview and accounts', '总览与账号'),
-        item('attribution', 'Attribution', '成本归属'),
-        item('models', 'Models', '模型'),
-        item('insights', 'Insights', '资源洞察'),
-        item('query', 'Query', 'SQL 查询'),
-      ],
-    },
-    {
-      text: zh ? '盯住花费' : 'Keep watch',
-      items: [
-        item('alerts', 'Alerts, rules and budgets', '告警、规则与预算'),
-        item('background', 'Menu bar and background', '状态栏与后台运行'),
-      ],
-    },
-    {
-      text: zh ? '参考' : 'Reference',
-      items: [
-        item('settings-and-data', 'Settings, data and security', '设置、数据与安全'),
-        item('focus', 'FOCUS and token data', 'FOCUS 与 token 数据'),
-        item('shortcuts', 'Keyboard shortcuts', '键盘快捷键'),
-      ],
+      text: t.groups[4],
+      items: [item('settings-and-data'), item('focus'), item('shortcuts')],
     },
   ]
+}
+
+// The theme's own wording, for the languages that are not English.
+const themeText: Record<Lang, {
+  docs: string
+  nav: [string, string, string, string, string]
+  outline: string
+  editLink: string
+  lastUpdated: string
+  prev: string
+  next: string
+  langMenu: string
+  sidebarMenu: string
+  returnToTop: string
+  skipToContent: string
+  appearance: string
+  light: string
+  dark: string
+  notFound: { title: string; quote: string; linkLabel: string; linkText: string }
+  footer: string
+}> = {
+  en: {
+    docs: 'Docs',
+    nav: ['Home', 'Get started', 'Demo', 'Blog', 'Download'],
+    outline: 'On this page',
+    editLink: 'Edit this page on GitHub',
+    lastUpdated: 'Last updated',
+    prev: 'Previous page',
+    next: 'Next page',
+    langMenu: 'Change language',
+    sidebarMenu: 'Menu',
+    returnToTop: 'Return to top',
+    skipToContent: 'Skip to content',
+    appearance: 'Appearance',
+    light: 'Switch to light theme',
+    dark: 'Switch to dark theme',
+    notFound: {
+      title: 'Page not found',
+      quote: 'This page does not exist. Go back home or use the search to find a guide.',
+      linkLabel: 'Go back home',
+      linkText: 'Go back home',
+    },
+    footer: 'Released under the MIT License.',
+  },
+  zh: {
+    docs: '文档',
+    nav: ['官网', '快速上手', '在线演示', '博客', '下载'],
+    outline: '本页目录',
+    editLink: '在 GitHub 上编辑此页',
+    lastUpdated: '最后更新',
+    prev: '上一页',
+    next: '下一页',
+    langMenu: '切换语言',
+    sidebarMenu: '目录',
+    returnToTop: '返回顶部',
+    skipToContent: '跳转到内容',
+    appearance: '外观',
+    light: '切换到浅色主题',
+    dark: '切换到深色主题',
+    notFound: {
+      title: '页面未找到',
+      quote: '这个页面不存在，请返回首页或使用搜索查找指南。',
+      linkLabel: '返回首页',
+      linkText: '返回首页',
+    },
+    footer: '基于 MIT 许可开源发布。',
+  },
+  ja: {
+    docs: 'ドキュメント',
+    nav: ['ホーム', 'はじめに', 'デモ', 'ブログ', 'ダウンロード'],
+    outline: '本ページの目次',
+    editLink: 'GitHub でこのページを編集',
+    lastUpdated: '最終更新',
+    prev: '前のページ',
+    next: '次のページ',
+    langMenu: '言語を切り替える',
+    sidebarMenu: 'メニュー',
+    returnToTop: 'トップへ戻る',
+    skipToContent: 'コンテンツへスキップ',
+    appearance: '外観',
+    light: 'ライトテーマに切り替える',
+    dark: 'ダークテーマに切り替える',
+    notFound: {
+      title: 'ページが見つかりません',
+      quote: 'このページは存在しません。ホームに戻るか、検索でガイドを探してください。',
+      linkLabel: 'ホームへ戻る',
+      linkText: 'ホームへ戻る',
+    },
+    footer: 'MIT ライセンスで公開しています。',
+  },
+  ko: {
+    docs: '문서',
+    nav: ['홈', '시작하기', '데모', '블로그', '다운로드'],
+    outline: '이 페이지 목차',
+    editLink: 'GitHub에서 이 페이지 편집',
+    lastUpdated: '마지막 업데이트',
+    prev: '이전 페이지',
+    next: '다음 페이지',
+    langMenu: '언어 전환',
+    sidebarMenu: '메뉴',
+    returnToTop: '맨 위로',
+    skipToContent: '콘텐츠로 건너뛰기',
+    appearance: '테마',
+    light: '라이트 테마로 전환',
+    dark: '다크 테마로 전환',
+    notFound: {
+      title: '페이지를 찾을 수 없습니다',
+      quote: '이 페이지는 존재하지 않습니다. 홈으로 돌아가거나 검색으로 가이드를 찾아보세요.',
+      linkLabel: '홈으로 돌아가기',
+      linkText: '홈으로 돌아가기',
+    },
+    footer: 'MIT 라이선스로 공개되었습니다.',
+  },
+  fr: {
+    docs: 'Documentation',
+    nav: ['Accueil', 'Pour commencer', 'Démo', 'Blog', 'Télécharger'],
+    outline: 'Sur cette page',
+    editLink: 'Modifier cette page sur GitHub',
+    lastUpdated: 'Dernière mise à jour',
+    prev: 'Page précédente',
+    next: 'Page suivante',
+    langMenu: 'Changer de langue',
+    sidebarMenu: 'Menu',
+    returnToTop: 'Retour en haut',
+    skipToContent: 'Aller au contenu',
+    appearance: 'Apparence',
+    light: 'Passer au thème clair',
+    dark: 'Passer au thème sombre',
+    notFound: {
+      title: 'Page introuvable',
+      quote: "Cette page n'existe pas. Revenez à l'accueil ou utilisez la recherche pour trouver un guide.",
+      linkLabel: "Retour à l'accueil",
+      linkText: "Retour à l'accueil",
+    },
+    footer: 'Publié sous licence MIT.',
+  },
+}
+
+// Each language's title and summary, which VitePress appends to every page's
+// title and gives to the home page.
+const docsTitles: Record<Lang, { title: string; description: string }> = {
+  en: {
+    title: 'CloudBridge Docs',
+    description: 'Guides and reference for CloudBridge, the local-first desktop app that reads your cloud and AI bills into one ledger on your machine.',
+  },
+  zh: {
+    title: 'CloudBridge 文档',
+    description: '本地优先的云与 AI 账单桌面应用：把各家账单读进你电脑上的一本账。',
+  },
+  ja: {
+    title: 'CloudBridge ドキュメント',
+    description: 'ローカル優先のデスクトップアプリ CloudBridge のガイドとリファレンス。クラウドと AI の請求書を、お使いのパソコン上の一冊の台帳に読み込みます。',
+  },
+  ko: {
+    title: 'CloudBridge 문서',
+    description: '로컬 우선 데스크톱 앱 CloudBridge의 가이드와 참고 자료. 클라우드와 AI 청구서를 내 컴퓨터의 장부 하나로 읽어 들입니다.',
+  },
+  fr: {
+    title: 'Documentation CloudBridge',
+    description: "Guides et référence pour CloudBridge, l'application de bureau locale-first qui lit vos factures cloud et IA dans un registre unique, sur votre machine.",
+  },
+}
+
+// What each language is called in its own language, for VitePress's locale
+// menu and the hreflang links.
+function localeConfig(lang: Lang) {
+  const t = themeText[lang]
+  const prefix = `/${languages[lang].prefix}`
+  const nav = [
+    { text: t.nav[0], link: `${home}${languages[lang].prefix}` },
+    { text: t.nav[1], link: `${prefix}getting-started` },
+    { text: t.nav[2], link: `${home}demo/` },
+    { text: t.nav[3], link: `${home}blog/${languages[lang].prefix}` },
+    { text: t.nav[4], link: `${repository}/releases/latest` },
+  ]
+  return {
+    label: languages[lang].label,
+    lang: languages[lang].lang,
+    title: docsTitles[lang].title,
+    description: docsTitles[lang].description,
+    themeConfig: {
+      nav,
+      sidebar: sidebar(lang),
+      outline: { label: t.outline, level: [2, 3] as [number, number] },
+      editLink: { pattern: `${siteRepository}/edit/main/docs/:path`, text: t.editLink },
+      lastUpdated: { text: t.lastUpdated },
+      docFooter: { prev: t.prev, next: t.next },
+      langMenuLabel: t.langMenu,
+      sidebarMenuLabel: t.sidebarMenu,
+      returnToTopLabel: t.returnToTop,
+      skipToContentLabel: t.skipToContent,
+      darkModeSwitchLabel: t.appearance,
+      lightModeSwitchTitle: t.light,
+      darkModeSwitchTitle: t.dark,
+      notFound: t.notFound,
+      footer: { message: t.footer },
+    },
+  }
 }
 
 export default defineConfig({
@@ -137,36 +458,35 @@ export default defineConfig({
     ['meta', { name: 'twitter:image', content: ogImage }],
   ],
   // What differs page to page: its canonical address, its title and summary
-  // for link previews, and its other-language twin. The blog is a site of its
-  // own, at /blog/ (blog/ in this repository).
+  // for link previews, its other-language twins, and its structured data. The
+  // blog is a site of its own, at /blog/ (blog/ in this repository).
   transformHead({ pageData, title, description }) {
     const path = pageUrl(pageData.relativePath)
+    const lang = pageLang(pageData.relativePath)
+    const prefix = languages[lang].prefix
+    const rest = path.startsWith(prefix) ? path.slice(prefix.length) : path
     const url = `${site}${path}`
-    const zh = pageData.relativePath.startsWith('zh/')
-    const english = zh ? path.replace(/^zh\//, '') : path
-    const chinese = zh ? path : `zh/${path}`
     const head: HeadConfig[] = [
       ['link', { rel: 'canonical', href: url }],
       ['meta', { property: 'og:url', content: url }],
       ['meta', { property: 'og:title', content: title }],
       ['meta', { property: 'og:description', content: description }],
-      ['meta', { property: 'og:locale', content: zh ? 'zh_CN' : 'en_US' }],
+      ['meta', { property: 'og:locale', content: languages[lang].ogLocale }],
       ['meta', { name: 'twitter:title', content: title }],
       ['meta', { name: 'twitter:description', content: description }],
     ]
-    head.push(
-      ['link', { rel: 'alternate', hreflang: 'en', href: `${site}${english}` }],
-      ['link', { rel: 'alternate', hreflang: 'zh-CN', href: `${site}${chinese}` }],
-      ['link', { rel: 'alternate', hreflang: 'x-default', href: `${site}${english}` }],
-    )
+    for (const language of Object.values(languages)) {
+      head.push(['link', { rel: 'alternate', hreflang: language.lang, href: `${site}${language.prefix}${rest}` }])
+    }
+    head.push(['link', { rel: 'alternate', hreflang: 'x-default', href: `${site}${rest}` }])
     // Structured data for search engines and AI answer engines: where the
     // page sits in the site, and — for every page but the landing ones —
     // that it is technical documentation about CloudBridge, and when it
     // last changed.
-    const docsHome = zh ? `${site}zh/` : site
+    const docsHome = `${site}${prefix}`
     const crumbs = [
-      { name: 'CloudBridge', item: zh ? `${home}zh/` : home },
-      { name: zh ? '文档' : 'Docs', item: docsHome },
+      { name: 'CloudBridge', item: `${home}${prefix}` },
+      { name: themeText[lang].docs, item: docsHome },
     ]
     if (url !== docsHome) crumbs.push({ name: pageData.title || title, item: url })
     const graph: object[] = [{
@@ -179,7 +499,7 @@ export default defineConfig({
         headline: pageData.title || title,
         description,
         url,
-        inLanguage: zh ? 'zh-CN' : 'en',
+        inLanguage: languages[lang].lang,
         ...(pageData.lastUpdated ? { dateModified: new Date(pageData.lastUpdated).toISOString() } : {}),
         image: ogImage,
         author,
@@ -195,55 +515,11 @@ export default defineConfig({
     return head
   },
   locales: {
-    root: {
-      label: 'English',
-      lang: 'en',
-      themeConfig: {
-        nav: [
-          { text: 'Home', link: home },
-          { text: 'Get started', link: '/getting-started' },
-          { text: 'Demo', link: `${home}demo/` },
-          { text: 'Blog', link: `${home}blog/` },
-          { text: 'Download', link: `${repository}/releases/latest` },
-        ],
-        sidebar: sidebar(),
-      },
-    },
-    zh: {
-      label: '简体中文',
-      lang: 'zh-CN',
-      // The suffix of every Chinese page's title: "AWS 费用 | CloudBridge 文档".
-      title: 'CloudBridge 文档',
-      description: '本地优先的云与 AI 账单桌面应用：把各家账单读进你电脑上的一本账。',
-      themeConfig: {
-        nav: [
-          { text: '官网', link: `${home}zh/` },
-          { text: '快速上手', link: '/zh/getting-started' },
-          { text: '在线演示', link: `${home}demo/` },
-          { text: '博客', link: `${home}blog/zh/` },
-          { text: '下载', link: `${repository}/releases/latest` },
-        ],
-        sidebar: sidebar(true),
-        outline: { label: '本页目录', level: [2, 3] },
-        editLink: { pattern: `${siteRepository}/edit/main/docs/:path`, text: '在 GitHub 上编辑此页' },
-        lastUpdated: { text: '最后更新' },
-        docFooter: { prev: '上一页', next: '下一页' },
-        langMenuLabel: '切换语言',
-        sidebarMenuLabel: '目录',
-        returnToTopLabel: '返回顶部',
-        skipToContentLabel: '跳转到内容',
-        darkModeSwitchLabel: '外观',
-        lightModeSwitchTitle: '切换到浅色主题',
-        darkModeSwitchTitle: '切换到深色主题',
-        notFound: {
-          title: '页面未找到',
-          quote: '这个页面不存在，请返回首页或使用搜索查找指南。',
-          linkLabel: '返回首页',
-          linkText: '返回首页',
-        },
-        footer: { message: '基于 MIT 许可开源发布。' },
-      },
-    },
+    root: localeConfig('en'),
+    zh: localeConfig('zh'),
+    ja: localeConfig('ja'),
+    ko: localeConfig('ko'),
+    fr: localeConfig('fr'),
   },
   themeConfig: {
     logo: { src: '/assets/logo.png', alt: 'CloudBridge' },
@@ -275,6 +551,66 @@ export default defineConfig({
               },
             },
           },
+          ja: {
+            translations: {
+              button: { buttonText: '検索', buttonAriaLabel: 'ドキュメントを検索' },
+              modal: {
+                displayDetails: '詳細リストを表示',
+                resetButtonTitle: '検索をクリア',
+                backButtonTitle: '検索を閉じる',
+                noResultsText: '一致する結果が見つかりません',
+                footer: {
+                  selectText: '選択',
+                  selectKeyAriaLabel: 'Enter キー',
+                  navigateText: '移動',
+                  navigateUpKeyAriaLabel: '上矢印キー',
+                  navigateDownKeyAriaLabel: '下矢印キー',
+                  closeText: '閉じる',
+                  closeKeyAriaLabel: 'Esc キー',
+                },
+              },
+            },
+          },
+          ko: {
+            translations: {
+              button: { buttonText: '검색', buttonAriaLabel: '문서 검색' },
+              modal: {
+                displayDetails: '상세 목록 표시',
+                resetButtonTitle: '검색 지우기',
+                backButtonTitle: '검색 닫기',
+                noResultsText: '일치하는 결과가 없습니다',
+                footer: {
+                  selectText: '선택',
+                  selectKeyAriaLabel: 'Enter 키',
+                  navigateText: '이동',
+                  navigateUpKeyAriaLabel: '위쪽 화살표',
+                  navigateDownKeyAriaLabel: '아래쪽 화살표',
+                  closeText: '닫기',
+                  closeKeyAriaLabel: 'Esc 키',
+                },
+              },
+            },
+          },
+          fr: {
+            translations: {
+              button: { buttonText: 'Rechercher', buttonAriaLabel: 'Rechercher dans la documentation' },
+              modal: {
+                displayDetails: 'Afficher la liste détaillée',
+                resetButtonTitle: 'Effacer la recherche',
+                backButtonTitle: 'Fermer la recherche',
+                noResultsText: 'Aucun résultat trouvé',
+                footer: {
+                  selectText: 'Sélectionner',
+                  selectKeyAriaLabel: 'Touche Entrée',
+                  navigateText: 'Naviguer',
+                  navigateUpKeyAriaLabel: 'Flèche haut',
+                  navigateDownKeyAriaLabel: 'Flèche bas',
+                  closeText: 'Fermer',
+                  closeKeyAriaLabel: 'Touche Échap',
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -285,16 +621,17 @@ export default defineConfig({
     // /docs/alerts — plus each language's pages in one file, llms-full.txt,
     // for AI assistants and anyone who wants the text without the site
     // (https://llmstxt.org). The product page's /llms.txt points here.
-    const full: Record<'en' | 'zh', string[]> = { en: [], zh: [] }
+    const full: Record<Lang, string[]> = { en: [], zh: [], ja: [], ko: [], fr: [] }
     for (const page of [...config.pages].sort()) {
       const path = pageUrl(page)
       const markdown = standaloneMarkdown(await readFile(resolve(config.srcDir, page), 'utf8'), `${site}${path}`)
       const target = resolve(config.outDir, page)
       await mkdir(dirname(target), { recursive: true })
       await writeFile(target, markdown)
-      full[page.startsWith('zh/') ? 'zh' : 'en'].push(markdown)
+      full[pageLang(page)].push(markdown)
     }
-    await writeFile(resolve(config.outDir, 'llms-full.txt'), full.en.join('\n---\n\n'))
-    await writeFile(resolve(config.outDir, 'zh/llms-full.txt'), full.zh.join('\n---\n\n'))
+    for (const lang of Object.keys(languages) as Lang[]) {
+      await writeFile(resolve(config.outDir, `${languages[lang].prefix}llms-full.txt`), full[lang].join('\n---\n\n'))
+    }
   },
 })

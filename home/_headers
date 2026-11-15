@@ -11,10 +11,16 @@
   Link: </docs/>; rel="service-doc"; type="text/html", </llms.txt>; rel="describedby"; type="text/plain"
 /zh/
   Link: </docs/zh/>; rel="service-doc"; type="text/html"; hreflang="zh-CN", </llms.txt>; rel="describedby"; type="text/plain"
+/ja/
+  Link: </docs/ja/>; rel="service-doc"; type="text/html"; hreflang="ja", </llms.txt>; rel="describedby"; type="text/plain"
+/ko/
+  Link: </docs/ko/>; rel="service-doc"; type="text/html"; hreflang="ko", </llms.txt>; rel="describedby"; type="text/plain"
+/fr/
+  Link: </docs/fr/>; rel="service-doc"; type="text/html"; hreflang="fr", </llms.txt>; rel="describedby"; type="text/plain"
 
 # The plain-text copies for language models (llms.txt, llms-full.txt and each
 # docs page as .md) are for reading, not for search results: the HTML pages
-# are the ones to index. The charset keeps the Chinese pages legible.
+# are the ones to index. The charset keeps the non-Latin pages legible.
 /llms.txt
   Content-Type: text/plain; charset=utf-8
 /docs/*.txt
@@ -28,6 +34,12 @@
 /blog/feed.xml
   Content-Type: application/atom+xml; charset=utf-8
 /blog/zh/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/ja/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/ko/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/fr/feed.xml
   Content-Type: application/atom+xml; charset=utf-8
 
 # The docs' built scripts and styles are fingerprinted by VitePress, so they

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Suivez les coûts des API OpenAI, Anthropic et DeepSeek | CloudBridge</title>
+<meta name="description" content="Voyez ce que coûte chaque LLM par jeton chez OpenAI, Anthropic, DeepSeek, Model Studio et Volcengine Ark, dans un seul registre local. Gratuit et open source.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/">
+<meta property="og:title" content="Suivez les coûts des API OpenAI, Anthropic et DeepSeek | CloudBridge">
+<meta property="og:description" content="Dépenses, jetons et coût par million de jetons pour chaque modèle que vous payez, à côté de votre facture cloud, sur votre propre ordinateur.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="La vue d’ensemble de CloudBridge : dépenses du mois à ce jour sur l’ensemble des clouds et fournisseurs de modèles, graphique des dépenses quotidiennes et plus fortes variations">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Suivez les coûts des API OpenAI, Anthropic et DeepSeek | CloudBridge">
+<meta name="twitter:description" content="Dépenses, jetons et coût par million de jetons pour chaque modèle que vous payez, à côté de votre facture cloud, sur votre propre ordinateur.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="Blog CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/fr/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/",
+      "name": "Suivez les coûts des API OpenAI, Anthropic et DeepSeek",
+      "description": "Voyez ce que coûte chaque LLM par jeton chez OpenAI, Anthropic, DeepSeek, Model Studio et Volcengine Ark, dans un seul registre local. Gratuit et open source.",
+      "inLanguage": "fr",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/fr/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/fr/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/fr/" },
+        { "@type": "ListItem", "position": 2, "name": "Suivi des coûts d’API LLM", "item": "https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "fr",
+      "mainEntity": [
+        { "@type": "Question", "name": "Dois-je fournir ma clé d’API OpenAI ou Anthropic à CloudBridge ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. OpenAI et Anthropic fonctionnent uniquement par import : ajoutez le compte avec un nom et sans identifiants, puis importez l’export de coûts ou d’usage téléchargé depuis la console du fournisseur." } },
+        { "@type": "Question", "name": "Et si mon export contient des jetons mais aucun coût ?", "acceptedAnswer": { "@type": "Answer", "text": "Les exports contenant uniquement des jetons restent des relevés d’usage. CloudBridge compte leurs jetons sur la page Modèles mais ne les transforme pas en facture estimée." } },
+        { "@type": "Question", "name": "Quels fournisseurs de modèles lit-elle ?", "acceptedAnswer": { "@type": "Answer", "text": "Les exports OpenAI et Anthropic, l’API de solde et le téléchargement d’usage de DeepSeek, Alibaba Cloud Model Studio via la facture Alibaba Cloud, et Volcengine Ark via l’export de factures Volcengine." } },
+        { "@type": "Question", "name": "Peut-elle m’avertir quand les dépenses de modèles s’envolent ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. La règle d’anomalie de croissance des coûts signale une source et un service dont les dépenses quotidiennes dépassent leur référence sur 7 jours pendant plusieurs jours de suite, et la règle de seuil de solde avertit lorsqu’un solde prépayé comme celui de DeepSeek devient bas." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/fr/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/fr/">Documentation</a>
+        <a class="optional" href="/blog/fr/">Blog</a>
+        <a class="optional" href="/demo/">Démo</a>
+        <details class="lang">
+          <summary aria-label="Langue">Français</summary>
+          <ul>
+            <li><a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr-FR" lang="fr" aria-current="true">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a><span aria-hidden="true">›</span><span>Suivi des coûts d’API LLM</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">Chaque modèle que vous payez, dans un seul tableau</p>
+      <h1>Ce que coûte vraiment chaque modèle</h1>
+      <p class="lede">Importez vos exports d’usage OpenAI et Anthropic, ajoutez DeepSeek et les lignes Model Studio de votre facture Alibaba Cloud, et voyez les dépenses, les jetons et le coût par million de jetons de chaque modèle, à côté du reste de votre facture cloud.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger CloudBridge</a>
+        <a class="button button-ghost" href="/docs/fr/models">Lire la documentation des modèles</a>
+      </div>
+      <p class="fineprint">Gratuit et open source pour macOS et Windows. Sans compte, sans synchronisation, sans télémétrie.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Comment ça marche</p>
+      <h2>D’un export de console au coût par jeton</h2>
+      <p class="intro">Aucune clé d’API pour OpenAI ou Anthropic : l’export fourni par leurs consoles suffit.</p>
+      <ol class="steps">
+        <li>
+          <h3>Téléchargez l’export</h3>
+          <p>OpenAI : Usage → Export. Anthropic : Usage ou Cost → Export. DeepSeek : Usage → Download.</p>
+        </li>
+        <li>
+          <h3>Importez-le</h3>
+          <p>Ajoutez le compte avec un nom et sans identifiants, puis cliquez sur Import sur sa ligne. Réimporter un mois le remplace.</p>
+        </li>
+        <li>
+          <h3>Lisez la page Modèles</h3>
+          <p>Le coût et la variation de chaque modèle, ses jetons d’entrée, de sortie et de cache, et ce qu’il coûte par million de jetons.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Sources</p>
+      <h2>Les factures de modèles qu’elle lit</h2>
+      <p class="intro">Les lignes facturées au jeton, quelle que soit leur source, apparaissent sur la page Modèles ; le modèle est celui que nomme la facture.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Fournisseur</th><th>Méthode</th><th>Ce qu’elle apporte</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI</td><td>Export d’usage</td><td>Coûts ou usage en jetons, par projet et par modèle</td></tr>
+            <tr><td>Anthropic (Claude)</td><td>Export d’usage ou de coûts</td><td>Coûts ou usage en jetons, par espace de travail et par modèle</td></tr>
+            <tr><td>DeepSeek</td><td>API de solde, téléchargement d’usage</td><td>Solde prépayé ; dépenses par jour et par modèle</td></tr>
+            <tr><td>Alibaba Cloud Model Studio</td><td>Export du détail des factures</td><td>Coûts Model Studio (百炼) par modèle</td></tr>
+            <tr><td>Volcengine Ark</td><td>Export du détail des factures</td><td>Coûts Ark (火山方舟) par endpoint et par type de jeton</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/fr/bill-import">Import de fichiers de facture →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">La page Modèles</p>
+          <h2>L’économie des jetons, par modèle</h2>
+          <p>La ligne de statistiques montre les dépenses d’IA, le total de jetons, le coût mélangé par million de jetons et la part du cache. En dessous, le coût et la variation de chaque modèle, ses jetons d’entrée, de sortie et de cache et sa part des dépenses de modèles, ainsi qu’un graphique des jetons par jour.</p>
+          <p><a href="/docs/fr/models">Modèles</a>&emsp;<a href="/demo/">L’essayer dans la démo</a></p>
+        </div>
+        <ul class="promise">
+          <li>Signale un modèle dont les lectures de cache représentent moins de 5 % de son côté entrée : un prix d’entrée payé pour ce qui pourrait être du cache.</li>
+          <li>Signale un modèle qui représente plus de 70 % des dépenses de modèles.</li>
+          <li>Distingue une hausse du prix unitaire d’une hausse de l’usage.</li>
+          <li>Repère un modèle facturé sans mesure des jetons, dont le coût unitaire ne peut pas être calculé.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Sous surveillance</p>
+          <h2>Sachez quand les dépenses de modèles s’envolent</h2>
+          <p>La règle d’anomalie de croissance des coûts signale une source et un service dont les dépenses quotidiennes dépassent leur référence sur 7 jours pendant deux jours de suite. La règle de seuil de solde avertit avant qu’un solde prépayé comme celui de DeepSeek ne s’épuise. CloudBridge publie les deux depuis la barre de menus.</p>
+          <p><a href="/fr/use-cases/cloud-cost-alerts/">Alertes de coûts cloud</a></p>
+        </div>
+        <ul class="promise">
+          <li>Les dépenses de modèles figurent dans le même registre qu’AWS, Alibaba Cloud et Cloudflare : une seule vue d’ensemble les couvre toutes.</li>
+          <li>Les devises d’origine sont conservées à côté du montant converti ; les taux de change manquants sont signalés, pas supposés.</li>
+          <li>Le registre est un fichier DuckDB sur votre disque, avec du SQL en lecture seule sur la page Requête.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions fréquentes</h2>
+      <div class="faq">
+        <details><summary>Dois-je fournir ma clé d’API OpenAI ou Anthropic à CloudBridge ?</summary><p>Non. OpenAI et Anthropic fonctionnent uniquement par import : ajoutez le compte avec un nom et sans identifiants, puis importez l’export de coûts ou d’usage téléchargé depuis la console du fournisseur.</p></details>
+        <details><summary>Et si mon export contient des jetons mais aucun coût ?</summary><p>Les exports contenant uniquement des jetons restent des relevés d’usage. CloudBridge compte leurs jetons sur la page Modèles mais ne les transforme pas en facture estimée.</p></details>
+        <details><summary>Quels fournisseurs de modèles lit-elle ?</summary><p>Les exports OpenAI et Anthropic, l’API de solde et le téléchargement d’usage de DeepSeek, Alibaba Cloud Model Studio via la facture Alibaba Cloud, et Volcengine Ark via l’export de factures Volcengine.</p></details>
+        <details><summary>Peut-elle m’avertir quand les dépenses de modèles s’envolent ?</summary><p>Oui. La règle d’anomalie de croissance des coûts signale des dépenses quotidiennes au-dessus de leur référence sur 7 jours pendant plusieurs jours de suite, et la règle de seuil de solde avertit lorsqu’un solde prépayé comme celui de DeepSeek devient bas.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Voyez votre facture de modèles, modèle par modèle</h2>
+      <p>Téléchargez CloudBridge, importez les exports du mois dernier et ouvrez la page Modèles. Ou commencez par explorer la démo.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">Essayer la démo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/fr/">Documentation</a>
+    <a href="/blog/fr/">Blog</a>
+    <a href="/demo/">Démo</a>
+    <a href="/fr/use-cases/cloud-cost-alerts/">Alertes de coûts cloud</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a>
+    <span>MIT</span>
+  </div>
+</footer>
+</body>
+</html>
