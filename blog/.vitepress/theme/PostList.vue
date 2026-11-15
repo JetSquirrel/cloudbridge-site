@@ -2,10 +2,11 @@
 import { computed } from 'vue'
 import { withBase } from 'vitepress'
 import { data as posts } from './posts.data'
+import type { PostLang } from './posts.data'
 
 // The posts of one language, newest first, as cards.
-const props = defineProps<{ lang: 'en' | 'zh' }>()
-const list = computed(() => posts.filter((post) => post.zh === (props.lang === 'zh')))
+const props = defineProps<{ lang: PostLang }>()
+const list = computed(() => posts.filter((post) => post.lang === props.lang))
 </script>
 
 <template>

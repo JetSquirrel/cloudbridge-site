@@ -5,7 +5,7 @@ description: "Connect Google Cloud to CloudBridge through the billing account's 
 
 # Google Cloud
 
-**[中文](zh/google-cloud.md)**&emsp;[Docs](index.md)
+**[中文](zh/google-cloud.md)**&emsp;**[日本語](ja/google-cloud.md)**&emsp;**[한국어](ko/google-cloud.md)**&emsp;**[Français](fr/google-cloud.md)**&emsp;[Docs](index.md)
 
 Google Cloud has no API that answers "what did this month cost". Its bill
 is the export a billing account writes to a BigQuery dataset, so that is

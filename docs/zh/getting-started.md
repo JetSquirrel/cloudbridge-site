@@ -5,7 +5,7 @@ description: "在 macOS 或 Windows 上安装 CloudBridge，用演示账单先�
 
 # 快速上手
 
-**[English](../getting-started.md)**&emsp;[文档](index.md)
+**[English](../getting-started.md)**&emsp;**[日本語](../ja/getting-started.md)**&emsp;**[한국어](../ko/getting-started.md)**&emsp;**[Français](../fr/getting-started.md)**&emsp;[文档](index.md)
 
 CloudBridge 把你的云平台和大模型平台账单读进本机的一本账——数据可以来自账单
 API，也可以来自你下载的账单文件——然后画出趋势。不用注册，不同步，没有遥测。

@@ -5,7 +5,7 @@ description: "CloudBridge 常见问题：钥匙串提示、AWS AccessDenied、�
 
 # 常见问题排查
 
-**[English](../troubleshooting.md)**&emsp;[文档](index.md)
+**[English](../troubleshooting.md)**&emsp;**[日本語](../ja/troubleshooting.md)**&emsp;**[한국어](../ko/troubleshooting.md)**&emsp;**[Français](../fr/troubleshooting.md)**&emsp;[文档](index.md)
 
 ## macOS 请求钥匙串访问权限 {#keychain}
 

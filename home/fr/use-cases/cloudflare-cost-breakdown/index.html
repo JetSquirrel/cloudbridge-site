@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coûts Cloudflare par Worker, bucket R2 et Durable Object | CloudBridge</title>
+<meta name="description" content="Voyez quel Worker, bucket R2, base D1 ou Durable Object est derrière votre facture Cloudflare. Usage facturable quotidien, réparti par ressource, conservé sur votre ordinateur.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloudflare-cost-breakdown/">
+<meta property="og:title" content="Coûts Cloudflare par Worker, bucket R2 et Durable Object | CloudBridge">
+<meta property="og:description" content="La facture de Cloudflare s’arrête au service. CloudBridge répartit la dépense de chaque jour entre vos Workers, buckets R2, bases D1 et Durable Objects. Gratuit, open source, en local.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="La vue d’ensemble de CloudBridge : dépenses du mois à ce jour sur l’ensemble des clouds et fournisseurs de modèles, graphique des dépenses quotidiennes et plus fortes variations">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Coûts Cloudflare par Worker, bucket R2 et Durable Object | CloudBridge">
+<meta name="twitter:description" content="La facture de Cloudflare s’arrête au service. CloudBridge répartit la dépense de chaque jour entre vos Workers, buckets R2, bases D1 et Durable Objects. Gratuit, open source, en local.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="Blog CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/fr/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloudflare-cost-breakdown/",
+      "name": "Coûts Cloudflare par Worker, bucket R2 et Durable Object",
+      "description": "Voyez quel Worker, bucket R2, base D1 ou Durable Object est derrière votre facture Cloudflare. Usage facturable quotidien, réparti par ressource, conservé sur votre ordinateur.",
+      "inLanguage": "fr",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/fr/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/fr/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/fr/" },
+        { "@type": "ListItem", "position": 2, "name": "Coûts Cloudflare par ressource", "item": "https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloudflare-cost-breakdown/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "fr",
+      "mainEntity": [
+        { "@type": "Question", "name": "La facture de Cloudflare indique-t-elle le coût de chaque Worker ou bucket R2 ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. La facture s’arrête au service : elle dit combien d’opérations R2 Classe B ou de lignes de Durable Object ont été facturées un jour donné, pas quel bucket ni quel espace de noms les a utilisées. CloudBridge lit l’usage de chaque ressource depuis l’API GraphQL Analytics de Cloudflare et répartit la dépense de chaque jour selon ces parts." } },
+        { "@type": "Question", "name": "Quelle est la précision de la répartition par ressource ?", "acceptedAnswer": { "@type": "Answer", "text": "Les parts additionnées donnent ce que Cloudflare a facturé, et elles sont marquées comme des estimations. Les analyses de Cloudflare sont échantillonnées, et une allocation gratuite appartient au compte, pas à une ressource en particulier." } },
+        { "@type": "Question", "name": "Quelles permissions le jeton d’API doit-il avoir ?", "acceptedAnswer": { "@type": "Answer", "text": "Account, Billing, Read pour la facture, et Account, Account Analytics, Read pour la répartition. Les deux sont en lecture seule. L’analyse des ressources d’Analyses demande quelques permissions Read de plus et indique celles qui lui ont été refusées." } },
+        { "@type": "Question", "name": "Cela fonctionne-t-il avec un compte Cloudflare Enterprise ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. L’API d’usage facturable de Cloudflare ne couvre que les comptes à la consommation (self-serve) et reste une API alpha. CloudBridge signale un compte Enterprise comme non couvert." } },
+        { "@type": "Question", "name": "CloudBridge peut-elle arrêter un Worker ou un Durable Object qui s’emballe ?", "acceptedAnswer": { "@type": "Answer", "text": "Non. Elle ne fait que lire. Elle peut vous alerter à la première actualisation qui lit le jour coûteux, et Analyses montre quel Worker ou quel espace de noms est derrière la dépense, pour que vous puissiez l’arrêter dans le tableau de bord Cloudflare." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/fr/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/fr/">Documentation</a>
+        <a class="optional" href="/blog/fr/">Blog</a>
+        <a class="optional" href="/demo/">Démo</a>
+        <details class="lang">
+          <summary aria-label="Langue">Français</summary>
+          <ul>
+            <li><a href="/use-cases/cloudflare-cost-breakdown/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/cloudflare-cost-breakdown/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/cloudflare-cost-breakdown/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/cloudflare-cost-breakdown/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/cloudflare-cost-breakdown/" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Fil d’Ariane"><a href="/fr/">Accueil</a><span aria-hidden="true">›</span><span>Coûts Cloudflare par ressource</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">La facture nomme le service, pas la ressource</p>
+      <h1>Voyez quel Worker, bucket ou Durable Object est derrière votre facture Cloudflare</h1>
+      <p class="lede">CloudBridge lit votre usage facturable Cloudflare jour par jour et répartit chaque dépense entre vos buckets R2, vos Workers, vos bases D1 et vos espaces de noms Durable Object, dans un registre sur votre ordinateur.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger CloudBridge</a>
+        <a class="button button-ghost" href="/docs/fr/cloudflare">Lire la documentation Cloudflare</a>
+      </div>
+      <p class="fineprint">Gratuit et open source pour macOS et Windows. Sans compte, sans synchronisation, sans télémétrie.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Fonctionnement</p>
+      <h2>D’un jeton d’API au coût par ressource</h2>
+      <p class="intro">Un seul jeton en lecture seule suffit. Il reste dans le trousseau de votre système.</p>
+      <ol class="steps">
+        <li>
+          <h3>Créer un jeton</h3>
+          <p>Un jeton d’API personnalisé avec Account → Billing → Read. Ajoutez Account → Account Analytics → Read pour la répartition par ressource.</p>
+        </li>
+        <li>
+          <h3>Ajouter le compte</h3>
+          <p>Saisissez l’ID de compte et le jeton. CloudBridge lit l’usage facturable : la dépense par service, par jour.</p>
+        </li>
+        <li>
+          <h3>Lire la répartition</h3>
+          <p>La dépense de chaque jour est divisée entre les ressources qui ont utilisé le compteur. Analyses liste la part de chacune et son usage sur la période.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">La répartition</p>
+      <h2>Ce qui est réparti, et sur quoi</h2>
+      <p class="intro">La facture de Cloudflare peut indiquer « opérations R2 Classe B, 734 le 3 octobre » sans nommer le bucket. CloudBridge demande à l’API GraphQL Analytics quel bucket les a produites.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Sur la facture</th><th>Réparti sur</th><th>Selon</th></tr></thead>
+          <tbody>
+            <tr><td>Opérations R2 Classe A et B, stockage</td><td>Les buckets R2</td><td>L’usage de ce compteur par chaque bucket</td></tr>
+            <tr><td>Requêtes et CPU des Workers</td><td>Les Workers</td><td>Les requêtes de chaque Worker</td></tr>
+            <tr><td>Lignes D1 lues et écrites, stockage</td><td>Les bases D1</td><td>L’usage de ce compteur par chaque base</td></tr>
+            <tr><td>Requêtes, durée, lignes et stockage des Durable Objects</td><td>Les espaces de noms Durable Object</td><td>L’usage de ce compteur par chaque espace de noms</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/fr/cloudflare#split">Répartition par ressource →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">Ce que ces chiffres sont</p>
+          <h2>Les parts additionnées donnent la facture</h2>
+          <p>La répartition divise ce que Cloudflare a facturé ; elle n’invente pas de prix. Les lignes sont marquées comme des estimations, car les analyses sont échantillonnées et une allocation gratuite appartient au compte, pas à une ressource.</p>
+          <p><a href="/docs/fr/insights">Analyses</a>&emsp;<a href="/docs/fr/permissions#cloudflare">Permissions du jeton</a></p>
+        </div>
+        <ul class="promise">
+          <li>Un compteur que les analyses ne savent pas répartir, comme KV ou Queues, garde sa ligne entière au niveau du compte.</li>
+          <li>L’usage compris dans l’allocation gratuite est enregistré lui aussi, à coût nul, car c’est là qu’un emballement commence.</li>
+          <li>Sans la permission Account Analytics, la facture est tout de même lue ; elle n’est simplement pas répartie.</li>
+          <li>Comptes à la consommation uniquement. L’API d’usage facturable de Cloudflare est en alpha et ne couvre pas Enterprise.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Repérer un emballement</p>
+          <h2>Sachez le premier jour qu’un Worker se met à boucler</h2>
+          <p>Rien n’arrête un compte Cloudflare à la consommation à une limite de dépenses. Donnez au compte un budget mensuel et ajoutez une règle de budget de compte fondée sur la prévision de fin de mois : le premier jour coûteux est projeté sur le mois, et l’alerte se déclenche à la première actualisation qui le lit.</p>
+          <p><a href="/docs/fr/cloudflare#runaway">Repérer un emballement</a>&emsp;<a href="/fr/use-cases/cloud-cost-alerts/">Alertes de coûts cloud</a></p>
+        </div>
+        <ul class="promise">
+          <li>Un cas réel : l’alarme Durable Object d’un projet dormant a facturé 10 811 $ avant que quiconque ne le sache. <a href="/blog/fr/cloudflare-durable-object-runaway">Lire l’article</a>.</li>
+          <li>Raccourcissez l’intervalle d’actualisation à 6 heures et gardez CloudBridge dans la barre de menus avec « Ouvrir à la connexion » activé.</li>
+          <li>Quand l’alerte se déclenche, Analyses montre la part de chaque Worker et de chaque espace de noms, et celui qui est derrière ressort.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Confidentialité</p>
+          <h2>Vos factures restent sur votre machine</h2>
+          <p>Le registre est un fichier DuckDB sur votre disque et le jeton est dans le trousseau du système. CloudBridge ne fait que lire depuis Cloudflare, et la facture côtoie vos factures AWS, Azure, Google Cloud et de fournisseurs de modèles dans les mêmes colonnes.</p>
+        </div>
+        <ul class="promise">
+          <li>Aucun compte CloudBridge, aucun service de synchronisation, aucune télémétrie.</li>
+          <li>Jeton en lecture seule ; rien n’est créé ni modifié dans votre compte Cloudflare.</li>
+          <li>Open source sous licence MIT.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions fréquentes</h2>
+      <div class="faq">
+        <details><summary>La facture de Cloudflare indique-t-elle le coût de chaque Worker ou bucket R2 ?</summary><p>Non. La facture s’arrête au service : elle dit combien d’opérations R2 Classe B ou de lignes de Durable Object ont été facturées un jour donné, pas quel bucket ni quel espace de noms les a utilisées. CloudBridge lit l’usage de chaque ressource depuis l’API GraphQL Analytics de Cloudflare et répartit la dépense de chaque jour selon ces parts.</p></details>
+        <details><summary>Quelle est la précision de la répartition par ressource ?</summary><p>Les parts additionnées donnent ce que Cloudflare a facturé, et elles sont marquées comme des estimations. Les analyses de Cloudflare sont échantillonnées, et une allocation gratuite appartient au compte, pas à une ressource en particulier.</p></details>
+        <details><summary>Quelles permissions le jeton d’API doit-il avoir ?</summary><p>Account, Billing, Read pour la facture, et Account, Account Analytics, Read pour la répartition. Les deux sont en lecture seule. L’analyse des ressources d’Analyses demande quelques permissions Read de plus et indique celles qui lui ont été refusées.</p></details>
+        <details><summary>Cela fonctionne-t-il avec un compte Cloudflare Enterprise ?</summary><p>Non. L’API d’usage facturable de Cloudflare ne couvre que les comptes à la consommation (self-serve) et reste une API alpha. CloudBridge signale un compte Enterprise comme non couvert.</p></details>
+        <details><summary>CloudBridge peut-elle arrêter un Worker ou un Durable Object qui s’emballe ?</summary><p>Non. Elle ne fait que lire. Elle peut vous alerter à la première actualisation qui lit le jour coûteux, et Analyses montre quel Worker ou quel espace de noms est derrière la dépense, pour que vous puissiez l’arrêter dans le tableau de bord Cloudflare.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Voyez ce que coûte chaque ressource Cloudflare</h2>
+      <p>Téléchargez CloudBridge, ajoutez votre compte Cloudflare et ouvrez Analyses. Ou commencez par explorer la démo.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Télécharger CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">Essayer la démo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/fr/">Documentation</a>
+    <a href="/blog/fr/">Blog</a>
+    <a href="/demo/">Démo</a>
+    <a href="/fr/use-cases/cloud-cost-alerts/">Alertes de coûts cloud</a>
+    <a href="/fr/use-cases/multi-cloud-cost-dashboard/">Coûts multi-cloud</a>
+    <a href="/fr/use-cases/llm-api-cost-tracking/">Coûts d’API LLM</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/cloudflare-cost-breakdown/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/cloudflare-cost-breakdown/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/cloudflare-cost-breakdown/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/use-cases/cloudflare-cost-breakdown/" hreflang="ko" lang="ko">한국어</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>Du même auteur</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

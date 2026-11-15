@@ -5,7 +5,7 @@ description: "用服务主体把 Microsoft Azure 订阅接入 CloudBridge：从 
 
 # Microsoft Azure
 
-**[English](../azure.md)**&emsp;[文档](index.md)
+**[English](../azure.md)**&emsp;**[日本語](../ja/azure.md)**&emsp;**[한국어](../ko/azure.md)**&emsp;**[Français](../fr/azure.md)**&emsp;[文档](index.md)
 
 CloudBridge 从 Azure Cost Management 读取订阅的**实际成本**：每个服务**每天**花了多少，
 并按费用类型分开。购买的预留实例、退款和税费都按原本的类型记账，不会算进用量，

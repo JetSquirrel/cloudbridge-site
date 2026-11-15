@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS、Azure、Google Cloud のマルチクラウド コストダッシュボード | CloudBridge</title>
+<meta name="description" content="AWS、Azure、Google Cloud、Alibaba Cloud、Cloudflare の請求書を、FOCUS の列を持つ 1 つのローカル台帳に。サーバー不要の無料オープンソースデスクトップアプリです。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/">
+<meta property="og:title" content="AWS、Azure、Google Cloud のマルチクラウド コストダッシュボード | CloudBridge">
+<meta property="og:description" content="すべてのクラウドの請求書を、同じ FOCUS の列と 1 つの通貨の合計で、お使いのコンピューター上の 1 つの台帳に。無料のオープンソースで、動かすサーバーはありません。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge の概要画面：クラウドとモデルプロバイダーごとの月初来の支出、日次支出のグラフ、変動の大きい項目">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AWS、Azure、Google Cloud のマルチクラウド コストダッシュボード | CloudBridge">
+<meta name="twitter:description" content="すべてのクラウドの請求書を、同じ FOCUS の列と 1 つの通貨の合計で、お使いのコンピューター上の 1 つの台帳に。無料のオープンソースで、動かすサーバーはありません。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/ja/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/",
+      "name": "AWS、Azure、Google Cloud のマルチクラウド コストダッシュボード",
+      "description": "AWS、Azure、Google Cloud、Alibaba Cloud、Cloudflare の請求書を、FOCUS の列を持つ 1 つのローカル台帳に。サーバー不要の無料オープンソースデスクトップアプリです。",
+      "inLanguage": "ja",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "マルチクラウドのコストダッシュボード", "item": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "ja",
+      "mainEntity": [
+        { "@type": "Question", "name": "すべてのクラウドのコストをまとめて見るためにサーバーをデプロイする必要がありますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。CloudBridge は macOS と Windows 向けのデスクトップアプリです。読み取り専用の認証情報で各プロバイダーを読み取り、請求書をディスク上の DuckDB ファイルに保存します。用意するサーバー、データベース、アカウントはありません。" } },
+        { "@type": "Question", "name": "CloudBridge はどのクラウドを読み取りますか？", "acceptedAnswer": { "@type": "Answer", "text": "AWS、Microsoft Azure、Google Cloud、Alibaba Cloud、Cloudflare をそれぞれの課金 API またはエクスポート経由で、Volcengine を請求書のエクスポート経由で読み取ります。OpenAI、Anthropic、DeepSeek のモデルプロバイダーの請求書も同じ台帳に入ります。" } },
+        { "@type": "Question", "name": "通貨の異なる請求書はどう合算しますか？", "acceptedAnswer": { "@type": "Answer", "text": "合計は 1 つの報告通貨で表示されます。各明細は換算後の金額の隣に元の通貨を保持し、為替レートがない明細は推測せずに除外として報告します。" } },
+        { "@type": "Question", "name": "FOCUS とは何で、ここではなぜ重要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "FOCUS は FinOps Foundation による課金データのオープンな仕様です。CloudBridge はその列名を採用しているので、Alibaba Cloud の ECS インスタンスと AWS の EC2 インスタンスはどちらも Compute として扱われ、1 つの SQL クエリですべてのプロバイダーを照会できます。台帳は FOCUS CSV としてエクスポートすることもできます。" } },
+        { "@type": "Question", "name": "CloudBridge はチーム全体向けの FinOps プラットフォームですか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。1 人のコンピューター上の台帳で、同期も共有サーバーもありません。共有ダッシュボードやロールが必要な組織には FinOps サーバーのほうが適しています。CloudBridge と OptScale の比較の記事で両者を比べています。" } },
+        { "@type": "Question", "name": "請求書を読み取るのに費用はかかりますか？", "acceptedAnswer": { "@type": "Answer", "text": "プロバイダーが課金する場合のみです。AWS の Cost Explorer リクエストと S3 の読み取り、Google Cloud の BigQuery の無料枠を超えたクエリです。CloudBridge は各プロバイダーへ更新間隔ごとに最大 1 回（既定では 24 時間）しかアクセスしません。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/ja/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="サイト">
+        <a href="/docs/ja/">ドキュメント</a>
+        <a class="optional" href="/blog/ja/">ブログ</a>
+        <a class="optional" href="/demo/">デモ</a>
+        <details class="lang">
+          <summary aria-label="言語">日本語</summary>
+          <ul>
+            <li><a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/multi-cloud-cost-dashboard/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li>
+            <li><a href="/ko/use-cases/multi-cloud-cost-dashboard/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/multi-cloud-cost-dashboard/" hreflang="fr" lang="fr">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">ダウンロード</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/ja/">ホーム</a><span aria-hidden="true">›</span><span>マルチクラウドのコストダッシュボード</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">AWS、Azure、Google Cloud、Alibaba Cloud、Cloudflare を並べて</p>
+      <h1>すべてのクラウドの請求書を 1 つの台帳に</h1>
+      <p class="lede">CloudBridge は各クラウドの請求書を日次でお使いのコンピューター上の 1 つのデータベースに読み込み、同じ列と 1 つの報告通貨でまとめるので、サーバーを動かさずにすべてのクラウドの月次状況を確認できます。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-ghost" href="/demo/">デモを試す</a>
+      </div>
+      <p class="fineprint">macOS と Windows 向けの無料オープンソース。アカウントも同期もテレメトリもありません。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">ソース</p>
+      <h2>各クラウドの接続方法</h2>
+      <p class="intro">どの接続も、課金に限定した読み取り専用の認証情報を使い、システムのキーチェーンに保存します。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>クラウド</th><th>方法</th><th>得られる内容</th></tr></thead>
+          <tbody>
+            <tr><td><a href="/docs/ja/aws">AWS</a></td><td>1 つのアクションの IAM ポリシーを使った Cost Explorer、または S3 上の FOCUS Data Export</td><td>サービスごと、日ごとのコスト。エクスポートならリソース ID とタグも</td></tr>
+            <tr><td><a href="/docs/ja/azure">Microsoft Azure</a></td><td>Cost Management Reader を持つサービスプリンシパル</td><td>サービスと請求の種類ごとの、日次の実費</td></tr>
+            <tr><td><a href="/docs/ja/google-cloud">Google Cloud</a></td><td>BigQuery の課金エクスポートを読むサービスアカウント</td><td>サービス、SKU、プロジェクト、リージョンごとの日次コスト。クレジットは独立した行</td></tr>
+            <tr><td><a href="/docs/ja/alibaba-cloud">Alibaba Cloud</a></td><td>読み取り専用の RAM ユーザー、または請求明細のエクスポート</td><td>API からは各プロダクトの合計、エクスポートからはインスタンス単位の行</td></tr>
+            <tr><td><a href="/docs/ja/cloudflare">Cloudflare</a></td><td>Billing Read を持つ API トークン</td><td>日次の課金使用量を Worker、バケット、Durable Object ごとに分割</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/ja/permissions">各プロバイダーの最小権限のアクセス許可 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">1 つの形式</p>
+          <h2>すべての請求書が同じ列を使う</h2>
+          <p>請求書はどの経路で届いても、FinOps の FOCUS 標準の列名で保存されます。たとえば Alibaba Cloud の ECS インスタンスと AWS の EC2 インスタンスはどちらも Compute として扱われ、1 つの SQL クエリですべてのプロバイダーを照会できます。</p>
+          <p><a href="/docs/ja/query">クエリ</a>&emsp;<a href="/docs/ja/focus">FOCUS とトークンデータ</a></p>
+        </div>
+        <ul class="promise">
+          <li><code>billed_cost</code>、<code>effective_cost</code>、<code>service_category</code>、<code>region_id</code> といった列は、どのソースでも同じ意味を持ちます。</li>
+          <li>合計は 1 つの報告通貨で表示され、各明細は換算後の金額の隣に元の通貨を保持します。</li>
+          <li>クレジット、返金、単発の購入はそのままの区分で保持され、使用量に加算されません。</li>
+          <li>台帳は DuckDB ファイルで、読み取り専用の SQL で照会したり、FOCUS CSV としてエクスポートしたりできます。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">請求書を読む</p>
+          <h2>誰が、何に使ったのか</h2>
+          <p>概要画面には、月初来の支出、予測、すべてのソースをまたいだ変動の大きい項目が表示されます。帰属では支出を事業ラインに割り当て、タグ、サービス、リージョン、FOCUS のサービスカテゴリごとに分解できます。</p>
+          <p><a href="/docs/ja/overview">概要</a>&emsp;<a href="/docs/ja/attribution">帰属</a>&emsp;<a href="/docs/ja/reconciliation">照合</a></p>
+        </div>
+        <ul class="promise">
+          <li>アラートルールは同じ台帳で動きます。コスト異常、アカウント予算、残高の下限、タグなし支出。<a href="/ja/use-cases/cloud-cost-alerts/">クラウド費用アラート</a>。</li>
+          <li>モデルプロバイダーの請求書はクラウドの隣に並び、モデルごとの 100 万トークンあたりのコストを確認できます。<a href="/ja/use-cases/llm-api-cost-tracking/">LLM API のコスト管理</a>。</li>
+          <li>照合では、各プロバイダーの最終的な請求書と台帳を、請求書の通貨で比較します。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">サーバー不要</p>
+          <h2>デプロイするプラットフォームではなく、デスクトップアプリ</h2>
+          <p>多くのマルチクラウド コスト管理ツールは、請求書を送るホスト型サービスか、自分でデプロイして運用するサーバーです。CloudBridge はインストールするアプリで、請求書はプロバイダーからディスク上のファイルへ直接届き、ほかのどこにも行きません。</p>
+          <p><a href="/blog/ja/cloudbridge-vs-optscale">CloudBridge と OptScale の比較</a></p>
+        </div>
+        <ul class="promise">
+          <li>CloudBridge のアカウントも同期サービスもテレメトリもありません。</li>
+          <li>読み取り専用：プロバイダー側のリソースは作成も変更もしません。</li>
+          <li>1 人の請求書の見方のために作られています。共有ダッシュボードとロールが必要なチームには、FinOps サーバーのほうが適しています。</li>
+          <li>MIT のオープンソース。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>よくある質問</h2>
+      <div class="faq">
+        <details><summary>すべてのクラウドのコストをまとめて見るためにサーバーをデプロイする必要がありますか？</summary><p>いいえ。CloudBridge は macOS と Windows 向けのデスクトップアプリです。読み取り専用の認証情報で各プロバイダーを読み取り、請求書をディスク上の DuckDB ファイルに保存します。用意するサーバー、データベース、アカウントはありません。</p></details>
+        <details><summary>CloudBridge はどのクラウドを読み取りますか？</summary><p>AWS、Microsoft Azure、Google Cloud、Alibaba Cloud、Cloudflare をそれぞれの課金 API またはエクスポート経由で、Volcengine を請求書のエクスポート経由で読み取ります。OpenAI、Anthropic、DeepSeek のモデルプロバイダーの請求書も同じ台帳に入ります。</p></details>
+        <details><summary>通貨の異なる請求書はどう合算しますか？</summary><p>合計は 1 つの報告通貨で表示されます。各明細は換算後の金額の隣に元の通貨を保持し、為替レートがない明細は推測せずに除外として報告します。</p></details>
+        <details><summary>FOCUS とは何で、ここではなぜ重要ですか？</summary><p>FOCUS は FinOps Foundation による課金データのオープンな仕様です。CloudBridge はその列名を採用しているので、Alibaba Cloud の ECS インスタンスと AWS の EC2 インスタンスはどちらも Compute として扱われ、1 つの SQL クエリですべてのプロバイダーを照会できます。台帳は FOCUS CSV としてエクスポートすることもできます。</p></details>
+        <details><summary>CloudBridge はチーム全体向けの FinOps プラットフォームですか？</summary><p>いいえ。1 人のコンピューター上の台帳で、同期も共有サーバーもありません。共有ダッシュボードやロールが必要な組織には FinOps サーバーのほうが適しています。<a href="/blog/ja/cloudbridge-vs-optscale">CloudBridge と OptScale の比較</a>の記事で両者を比べています。</p></details>
+        <details><summary>請求書を読み取るのに費用はかかりますか？</summary><p>プロバイダーが課金する場合のみです。AWS の Cost Explorer リクエストと S3 の読み取り、Google Cloud の BigQuery の無料枠を超えたクエリです。CloudBridge は各プロバイダーへ更新間隔ごとに最大 1 回（既定では 24 時間）しかアクセスしません。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>クラウドの請求書を 1 か所にまとめる</h2>
+      <p>CloudBridge をダウンロードし、クラウドごとにアカウントを追加すれば、すべてのクラウドの月次状況を確認できます。まずデモを見て回ることもできます。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-quiet" href="/docs/ja/getting-started">はじめかた</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/ja/">ドキュメント</a>
+    <a href="/blog/ja/">ブログ</a>
+    <a href="/demo/">デモ</a>
+    <a href="/ja/use-cases/cloud-cost-alerts/">クラウド費用アラート</a>
+    <a href="/ja/use-cases/cloudflare-cost-breakdown/">Cloudflare のコスト</a>
+    <a href="/ja/use-cases/llm-api-cost-tracking/">LLM API コスト</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ko/use-cases/multi-cloud-cost-dashboard/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/multi-cloud-cost-dashboard/" hreflang="fr" lang="fr">Français</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>同じ作り手から</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -170,6 +170,66 @@ pre {
   text-decoration: underline;
 }
 
+/* The language menu: a native disclosure, so it needs no script. */
+.topbar nav details.lang {
+  position: relative;
+}
+
+.topbar nav details.lang summary {
+  cursor: pointer;
+  list-style: none;
+  color: var(--body);
+  white-space: nowrap;
+}
+
+.topbar nav details.lang summary::-webkit-details-marker {
+  display: none;
+}
+
+.topbar nav details.lang summary::after {
+  content: "▾";
+  margin-left: 0.35rem;
+  font-size: 0.75em;
+}
+
+.topbar nav details.lang[open] summary,
+.topbar nav details.lang summary:hover {
+  color: var(--text);
+}
+
+.topbar nav details.lang ul {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.5rem);
+  z-index: 20;
+  min-width: 9.5rem;
+  margin: 0;
+  padding: 0.35rem;
+  list-style: none;
+  background: var(--page);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.topbar nav details.lang li a {
+  display: block;
+  padding: 0.4rem 0.6rem;
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.topbar nav details.lang li a:hover {
+  background: rgba(0, 0, 0, 0.06);
+  text-decoration: none;
+}
+
+.topbar nav details.lang li a[aria-current="true"] {
+  font-weight: 620;
+}
+
 .button {
   display: inline-flex;
   align-items: center;
@@ -277,6 +337,26 @@ pre {
 
 .night .topbar nav a:not(.button):hover {
   color: var(--cream);
+}
+
+.night .topbar nav details.lang summary,
+.night .topbar nav details.lang li a {
+  color: #c9c3b8;
+}
+
+.night .topbar nav details.lang summary:hover,
+.night .topbar nav details.lang[open] summary,
+.night .topbar nav details.lang li a:hover {
+  color: var(--cream);
+}
+
+.night .topbar nav details.lang ul {
+  background: #161d2b;
+  border-color: #2a3446;
+}
+
+.night .topbar nav details.lang li a:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .night .button-light {
@@ -1646,28 +1726,44 @@ footer .siblings {
   margin-bottom: 0.25rem;
 }
 
-/* ---------- Chinese pages ---------- */
+/* ---------- Chinese, Japanese and Korean pages ---------- */
 
-/* Tracking made for Latin collides in Chinese, and a Chinese line of the same
-   size runs wider. Monospaced Chinese also looks thin, so labels use the sans. */
+/* Tracking made for Latin collides in CJK, and a CJK line of the same size
+   runs wider. Monospaced CJK also looks thin, so labels use the sans. */
 :lang(zh-CN) h1,
 :lang(zh-CN) h2,
-:lang(zh-CN) h3 {
+:lang(zh-CN) h3,
+:lang(ja) h1,
+:lang(ja) h2,
+:lang(ja) h3,
+:lang(ko) h1,
+:lang(ko) h2,
+:lang(ko) h3 {
   letter-spacing: 0;
 }
 
-:lang(zh-CN) .hero-copy h1 {
+:lang(zh-CN) .hero-copy h1,
+:lang(ja) .hero-copy h1,
+:lang(ko) .hero-copy h1 {
   font-size: clamp(2rem, 3.5vw, 3.25rem);
   line-height: 1.16;
 }
 
-:lang(zh-CN) .use-case-copy h1 {
+:lang(zh-CN) .use-case-copy h1,
+:lang(ja) .use-case-copy h1,
+:lang(ko) .use-case-copy h1 {
   line-height: 1.2;
 }
 
 :lang(zh-CN) .eyebrow,
 :lang(zh-CN) .group,
-:lang(zh-CN) .kicker {
+:lang(zh-CN) .kicker,
+:lang(ja) .eyebrow,
+:lang(ja) .group,
+:lang(ja) .kicker,
+:lang(ko) .eyebrow,
+:lang(ko) .group,
+:lang(ko) .kicker {
   font-family: var(--sans);
   font-weight: 500;
   letter-spacing: 0.08em;

@@ -5,7 +5,7 @@ description: "Connect DeepSeek to CloudBridge with an API key for the prepaid ba
 
 # DeepSeek
 
-**[中文](zh/deepseek.md)**&emsp;[Docs](index.md)
+**[中文](zh/deepseek.md)**&emsp;**[日本語](ja/deepseek.md)**&emsp;**[한국어](ko/deepseek.md)**&emsp;**[Français](fr/deepseek.md)**&emsp;[Docs](index.md)
 
 DeepSeek's API reports a **balance** — granted and topped-up — not a
 spending breakdown. For spend detail, import the console's download.

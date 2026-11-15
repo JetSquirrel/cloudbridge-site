@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<title>CloudBridge: 클라우드와 AI 청구서를 한곳에서</title>
+<meta name="description" content="CloudBridge는 AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic, DeepSeek의 청구서를 로컬 데이터베이스에 모아 두고, 비용이 급증하면 알려 주는 무료 오픈소스 데스크톱 앱입니다. 가입도, 동기화도, 텔레메트리도 없습니다.">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ko/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#111111">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ko/">
+<meta property="og:title" content="CloudBridge: 클라우드와 AI 청구서를 한곳에서">
+<meta property="og:description" content="AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare와 AI 서비스의 청구서를 로컬 데이터베이스에 모아 두고, 비용이 급증하면 알림을 받으세요. macOS와 Windows용 무료 오픈소스입니다.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge 개요 화면: 여러 클라우드와 모델 서비스의 이번 달 누적 지출, 일별 지출 차트, 가장 크게 변한 항목">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CloudBridge: 클라우드와 AI 청구서를 한곳에서">
+<meta name="twitter:description" content="AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare와 AI 서비스의 청구서를 로컬 데이터베이스에 모아 두고, 비용이 급증하면 알림을 받으세요. macOS와 Windows용 무료 오픈소스입니다.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="text/plain" title="llms.txt" href="https://cloudbridge.jetsquirrel.cloud/llms.txt">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge 블로그" href="https://cloudbridge.jetsquirrel.cloud/blog/ko/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "CloudBridge",
+  "description": "클라우드와 AI 서비스의 청구서를 로컬 DuckDB 데이터베이스에 모으는 로컬 우선 데스크톱 앱으로, 알림, 비용 귀속, 모델별 토큰 경제성 분석, 리소스 스캔을 제공합니다.",
+  "url": "https://cloudbridge.jetsquirrel.cloud/ko/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "macOS(Apple silicon), Windows 10 이상(x64)",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "license": "https://opensource.org/licenses/MIT",
+  "downloadUrl": "https://github.com/JetSquirrel/cloudbridge/releases/latest",
+  "softwareHelp": "https://cloudbridge.jetsquirrel.cloud/docs/ko/",
+  "codeRepository": "https://github.com/JetSquirrel/cloudbridge",
+  "sameAs": ["https://github.com/JetSquirrel/cloudbridge"],
+  "isAccessibleForFree": true,
+  "image": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
+  "screenshot": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
+  "featureList": ["AWS(Cost Explorer 또는 FOCUS Data Exports), Azure, Alibaba Cloud, Cloudflare의 청구 API와 Google Cloud의 BigQuery 청구 내보내기 읽기", "Alibaba Cloud, Volcengine, OpenAI, Anthropic, DeepSeek의 청구서 내보내기 가져오기", "FOCUS 열 이름을 쓰는 로컬 DuckDB 데이터베이스, 원래 통화 보존", "Cloudflare의 일별 청구서를 R2 버킷, Worker, D1 데이터베이스, Durable Object로 분할", "이번 달 누적 지출을 보여 주는 메뉴 막대 아이콘, 일별 백그라운드 새로 고침, 시스템 알림", "비용 이상, 잔액 하한, 태그 없는 지출, 계정 예산을 위한 알림 규칙", "사업 부문별 비용 귀속, 토큰당 비용을 보여 주는 Models 페이지, 읽기 전용 SQL", "Insights: AWS와 Cloudflare를 읽기 전용으로 스캔하고 청구서 기준으로 가격 산정", "가입 없음, 동기화 없음, 텔레메트리 없음. 자격 증명은 OS 키링에 보관"],
+  "author": { "@type": "Person", "name": "JetSquirrel", "url": "https://github.com/JetSquirrel" },
+  "inLanguage": "ko"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "inLanguage": "ko",
+  "mainEntity": [
+    {"@type": "Question", "name": "CloudBridge는 무엇인가요?", "acceptedAnswer": {"@type": "Answer", "text": "무료 오픈소스 데스크톱 앱입니다. 각 서비스의 청구 API나 직접 내려받은 파일을 통해 클라우드와 AI 서비스의 청구서를 여러분의 컴퓨터에 있는 데이터베이스에 모읍니다. 무엇에 얼마를 쓰는지 보여 주고, 알림 규칙을 확인하며, 창을 닫은 뒤에도 메뉴 막대에서 계속 실행됩니다."}},
+    {"@type": "Question", "name": "어떤 서비스를 지원하나요?", "acceptedAnswer": {"@type": "Answer", "text": "AWS(Cost Explorer 또는 S3에 있는 FOCUS Data Export), Azure(Cost Management), Alibaba Cloud와 Cloudflare는 청구 API로 연결합니다. Google Cloud는 BigQuery 청구 내보내기로, DeepSeek은 잔액 API로 연결하며, Alibaba Cloud, Volcengine, OpenAI, Anthropic, DeepSeek의 청구서 내보내기도 가져올 수 있습니다."}},
+    {"@type": "Question", "name": "CloudBridge가 청구서를 어딘가로 보내나요?", "acceptedAnswer": {"@type": "Answer", "text": "아니요. 청구서는 서비스에서 여러분의 컴퓨터에 있는 DuckDB 파일로 바로 저장됩니다. CloudBridge 계정도, 동기화 서비스도, 텔레메트리도 없으며, 자격 증명은 시스템 키링에 보관됩니다."}},
+    {"@type": "Question", "name": "CloudBridge를 쓰면 청구서 금액이 늘어나나요?", "acceptedAnswer": {"@type": "Answer", "text": "AWS에서만 늘어납니다. Cost Explorer는 요청마다, S3는 읽기마다 요금을 받습니다. CloudBridge는 새로 고침 주기(기본 24시간)마다 각 서비스에 최대 한 번만 요청하므로, AWS 계정당 하루에 Cost Explorer 요청 두 번 정도입니다. 이미 비용을 지불한 데이터를 다시 가져오지 않고, 변경되지 않은 S3 내보내기도 다시 내려받지 않습니다. 다른 API는 무료이며, 리소스를 만들거나 바꾸는 일은 없습니다."}},
+    {"@type": "Question", "name": "비용 급증은 어떻게 감지하나요?", "acceptedAnswer": {"@type": "Answer", "text": "청구서를 일 단위로 읽기 때문에 급증은 다음 날 데이터에 나타납니다. 규칙은 최근 기준선을 넘는 지출, 예산, 낮은 잔액을 확인합니다. CloudBridge가 실행 중이면 창을 닫았더라도 각 계정을 하루 한 번 새로 고치고 알림마다 시스템 알림을 보냅니다. Cloudflare 청구서는 버킷, Worker, Durable Object 단위까지 나눌 수 있습니다."}},
+    {"@type": "Question", "name": "어떤 운영체제에서 실행되나요?", "acceptedAnswer": {"@type": "Answer", "text": "Apple silicon용 macOS(서명 및 공증됨)와 64비트 Windows입니다. Linux와 Intel Mac은 소스에서 직접 빌드할 수 있습니다."}},
+    {"@type": "Question", "name": "CloudBridge는 무료인가요?", "acceptedAnswer": {"@type": "Answer", "text": "네. MIT 라이선스로 무료 오픈소스이며, 전체 소스 코드가 GitHub에 있습니다. 서비스 API 요금은 별도입니다."}},
+    {"@type": "Question", "name": "설치하지 않고 사용해 볼 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "네. 브라우저 데모는 같은 앱을 WebAssembly로 컴파일해, 여러 서비스의 12개월치 샘플 청구서로 실행합니다."}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero hero-night">
+  <div class="night">
+    <div class="wrap">
+      <div class="topbar">
+        <a class="brand" href="/ko/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+        <nav aria-label="사이트">
+          <a href="/docs/ko/">문서</a>
+          <a class="optional" href="/blog/ko/">블로그</a>
+          <a class="optional" href="/demo/">데모</a>
+          <a class="optional" href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+          <details class="lang">
+            <summary aria-label="언어">한국어</summary>
+            <ul>
+              <li><a href="/" hreflang="en" lang="en">English</a></li>
+              <li><a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+              <li><a href="/ja/" hreflang="ja" lang="ja">日本語</a></li>
+              <li><a href="/ko/" hreflang="ko" lang="ko" aria-current="true">한국어</a></li>
+              <li><a href="/fr/" hreflang="fr" lang="fr">Français</a></li>
+            </ul>
+          </details>
+          <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download="short">다운로드</a>
+        </nav>
+      </div>
+      <div class="hero-copy">
+        <h1>모든 클라우드와 AI 청구서를 <span class="accent">한곳에서.</span></h1>
+        <p class="lede">CloudBridge는 AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare, OpenAI, Anthropic, DeepSeek의 청구서를 모아 무엇에 얼마를 쓰는지 보여 주고, 비용이 급증하면 알려 주는 데스크톱 앱입니다. 모든 데이터는 여러분의 컴퓨터에 저장됩니다.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Mac용 다운로드</a>
+          <a class="button button-ghost" href="/demo/">데모 체험하기</a>
+        </div>
+        <p class="fineprint">무료 오픈소스입니다. 가입도, 동기화도, 텔레메트리도 없습니다. <span data-also><a href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-windows-x64.exe">Windows</a>용도 있습니다.</span></p>
+      </div>
+    </div>
+    <svg class="night-art" viewBox="0 0 1361 428" aria-hidden="true">
+      <defs>
+        <clipPath id="bridge-clip"><path clip-rule="evenodd" d="M1251.5 197.5L1331.5 197.8L1333.5 198.3L1334.7 199.5L1334.9 202.5L1333.7 204.5L1329.5 205.5L1258.5 214.1L1242.5 216.4L1228.5 219.0L1211.5 223.1L1197.5 227.2L1180.5 234.2L1168.5 240.0L1151.5 250.5L1136.5 262.2L1123.4 274.5L1111.5 287.6L1101.1 301.5L1093.3 314.5L1089.6 323.5L1088.3 329.5L1087.8 334.5L1088.7 340.5L1091.3 347.5L1096.5 353.7L1103.7 359.5L1115.5 365.9L1173.5 391.2L1203.5 405.4L1243.8 425.5L1246.4 427.5L1246.4 435.5L1244.5 435.8L1111.5 435.9L1106.5 435.6L1106.3 427.5L1103.9 424.5L1083.5 406.9L1068.2 395.5L1053.5 385.9L1029.5 372.2L1007.3 361.5L990.5 354.0L957.5 341.4L932.5 333.3L908.5 326.4L882.5 320.1L846.5 313.1L810.5 307.9L781.5 305.0L746.5 303.0L718.5 302.5L679.5 303.5L649.5 305.6L609.5 310.0L586.5 313.2L546.5 320.0L517.5 326.3L489.5 333.2L467.5 339.2L428.5 351.4L400.5 361.3L360.5 377.2L326.5 392.2L289.5 410.2L261.5 425.7L259.5 427.5L259.5 435.5L258.5 435.7L99.5 435.7L98.6 435.5L98.6 427.5L100.7 425.5L118.7 415.5L148.5 400.2L179.5 385.4L192.5 379.8L210.5 371.0L224.5 362.5L236.5 353.6L245.5 345.5L252.0 337.5L255.0 332.5L257.6 326.5L259.0 321.5L259.3 314.5L258.5 307.5L257.0 303.5L253.3 297.5L249.9 293.5L246.2 290.5L239.5 286.2L233.5 283.2L225.5 280.1L216.5 277.8L192.5 274.7L179.5 274.2L64.5 276.8L61.5 276.3L60.5 275.5L59.9 273.5L60.2 271.5L61.0 270.5L64.5 269.3L122.5 263.4L178.5 258.4L383.5 242.3L724.5 218.5L865.5 210.1L942.5 206.7L1122.5 200.3ZM1115.5 217.5L1051.5 219.6L1039.5 222.2L1031.5 225.0L1025.5 228.5L1022.0 232.5L1020.0 236.5L1019.2 241.5L1019.8 247.5L1022.1 256.5L1034.4 286.5L1047.4 313.5L1051.5 320.3L1052.5 320.6L1054.5 319.5L1070.9 300.5L1084.8 285.5L1109.5 261.5L1140.3 233.5L1146.3 226.5L1147.3 223.5L1146.9 220.5L1145.5 218.3L1143.5 217.2L1139.5 216.9ZM894.5 225.4L858.5 226.8L810.5 229.4L699.5 236.1L614.5 242.2L553.5 247.1L536.5 249.3L514.5 254.3L502.5 258.0L482.5 266.2L467.5 274.1L446.5 287.9L431.5 300.1L417.7 313.5L415.5 316.5L415.1 318.5L416.5 319.5L418.5 319.4L463.5 310.7L502.5 304.1L541.5 298.2L588.5 292.5L631.5 288.8L654.5 287.4L693.5 286.2L735.5 286.2L765.5 287.6L796.5 289.8L832.5 293.6L870.5 299.2L923.5 309.4L948.5 314.9L977.5 322.1L1005.5 329.8L1017.5 332.9L1019.5 333.0L1020.5 332.5L1021.0 331.5L1021.2 329.5L1019.9 312.5L1016.0 296.5L1013.7 289.5L1009.1 277.5L1003.7 265.5L995.7 252.5L988.5 244.3L980.5 238.4L971.5 233.2L963.5 230.3L951.5 227.4L941.5 226.0L927.5 225.2L908.5 224.8ZM426.5 256.4L373.5 260.4L353.5 262.4L343.5 264.3L328.5 268.5L321.5 271.0L313.5 275.1L304.5 280.8L297.5 287.2L292.4 293.5L287.5 301.5L283.3 313.5L282.3 322.5L282.6 330.5L285.4 337.5L287.5 340.5L289.5 342.4L292.5 344.1L295.5 345.1L301.5 345.5L310.5 343.8L328.5 338.9L340.5 334.7L358.5 326.9L376.1 317.5L393.5 306.5L411.5 292.9L428.5 277.9L436.2 269.5L438.3 266.5L439.2 263.5L439.0 260.5L438.0 258.5L436.5 257.2L434.5 256.4Z"/></clipPath>
+        <radialGradient id="node-halo"><stop offset="0" stop-color="#34d3bc" stop-opacity=".24"/><stop offset="1" stop-color="#34d3bc" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g class="bridge">
+        <path class="bridge-shape" fill-rule="evenodd" d="M1251.5 197.5L1331.5 197.8L1333.5 198.3L1334.7 199.5L1334.9 202.5L1333.7 204.5L1329.5 205.5L1258.5 214.1L1242.5 216.4L1228.5 219.0L1211.5 223.1L1197.5 227.2L1180.5 234.2L1168.5 240.0L1151.5 250.5L1136.5 262.2L1123.4 274.5L1111.5 287.6L1101.1 301.5L1093.3 314.5L1089.6 323.5L1088.3 329.5L1087.8 334.5L1088.7 340.5L1091.3 347.5L1096.5 353.7L1103.7 359.5L1115.5 365.9L1173.5 391.2L1203.5 405.4L1243.8 425.5L1246.4 427.5L1246.4 435.5L1244.5 435.8L1111.5 435.9L1106.5 435.6L1106.3 427.5L1103.9 424.5L1083.5 406.9L1068.2 395.5L1053.5 385.9L1029.5 372.2L1007.3 361.5L990.5 354.0L957.5 341.4L932.5 333.3L908.5 326.4L882.5 320.1L846.5 313.1L810.5 307.9L781.5 305.0L746.5 303.0L718.5 302.5L679.5 303.5L649.5 305.6L609.5 310.0L586.5 313.2L546.5 320.0L517.5 326.3L489.5 333.2L467.5 339.2L428.5 351.4L400.5 361.3L360.5 377.2L326.5 392.2L289.5 410.2L261.5 425.7L259.5 427.5L259.5 435.5L258.5 435.7L99.5 435.7L98.6 435.5L98.6 427.5L100.7 425.5L118.7 415.5L148.5 400.2L179.5 385.4L192.5 379.8L210.5 371.0L224.5 362.5L236.5 353.6L245.5 345.5L252.0 337.5L255.0 332.5L257.6 326.5L259.0 321.5L259.3 314.5L258.5 307.5L257.0 303.5L253.3 297.5L249.9 293.5L246.2 290.5L239.5 286.2L233.5 283.2L225.5 280.1L216.5 277.8L192.5 274.7L179.5 274.2L64.5 276.8L61.5 276.3L60.5 275.5L59.9 273.5L60.2 271.5L61.0 270.5L64.5 269.3L122.5 263.4L178.5 258.4L383.5 242.3L724.5 218.5L865.5 210.1L942.5 206.7L1122.5 200.3ZM1115.5 217.5L1051.5 219.6L1039.5 222.2L1031.5 225.0L1025.5 228.5L1022.0 232.5L1020.0 236.5L1019.2 241.5L1019.8 247.5L1022.1 256.5L1034.4 286.5L1047.4 313.5L1051.5 320.3L1052.5 320.6L1054.5 319.5L1070.9 300.5L1084.8 285.5L1109.5 261.5L1140.3 233.5L1146.3 226.5L1147.3 223.5L1146.9 220.5L1145.5 218.3L1143.5 217.2L1139.5 216.9ZM894.5 225.4L858.5 226.8L810.5 229.4L699.5 236.1L614.5 242.2L553.5 247.1L536.5 249.3L514.5 254.3L502.5 258.0L482.5 266.2L467.5 274.1L446.5 287.9L431.5 300.1L417.7 313.5L415.5 316.5L415.1 318.5L416.5 319.5L418.5 319.4L463.5 310.7L502.5 304.1L541.5 298.2L588.5 292.5L631.5 288.8L654.5 287.4L693.5 286.2L735.5 286.2L765.5 287.6L796.5 289.8L832.5 293.6L870.5 299.2L923.5 309.4L948.5 314.9L977.5 322.1L1005.5 329.8L1017.5 332.9L1019.5 333.0L1020.5 332.5L1021.0 331.5L1021.2 329.5L1019.9 312.5L1016.0 296.5L1013.7 289.5L1009.1 277.5L1003.7 265.5L995.7 252.5L988.5 244.3L980.5 238.4L971.5 233.2L963.5 230.3L951.5 227.4L941.5 226.0L927.5 225.2L908.5 224.8ZM426.5 256.4L373.5 260.4L353.5 262.4L343.5 264.3L328.5 268.5L321.5 271.0L313.5 275.1L304.5 280.8L297.5 287.2L292.4 293.5L287.5 301.5L283.3 313.5L282.3 322.5L282.6 330.5L285.4 337.5L287.5 340.5L289.5 342.4L292.5 344.1L295.5 345.1L301.5 345.5L310.5 343.8L328.5 338.9L340.5 334.7L358.5 326.9L376.1 317.5L393.5 306.5L411.5 292.9L428.5 277.9L436.2 269.5L438.3 266.5L439.2 263.5L439.0 260.5L438.0 258.5L436.5 257.2L434.5 256.4Z"/>
+        <g class="bridge-flow" clip-path="url(#bridge-clip)">
+          <path class="trail" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="mid" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="head" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/>
+          <path class="trail comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="mid comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/><path class="head comet-b" pathLength="1000" d="M62 274.2L90 271.3L118 268.6L146 266.0L174 263.5L202 261.1L230 258.7L258 256.5L286 254.3L314 252.1L342 249.9L370 247.8L398 245.8L426 243.7L454 241.7L482 239.6L510 237.6L538 235.7L566 233.7L594 231.7L622 229.8L650 227.9L678 226.1L706 224.3L734 222.5L762 220.8L790 219.1L818 217.5L846 215.9L874 214.5L902 213.0L930 211.7L958 210.4L986 209.3L1014 208.2L1042 207.2L1070 206.3L1098 205.4L1126 204.7L1154 204.0L1182 203.5L1210 203.0L1238 202.6L1266 202.3L1294 202.0L1322 201.8"/>
+          <path class="trail comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/><path class="mid comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/><path class="head comet-c" pathLength="1000" d="M264 417.3L288 403.9L312 391.6L336 380.4L360 370.0L384 360.4L408 351.5L432 343.2L456 335.7L480 328.7L504 322.4L528 316.8L552 311.8L576 307.4L600 303.8L624 300.8L648 298.5L672 296.9L696 296.0L720 295.7L744 296.2L768 297.5L792 299.4L816 302.0L840 305.4L864 309.6L888 314.6L912 320.5L936 327.3L960 335.2L984 344.4L1008 355.0L1032 367.3L1056 381.5L1080 398.0L1104 417.2"/>
+        </g>
+      </g>
+      <g class="node node-1" style="--x:434.5px;--y:181.3px"><g class="node-bob"><circle class="node-halo" cx="434.5" cy="181.3" r="61.9"/><circle class="node-ring" cx="434.5" cy="181.3" r="23.8"/><circle class="node-core" cx="434.5" cy="181.3" r="23.8"/></g><circle class="node-drop" cx="434.5" cy="205.1" r="4.8" style="--drop:31px"/></g><g class="node node-2" style="--x:882.6px;--y:108.8px"><g class="node-bob"><circle class="node-halo" cx="882.6" cy="108.8" r="88.7"/><circle class="node-ring" cx="882.6" cy="108.8" r="34.1"/><circle class="node-core" cx="882.6" cy="108.8" r="34.1"/></g><circle class="node-drop" cx="882.6" cy="142.9" r="6.8" style="--drop:65px"/></g><g class="node node-3" style="--x:1143.7px;--y:154.8px"><g class="node-bob"><circle class="node-halo" cx="1143.7" cy="154.8" r="60.8"/><circle class="node-ring" cx="1143.7" cy="154.8" r="23.4"/><circle class="node-core" cx="1143.7" cy="154.8" r="23.4"/></g><circle class="node-drop" cx="1143.7" cy="178.2" r="4.7" style="--drop:20px"/></g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <ul class="facts" aria-label="한눈에 보기">
+      <li><svg class="i" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg>데이터는 DuckDB에 로컬 저장</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>메뉴 막대에서 알림</li>
+      <li><svg class="i" viewBox="0 0 24 24"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>macOS와 Windows</li>
+      <li><svg class="i" viewBox="0 0 24 24"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>오픈소스(MIT)</li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">시작하기</p>
+      <h2>세 단계로 시작하기</h2>
+      <p class="intro">앱을 설치한 뒤 아래 단계를 따르면 됩니다. 서버도 계정도 필요 없습니다.</p>
+      <ol class="steps path">
+        <li>
+          <h3>계정 추가</h3>
+          <p>청구 API가 있는 서비스는 읽기 전용 API 키를 입력하고, 파일만 가져올 서비스는 이름만 입력하면 됩니다. 키는 시스템 키링에 저장됩니다.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <div class="form"><small>소스</small><span class="field">Cloudflare</span><small>계정 ID</small><span class="field mono">023e105f…c353</span><small>API 토큰</small><span class="field mono">••••••••••••</span><span class="field save">저장</span></div>
+          </div>
+        </li>
+        <li>
+          <h3>청구서 가져오기</h3>
+          <p>CloudBridge가 서비스에서 직접 청구서를 가져올 수도 있고, 직접 내려받은 파일을 가져올 수도 있습니다. 두 경우 모두 FOCUS 표준의 열 이름을 쓰는 같은 형식으로 저장됩니다.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <ul class="ingest"><li><span class="tag api">API</span>AWS 2026-10<small>청구 127건</small></li><li><span class="tag api">API</span>Cloudflare 2026-10<small>청구 14건</small></li><li><span class="tag file">파일</span>OpenAI 2026-09<small>청구 412건</small></li></ul>
+          </div>
+        </li>
+        <li>
+          <h3>비용 확인과 알림 설정</h3>
+          <p>계정, 서비스, 모델, 사업 부문별로 지출을 나눠 볼 수 있습니다. 비용이 급증하면 알림을 받습니다.</p>
+          <div class="app-ui mini" aria-hidden="true">
+            <div class="bars small"><i style="height:30%"></i><i style="height:34%"></i><i style="height:31%"></i><i style="height:38%"></i><i style="height:36%"></i><i style="height:41%"></i><i class="spike" style="height:92%"></i></div>
+          </div>
+        </li>
+      </ol>
+      <div class="path-notes">
+        <p><b>먼저 둘러보고 싶다면?</b> 비어 있는 개요 화면에서 <b>Load demo data</b>(데모 데이터 불러오기)를 선택하거나, 샘플 청구서로 <a href="/demo/">브라우저 데모</a>를 사용해 볼 수 있습니다.</p>
+        <p><b>Windows에서는</b> 설치 파일에 코드 서명이 없어 SmartScreen 경고가 표시될 수 있습니다. 대처 방법은 <a href="/docs/ko/getting-started#install">시작하기</a>를 참고하세요.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase">
+    <div class="wrap">
+      <p class="eyebrow">개요</p>
+      <h2>이번 달 지출을 한 페이지에서</h2>
+      <p class="intro">모든 서비스의 비용과 가장 크게 변한 항목, 처리되지 않은 알림을 한눈에 볼 수 있습니다.</p>
+      <figure class="window app-ui" aria-label="CloudBridge 개요 화면: 이번 달 누적 지출 2,846달러, 월말 예상 9,120달러, 처리되지 않은 알림 2건, 마지막 이틀에 급증한 일별 지출 차트, 412퍼센트 증가로 가장 크게 변한 Durable Objects.">
+        <div class="win-title" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="win-name">CloudBridge — 로컬 청구서 분석</span>
+        </div>
+        <div class="win-body" aria-hidden="true">
+          <div class="win-side">
+            <div class="side-brand"><b>CloudBridge</b><small>로컬 원장, V0.5.0</small></div>
+            <ul class="nav">
+              <li class="on"><svg class="i" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>개요</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>알림<span class="badge">2</span></li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"/><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/></svg>귀속</li>
+              <li><svg class="i" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg>모델</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M2.06 12.35a1 1 0 0 1 0-.7 10.75 10.75 0 0 1 19.88 0 1 1 0 0 1 0 .7 10.75 10.75 0 0 1-19.88 0"/><circle cx="12" cy="12" r="3"/></svg>인사이트</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="m7 11 2-2-2-2"/><path d="M11 13h4"/><rect width="18" height="18" x="3" y="3" rx="2"/></svg>쿼리</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>계정</li>
+              <li><svg class="i" viewBox="0 0 24 24"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>규칙</li>
+            </ul>
+          </div>
+          <div class="win-main">
+            <div class="page-head">
+              <div><b>개요</b><small>2026년 10월, 이번 달 누적, USD 기준</small></div>
+              <span class="range"><span class="on">MTD</span><span>30일</span><span>12개월</span></span>
+            </div>
+            <div class="stats">
+              <div class="stat"><small>이번 달 누적</small><b>$2,846</b><span class="up">지난달 같은 날 대비 +18.4%</span></div>
+              <div class="stat"><small>예상</small><b>$9,120</b><span>월말까지 $8,400 – $10,300</span></div>
+              <div class="stat alert"><small>미처리 알림</small><b>2</b><span>심각 1건, 경고 1건</span></div>
+            </div>
+            <div class="chart-card">
+              <small>일별 지출, 전체 소스</small>
+              <div class="bars"><i style="height:22%"></i><i style="height:25%"></i><i style="height:21%"></i><i style="height:27%"></i><i style="height:24%"></i><i style="height:26%"></i><i style="height:23%"></i><i style="height:28%"></i><i style="height:25%"></i><i style="height:30%"></i><i style="height:27%"></i><i class="spike" style="height:74%"></i><i class="spike" style="height:96%"></i></div>
+            </div>
+            <table class="movers">
+              <thead><tr><th>가장 크게 변한 항목</th><th class="num">이번 달</th><th class="num">전월 대비</th></tr></thead>
+              <tbody>
+                <tr><td><b>Durable Objects</b><small>Cloudflare</small></td><td class="num">$1,250</td><td class="num hot">+412%</td></tr>
+                <tr><td><b>claude-sonnet-5-5</b><small>Anthropic</small></td><td class="num">$604</td><td class="num hot">+36%</td></tr>
+                <tr><td><b>Amazon EC2</b><small>AWS</small></td><td class="num">$512</td><td class="num">−4%</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="win-status" aria-hidden="true"><i class="dot"></i>2시간 전 동기화. 소스 5개, 21시간 4분 최신<span class="grow"></span><code>billing.duckdb</code></div>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">지원 플랫폼</p>
+      <h2>지원하는 클라우드와 AI 플랫폼</h2>
+      <p class="intro">서비스의 청구 API로 연결하거나, 콘솔에서 내려받은 청구서 파일을 가져올 수 있습니다.</p>
+      <div class="platforms">
+        <div>
+          <p class="group">클라우드</p>
+          <ul class="platform-grid">
+            <li><img src="/logos/aws.svg" alt="" width="32" height="32"><div><b>AWS</b><small>Cost Explorer, Data Exports</small></div></li>
+            <li><img src="/logos/azure.svg" alt="" width="32" height="32"><div><b>Azure</b><small>Cost Management API</small></div></li>
+            <li><img src="/logos/google-cloud.svg" alt="" width="32" height="32"><div><b>Google Cloud</b><small>BigQuery 청구 내보내기</small></div></li>
+            <li><img src="/logos/alibaba-cloud.svg" alt="" width="32" height="32"><div><b>Alibaba Cloud</b><small>청구 API, 청구서 가져오기</small></div></li>
+            <li><img src="/logos/cloudflare.svg" alt="" width="32" height="32"><div><b>Cloudflare</b><small>일별 사용량, 리소스별</small></div></li>
+            <li><img src="/logos/volcengine.svg" alt="" width="32" height="32"><div><b>Volcengine</b><small>청구서 가져오기, Ark 엔드포인트</small></div></li>
+          </ul>
+        </div>
+        <div>
+          <p class="group">모델 플랫폼</p>
+          <ul class="platform-grid">
+            <li><img src="/logos/openai.svg" alt="" width="32" height="32"><div><b>OpenAI</b><small>비용 또는 사용량 내보내기</small></div></li>
+            <li><img src="/logos/anthropic.svg" alt="" width="32" height="32"><div><b>Anthropic</b><small>비용 또는 사용량 내보내기</small></div></li>
+            <li><img src="/logos/deepseek.svg" alt="" width="32" height="32"><div><b>DeepSeek</b><small>잔액 API, 청구서 가져오기</small></div></li>
+            <li><img src="/logos/model-studio.svg" alt="" width="32" height="32"><div><b>Model Studio</b><small>모델별, Alibaba Cloud 청구서에서</small></div></li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">로고는 각 소유자에게 있으며, CloudBridge가 어떤 청구서를 읽을 수 있는지 보여 주기 위해서만 사용했습니다.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="feature">
+        <div class="feature-text">
+          <p class="eyebrow">알림</p>
+          <h2>창을 닫아도 알림은 계속 작동합니다</h2>
+          <p>창을 닫으면 CloudBridge는 메뉴 막대에 남아 이번 달 지출을 보여 줍니다. 정해진 일정(기본 하루 한 번)에 따라 각 계정을 새로 고치고 알림 규칙을 확인해, 규칙이 발동하면 알림을 보냅니다. 재시작 후에도 실행되게 하려면 '로그인 시 열기'를 켜 두세요.</p>
+          <p><a href="/docs/ko/background">메뉴 막대와 백그라운드</a>&emsp;<a href="/docs/ko/alerts">알림과 예산</a></p>
+        </div>
+        <figure class="menubar-demo" aria-label="macOS 메뉴 막대에 미처리 알림 표시가 붙은 CloudBridge 아이콘과 $2.8k가 나란히 보이고, 패널에는 Durable Objects의 심각 알림이, 시스템 알림에는 'Durable Objects 비용이 기준선의 12배'라는 문구가 표시됩니다.">
+          <div class="menubar" aria-hidden="true"><span class="grow"></span><span class="mb-item on"><svg class="i" viewBox="0 0 24 24"><path d="M12 12v4"/><path d="M12 20h.01"/><path d="M17 18h.5a1 1 0 0 0 0-9h-1.79A7 7 0 1 0 7 17.708"/></svg>$2.8k</span><span class="mb-item">수 9:41</span></div>
+          <div class="toast" aria-hidden="true"><b>CloudBridge — 심각 알림</b><span>Durable Objects 비용이 7일 기준선의 12배로 이틀째 이어지고 있습니다.</span></div>
+          <div class="panel" aria-hidden="true">
+            <small>10월 누적, USD 기준</small>
+            <b class="big">$2,846.20</b>
+            <span class="muted">월말 예상 $9,120</span>
+            <div class="alerts-row"><svg class="i" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>미처리 알림 2건</div>
+            <div class="alert-line"><i class="crit"></i>Durable Objects: 기준선의 12배<small>3시간 전</small></div>
+            <div class="alert-line"><i class="warn"></i>예산 “prod-aws” 82% 도달<small>1일 전</small></div>
+            <div class="panel-foot"><span>12분 전 동기화</span><span class="grow"></span><span class="pill">CloudBridge 열기</span></div>
+          </div>
+        </figure>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <p class="eyebrow">리소스별 비용</p>
+          <h2>버킷, Worker, Durable Object마다 드는 비용을 확인하세요</h2>
+          <p>Cloudflare의 청구서에는 어느 버킷인지 밝히지 않은 채 “10월 3일 R2 Class B 작업 734회”처럼 적힐 수 있습니다. CloudBridge는 Cloudflare 분석에서 각 리소스의 일별 사용량을 가져와 비용을 나눠 담기 때문에, 어느 리소스가 원인인지 알 수 있습니다. 아직 과금되지 않은 무료 한도 안의 사용량도 기록합니다. 비용 문제는 과금이 시작되기 전에 그 안에서 시작되곤 하기 때문입니다.</p>
+          <p><a href="/docs/ko/cloudflare">Cloudflare</a>&emsp;<a href="/docs/ko/aws#data-exports">AWS Data Exports</a></p>
+        </div>
+        <div class="app-ui split-card" aria-hidden="true">
+          <div class="card-head"><b>Cloudflare 리소스</b><small>이번 기간, 최근 스캔에서 48개</small></div>
+          <table class="split">
+            <tbody>
+              <tr class="grp"><td><span class="chev">▾</span>Durable Object 네임스페이스</td><td class="num">3</td><td class="num">$2,410.50</td></tr>
+              <tr class="leaf"><td>ticker<small>쓰기 행 24억</small></td><td></td><td class="num hot">$2,399.80</td></tr>
+              <tr class="leaf"><td>chat-rooms<small>쓰기 행 1,050만</small></td><td></td><td class="num">$10.70</td></tr>
+              <tr class="grp"><td><span class="chev">▸</span>R2 버킷</td><td class="num">10</td><td class="num">$0.36</td></tr>
+              <tr class="grp"><td><span class="chev">▸</span>Workers</td><td class="num">11</td><td class="num">$0.00</td></tr>
+              <tr class="grp"><td><span class="chev">▸</span>D1 데이터베이스</td><td class="num">3</td><td class="num">$0.00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-text">
+          <p class="eyebrow">절감</p>
+          <h2>정리할 수 있는 리소스를 찾으세요</h2>
+          <p>Insights는 AWS와 Cloudflare 계정을 읽기 전용으로 스캔하고 결과를 청구서와 비교합니다. 중지된 인스턴스인데 볼륨이 계속 과금되는 경우, 유휴 공인 주소, 소유자가 없는 리소스, 청구서에는 있는데 스캔에서 찾지 못한 리소스를 보여 줍니다. 결과는 유형별로 이번 기간 비용과 함께 묶이고, 그 아래에 리소스별로 나열됩니다.</p>
+          <p><a href="/docs/ko/insights">Insights</a></p>
+        </div>
+        <ul class="app-ui findings" aria-hidden="true">
+          <li><b>중지된 인스턴스</b><small>리소스 3개</small><span>$184.20</span></li>
+          <li><b>유휴 주소</b><small>리소스 2개</small><span>$7.30</span></li>
+          <li><b>소유자 없음</b><small>리소스 14개</small><span>$96.10</span></li>
+          <li><b>스캔에 없음</b><small>리소스 1개</small><span>$22.00</span></li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">데이터</p>
+          <h2>모든 청구서가 같은 열을 씁니다</h2>
+          <p>청구서는 어떻게 들어오든 같은 형식으로 저장되며, 열 이름은 FinOps의 FOCUS 표준을 따릅니다. 각 청구 항목은 환산 금액 옆에 원래 통화를 함께 보관합니다. 예를 들어 Alibaba Cloud ECS 인스턴스와 AWS EC2 인스턴스는 모두 Compute로 집계되고, 모든 데이터를 SQL로 조회할 수 있습니다.</p>
+          <p><a href="/docs/ko/query">쿼리</a>&emsp;<a href="/docs/ko/attribution">귀속</a>&emsp;<a href="/docs/ko/models">모델</a></p>
+        </div>
+<pre class="snippet" aria-label="서비스와 서비스 분류별로 이번 달 청구 비용을 합산하는 SQL 쿼리."><span class="k">SELECT</span> provider, service_category,
+       <span class="k">round</span>(<span class="k">sum</span>(billed_cost), <span class="n">2</span>) <span class="k">AS</span> cost
+<span class="k">FROM</span> v_charge_normalized
+<span class="k">WHERE</span> billing_period = <span class="s">'2026-10'</span>
+<span class="k">GROUP BY ALL ORDER BY</span> cost <span class="k">DESC</span>;</pre>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">프라이버시</p>
+          <h2>청구서는 여러분의 컴퓨터에 그대로 남습니다</h2>
+          <p>청구서에는 무엇을 운영하는지, 누구를 위한 것인지, 얼마가 드는지가 담겨 있습니다. CloudBridge는 그 모든 정보를 여러분의 컴퓨터에 보관합니다.</p>
+        </div>
+        <ul class="promise">
+          <li>청구서는 디스크의 DuckDB 파일에 저장되며 다른 서버를 거치지 않습니다.</li>
+          <li>계정도, 동기화 서비스도, 텔레메트리도 없습니다.</li>
+          <li>자격 증명은 macOS 키체인 또는 Windows 자격 증명 관리자에 저장됩니다.</li>
+          <li>읽기 전용입니다. 서비스 쪽에서 무엇도 만들거나 바꾸지 않습니다.</li>
+          <li>새로 고침 주기마다 각 서비스에 최대 한 번만 요청하며, 같은 데이터를 두 번 결제하지 않습니다.</li>
+          <li>MIT 라이선스 오픈소스이므로 코드를 직접 읽어 볼 수 있습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">활용 사례</p>
+      <h2>자주 쓰는 활용 사례</h2>
+      <ul class="use-cases">
+        <li><a href="/ko/use-cases/cloud-cost-alerts/"><b>클라우드 비용 알림</b>AWS, Cloudflare, AI API 청구서가 급증할 때 인보이스를 기다리지 않고 바로 알 수 있습니다.</a></li>
+        <li><a href="/ko/use-cases/multi-cloud-cost-dashboard/"><b>멀티 클라우드 비용 대시보드</b>AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare 청구서를 서버 없이 하나의 원장에 모읍니다.</a></li>
+        <li><a href="/ko/use-cases/cloudflare-cost-breakdown/"><b>Cloudflare 비용 분할</b>Cloudflare 청구서 뒤에 있는 Worker, R2 버킷, D1 데이터베이스, Durable Object를 확인합니다.</a></li>
+        <li><a href="/ko/use-cases/llm-api-cost-tracking/"><b>LLM API 비용 추적</b>이미 받아 둔 내보내기 파일로 OpenAI, Anthropic, DeepSeek, Model Studio 모델별 토큰 비용을 확인합니다.</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>자주 묻는 질문</h2>
+      <div class="faq">
+        <details><summary>CloudBridge는 무엇인가요?</summary><p>무료 오픈소스 데스크톱 앱입니다. 각 서비스의 청구 API나 직접 내려받은 파일을 통해 클라우드와 AI 서비스의 청구서를 여러분의 컴퓨터에 있는 데이터베이스에 모읍니다. 무엇에 얼마를 쓰는지 보여 주고, 알림 규칙을 확인하며, 창을 닫은 뒤에도 메뉴 막대에서 계속 실행됩니다.</p></details>
+        <details><summary>어떤 서비스를 지원하나요?</summary><p>AWS(Cost Explorer 또는 S3에 있는 FOCUS Data Export), Azure(Cost Management), Alibaba Cloud와 Cloudflare는 청구 API로 연결합니다. Google Cloud는 BigQuery 청구 내보내기로, DeepSeek은 잔액 API로 연결하며, Alibaba Cloud, Volcengine, OpenAI, Anthropic, DeepSeek의 청구서 내보내기도 가져올 수 있습니다.</p></details>
+        <details><summary>CloudBridge가 청구서를 어딘가로 보내나요?</summary><p>아니요. 청구서는 서비스에서 여러분의 컴퓨터에 있는 DuckDB 파일로 바로 저장됩니다. CloudBridge 계정도, 동기화 서비스도, 텔레메트리도 없으며, 자격 증명은 시스템 키링에 보관됩니다.</p></details>
+        <details><summary>CloudBridge를 쓰면 청구서 금액이 늘어나나요?</summary><p>AWS에서만 늘어납니다. Cost Explorer는 요청마다, S3는 읽기마다 요금을 받습니다. CloudBridge는 새로 고침 주기(기본 24시간)마다 각 서비스에 최대 한 번만 요청하므로, AWS 계정당 하루에 Cost Explorer 요청 두 번 정도입니다. 이미 비용을 지불한 데이터를 다시 가져오지 않고, 변경되지 않은 S3 내보내기도 다시 내려받지 않습니다. 다른 API는 무료이며, 리소스를 만들거나 바꾸는 일은 없습니다.</p></details>
+        <details><summary>비용 급증은 어떻게 감지하나요?</summary><p>청구서를 일 단위로 읽기 때문에 급증은 다음 날 데이터에 나타납니다. 규칙은 최근 기준선을 넘는 지출, 예산, 낮은 잔액을 확인합니다. CloudBridge가 실행 중이면 창을 닫았더라도 각 계정을 하루 한 번 새로 고치고 알림마다 시스템 알림을 보냅니다. Cloudflare 청구서는 버킷, Worker, Durable Object 단위까지 나눌 수 있습니다.</p></details>
+        <details><summary>어떤 운영체제에서 실행되나요?</summary><p>Apple silicon용 macOS(서명 및 공증됨)와 64비트 Windows입니다. Linux와 Intel Mac은 소스에서 직접 빌드할 수 있습니다.</p></details>
+        <details><summary>CloudBridge는 무료인가요?</summary><p>네. MIT 라이선스로 무료 오픈소스이며, 전체 소스 코드가 GitHub에 있습니다. 서비스 API 요금은 별도입니다.</p></details>
+        <details><summary>설치하지 않고 사용해 볼 수 있나요?</summary><p>네. <a href="/demo/">브라우저 데모</a>는 같은 앱을 WebAssembly로 컴파일해, 여러 서비스의 12개월치 샘플 청구서로 실행합니다.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>CloudBridge 시작하기</h2>
+      <p>앱을 내려받아 계정을 추가하거나 청구서를 가져오면 이번 달 비용을 볼 수 있습니다. 먼저 데모를 사용해 봐도 좋습니다.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Mac용 다운로드</a>
+        <a class="button button-quiet" href="/docs/ko/getting-started">시작하기</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/ko/">문서</a>
+    <a href="/blog/ko/">블로그</a>
+    <a href="/ko/use-cases/cloud-cost-alerts/">비용 알림</a>
+    <a href="/ko/use-cases/multi-cloud-cost-dashboard/">멀티 클라우드 비용</a>
+    <a href="/ko/use-cases/cloudflare-cost-breakdown/">Cloudflare 비용</a>
+    <a href="/ko/use-cases/llm-api-cost-tracking/">LLM API 비용</a>
+    <a href="/demo/">데모</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge/releases">릴리스</a>
+    <span class="spacer"></span>
+    <a href="/" hreflang="en" lang="en">English</a>
+    <a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/fr/" hreflang="fr" lang="fr">Français</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>같은 제작자의 다른 제품</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+
+<script>
+// Like most download pages: the buttons fetch the build for the visitor's
+// system, and the line under the hero offers the other. Without script, or
+// on a phone, the Mac build is the default. First-party and self-contained.
+(() => {
+  const ua = navigator.userAgentData?.platform || navigator.platform || navigator.userAgent;
+  if (!/win/i.test(ua)) return;
+  const exe = "https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-windows-x64.exe";
+  for (const a of document.querySelectorAll("[data-download]")) {
+    a.href = exe;
+    if (a.dataset.download !== "short") a.textContent = "Windows용 다운로드";
+  }
+  for (const el of document.querySelectorAll("[data-also]")) {
+    el.innerHTML = '<a href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg">Mac</a>(Apple silicon)용도 있습니다.';
+  }
+})();
+</script>
+</body>
+</html>

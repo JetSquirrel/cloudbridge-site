@@ -5,7 +5,7 @@ description: "Fixes for common CloudBridge problems: Keychain prompts, AWS Acces
 
 # Troubleshooting
 
-**[中文](zh/troubleshooting.md)**&emsp;[Docs](index.md)
+**[中文](zh/troubleshooting.md)**&emsp;**[日本語](ja/troubleshooting.md)**&emsp;**[한국어](ko/troubleshooting.md)**&emsp;**[Français](fr/troubleshooting.md)**&emsp;[Docs](index.md)
 
 ## macOS asks for Keychain access {#keychain}
 
