@@ -5,7 +5,7 @@ description: "CloudBridge 如何按 FOCUS 1.5 记录 AI 模型的 token 用量�
 
 # FOCUS 与 token 数据
 
-**[English](../focus.md)**&emsp;**[日本語](../ja/focus.md)**&emsp;**[한국어](../ko/focus.md)**&emsp;**[Français](../fr/focus.md)**&emsp;[文档](index.md)
+**[English](../focus.md)**&emsp;**[日本語](../ja/focus.md)**&emsp;**[한국어](../ko/focus.md)**&emsp;**[Français](../fr/focus.md)**&emsp;**[Español](../es/focus.md)**&emsp;**[Deutsch](../de/focus.md)**&emsp;**[Português](../pt/focus.md)**&emsp;[文档](index.md)
 
 CloudBridge 的账本沿用 FinOps 基金会的开放成本与用量规范 [FOCUS](https://focus.finops.org/)
 的列名。FOCUS 1.5 规定了 AI 模型 API 的账单怎么描述：它没有新增 token 列，而是用 FOCUS

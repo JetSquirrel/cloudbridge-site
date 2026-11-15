@@ -5,7 +5,7 @@ description: "Comment CloudBridge enregistre l’usage de tokens des modèles d�
 
 # FOCUS et données de tokens
 
-**[English](../focus.md)**&emsp;**[中文](../zh/focus.md)**&emsp;**[日本語](../ja/focus.md)**&emsp;**[한국어](../ko/focus.md)**&emsp;[Documentation](index.md)
+**[English](../focus.md)**&emsp;**[中文](../zh/focus.md)**&emsp;**[日本語](../ja/focus.md)**&emsp;**[한국어](../ko/focus.md)**&emsp;**[Español](../es/focus.md)**&emsp;**[Deutsch](../de/focus.md)**&emsp;**[Português](../pt/focus.md)**&emsp;[Documentation](index.md)
 
 Le registre de CloudBridge est nommé d’après [FOCUS](https://focus.finops.org/),
 la spécification ouverte de la FinOps Foundation pour les données de coût et

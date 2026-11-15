@@ -2,7 +2,7 @@ import { createContentLoader } from 'vitepress'
 
 // Every post, newest first, read from its frontmatter at build time, so a new
 // post appears on its blog's front page without anyone editing a list.
-export type PostLang = 'en' | 'zh' | 'ja' | 'ko' | 'fr'
+export type PostLang = 'en' | 'zh' | 'ja' | 'ko' | 'fr' | 'es' | 'de' | 'pt'
 
 export interface Post {
   url: string
@@ -18,10 +18,10 @@ export { data }
 
 function postLang(url: string): PostLang {
   const first = url.split('/')[1]
-  return first === 'zh' || first === 'ja' || first === 'ko' || first === 'fr' ? first : 'en'
+  return first === 'zh' || first === 'ja' || first === 'ko' || first === 'fr' || first === 'es' || first === 'de' || first === 'pt' ? first : 'en'
 }
 
-export default createContentLoader(['*.md', 'zh/*.md', 'ja/*.md', 'ko/*.md', 'fr/*.md'], {
+export default createContentLoader(['*.md', 'zh/*.md', 'ja/*.md', 'ko/*.md', 'fr/*.md', 'es/*.md', 'de/*.md', 'pt/*.md'], {
   transform(pages): Post[] {
     return pages
       .filter((page) => page.frontmatter.date)

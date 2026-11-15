@@ -5,7 +5,7 @@ description: "CloudBridge の照合は、各プロバイダーの最終請求書
 
 # 照合
 
-**[English](../reconciliation.md)**&emsp;**[中文](../zh/reconciliation.md)**&emsp;**[한국어](../ko/reconciliation.md)**&emsp;**[Français](../fr/reconciliation.md)**&emsp;[ドキュメント](index.md)
+**[English](../reconciliation.md)**&emsp;**[中文](../zh/reconciliation.md)**&emsp;**[한국어](../ko/reconciliation.md)**&emsp;**[Français](../fr/reconciliation.md)**&emsp;**[Español](../es/reconciliation.md)**&emsp;**[Deutsch](../de/reconciliation.md)**&emsp;**[Português](../pt/reconciliation.md)**&emsp;[ドキュメント](index.md)
 
 **照合** ページは、1 つの問いに答えます。各プロバイダーの最終請求書は、
 CloudBridge が取り込んだ内容と一致しているか。CloudBridge 0.9.0 以降が

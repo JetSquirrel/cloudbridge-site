@@ -5,7 +5,7 @@ description: "Connectez Google Cloud à CloudBridge via l’export BigQuery du c
 
 # Google Cloud
 
-**[English](../google-cloud.md)**&emsp;**[中文](../zh/google-cloud.md)**&emsp;**[日本語](../ja/google-cloud.md)**&emsp;**[한국어](../ko/google-cloud.md)**&emsp;[Documentation](index.md)
+**[English](../google-cloud.md)**&emsp;**[中文](../zh/google-cloud.md)**&emsp;**[日本語](../ja/google-cloud.md)**&emsp;**[한국어](../ko/google-cloud.md)**&emsp;**[Español](../es/google-cloud.md)**&emsp;**[Deutsch](../de/google-cloud.md)**&emsp;**[Português](../pt/google-cloud.md)**&emsp;[Documentation](index.md)
 
 Google Cloud n’a pas d’API qui réponde à « combien a coûté ce mois-ci ». Sa
 facture, c’est l’export qu’un compte de facturation écrit dans un jeu de

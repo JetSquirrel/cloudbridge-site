@@ -5,7 +5,7 @@ description: "Connect Cloudflare to CloudBridge with an API token: daily billabl
 
 # Cloudflare
 
-**[中文](zh/cloudflare.md)**&emsp;**[日本語](ja/cloudflare.md)**&emsp;**[한국어](ko/cloudflare.md)**&emsp;**[Français](fr/cloudflare.md)**&emsp;[Docs](index.md)
+**[中文](zh/cloudflare.md)**&emsp;**[日本語](ja/cloudflare.md)**&emsp;**[한국어](ko/cloudflare.md)**&emsp;**[Français](fr/cloudflare.md)**&emsp;**[Español](es/cloudflare.md)**&emsp;**[Deutsch](de/cloudflare.md)**&emsp;**[Português](pt/cloudflare.md)**&emsp;[Docs](index.md)
 
 CloudBridge reads Cloudflare's billable usage: spend per service, **per
 day**. That is the point. A Worker or Durable Object that starts looping is

@@ -6,9 +6,9 @@ served by a Cloudflare Worker as static assets.
 
 | Address | Source |
 | --- | --- |
-| [cloudbridge.jetsquirrel.cloud](https://cloudbridge.jetsquirrel.cloud/) | `home/` — static HTML and CSS, English with `zh/`, `ja/`, `ko/` and `fr/` |
-| [cloudbridge.jetsquirrel.cloud/docs](https://cloudbridge.jetsquirrel.cloud/docs/) | `docs/` — a VitePress site with base `/docs/`, English and `zh/`, `ja/`, `ko/`, `fr/` |
-| [cloudbridge.jetsquirrel.cloud/blog](https://cloudbridge.jetsquirrel.cloud/blog/) | `blog/` — a second VitePress site with base `/blog/`, English posts and `zh/`, `ja/`, `ko/`, `fr/` |
+| [cloudbridge.jetsquirrel.cloud](https://cloudbridge.jetsquirrel.cloud/) | `home/` — static HTML and CSS, English with `zh/`, `ja/`, `ko/`, `fr/`, `es/`, `de/` and `pt/` |
+| [cloudbridge.jetsquirrel.cloud/docs](https://cloudbridge.jetsquirrel.cloud/docs/) | `docs/` — a VitePress site with base `/docs/`, English and `zh/`, `ja/`, `ko/`, `fr/`, `es/`, `de/`, `pt/` |
+| [cloudbridge.jetsquirrel.cloud/blog](https://cloudbridge.jetsquirrel.cloud/blog/) | `blog/` — a second VitePress site with base `/blog/`, English posts and `zh/`, `ja/`, `ko/`, `fr/`, `es/`, `de/`, `pt/` |
 | [cloudbridge.jetsquirrel.cloud/demo](https://cloudbridge.jetsquirrel.cloud/demo/) | built in the app repository, downloaded at build time (see below) |
 
 The app itself, and the code these pages describe, live in
@@ -34,17 +34,18 @@ SKIP_DEMO=1 sh scripts/build.sh  # the whole site in dist/site; fails on a dead 
 ```
 
 English pages live in `docs/`, and the translations in `docs/zh/`, `docs/ja/`,
-`docs/ko/` and `docs/fr/`, with the same file names and the same heading
-anchors. Every page carries a `description` in its frontmatter — it is the text
-search results and link previews show. A new or changed English page is the
-source; the other languages follow it.
+`docs/ko/`, `docs/fr/`, `docs/es/`, `docs/de/` and `docs/pt/`, with the same file
+names and the same heading anchors. Every page carries a `description` in its
+frontmatter — it is the text search results and link previews show. A new or
+changed English page is the source; the other languages follow it.
 
 A blog post is written for one language: English ones in `blog/`, the others
-in `blog/zh/`, `blog/ja/`, `blog/ko/` and `blog/fr/`. Its frontmatter needs a
-`title`, `description`, `date` and `tag`; the blog's front page lists posts from
-those, newest first, so a new post needs no list edited. Images go in
-`blog/images/`. The blog reuses the docs' stylesheet, and links to a docs
-page by its full address, since the two are separate builds.
+in `blog/zh/`, `blog/ja/`, `blog/ko/`, `blog/fr/`, `blog/es/`, `blog/de/` and
+`blog/pt/`. Its frontmatter needs a `title`, `description`, `date` and `tag`;
+the blog's front page lists posts from those, newest first, so a new post needs
+no list edited. Images go in `blog/images/`. The blog reuses the docs'
+stylesheet, and links to a docs page by its full address, since the two are
+separate builds.
 
 The product page loads nothing from anyone else: no web fonts, no third-party
 scripts, no analytics — its one script is the few inline lines that offer the
@@ -98,8 +99,9 @@ For AI assistants and answer engines: `home/llms.txt` (served at `/llms.txt`)
 summarises CloudBridge and links every docs page as Markdown. The docs build
 writes each page again as `.md` beside its HTML (`/docs/cloudflare.md`) and
 all of a language's pages into `/docs/llms-full.txt`, `/docs/zh/llms-full.txt`,
-`/docs/ja/llms-full.txt`, `/docs/ko/llms-full.txt` and
-`/docs/fr/llms-full.txt`; keep `llms.txt` in step when a page is added or
+`/docs/ja/llms-full.txt`, `/docs/ko/llms-full.txt`, `/docs/fr/llms-full.txt`,
+`/docs/es/llms-full.txt`, `/docs/de/llms-full.txt` and
+`/docs/pt/llms-full.txt`; keep `llms.txt` in step when a page is added or
 renamed. Docs pages carry BreadcrumbList and TechArticle (BlogPosting for
 posts) JSON-LD, and the product page carries SoftwareApplication and FAQPage
 JSON-LD — the FAQ's answers are the visible ones in the page, so change both

@@ -17,6 +17,12 @@
   Link: </docs/ko/>; rel="service-doc"; type="text/html"; hreflang="ko", </llms.txt>; rel="describedby"; type="text/plain"
 /fr/
   Link: </docs/fr/>; rel="service-doc"; type="text/html"; hreflang="fr", </llms.txt>; rel="describedby"; type="text/plain"
+/es/
+  Link: </docs/es/>; rel="service-doc"; type="text/html"; hreflang="es", </llms.txt>; rel="describedby"; type="text/plain"
+/de/
+  Link: </docs/de/>; rel="service-doc"; type="text/html"; hreflang="de", </llms.txt>; rel="describedby"; type="text/plain"
+/pt/
+  Link: </docs/pt/>; rel="service-doc"; type="text/html"; hreflang="pt-BR", </llms.txt>; rel="describedby"; type="text/plain"
 
 # The plain-text copies for language models (llms.txt, llms-full.txt and each
 # docs page as .md) are for reading, not for search results: the HTML pages
@@ -40,6 +46,12 @@
 /blog/ko/feed.xml
   Content-Type: application/atom+xml; charset=utf-8
 /blog/fr/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/es/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/de/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+/blog/pt/feed.xml
   Content-Type: application/atom+xml; charset=utf-8
 
 # The docs' built scripts and styles are fingerprinted by VitePress, so they

@@ -5,7 +5,7 @@ description: "CloudBridge 비용 귀속: 소스에서 서비스 또는 모델을
 
 # 비용 귀속
 
-**[English](../attribution.md)**&emsp;**[中文](../zh/attribution.md)**&emsp;**[日本語](../ja/attribution.md)**&emsp;**[Français](../fr/attribution.md)**&emsp;[문서](index.md)
+**[English](../attribution.md)**&emsp;**[中文](../zh/attribution.md)**&emsp;**[日本語](../ja/attribution.md)**&emsp;**[Français](../fr/attribution.md)**&emsp;**[Español](../es/attribution.md)**&emsp;**[Deutsch](../de/attribution.md)**&emsp;**[Português](../pt/attribution.md)**&emsp;[문서](index.md)
 
 비용 귀속 페이지는 그 달을 Sankey로 그립니다. 소스, 다음 서비스 또는 모델, 다음 비즈니스 라인 순이며 **Unallocated** 노드가 명시적으로 있습니다. 흐름은 총 사용량입니다. 순액은 음수가 될 수 있는데, Sankey에서는 아무 의미가 없습니다. 비용은 `business_line` 태그로 라인에 배정되며, 태그가 없으면 Unallocated에 들어갑니다.
 

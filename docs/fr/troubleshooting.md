@@ -5,7 +5,7 @@ description: "Solutions aux problèmes courants de CloudBridge : demandes du tr
 
 # Dépannage
 
-**[English](../troubleshooting.md)**&emsp;**[中文](../zh/troubleshooting.md)**&emsp;**[日本語](../ja/troubleshooting.md)**&emsp;**[한국어](../ko/troubleshooting.md)**&emsp;[Documentation](index.md)
+**[English](../troubleshooting.md)**&emsp;**[中文](../zh/troubleshooting.md)**&emsp;**[日本語](../ja/troubleshooting.md)**&emsp;**[한국어](../ko/troubleshooting.md)**&emsp;**[Español](../es/troubleshooting.md)**&emsp;**[Deutsch](../de/troubleshooting.md)**&emsp;**[Português](../pt/troubleshooting.md)**&emsp;[Documentation](index.md)
 
 ## macOS demande l’accès au trousseau {#keychain}
 

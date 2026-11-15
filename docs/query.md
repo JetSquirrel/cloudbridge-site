@@ -5,7 +5,7 @@ description: "CloudBridge’s Query page: read-only SQL over the local DuckDB bi
 
 # Query
 
-**[中文](zh/query.md)**&emsp;**[日本語](ja/query.md)**&emsp;**[한국어](ko/query.md)**&emsp;**[Français](fr/query.md)**&emsp;[Docs](index.md)
+**[中文](zh/query.md)**&emsp;**[日本語](ja/query.md)**&emsp;**[한국어](ko/query.md)**&emsp;**[Français](fr/query.md)**&emsp;**[Español](es/query.md)**&emsp;**[Deutsch](de/query.md)**&emsp;**[Português](pt/query.md)**&emsp;[Docs](index.md)
 
 The **Query** page runs SQL over the local DuckDB ledger. Desktop only.
 

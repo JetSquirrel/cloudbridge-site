@@ -5,7 +5,7 @@ description: "La page Modèles de CloudBridge : ce que coûte chaque LLM par to
 
 # Modèles
 
-**[English](../models.md)**&emsp;**[中文](../zh/models.md)**&emsp;**[日本語](../ja/models.md)**&emsp;**[한국어](../ko/models.md)**&emsp;[Documentation](index.md)
+**[English](../models.md)**&emsp;**[中文](../zh/models.md)**&emsp;**[日本語](../ja/models.md)**&emsp;**[한국어](../ko/models.md)**&emsp;**[Español](../es/models.md)**&emsp;**[Deutsch](../de/models.md)**&emsp;**[Português](../pt/models.md)**&emsp;[Documentation](index.md)
 
 La page **Models** lit le volet LLM de la facture par modèle, sur la période
 choisie dans son en-tête. Les comptes OpenAI, Anthropic et DeepSeek y

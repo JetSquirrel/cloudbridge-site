@@ -5,7 +5,7 @@ description: "CloudBridge が何をどこに保存するか：DuckDB の台帳�
 
 # 設定、データ、セキュリティ
 
-**[English](../settings-and-data.md)**&emsp;**[中文](../zh/settings-and-data.md)**&emsp;**[한국어](../ko/settings-and-data.md)**&emsp;**[Français](../fr/settings-and-data.md)**&emsp;[ドキュメント](index.md)
+**[English](../settings-and-data.md)**&emsp;**[中文](../zh/settings-and-data.md)**&emsp;**[한국어](../ko/settings-and-data.md)**&emsp;**[Français](../fr/settings-and-data.md)**&emsp;**[Español](../es/settings-and-data.md)**&emsp;**[Deutsch](../de/settings-and-data.md)**&emsp;**[Português](../pt/settings-and-data.md)**&emsp;[ドキュメント](index.md)
 
 ## 設定 {#settings}
 

@@ -5,7 +5,7 @@ description: "CloudBridge alert rules for cost anomalies, balance floors, untagg
 
 # Alerts, rules and budgets
 
-**[中文](zh/alerts.md)**&emsp;**[日本語](ja/alerts.md)**&emsp;**[한국어](ko/alerts.md)**&emsp;**[Français](fr/alerts.md)**&emsp;[Docs](index.md)
+**[中文](zh/alerts.md)**&emsp;**[日本語](ja/alerts.md)**&emsp;**[한국어](ko/alerts.md)**&emsp;**[Français](fr/alerts.md)**&emsp;**[Español](es/alerts.md)**&emsp;**[Deutsch](de/alerts.md)**&emsp;**[Português](pt/alerts.md)**&emsp;[Docs](index.md)
 
 Rules are evaluated against the ledger when the app opens and after each
 refresh — including the [background refresh](background.md), which

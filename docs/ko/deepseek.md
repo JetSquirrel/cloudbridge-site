@@ -5,7 +5,7 @@ description: "API 키로 선불 잔액을 위해, 그리고 사용량 다운로�
 
 # DeepSeek
 
-**[English](../deepseek.md)**&emsp;**[中文](../zh/deepseek.md)**&emsp;**[日本語](../ja/deepseek.md)**&emsp;**[Français](../fr/deepseek.md)**&emsp;[문서](index.md)
+**[English](../deepseek.md)**&emsp;**[中文](../zh/deepseek.md)**&emsp;**[日本語](../ja/deepseek.md)**&emsp;**[Français](../fr/deepseek.md)**&emsp;**[Español](../es/deepseek.md)**&emsp;**[Deutsch](../de/deepseek.md)**&emsp;**[Português](../pt/deepseek.md)**&emsp;[문서](index.md)
 
 DeepSeek의 API는 지출 내역이 아니라 **잔액** — 지급분과 충전분 — 을 보고합니다. 지출 상세는 콘솔의 다운로드를 가져오세요.
 

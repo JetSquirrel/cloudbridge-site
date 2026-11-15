@@ -5,7 +5,7 @@ description: "서비스 주체로 Microsoft Azure 구독을 CloudBridge에 연�
 
 # Microsoft Azure
 
-**[English](../azure.md)**&emsp;**[中文](../zh/azure.md)**&emsp;**[日本語](../ja/azure.md)**&emsp;**[Français](../fr/azure.md)**&emsp;[문서](index.md)
+**[English](../azure.md)**&emsp;**[中文](../zh/azure.md)**&emsp;**[日本語](../ja/azure.md)**&emsp;**[Français](../fr/azure.md)**&emsp;**[Español](../es/azure.md)**&emsp;**[Deutsch](../de/azure.md)**&emsp;**[Português](../pt/azure.md)**&emsp;[문서](index.md)
 
 CloudBridge는 구독의 **실제 비용**을 Azure Cost Management에서 읽습니다: 각 서비스가 **하루에** 얼마였는지를 요금 유형별로 나눠서요. 예약 구매, 환불, 세금은 있는 그대로 유지되고 사용량에 더해지지 않으므로, 일회성 구매가 있는 달이 사용량이 세 배가 된 달처럼 보이지 않습니다.
 

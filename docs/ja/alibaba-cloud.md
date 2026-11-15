@@ -5,7 +5,7 @@ description: "読み取り専用の RAM ユーザーで Alibaba Cloud (阿里云
 
 # Alibaba Cloud
 
-**[English](../alibaba-cloud.md)**&emsp;**[中文](../zh/alibaba-cloud.md)**&emsp;**[한국어](../ko/alibaba-cloud.md)**&emsp;**[Français](../fr/alibaba-cloud.md)**&emsp;[ドキュメント](index.md)
+**[English](../alibaba-cloud.md)**&emsp;**[中文](../zh/alibaba-cloud.md)**&emsp;**[한국어](../ko/alibaba-cloud.md)**&emsp;**[Français](../fr/alibaba-cloud.md)**&emsp;**[Español](../es/alibaba-cloud.md)**&emsp;**[Deutsch](../de/alibaba-cloud.md)**&emsp;**[Português](../pt/alibaba-cloud.md)**&emsp;[ドキュメント](index.md)
 
 Alibaba Cloud には両方の経路があります。**請求 API** は各製品の月間合計を
 返し、**請求明細のエクスポート**はインスタンスレベルの行を返します。

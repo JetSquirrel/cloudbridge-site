@@ -5,7 +5,7 @@ description: "CloudBridge가 무엇을 어디에 저장하는지: DuckDB 장부,
 
 # 설정, 데이터, 보안
 
-**[English](../settings-and-data.md)**&emsp;**[中文](../zh/settings-and-data.md)**&emsp;**[日本語](../ja/settings-and-data.md)**&emsp;**[Français](../fr/settings-and-data.md)**&emsp;[문서](index.md)
+**[English](../settings-and-data.md)**&emsp;**[中文](../zh/settings-and-data.md)**&emsp;**[日本語](../ja/settings-and-data.md)**&emsp;**[Français](../fr/settings-and-data.md)**&emsp;**[Español](../es/settings-and-data.md)**&emsp;**[Deutsch](../de/settings-and-data.md)**&emsp;**[Português](../pt/settings-and-data.md)**&emsp;[문서](index.md)
 
 ## 설정 {#settings}
 

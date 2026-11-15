@@ -5,7 +5,7 @@ description: "CloudBridge에서 흔한 문제의 해결법: 키체인 요청, AW
 
 # 문제 해결
 
-**[English](../troubleshooting.md)**&emsp;**[中文](../zh/troubleshooting.md)**&emsp;**[日本語](../ja/troubleshooting.md)**&emsp;**[Français](../fr/troubleshooting.md)**&emsp;[문서](index.md)
+**[English](../troubleshooting.md)**&emsp;**[中文](../zh/troubleshooting.md)**&emsp;**[日本語](../ja/troubleshooting.md)**&emsp;**[Français](../fr/troubleshooting.md)**&emsp;**[Español](../es/troubleshooting.md)**&emsp;**[Deutsch](../de/troubleshooting.md)**&emsp;**[Português](../pt/troubleshooting.md)**&emsp;[문서](index.md)
 
 ## macOS가 키체인 접근을 요청합니다 {#keychain}
 

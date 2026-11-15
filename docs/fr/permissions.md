@@ -5,7 +5,7 @@ description: "Les identifiants au moindre privilège dont CloudBridge a besoin p
 
 # Autorisations des fournisseurs
 
-**[English](../permissions.md)**&emsp;**[中文](../zh/permissions.md)**&emsp;**[日本語](../ja/permissions.md)**&emsp;**[한국어](../ko/permissions.md)**&emsp;[Documentation](index.md)
+**[English](../permissions.md)**&emsp;**[中文](../zh/permissions.md)**&emsp;**[日本語](../ja/permissions.md)**&emsp;**[한국어](../ko/permissions.md)**&emsp;**[Español](../es/permissions.md)**&emsp;**[Deutsch](../de/permissions.md)**&emsp;**[Português](../pt/permissions.md)**&emsp;[Documentation](index.md)
 
 Utilisez des identifiants dédiés, avec le minimum de privilèges dont le
 canal a besoin. Un comportement en lecture seule dans l’application ne rend

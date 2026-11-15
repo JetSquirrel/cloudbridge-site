@@ -5,7 +5,7 @@ description: "CloudBridge のインサイトは、AWS と Cloudflare の読み�
 
 # インサイト
 
-**[English](../insights.md)**&emsp;**[中文](../zh/insights.md)**&emsp;**[한국어](../ko/insights.md)**&emsp;**[Français](../fr/insights.md)**&emsp;[ドキュメント](index.md)
+**[English](../insights.md)**&emsp;**[中文](../zh/insights.md)**&emsp;**[한국어](../ko/insights.md)**&emsp;**[Français](../fr/insights.md)**&emsp;**[Español](../es/insights.md)**&emsp;**[Deutsch](../de/insights.md)**&emsp;**[Português](../pt/insights.md)**&emsp;[ドキュメント](index.md)
 
 インサイトは請求と実際に動いているものを突き合わせ、目を向ける価値のある
 ものを一覧にします。それぞれに、この期間の請求から価格を付けます。

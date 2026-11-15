@@ -5,7 +5,7 @@ description: "CloudBridge 개요가 지출을 읽는 방식: 순액과 총액, �
 
 # 개요와 계정
 
-**[English](../overview.md)**&emsp;**[中文](../zh/overview.md)**&emsp;**[日本語](../ja/overview.md)**&emsp;**[Français](../fr/overview.md)**&emsp;[문서](index.md)
+**[English](../overview.md)**&emsp;**[中文](../zh/overview.md)**&emsp;**[日本語](../ja/overview.md)**&emsp;**[Français](../fr/overview.md)**&emsp;**[Español](../es/overview.md)**&emsp;**[Deutsch](../de/overview.md)**&emsp;**[Português](../pt/overview.md)**&emsp;[문서](index.md)
 
 ## 개요 {#overview}
 

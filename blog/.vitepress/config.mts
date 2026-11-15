@@ -31,6 +31,9 @@ const languages = {
   ja: { prefix: 'ja/', lang: 'ja', ogLocale: 'ja_JP', label: '日本語' },
   ko: { prefix: 'ko/', lang: 'ko', ogLocale: 'ko_KR', label: '한국어' },
   fr: { prefix: 'fr/', lang: 'fr', ogLocale: 'fr_FR', label: 'Français' },
+  es: { prefix: 'es/', lang: 'es', ogLocale: 'es_ES', label: 'Español' },
+  de: { prefix: 'de/', lang: 'de', ogLocale: 'de_DE', label: 'Deutsch' },
+  pt: { prefix: 'pt/', lang: 'pt-BR', ogLocale: 'pt_BR', label: 'Português (Brasil)' },
 } as const
 type Lang = keyof typeof languages
 
@@ -41,6 +44,9 @@ const feeds = {
   ja: { url: `${site}ja/feed.xml`, file: 'ja/feed.xml', title: 'CloudBridge ブログ', blog: `${site}ja/`, lang: 'ja' },
   ko: { url: `${site}ko/feed.xml`, file: 'ko/feed.xml', title: 'CloudBridge 블로그', blog: `${site}ko/`, lang: 'ko' },
   fr: { url: `${site}fr/feed.xml`, file: 'fr/feed.xml', title: 'CloudBridge Blog', blog: `${site}fr/`, lang: 'fr' },
+  es: { url: `${site}es/feed.xml`, file: 'es/feed.xml', title: 'Blog de CloudBridge', blog: `${site}es/`, lang: 'es' },
+  de: { url: `${site}de/feed.xml`, file: 'de/feed.xml', title: 'CloudBridge-Blog', blog: `${site}de/`, lang: 'de' },
+  pt: { url: `${site}pt/feed.xml`, file: 'pt/feed.xml', title: 'Blog do CloudBridge', blog: `${site}pt/`, lang: 'pt-BR' },
 }
 
 // The blog's own wording, for the languages that are not English.
@@ -155,6 +161,72 @@ const blogText: Record<Lang, { home: string; docs: string; blog: string; nav: [s
     },
     footer: 'Publié sous licence MIT.',
   },
+  es: {
+    home: 'Inicio',
+    docs: 'Documentación',
+    blog: 'Blog',
+    nav: ['Inicio', 'Documentación', 'Blog', 'Demo', 'Descargar'],
+    editLink: 'Editar esta página en GitHub',
+    prev: 'Artículo anterior',
+    next: 'Artículo siguiente',
+    langMenu: 'Cambiar de idioma',
+    returnToTop: 'Volver arriba',
+    skipToContent: 'Ir al contenido',
+    appearance: 'Apariencia',
+    light: 'Cambiar al tema claro',
+    dark: 'Cambiar al tema oscuro',
+    notFound: {
+      title: 'Página no encontrada',
+      quote: 'Este artículo no existe. Mira los demás artículos en el inicio del blog.',
+      linkLabel: 'Ir al inicio del blog',
+      linkText: 'Ir al inicio del blog',
+    },
+    footer: 'Publicado bajo la licencia MIT.',
+  },
+  de: {
+    home: 'Start',
+    docs: 'Dokumentation',
+    blog: 'Blog',
+    nav: ['Start', 'Dokumentation', 'Blog', 'Demo', 'Herunterladen'],
+    editLink: 'Diese Seite auf GitHub bearbeiten',
+    prev: 'Vorheriger Beitrag',
+    next: 'Nächster Beitrag',
+    langMenu: 'Sprache wechseln',
+    returnToTop: 'Nach oben',
+    skipToContent: 'Zum Inhalt springen',
+    appearance: 'Darstellung',
+    light: 'Zum hellen Design wechseln',
+    dark: 'Zum dunklen Design wechseln',
+    notFound: {
+      title: 'Seite nicht gefunden',
+      quote: 'Dieser Beitrag existiert nicht. Schau dir die anderen Beiträge auf der Blog-Startseite an.',
+      linkLabel: 'Zur Blog-Startseite',
+      linkText: 'Zur Blog-Startseite',
+    },
+    footer: 'Veröffentlicht unter der MIT-Lizenz.',
+  },
+  pt: {
+    home: 'Início',
+    docs: 'Documentação',
+    blog: 'Blog',
+    nav: ['Início', 'Documentação', 'Blog', 'Demonstração', 'Baixar'],
+    editLink: 'Editar esta página no GitHub',
+    prev: 'Artigo anterior',
+    next: 'Próximo artigo',
+    langMenu: 'Mudar de idioma',
+    returnToTop: 'Voltar ao topo',
+    skipToContent: 'Ir para o conteúdo',
+    appearance: 'Aparência',
+    light: 'Mudar para o tema claro',
+    dark: 'Mudar para o tema escuro',
+    notFound: {
+      title: 'Página não encontrada',
+      quote: 'Este artigo não existe. Veja os outros artigos na página inicial do blog.',
+      linkLabel: 'Ir para o início do blog',
+      linkText: 'Ir para o início do blog',
+    },
+    footer: 'Publicado sob a licença MIT.',
+  },
 }
 
 const blogSiteTitles: Record<Lang, string> = {
@@ -163,6 +235,9 @@ const blogSiteTitles: Record<Lang, string> = {
   ja: 'CloudBridge ブログ',
   ko: 'CloudBridge 블로그',
   fr: 'CloudBridge Blog',
+  es: 'Blog de CloudBridge',
+  de: 'CloudBridge-Blog',
+  pt: 'Blog do CloudBridge',
 }
 const blogDescriptions: Record<Lang, string> = {
   en: 'Release notes, design decisions and field notes from CloudBridge, the local-first desktop app for cloud and AI bills.',
@@ -170,6 +245,9 @@ const blogDescriptions: Record<Lang, string> = {
   ja: 'クラウドと AI の請求書を扱うローカル優先のデスクトップアプリ、CloudBridge のリリースノートと設計の話。',
   ko: '클라우드와 AI 청구서를 다루는 로컬 우선 데스크톱 앱, CloudBridge의 릴리스 노트와 설계 이야기.',
   fr: "Notes de version, décisions de conception et retours de terrain de CloudBridge, l'application de bureau locale-first pour les factures cloud et IA.",
+  es: 'Notas de versión, decisiones de diseño y apuntes de CloudBridge, la aplicación de escritorio local-first para facturas de nube e IA.',
+  de: 'Versionshinweise, Designentscheidungen und Feldnotizen von CloudBridge, der Local-First-Desktop-App für Cloud- und KI-Rechnungen.',
+  pt: 'Notas de versão, decisões de design e apontamentos do CloudBridge, o aplicativo de desktop local-first para faturas de nuvem e IA.',
 }
 
 // The posts that are translated into English, Japanese, Korean and French.
@@ -318,7 +396,7 @@ export default defineConfig({
     // post written for one language only carries no alternates.
     const rest = path.startsWith(language.prefix) ? path.slice(language.prefix.length) : path
     const twins: Lang[] = post
-      ? translatedPosts.has(rest) ? ['en', 'ja', 'ko', 'fr'] : []
+      ? translatedPosts.has(rest) ? (['en', 'ja', 'ko', 'fr', 'es', 'de', 'pt'] as Lang[]) : []
       : (Object.keys(languages) as Lang[])
     for (const key of twins) {
       head.push(['link', { rel: 'alternate', hreflang: languages[key].lang, href: `${site}${languages[key].prefix}${rest}` }])
@@ -333,6 +411,9 @@ export default defineConfig({
     ja: localeConfig('ja'),
     ko: localeConfig('ko'),
     fr: localeConfig('fr'),
+    es: localeConfig('es'),
+    de: localeConfig('de'),
+    pt: localeConfig('pt'),
   },
   themeConfig: {
     logo: { src: '/logo.png', alt: 'CloudBridge' },
@@ -347,7 +428,7 @@ export default defineConfig({
   // /blog/zh/feed.xml, /blog/ja/feed.xml, /blog/ko/feed.xml and
   // /blog/fr/feed.xml.
   async buildEnd(config) {
-    const pages = await createContentLoader(['*.md', 'zh/*.md', 'ja/*.md', 'ko/*.md', 'fr/*.md']).load()
+    const pages = await createContentLoader(['*.md', 'zh/*.md', 'ja/*.md', 'ko/*.md', 'fr/*.md', 'es/*.md', 'de/*.md', 'pt/*.md']).load()
     for (const [key, feed] of Object.entries(feeds)) {
       const posts = pages
         .filter((page) => page.frontmatter.date && pageLang(page.url.replace(/^\//, '')) === key)

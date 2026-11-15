@@ -5,7 +5,7 @@ description: "Connect an AWS account to CloudBridge through Cost Explorer with a
 
 # AWS
 
-**[中文](zh/aws.md)**&emsp;**[日本語](ja/aws.md)**&emsp;**[한국어](ko/aws.md)**&emsp;**[Français](fr/aws.md)**&emsp;[Docs](index.md)
+**[中文](zh/aws.md)**&emsp;**[日本語](ja/aws.md)**&emsp;**[한국어](ko/aws.md)**&emsp;**[Français](fr/aws.md)**&emsp;**[Español](es/aws.md)**&emsp;**[Deutsch](de/aws.md)**&emsp;**[Português](pt/aws.md)**&emsp;[Docs](index.md)
 
 An AWS account reaches the ledger one of two ways. **Cost Explorer** is the
 quick one: an access key and a one-action policy, and the bill arrives as

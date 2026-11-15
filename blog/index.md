@@ -7,8 +7,9 @@ description: "Release notes, design decisions and field notes from CloudBridge, 
 # Blog
 
 What shipped in each release, why CloudBridge is built the way it is, and
-what we learn from the bills that go wrong. Posts are also translated into
-Chinese, Japanese, Korean and French: [中文](./zh/index.md),
-[日本語](./ja/index.md), [한국어](./ko/index.md), [Français](./fr/index.md).
+what we learn from the bills that go wrong. Posts are also available in:
+[中文](./zh/index.md), [日本語](./ja/index.md), [한국어](./ko/index.md),
+[Français](./fr/index.md), [Español](./es/index.md), [Deutsch](./de/index.md),
+[Português](./pt/index.md).
 
 <PostList lang="en" />

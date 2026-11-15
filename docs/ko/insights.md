@@ -5,7 +5,7 @@ description: "CloudBridge 인사이트는 AWS와 Cloudflare의 읽기 전용 스
 
 # 인사이트
 
-**[English](../insights.md)**&emsp;**[中文](../zh/insights.md)**&emsp;**[日本語](../ja/insights.md)**&emsp;**[Français](../fr/insights.md)**&emsp;[문서](index.md)
+**[English](../insights.md)**&emsp;**[中文](../zh/insights.md)**&emsp;**[日本語](../ja/insights.md)**&emsp;**[Français](../fr/insights.md)**&emsp;**[Español](../es/insights.md)**&emsp;**[Deutsch](../de/insights.md)**&emsp;**[Português](../pt/insights.md)**&emsp;[문서](index.md)
 
 인사이트는 청구서를 실제로 돌아가는 것과 비교하고, 살펴볼 만한 항목을 이번 기간 청구서를 기준으로 가격을 매겨 나열합니다.
 

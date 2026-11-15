@@ -5,7 +5,7 @@ description: "CloudBridge’s Models page: what each LLM costs per token, with s
 
 # Models
 
-**[中文](zh/models.md)**&emsp;**[日本語](ja/models.md)**&emsp;**[한국어](ko/models.md)**&emsp;**[Français](fr/models.md)**&emsp;[Docs](index.md)
+**[中文](zh/models.md)**&emsp;**[日本語](ja/models.md)**&emsp;**[한국어](ko/models.md)**&emsp;**[Français](fr/models.md)**&emsp;**[Español](es/models.md)**&emsp;**[Deutsch](de/models.md)**&emsp;**[Português](pt/models.md)**&emsp;[Docs](index.md)
 
 The **Models** page reads the LLM side of the bill per model, over the
 range picked in its header. OpenAI, Anthropic and DeepSeek accounts always

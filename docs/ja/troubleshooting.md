@@ -5,7 +5,7 @@ description: "CloudBridge のよくある問題への対処：Keychain の確認
 
 # トラブルシューティング
 
-**[English](../troubleshooting.md)**&emsp;**[中文](../zh/troubleshooting.md)**&emsp;**[한국어](../ko/troubleshooting.md)**&emsp;**[Français](../fr/troubleshooting.md)**&emsp;[ドキュメント](index.md)
+**[English](../troubleshooting.md)**&emsp;**[中文](../zh/troubleshooting.md)**&emsp;**[한국어](../ko/troubleshooting.md)**&emsp;**[Français](../fr/troubleshooting.md)**&emsp;**[Español](../es/troubleshooting.md)**&emsp;**[Deutsch](../de/troubleshooting.md)**&emsp;**[Português](../pt/troubleshooting.md)**&emsp;[ドキュメント](index.md)
 
 ## macOS が Keychain へのアクセスを求める {#keychain}
 

@@ -5,7 +5,7 @@ description: "CloudBridge의 키보드 단축키: ⌘1–⌘0으로 페이지 �
 
 # 키보드 단축키
 
-**[English](../shortcuts.md)**&emsp;**[中文](../zh/shortcuts.md)**&emsp;**[日本語](../ja/shortcuts.md)**&emsp;**[Français](../fr/shortcuts.md)**&emsp;[문서](index.md)
+**[English](../shortcuts.md)**&emsp;**[中文](../zh/shortcuts.md)**&emsp;**[日本語](../ja/shortcuts.md)**&emsp;**[Français](../fr/shortcuts.md)**&emsp;**[Español](../es/shortcuts.md)**&emsp;**[Deutsch](../de/shortcuts.md)**&emsp;**[Português](../pt/shortcuts.md)**&emsp;[문서](index.md)
 
 macOS에서는 **⌘**, Windows에서는 **Ctrl**을 씁니다. 페이지 단축키는 텍스트 필드에 포커스가 있을 때도 포함해 앱 어디서나 동작합니다.
 

@@ -5,7 +5,7 @@ description: "CloudBridge 查询页：对本地 DuckDB 账单账本执行只读 
 
 # SQL 查询
 
-**[English](../query.md)**&emsp;**[日本語](../ja/query.md)**&emsp;**[한국어](../ko/query.md)**&emsp;**[Français](../fr/query.md)**&emsp;[文档](index.md)
+**[English](../query.md)**&emsp;**[日本語](../ja/query.md)**&emsp;**[한국어](../ko/query.md)**&emsp;**[Français](../fr/query.md)**&emsp;**[Español](../es/query.md)**&emsp;**[Deutsch](../de/query.md)**&emsp;**[Português](../pt/query.md)**&emsp;[文档](index.md)
 
 **Query** 页面对本地 DuckDB 账本执行 SQL。仅限桌面版。
 

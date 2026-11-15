@@ -5,7 +5,7 @@ description: "비용 이상, 잔액 하한, 태그 없는 지출, 예산에 대�
 
 # 알림, 규칙, 예산
 
-**[English](../alerts.md)**&emsp;**[中文](../zh/alerts.md)**&emsp;**[日本語](../ja/alerts.md)**&emsp;**[Français](../fr/alerts.md)**&emsp;[문서](index.md)
+**[English](../alerts.md)**&emsp;**[中文](../zh/alerts.md)**&emsp;**[日本語](../ja/alerts.md)**&emsp;**[Français](../fr/alerts.md)**&emsp;**[Español](../es/alerts.md)**&emsp;**[Deutsch](../de/alerts.md)**&emsp;**[Português](../pt/alerts.md)**&emsp;[문서](index.md)
 
 규칙은 앱을 열 때와 매 새로 고침 후에 장부에 대해 평가됩니다. CloudBridge가 실행되는 동안 새로 고침 간격이 지난 계정을 가져오는 [백그라운드 새로 고침](background.md)도 포함되며, macOS와 Windows에서는 창을 닫아도 마찬가지입니다. 새 알림은 각각 시스템 알림을 띄웁니다. 알림 페이지를 열면 열려 있는 알림이 해소되었는지 다시 확인합니다.
 

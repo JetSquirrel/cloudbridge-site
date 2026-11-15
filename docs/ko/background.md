@@ -5,7 +5,7 @@ description: "창을 닫아도 CloudBridge가 계속 지켜보게 합니다: 메
 
 # 메뉴 막대와 백그라운드
 
-**[English](../background.md)**&emsp;**[中文](../zh/background.md)**&emsp;**[日本語](../ja/background.md)**&emsp;**[Français](../fr/background.md)**&emsp;[문서](index.md)
+**[English](../background.md)**&emsp;**[中文](../zh/background.md)**&emsp;**[日本語](../ja/background.md)**&emsp;**[Français](../fr/background.md)**&emsp;**[Español](../es/background.md)**&emsp;**[Deutsch](../de/background.md)**&emsp;**[Português](../pt/background.md)**&emsp;[문서](index.md)
 
 비용 알림은 돈이 아직 나가고 있을 때만 의미가 있습니다. 그래서 CloudBridge는 창을 닫은 뒤에도 계속 실행되고, 일정에 따라 새로 고침하며, 무언가 발동하면 알려 줍니다.
 

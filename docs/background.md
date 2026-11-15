@@ -5,7 +5,7 @@ description: "Keep CloudBridge watching with its window closed: spend in the men
 
 # Menu bar and background
 
-**[中文](zh/background.md)**&emsp;**[日本語](ja/background.md)**&emsp;**[한국어](ko/background.md)**&emsp;**[Français](fr/background.md)**&emsp;[Docs](index.md)
+**[中文](zh/background.md)**&emsp;**[日本語](ja/background.md)**&emsp;**[한국어](ko/background.md)**&emsp;**[Français](fr/background.md)**&emsp;**[Español](es/background.md)**&emsp;**[Deutsch](de/background.md)**&emsp;**[Português](pt/background.md)**&emsp;[Docs](index.md)
 
 A cost alert is worth something only while the money is still being spent.
 So CloudBridge keeps running after its window closes, refreshes on a

@@ -5,7 +5,7 @@ description: "Connectez un compte AWS à CloudBridge via Cost Explorer avec une 
 
 # AWS
 
-**[English](../aws.md)**&emsp;**[中文](../zh/aws.md)**&emsp;**[日本語](../ja/aws.md)**&emsp;**[한국어](../ko/aws.md)**&emsp;[Documentation](index.md)
+**[English](../aws.md)**&emsp;**[中文](../zh/aws.md)**&emsp;**[日本語](../ja/aws.md)**&emsp;**[한국어](../ko/aws.md)**&emsp;**[Español](../es/aws.md)**&emsp;**[Deutsch](../de/aws.md)**&emsp;**[Português](../pt/aws.md)**&emsp;[Documentation](index.md)
 
 Un compte AWS arrive au registre de deux façons. **Cost Explorer** est la
 plus rapide : une clé d’accès et une politique à une seule action, et la

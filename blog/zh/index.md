@@ -6,7 +6,7 @@ description: "CloudBridge 的中文文章：怎么用好它，以及它为什么
 
 # 博客
 
-怎么用好 CloudBridge，以及从那些出了问题的账单里学到的东西。文章也译成了其他语言：
-[English](../index.md)、[日本語](../ja/index.md)、[한국어](../ko/index.md)、[Français](../fr/index.md)。
+怎么用好 CloudBridge，以及从那些出了问题的账单里学到的东西。其他语言版本：
+[English](../index.md)、[日本語](../ja/index.md)、[한국어](../ko/index.md)、[Français](../fr/index.md)、[Español](../es/index.md)、[Deutsch](../de/index.md)、[Português](../pt/index.md)。
 
 <PostList lang="zh" />

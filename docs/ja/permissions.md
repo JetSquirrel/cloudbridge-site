@@ -5,7 +5,7 @@ description: "CloudBridge が必要とする最小権限の認証情報：AWS Co
 
 # プロバイダーの権限
 
-**[English](../permissions.md)**&emsp;**[中文](../zh/permissions.md)**&emsp;**[한국어](../ko/permissions.md)**&emsp;**[Français](../fr/permissions.md)**&emsp;[ドキュメント](index.md)
+**[English](../permissions.md)**&emsp;**[中文](../zh/permissions.md)**&emsp;**[한국어](../ko/permissions.md)**&emsp;**[Français](../fr/permissions.md)**&emsp;**[Español](../es/permissions.md)**&emsp;**[Deutsch](../de/permissions.md)**&emsp;**[Português](../pt/permissions.md)**&emsp;[ドキュメント](index.md)
 
 その経路に必要な最小限の権限だけを持つ専用の認証情報を使ってください。
 アプリ内での動作が読み取り専用であっても、無制限のキーが読み取り専用になる

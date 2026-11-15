@@ -5,7 +5,7 @@ description: "CloudBridge 存了什么、存在哪里——DuckDB 账本、账�
 
 # 设置、数据与安全
 
-**[English](../settings-and-data.md)**&emsp;**[日本語](../ja/settings-and-data.md)**&emsp;**[한국어](../ko/settings-and-data.md)**&emsp;**[Français](../fr/settings-and-data.md)**&emsp;[文档](index.md)
+**[English](../settings-and-data.md)**&emsp;**[日本語](../ja/settings-and-data.md)**&emsp;**[한국어](../ko/settings-and-data.md)**&emsp;**[Français](../fr/settings-and-data.md)**&emsp;**[Español](../es/settings-and-data.md)**&emsp;**[Deutsch](../de/settings-and-data.md)**&emsp;**[Português](../pt/settings-and-data.md)**&emsp;[文档](index.md)
 
 ## 设置 {#settings}
 

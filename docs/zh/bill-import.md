@@ -5,7 +5,7 @@ description: "把阿里云、火山引擎、OpenAI、Anthropic 和 DeepSeek 的�
 
 # 导入账单文件
 
-**[English](../bill-import.md)**&emsp;**[日本語](../ja/bill-import.md)**&emsp;**[한국어](../ko/bill-import.md)**&emsp;**[Français](../fr/bill-import.md)**&emsp;[文档](index.md)
+**[English](../bill-import.md)**&emsp;**[日本語](../ja/bill-import.md)**&emsp;**[한국어](../ko/bill-import.md)**&emsp;**[Français](../fr/bill-import.md)**&emsp;**[Español](../es/bill-import.md)**&emsp;**[Deutsch](../de/bill-import.md)**&emsp;**[Português](../pt/bill-import.md)**&emsp;[文档](index.md)
 
 从云平台控制台下载的账单文件，会解析成和 API 拉取完全相同的账本记录。在后续环节——
 总额、图表、告警、成本归属——导入的月份和拉取的月份没有任何区别。而且导入往往更细：

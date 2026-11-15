@@ -5,7 +5,7 @@ description: "How CloudBridge records AI model token usage in FOCUS 1.5's terms:
 
 # FOCUS and token data
 
-**[中文](zh/focus.md)**&emsp;**[日本語](ja/focus.md)**&emsp;**[한국어](ko/focus.md)**&emsp;**[Français](fr/focus.md)**&emsp;[Docs](index.md)
+**[中文](zh/focus.md)**&emsp;**[日本語](ja/focus.md)**&emsp;**[한국어](ko/focus.md)**&emsp;**[Français](fr/focus.md)**&emsp;**[Español](es/focus.md)**&emsp;**[Deutsch](de/focus.md)**&emsp;**[Português](pt/focus.md)**&emsp;[Docs](index.md)
 
 CloudBridge's ledger is named after [FOCUS](https://focus.finops.org/), the
 FinOps Foundation's open specification for cost and usage data. FOCUS 1.5

@@ -5,7 +5,7 @@ description: "Gardez CloudBridge en surveillance fenêtre fermée : dépense da
 
 # Barre des menus et arrière-plan
 
-**[English](../background.md)**&emsp;**[中文](../zh/background.md)**&emsp;**[日本語](../ja/background.md)**&emsp;**[한국어](../ko/background.md)**&emsp;[Documentation](index.md)
+**[English](../background.md)**&emsp;**[中文](../zh/background.md)**&emsp;**[日本語](../ja/background.md)**&emsp;**[한국어](../ko/background.md)**&emsp;**[Español](../es/background.md)**&emsp;**[Deutsch](../de/background.md)**&emsp;**[Português](../pt/background.md)**&emsp;[Documentation](index.md)
 
 Une alerte de coût ne vaut que tant que l’argent est encore dépensé. C’est
 pourquoi CloudBridge continue de tourner après la fermeture de sa fenêtre,

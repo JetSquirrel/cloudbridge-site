@@ -5,7 +5,7 @@ description: "Connectez Cloudflare à CloudBridge avec un jeton d’API : usage
 
 # Cloudflare
 
-**[English](../cloudflare.md)**&emsp;**[中文](../zh/cloudflare.md)**&emsp;**[日本語](../ja/cloudflare.md)**&emsp;**[한국어](../ko/cloudflare.md)**&emsp;[Documentation](index.md)
+**[English](../cloudflare.md)**&emsp;**[中文](../zh/cloudflare.md)**&emsp;**[日本語](../ja/cloudflare.md)**&emsp;**[한국어](../ko/cloudflare.md)**&emsp;**[Español](../es/cloudflare.md)**&emsp;**[Deutsch](../de/cloudflare.md)**&emsp;**[Português](../pt/cloudflare.md)**&emsp;[Documentation](index.md)
 
 CloudBridge lit l’usage facturable de Cloudflare : la dépense par service,
 **par jour**. C’est tout l’intérêt. Un Worker ou un Durable Object qui se met

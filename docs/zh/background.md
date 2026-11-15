@@ -5,7 +5,7 @@ description: "关掉窗口后让 CloudBridge 继续盯着花费：状态栏图�
 
 # 状态栏与后台运行
 
-**[English](../background.md)**&emsp;**[日本語](../ja/background.md)**&emsp;**[한국어](../ko/background.md)**&emsp;**[Français](../fr/background.md)**&emsp;[文档](index.md)
+**[English](../background.md)**&emsp;**[日本語](../ja/background.md)**&emsp;**[한국어](../ko/background.md)**&emsp;**[Français](../fr/background.md)**&emsp;**[Español](../es/background.md)**&emsp;**[Deutsch](../de/background.md)**&emsp;**[Português](../pt/background.md)**&emsp;[文档](index.md)
 
 费用告警只有在钱还在被花的时候才有价值。所以 CloudBridge 在关掉窗口后会继续运行，
 按计划刷新，有告警触发时通知你。

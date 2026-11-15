@@ -5,7 +5,7 @@ description: "CloudBridge 청구서 대사는 각 공급자의 최종 청구서�
 
 # 청구서 대사
 
-**[English](../reconciliation.md)**&emsp;**[中文](../zh/reconciliation.md)**&emsp;**[日本語](../ja/reconciliation.md)**&emsp;**[Français](../fr/reconciliation.md)**&emsp;[문서](index.md)
+**[English](../reconciliation.md)**&emsp;**[中文](../zh/reconciliation.md)**&emsp;**[日本語](../ja/reconciliation.md)**&emsp;**[Français](../fr/reconciliation.md)**&emsp;**[Español](../es/reconciliation.md)**&emsp;**[Deutsch](../de/reconciliation.md)**&emsp;**[Português](../pt/reconciliation.md)**&emsp;[문서](index.md)
 
 **Reconciliation** 페이지는 한 가지 질문에 답합니다: 각 공급자의 최종
 청구서가 CloudBridge가 가져온 것과 일치합니까? CloudBridge 0.9.0 이상이

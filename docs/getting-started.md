@@ -5,7 +5,7 @@ description: "Install CloudBridge on macOS or Windows, look around with the demo
 
 # Getting started
 
-**[中文](zh/getting-started.md)**&emsp;**[日本語](ja/getting-started.md)**&emsp;**[한국어](ko/getting-started.md)**&emsp;**[Français](fr/getting-started.md)**&emsp;[Docs](index.md)
+**[中文](zh/getting-started.md)**&emsp;**[日本語](ja/getting-started.md)**&emsp;**[한국어](ko/getting-started.md)**&emsp;**[Français](fr/getting-started.md)**&emsp;**[Español](es/getting-started.md)**&emsp;**[Deutsch](de/getting-started.md)**&emsp;**[Português](pt/getting-started.md)**&emsp;[Docs](index.md)
 
 CloudBridge reads your cloud and model-provider bills into one ledger on
 your machine — from a billing API, or from the export you downloaded — and

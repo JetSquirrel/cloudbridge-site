@@ -5,7 +5,7 @@ description: "CloudBridge Reconciliation compares each provider's final invoice 
 
 # Reconciliation
 
-**[中文](zh/reconciliation.md)**&emsp;**[日本語](ja/reconciliation.md)**&emsp;**[한국어](ko/reconciliation.md)**&emsp;**[Français](fr/reconciliation.md)**&emsp;[Docs](index.md)
+**[中文](zh/reconciliation.md)**&emsp;**[日本語](ja/reconciliation.md)**&emsp;**[한국어](ko/reconciliation.md)**&emsp;**[Français](fr/reconciliation.md)**&emsp;**[Español](es/reconciliation.md)**&emsp;**[Deutsch](de/reconciliation.md)**&emsp;**[Português](pt/reconciliation.md)**&emsp;[Docs](index.md)
 
 The **Reconciliation** page answers one question: does each provider's final
 invoice match what CloudBridge imported? It needs CloudBridge 0.9.0 or later.

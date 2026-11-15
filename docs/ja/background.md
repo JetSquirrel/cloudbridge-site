@@ -5,7 +5,7 @@ description: "ウィンドウを閉じたまま CloudBridge に見張らせ続�
 
 # メニューバーとバックグラウンド
 
-**[English](../background.md)**&emsp;**[中文](../zh/background.md)**&emsp;**[한국어](../ko/background.md)**&emsp;**[Français](../fr/background.md)**&emsp;[ドキュメント](index.md)
+**[English](../background.md)**&emsp;**[中文](../zh/background.md)**&emsp;**[한국어](../ko/background.md)**&emsp;**[Français](../fr/background.md)**&emsp;**[Español](../es/background.md)**&emsp;**[Deutsch](../de/background.md)**&emsp;**[Português](../pt/background.md)**&emsp;[ドキュメント](index.md)
 
 コストのアラートは、まだお金が使われている間だけ価値があります。だから
 CloudBridge はウィンドウを閉じた後も動き続け、スケジュールで更新し、何かが

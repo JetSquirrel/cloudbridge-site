@@ -5,7 +5,7 @@ description: "macOS 또는 Windows에 CloudBridge를 설치하고, 데모 청구
 
 # 시작하기
 
-**[English](../getting-started.md)**&emsp;**[中文](../zh/getting-started.md)**&emsp;**[日本語](../ja/getting-started.md)**&emsp;**[Français](../fr/getting-started.md)**&emsp;[문서](index.md)
+**[English](../getting-started.md)**&emsp;**[中文](../zh/getting-started.md)**&emsp;**[日本語](../ja/getting-started.md)**&emsp;**[Français](../fr/getting-started.md)**&emsp;**[Español](../es/getting-started.md)**&emsp;**[Deutsch](../de/getting-started.md)**&emsp;**[Português](../pt/getting-started.md)**&emsp;[문서](index.md)
 
 CloudBridge는 클라우드와 모델 공급자의 청구서를 청구 API에서든 직접 내려받은 내보내기에서든 여러분의 컴퓨터에 있는 하나의 장부로 읽어 들이고 추세를 그립니다. 가입도, 동기화도, 텔레메트리도 없습니다. 이 페이지는 다운로드에서 첫 청구서까지 안내합니다.
 

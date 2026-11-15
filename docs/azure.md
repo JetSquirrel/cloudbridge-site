@@ -5,7 +5,7 @@ description: "Connect a Microsoft Azure subscription to CloudBridge with a servi
 
 # Microsoft Azure
 
-**[中文](zh/azure.md)**&emsp;**[日本語](ja/azure.md)**&emsp;**[한국어](ko/azure.md)**&emsp;**[Français](fr/azure.md)**&emsp;[Docs](index.md)
+**[中文](zh/azure.md)**&emsp;**[日本語](ja/azure.md)**&emsp;**[한국어](ko/azure.md)**&emsp;**[Français](fr/azure.md)**&emsp;**[Español](es/azure.md)**&emsp;**[Deutsch](de/azure.md)**&emsp;**[Português](pt/azure.md)**&emsp;[Docs](index.md)
 
 CloudBridge reads a subscription's **actual cost** from Azure Cost
 Management: what each service cost **per day**, split by charge type. A

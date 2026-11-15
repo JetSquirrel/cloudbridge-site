@@ -5,7 +5,7 @@ description: "把阿里云接入 CloudBridge：用只读的 RAM 用户调用账�
 
 # 阿里云
 
-**[English](../alibaba-cloud.md)**&emsp;**[日本語](../ja/alibaba-cloud.md)**&emsp;**[한국어](../ko/alibaba-cloud.md)**&emsp;**[Français](../fr/alibaba-cloud.md)**&emsp;[文档](index.md)
+**[English](../alibaba-cloud.md)**&emsp;**[日本語](../ja/alibaba-cloud.md)**&emsp;**[한국어](../ko/alibaba-cloud.md)**&emsp;**[Français](../fr/alibaba-cloud.md)**&emsp;**[Español](../es/alibaba-cloud.md)**&emsp;**[Deutsch](../de/alibaba-cloud.md)**&emsp;**[Português](../pt/alibaba-cloud.md)**&emsp;[文档](index.md)
 
 阿里云两种方式都支持。**账单 API** 提供每个产品当月的总额；**账单明细导出**提供
 实例级的明细行，包括按模型拆分、带 token 数量的百炼（Model Studio）费用。想让账号
