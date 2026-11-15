@@ -5,7 +5,7 @@ description: "Le rapprochement CloudBridge compare la facture finale de chaque f
 
 # Rapprochement
 
-**[English](../reconciliation.md)**&emsp;**[中文](../zh/reconciliation.md)**&emsp;**[日本語](../ja/reconciliation.md)**&emsp;**[한국어](../ko/reconciliation.md)**&emsp;[Documentation](index.md)
+**[English](../reconciliation.md)**&emsp;**[中文](../zh/reconciliation.md)**&emsp;**[日本語](../ja/reconciliation.md)**&emsp;**[한국어](../ko/reconciliation.md)**&emsp;**[Español](../es/reconciliation.md)**&emsp;**[Deutsch](../de/reconciliation.md)**&emsp;**[Português](../pt/reconciliation.md)**&emsp;[Documentation](index.md)
 
 La page **Reconciliation** répond à une seule question : la facture finale de
 chaque fournisseur correspond-elle à ce que CloudBridge a importé ? Elle

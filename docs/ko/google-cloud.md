@@ -5,7 +5,7 @@ description: "청구 계정의 BigQuery 내보내기로 Google Cloud를 CloudBri
 
 # Google Cloud
 
-**[English](../google-cloud.md)**&emsp;**[中文](../zh/google-cloud.md)**&emsp;**[日本語](../ja/google-cloud.md)**&emsp;**[Français](../fr/google-cloud.md)**&emsp;[문서](index.md)
+**[English](../google-cloud.md)**&emsp;**[中文](../zh/google-cloud.md)**&emsp;**[日本語](../ja/google-cloud.md)**&emsp;**[Français](../fr/google-cloud.md)**&emsp;**[Español](../es/google-cloud.md)**&emsp;**[Deutsch](../de/google-cloud.md)**&emsp;**[Português](../pt/google-cloud.md)**&emsp;[문서](index.md)
 
 Google Cloud에는 "이번 달에 얼마 나왔나"에 답하는 API가 없습니다. 청구서는 청구 계정이 BigQuery 데이터셋에 쓰는 내보내기이므로, CloudBridge는 그것을 읽습니다: 달마다 쿼리 한 번으로 서비스, SKU, 프로젝트, 리전별 **일별** 비용을 냅니다. 크레딧 — 무료 등급, 약정 사용, 프로모션 — 은 별도 행으로 돌아오므로 사용량은 크레딧 전 비용 그대로 남습니다.
 

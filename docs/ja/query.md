@@ -5,7 +5,7 @@ description: "CloudBridge のクエリページ：ローカルの DuckDB 請求�
 
 # クエリ
 
-**[English](../query.md)**&emsp;**[中文](../zh/query.md)**&emsp;**[한국어](../ko/query.md)**&emsp;**[Français](../fr/query.md)**&emsp;[ドキュメント](index.md)
+**[English](../query.md)**&emsp;**[中文](../zh/query.md)**&emsp;**[한국어](../ko/query.md)**&emsp;**[Français](../fr/query.md)**&emsp;**[Español](../es/query.md)**&emsp;**[Deutsch](../de/query.md)**&emsp;**[Português](../pt/query.md)**&emsp;[ドキュメント](index.md)
 
 クエリページは、ローカルの DuckDB 台帳に対して SQL を実行します。
 デスクトップ版のみです。

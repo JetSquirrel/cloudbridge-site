@@ -5,7 +5,7 @@ description: "AWS アカウントを CloudBridge につなぐには、1 つの�
 
 # AWS
 
-**[English](../aws.md)**&emsp;**[中文](../zh/aws.md)**&emsp;**[한국어](../ko/aws.md)**&emsp;**[Français](../fr/aws.md)**&emsp;[ドキュメント](index.md)
+**[English](../aws.md)**&emsp;**[中文](../zh/aws.md)**&emsp;**[한국어](../ko/aws.md)**&emsp;**[Français](../fr/aws.md)**&emsp;**[Español](../es/aws.md)**&emsp;**[Deutsch](../de/aws.md)**&emsp;**[Português](../pt/aws.md)**&emsp;[ドキュメント](index.md)
 
 AWS アカウントが台帳に入る方法は 2 つあります。**Cost Explorer** は手軽な
 ほうです。アクセスキーと 1 つのアクションだけのポリシーで、請求はサービス

@@ -5,7 +5,7 @@ description: "CloudBridge 쿼리 페이지: 로컬 DuckDB 청구 장부에 대�
 
 # 쿼리
 
-**[English](../query.md)**&emsp;**[中文](../zh/query.md)**&emsp;**[日本語](../ja/query.md)**&emsp;**[Français](../fr/query.md)**&emsp;[문서](index.md)
+**[English](../query.md)**&emsp;**[中文](../zh/query.md)**&emsp;**[日本語](../ja/query.md)**&emsp;**[Français](../fr/query.md)**&emsp;**[Español](../es/query.md)**&emsp;**[Deutsch](../de/query.md)**&emsp;**[Português](../pt/query.md)**&emsp;[문서](index.md)
 
 **Query** 페이지는 로컬 DuckDB 장부에 SQL을 실행합니다. 데스크톱 전용입니다.
 

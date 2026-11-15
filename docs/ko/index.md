@@ -39,7 +39,7 @@ features:
     linkText: 메뉴 막대와 백그라운드
 ---
 
-<p align="center"><a href="../">English</a>&emsp;<a href="../zh/">中文</a>&emsp;<a href="../ja/">日本語</a>&emsp;<a href="../fr/">Français</a>&emsp;<a href="https://cloudbridge.jetsquirrel.cloud/ko/">cloudbridge.jetsquirrel.cloud</a>&emsp;<a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a></p>
+<p align="center"><a href="../">English</a>&emsp;<a href="../zh/">中文</a>&emsp;<a href="../ja/">日本語</a>&emsp;<a href="../fr/">Français</a>&emsp;<a href="../es/">Español</a>&emsp;<a href="../de/">Deutsch</a>&emsp;<a href="../pt/">Português</a>&emsp;<a href="https://cloudbridge.jetsquirrel.cloud/ko/">cloudbridge.jetsquirrel.cloud</a>&emsp;<a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a></p>
 
 ## 길 찾기
 

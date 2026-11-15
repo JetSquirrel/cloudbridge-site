@@ -5,7 +5,7 @@ description: "CloudBridge 账单核对：按发票币种比较各服务商的最
 
 # 账单核对
 
-**[English](../reconciliation.md)**&emsp;**[日本語](../ja/reconciliation.md)**&emsp;**[한국어](../ko/reconciliation.md)**&emsp;**[Français](../fr/reconciliation.md)**&emsp;[文档](index.md)
+**[English](../reconciliation.md)**&emsp;**[日本語](../ja/reconciliation.md)**&emsp;**[한국어](../ko/reconciliation.md)**&emsp;**[Français](../fr/reconciliation.md)**&emsp;**[Español](../es/reconciliation.md)**&emsp;**[Deutsch](../de/reconciliation.md)**&emsp;**[Português](../pt/reconciliation.md)**&emsp;[文档](index.md)
 
 **账单核对** 页面回答一个问题：各服务商的最终发票与 CloudBridge 导入的数据是否一致？
 需要 CloudBridge 0.9.0 或更高版本。

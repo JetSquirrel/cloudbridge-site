@@ -5,7 +5,7 @@ description: "CloudBridge 键盘快捷键：用 ⌘1–⌘0（Windows 上为 Ctr
 
 # 键盘快捷键
 
-**[English](../shortcuts.md)**&emsp;**[日本語](../ja/shortcuts.md)**&emsp;**[한국어](../ko/shortcuts.md)**&emsp;**[Français](../fr/shortcuts.md)**&emsp;[文档](index.md)
+**[English](../shortcuts.md)**&emsp;**[日本語](../ja/shortcuts.md)**&emsp;**[한국어](../ko/shortcuts.md)**&emsp;**[Français](../fr/shortcuts.md)**&emsp;**[Español](../es/shortcuts.md)**&emsp;**[Deutsch](../de/shortcuts.md)**&emsp;**[Português](../pt/shortcuts.md)**&emsp;[文档](index.md)
 
 macOS 上用 **⌘**，Windows 上用 **Ctrl**。页面快捷键在应用的任何地方都能用，包括文本框
 处于焦点时。

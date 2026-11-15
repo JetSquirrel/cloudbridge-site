@@ -5,7 +5,7 @@ description: "macOS または Windows に CloudBridge をインストールし�
 
 # はじめに
 
-**[English](../getting-started.md)**&emsp;**[中文](../zh/getting-started.md)**&emsp;**[한국어](../ko/getting-started.md)**&emsp;**[Français](../fr/getting-started.md)**&emsp;[ドキュメント](index.md)
+**[English](../getting-started.md)**&emsp;**[中文](../zh/getting-started.md)**&emsp;**[한국어](../ko/getting-started.md)**&emsp;**[Français](../fr/getting-started.md)**&emsp;**[Español](../es/getting-started.md)**&emsp;**[Deutsch](../de/getting-started.md)**&emsp;**[Português](../pt/getting-started.md)**&emsp;[ドキュメント](index.md)
 
 CloudBridge は、クラウドとモデルプロバイダーの請求を、お使いのマシン上の
 1 つの台帳に読み込みます。請求 API からでも、ダウンロードしたエクスポート

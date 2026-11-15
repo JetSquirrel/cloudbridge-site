@@ -5,7 +5,7 @@ description: "Imputation dans CloudBridge : un Sankey de la source au service o
 
 # Imputation
 
-**[English](../attribution.md)**&emsp;**[中文](../zh/attribution.md)**&emsp;**[日本語](../ja/attribution.md)**&emsp;**[한국어](../ko/attribution.md)**&emsp;[Documentation](index.md)
+**[English](../attribution.md)**&emsp;**[中文](../zh/attribution.md)**&emsp;**[日本語](../ja/attribution.md)**&emsp;**[한국어](../ko/attribution.md)**&emsp;**[Español](../es/attribution.md)**&emsp;**[Deutsch](../de/attribution.md)**&emsp;**[Português](../pt/attribution.md)**&emsp;[Documentation](index.md)
 
 La page Imputation dessine le mois sous forme de Sankey : source, puis
 service ou modèle, puis ligne métier, avec un nœud **Unallocated** explicite.

@@ -5,7 +5,7 @@ description: "CloudBridge のコスト配賦：ソースからサービスまた
 
 # コスト配賦
 
-**[English](../attribution.md)**&emsp;**[中文](../zh/attribution.md)**&emsp;**[한국어](../ko/attribution.md)**&emsp;**[Français](../fr/attribution.md)**&emsp;[ドキュメント](index.md)
+**[English](../attribution.md)**&emsp;**[中文](../zh/attribution.md)**&emsp;**[한국어](../ko/attribution.md)**&emsp;**[Français](../fr/attribution.md)**&emsp;**[Español](../es/attribution.md)**&emsp;**[Deutsch](../de/attribution.md)**&emsp;**[Português](../pt/attribution.md)**&emsp;[ドキュメント](index.md)
 
 コスト配賦ページは、その月を Sankey として描きます。ソース、次にサービス
 またはモデル、次にビジネスラインで、**Unallocated** ノードも明示されます。

@@ -5,7 +5,7 @@ description: "API トークンで Cloudflare を CloudBridge につなぎます�
 
 # Cloudflare
 
-**[English](../cloudflare.md)**&emsp;**[中文](../zh/cloudflare.md)**&emsp;**[한국어](../ko/cloudflare.md)**&emsp;**[Français](../fr/cloudflare.md)**&emsp;[ドキュメント](index.md)
+**[English](../cloudflare.md)**&emsp;**[中文](../zh/cloudflare.md)**&emsp;**[한국어](../ko/cloudflare.md)**&emsp;**[Français](../fr/cloudflare.md)**&emsp;**[Español](../es/cloudflare.md)**&emsp;**[Deutsch](../de/cloudflare.md)**&emsp;**[Português](../pt/cloudflare.md)**&emsp;[ドキュメント](index.md)
 
 CloudBridge は Cloudflare の課金対象使用量を読みます。サービスごと、
 **日ごと**の支出です。ここが要点です。ループし始めた Worker や Durable Object

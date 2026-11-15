@@ -5,7 +5,7 @@ description: "サービスプリンシパルで Microsoft Azure サブスクリ�
 
 # Microsoft Azure
 
-**[English](../azure.md)**&emsp;**[中文](../zh/azure.md)**&emsp;**[한국어](../ko/azure.md)**&emsp;**[Français](../fr/azure.md)**&emsp;[ドキュメント](index.md)
+**[English](../azure.md)**&emsp;**[中文](../zh/azure.md)**&emsp;**[한국어](../ko/azure.md)**&emsp;**[Français](../fr/azure.md)**&emsp;**[Español](../es/azure.md)**&emsp;**[Deutsch](../de/azure.md)**&emsp;**[Português](../pt/azure.md)**&emsp;[ドキュメント](index.md)
 
 CloudBridge は、サブスクリプションの**実費**を Azure Cost Management から
 読み取ります。各サービスが**日ごと**にいくらかかったかを、課金種類ごとに

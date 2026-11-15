@@ -5,7 +5,7 @@ description: "La page Requête de CloudBridge : du SQL en lecture seule sur le 
 
 # Requête
 
-**[English](../query.md)**&emsp;**[中文](../zh/query.md)**&emsp;**[日本語](../ja/query.md)**&emsp;**[한국어](../ko/query.md)**&emsp;[Documentation](index.md)
+**[English](../query.md)**&emsp;**[中文](../zh/query.md)**&emsp;**[日本語](../ja/query.md)**&emsp;**[한국어](../ko/query.md)**&emsp;**[Español](../es/query.md)**&emsp;**[Deutsch](../de/query.md)**&emsp;**[Português](../pt/query.md)**&emsp;[Documentation](index.md)
 
 La page **Query** exécute du SQL sur le registre DuckDB local. Bureau
 uniquement.

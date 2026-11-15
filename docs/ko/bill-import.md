@@ -5,7 +5,7 @@ description: "Alibaba Cloud, Volcengine, OpenAI, Anthropic, DeepSeek의 청구�
 
 # 청구서 파일 가져오기
 
-**[English](../bill-import.md)**&emsp;**[中文](../zh/bill-import.md)**&emsp;**[日本語](../ja/bill-import.md)**&emsp;**[Français](../fr/bill-import.md)**&emsp;[문서](index.md)
+**[English](../bill-import.md)**&emsp;**[中文](../zh/bill-import.md)**&emsp;**[日本語](../ja/bill-import.md)**&emsp;**[Français](../fr/bill-import.md)**&emsp;**[Español](../es/bill-import.md)**&emsp;**[Deutsch](../de/bill-import.md)**&emsp;**[Português](../pt/bill-import.md)**&emsp;[문서](index.md)
 
 공급자 콘솔에서 내려받은 청구서 내보내기는 가져오기가 만드는 것과 같은 장부 행으로 파싱됩니다. 합계, 차트, 알림, 비용 귀속 같은 하위 단계에서 가져온 달과 새로 고침으로 받은 달은 구별되지 않습니다. 오히려 더 세밀한 경우가 많습니다. Alibaba Cloud의 청구 API는 Model Studio(百炼)를 한 달에 하나의 숫자로 보고하지만, 내보내기는 모델별로 토큰 수와 함께 보고합니다.
 

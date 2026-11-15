@@ -5,7 +5,7 @@ description: "CloudBridge のモデルページ：各 LLM のトークン単価�
 
 # モデル
 
-**[English](../models.md)**&emsp;**[中文](../zh/models.md)**&emsp;**[한국어](../ko/models.md)**&emsp;**[Français](../fr/models.md)**&emsp;[ドキュメント](index.md)
+**[English](../models.md)**&emsp;**[中文](../zh/models.md)**&emsp;**[한국어](../ko/models.md)**&emsp;**[Français](../fr/models.md)**&emsp;**[Español](../es/models.md)**&emsp;**[Deutsch](../de/models.md)**&emsp;**[Português](../pt/models.md)**&emsp;[ドキュメント](index.md)
 
 モデルページは、ヘッダーで選んだ期間について、請求の LLM 側をモデルごとに
 読みます。OpenAI、Anthropic、DeepSeek のアカウントは常に表示されます。他の

@@ -5,7 +5,7 @@ description: "API キーで DeepSeek を CloudBridge につないでプリペイ
 
 # DeepSeek
 
-**[English](../deepseek.md)**&emsp;**[中文](../zh/deepseek.md)**&emsp;**[한국어](../ko/deepseek.md)**&emsp;**[Français](../fr/deepseek.md)**&emsp;[ドキュメント](index.md)
+**[English](../deepseek.md)**&emsp;**[中文](../zh/deepseek.md)**&emsp;**[한국어](../ko/deepseek.md)**&emsp;**[Français](../fr/deepseek.md)**&emsp;**[Español](../es/deepseek.md)**&emsp;**[Deutsch](../de/deepseek.md)**&emsp;**[Português](../pt/deepseek.md)**&emsp;[ドキュメント](index.md)
 
 DeepSeek の API が報告するのは**残高** — 付与分とチャージ分 — であり、支出の
 内訳ではありません。支出の内訳は、コンソールのダウンロードを取り込んで

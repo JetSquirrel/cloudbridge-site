@@ -5,7 +5,7 @@ description: "CloudBridge가 AI 모델 토큰 사용량을 FOCUS 1.5 용어로 �
 
 # FOCUS와 토큰 데이터
 
-**[English](../focus.md)**&emsp;**[中文](../zh/focus.md)**&emsp;**[日本語](../ja/focus.md)**&emsp;**[Français](../fr/focus.md)**&emsp;[문서](index.md)
+**[English](../focus.md)**&emsp;**[中文](../zh/focus.md)**&emsp;**[日本語](../ja/focus.md)**&emsp;**[Français](../fr/focus.md)**&emsp;**[Español](../es/focus.md)**&emsp;**[Deutsch](../de/focus.md)**&emsp;**[Português](../pt/focus.md)**&emsp;[문서](index.md)
 
 CloudBridge의 장부는 FinOps Foundation의 비용·사용량 데이터 공개 사양인 [FOCUS](https://focus.finops.org/)의 이름을 따릅니다. FOCUS 1.5는 AI 모델 API의 청구서를 설명합니다. 토큰 열을 새로 추가하지 않고, FOCUS에 이미 있는 열을 쓰며, CloudBridge도 같은 방식으로 토큰을 기록합니다.
 

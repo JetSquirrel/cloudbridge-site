@@ -5,7 +5,7 @@ description: "읽기 전용 RAM 사용자로 Alibaba Cloud(阿里云)를 CloudBr
 
 # Alibaba Cloud
 
-**[English](../alibaba-cloud.md)**&emsp;**[中文](../zh/alibaba-cloud.md)**&emsp;**[日本語](../ja/alibaba-cloud.md)**&emsp;**[Français](../fr/alibaba-cloud.md)**&emsp;[문서](index.md)
+**[English](../alibaba-cloud.md)**&emsp;**[中文](../zh/alibaba-cloud.md)**&emsp;**[日本語](../ja/alibaba-cloud.md)**&emsp;**[Français](../fr/alibaba-cloud.md)**&emsp;**[Español](../es/alibaba-cloud.md)**&emsp;**[Deutsch](../de/alibaba-cloud.md)**&emsp;**[Português](../pt/alibaba-cloud.md)**&emsp;[문서](index.md)
 
 Alibaba Cloud는 두 경로를 모두 제공합니다. **청구 API**는 제품별 월 합계를 줍니다. **청구 상세 내보내기**는 토큰 수와 함께 Model Studio(百炼)의 모델별 행을 포함한 인스턴스 수준 행을 줍니다. 스스로 최신 상태를 유지하는 계정에는 API를 쓰고, 더 세밀한 내역이 필요할 때는 내보내기를 가져오세요. 가져온 달은 새로 고침으로 덮어쓰지 않습니다.
 

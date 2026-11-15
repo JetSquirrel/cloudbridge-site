@@ -5,7 +5,7 @@ description: "CloudBridge 资源洞察把账单和对 AWS、Cloudflare 的只读
 
 # 资源洞察
 
-**[English](../insights.md)**&emsp;**[日本語](../ja/insights.md)**&emsp;**[한국어](../ko/insights.md)**&emsp;**[Français](../fr/insights.md)**&emsp;[文档](index.md)
+**[English](../insights.md)**&emsp;**[日本語](../ja/insights.md)**&emsp;**[한국어](../ko/insights.md)**&emsp;**[Français](../fr/insights.md)**&emsp;**[Español](../es/insights.md)**&emsp;**[Deutsch](../de/insights.md)**&emsp;**[Português](../pt/insights.md)**&emsp;[文档](index.md)
 
 资源洞察把账单和实际在运行的资源放在一起比对，列出值得看一眼的东西，每一项都按
 本期账单定价。

@@ -5,7 +5,7 @@ description: "Les raccourcis clavier de CloudBridge : changer de page avec ⌘1
 
 # Raccourcis clavier
 
-**[English](../shortcuts.md)**&emsp;**[中文](../zh/shortcuts.md)**&emsp;**[日本語](../ja/shortcuts.md)**&emsp;**[한국어](../ko/shortcuts.md)**&emsp;[Documentation](index.md)
+**[English](../shortcuts.md)**&emsp;**[中文](../zh/shortcuts.md)**&emsp;**[日本語](../ja/shortcuts.md)**&emsp;**[한국어](../ko/shortcuts.md)**&emsp;**[Español](../es/shortcuts.md)**&emsp;**[Deutsch](../de/shortcuts.md)**&emsp;**[Português](../pt/shortcuts.md)**&emsp;[Documentation](index.md)
 
 Utilisez **⌘** sous macOS et **Ctrl** sous Windows. Les raccourcis de page
 fonctionnent partout dans l’application, y compris quand un champ de texte a

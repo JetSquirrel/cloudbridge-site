@@ -5,7 +5,7 @@ description: "API 토큰으로 Cloudflare를 CloudBridge에 연결합니다. 일
 
 # Cloudflare
 
-**[English](../cloudflare.md)**&emsp;**[中文](../zh/cloudflare.md)**&emsp;**[日本語](../ja/cloudflare.md)**&emsp;**[Français](../fr/cloudflare.md)**&emsp;[문서](index.md)
+**[English](../cloudflare.md)**&emsp;**[中文](../zh/cloudflare.md)**&emsp;**[日本語](../ja/cloudflare.md)**&emsp;**[Français](../fr/cloudflare.md)**&emsp;**[Español](../es/cloudflare.md)**&emsp;**[Deutsch](../de/cloudflare.md)**&emsp;**[Português](../pt/cloudflare.md)**&emsp;[문서](index.md)
 
 CloudBridge는 Cloudflare의 과금 사용량을 읽습니다: 서비스별 지출을 **일별로**. 바로 그게 핵심입니다. 루프를 돌기 시작한 Worker나 Durable Object는 월말 청구서가 아니라 다음 날 장부에 나타납니다. 무료 한도 안의 사용량도 비용 0으로 옆에 함께 남습니다. 폭주는 바로 거기서 시작되니까요.
 

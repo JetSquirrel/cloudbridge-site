@@ -5,7 +5,7 @@ description: "Importez dans CloudBridge les exports de facture d’Alibaba Cloud
 
 # Importer un fichier de facture
 
-**[English](../bill-import.md)**&emsp;**[中文](../zh/bill-import.md)**&emsp;**[日本語](../ja/bill-import.md)**&emsp;**[한국어](../ko/bill-import.md)**&emsp;[Documentation](index.md)
+**[English](../bill-import.md)**&emsp;**[中文](../zh/bill-import.md)**&emsp;**[日本語](../ja/bill-import.md)**&emsp;**[한국어](../ko/bill-import.md)**&emsp;**[Español](../es/bill-import.md)**&emsp;**[Deutsch](../de/bill-import.md)**&emsp;**[Português](../pt/bill-import.md)**&emsp;[Documentation](index.md)
 
 Un export de facture téléchargé depuis la console d’un fournisseur se
 décompose en lignes de registre identiques à celles d’une récupération. En aval —

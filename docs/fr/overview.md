@@ -5,7 +5,7 @@ description: "Comment la vue d’ensemble de CloudBridge lit les dépenses : ne
 
 # Vue d’ensemble et comptes
 
-**[English](../overview.md)**&emsp;**[中文](../zh/overview.md)**&emsp;**[日本語](../ja/overview.md)**&emsp;**[한국어](../ko/overview.md)**&emsp;[Documentation](index.md)
+**[English](../overview.md)**&emsp;**[中文](../zh/overview.md)**&emsp;**[日本語](../ja/overview.md)**&emsp;**[한국어](../ko/overview.md)**&emsp;**[Español](../es/overview.md)**&emsp;**[Deutsch](../de/overview.md)**&emsp;**[Português](../pt/overview.md)**&emsp;[Documentation](index.md)
 
 ## La vue d’ensemble {#overview}
 

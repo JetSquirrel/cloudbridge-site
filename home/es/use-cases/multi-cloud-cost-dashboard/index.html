@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de costos multinube para AWS, Azure y Google Cloud | CloudBridge</title>
+<meta name="description" content="Facturas de AWS, Azure, Google Cloud, Alibaba Cloud y Cloudflare en un solo registro local con columnas FOCUS. Una app de escritorio gratis y de código abierto, sin servidor que ejecutar.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/es/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="es" href="https://cloudbridge.jetsquirrel.cloud/es/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="de" href="https://cloudbridge.jetsquirrel.cloud/de/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="pt-BR" href="https://cloudbridge.jetsquirrel.cloud/pt/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/es/use-cases/multi-cloud-cost-dashboard/">
+<meta property="og:title" content="Panel de costos multinube para AWS, Azure y Google Cloud | CloudBridge">
+<meta property="og:description" content="Todas las facturas de nube en un solo registro en tu equipo, con las mismas columnas FOCUS y totales en una moneda. Gratis y de código abierto, sin servidor que ejecutar.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="El Resumen de CloudBridge: gasto del mes hasta la fecha en todas las nubes y proveedores de modelos, un gráfico de gasto diario y las mayores variaciones">
+<meta property="og:locale" content="es_ES">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Panel de costos multinube para AWS, Azure y Google Cloud | CloudBridge">
+<meta name="twitter:description" content="Todas las facturas de nube en un solo registro en tu equipo, con las mismas columnas FOCUS y totales en una moneda. Gratis y de código abierto, sin servidor que ejecutar.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="Blog de CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/es/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/es/use-cases/multi-cloud-cost-dashboard/",
+      "name": "Panel de costos multinube para AWS, Azure y Google Cloud",
+      "description": "Facturas de AWS, Azure, Google Cloud, Alibaba Cloud y Cloudflare en un solo registro local con columnas FOCUS. Una app de escritorio gratis y de código abierto, sin servidor que ejecutar.",
+      "inLanguage": "es",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/es/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/es/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/es/" },
+        { "@type": "ListItem", "position": 2, "name": "Panel de costos multinube", "item": "https://cloudbridge.jetsquirrel.cloud/es/use-cases/multi-cloud-cost-dashboard/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "es",
+      "mainEntity": [
+        { "@type": "Question", "name": "¿Tengo que desplegar un servidor para ver juntos todos mis costos de nube?", "acceptedAnswer": { "@type": "Answer", "text": "No. CloudBridge es una app de escritorio para macOS y Windows. Lee cada proveedor con una credencial de solo lectura y guarda las facturas en un archivo DuckDB en tu disco. No hay ningún servidor, base de datos ni cuenta que configurar." } },
+        { "@type": "Question", "name": "¿Qué nubes lee CloudBridge?", "acceptedAnswer": { "@type": "Answer", "text": "AWS, Microsoft Azure, Google Cloud, Alibaba Cloud y Cloudflare a través de sus API de facturación o exportaciones, y Volcengine a través de su exportación de facturas. Las facturas de proveedores de modelos de OpenAI, Anthropic y DeepSeek llegan al mismo registro." } },
+        { "@type": "Question", "name": "¿Cómo suma facturas en monedas distintas?", "acceptedAnswer": { "@type": "Answer", "text": "Los totales se muestran en una sola moneda de informe. Cada cargo conserva su moneda original junto al importe convertido, y un cargo sin tipo de cambio se indica que queda fuera en lugar de suponerlo." } },
+        { "@type": "Question", "name": "¿Qué es FOCUS y por qué importa aquí?", "acceptedAnswer": { "@type": "Answer", "text": "FOCUS es la especificación abierta de la FinOps Foundation para datos de facturación. CloudBridge nombra sus columnas según ella, así que una instancia ECS de Alibaba Cloud y una instancia EC2 de AWS cuentan como Compute y una sola consulta SQL cubre todos los proveedores. El registro también se puede exportar como CSV FOCUS." } },
+        { "@type": "Question", "name": "¿Es CloudBridge una plataforma FinOps para todo un equipo?", "acceptedAnswer": { "@type": "Answer", "text": "No. Es un registro en el equipo de una sola persona, sin sincronización y sin servidor compartido. Si una organización necesita paneles compartidos y roles, encaja mejor un servidor FinOps; el artículo CloudBridge vs OptScale compara los dos." } },
+        { "@type": "Question", "name": "¿Leer las facturas cuesta algo?", "acceptedAnswer": { "@type": "Answer", "text": "Solo donde el proveedor lo cobra: las solicitudes de AWS Cost Explorer y las lecturas de S3, y las consultas de BigQuery de Google Cloud que superan el nivel gratuito mensual. CloudBridge contacta con cada proveedor como máximo una vez por intervalo de actualización, 24 horas de forma predeterminada." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/es/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Sitio">
+        <a href="/docs/es/">Documentación</a>
+        <a class="optional" href="/blog/es/">Blog</a>
+        <a class="optional" href="/demo/">Demo</a>
+        <details class="lang">
+          <summary aria-label="Idioma">Español</summary>
+          <ul>
+            <li><a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/multi-cloud-cost-dashboard/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/multi-cloud-cost-dashboard/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/multi-cloud-cost-dashboard/" hreflang="fr" lang="fr">Français</a></li>
+            <li><a href="/es/use-cases/multi-cloud-cost-dashboard/" hreflang="es" lang="es" aria-current="true">Español</a></li>
+            <li><a href="/de/use-cases/multi-cloud-cost-dashboard/" hreflang="de" lang="de">Deutsch</a></li>
+            <li><a href="/pt/use-cases/multi-cloud-cost-dashboard/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Descargar</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Ruta de navegación"><a href="/es/">Inicio</a><span aria-hidden="true">›</span><span>Panel de costos multinube</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">AWS, Azure, Google Cloud, Alibaba Cloud y Cloudflare, uno al lado del otro</p>
+      <h1>Un solo registro para todas tus facturas de nube</h1>
+      <p class="lede">CloudBridge lee cada día la factura de cada nube en una sola base de datos en tu equipo, con las mismas columnas y una moneda de informe, para que veas el mes de todas ellas sin ejecutar un servidor.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Descargar CloudBridge</a>
+        <a class="button button-ghost" href="/demo/">Probar la demo</a>
+      </div>
+      <p class="fineprint">Gratis y de código abierto para macOS y Windows. Sin cuenta, sin sincronización y sin telemetría.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Fuentes</p>
+      <h2>Cómo se conecta cada nube</h2>
+      <p class="intro">Cada conexión usa una credencial de solo lectura limitada a la facturación, guardada en el llavero de tu sistema.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Nube</th><th>Cómo</th><th>Qué obtienes</th></tr></thead>
+          <tbody>
+            <tr><td><a href="/docs/es/aws">AWS</a></td><td>Cost Explorer con una política IAM de una sola acción, o una exportación de datos FOCUS en S3</td><td>Costo por servicio y por día; IDs de recursos y etiquetas con la exportación</td></tr>
+            <tr><td><a href="/docs/es/azure">Microsoft Azure</a></td><td>Una entidad de servicio con Cost Management Reader</td><td>Costo real por día, por servicio y tipo de cargo</td></tr>
+            <tr><td><a href="/docs/es/google-cloud">Google Cloud</a></td><td>Una cuenta de servicio que lee la exportación de facturación de BigQuery</td><td>Costo diario por servicio, SKU, proyecto y región, con los créditos como filas propias</td></tr>
+            <tr><td><a href="/docs/es/alibaba-cloud">Alibaba Cloud</a></td><td>Un usuario RAM de solo lectura o la exportación de detalles de factura</td><td>El total de cada producto desde la API; filas a nivel de instancia desde la exportación</td></tr>
+            <tr><td><a href="/docs/es/cloudflare">Cloudflare</a></td><td>Un token de API con Facturación: Lectura</td><td>Uso facturable diario, dividido por Worker, bucket y Durable Object</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/es/permissions">Permisos de mínimo privilegio para cada proveedor →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">Un solo formato</p>
+          <h2>Todas las facturas en las mismas columnas</h2>
+          <p>Las facturas se guardan con nombres de columna del estándar FOCUS de FinOps, sin importar cómo lleguen. Una instancia ECS de Alibaba Cloud y una instancia EC2 de AWS cuentan como Compute, y una sola consulta SQL cubre todos los proveedores.</p>
+          <p><a href="/docs/es/query">Consulta</a>&emsp;<a href="/docs/es/focus">FOCUS y datos de tokens</a></p>
+        </div>
+        <ul class="promise">
+          <li>Columnas como <code>billed_cost</code>, <code>effective_cost</code>, <code>service_category</code> y <code>region_id</code> significan lo mismo para todas las fuentes.</li>
+          <li>Los totales están en una sola moneda de informe; cada cargo conserva su moneda original junto al importe convertido.</li>
+          <li>Los créditos, reembolsos y compras puntuales se mantienen como lo que son, sin sumarse al uso.</li>
+          <li>El registro es un archivo DuckDB que puedes consultar con SQL de solo lectura o exportar como CSV FOCUS.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Lee la factura</p>
+          <h2>Quién lo gastó y en qué</h2>
+          <p>El Resumen muestra el mes hasta la fecha, la previsión y las mayores variaciones de todas las fuentes. La Atribución asigna el gasto a tus líneas de negocio y lo desglosa por etiqueta, servicio, región o categoría de servicio FOCUS.</p>
+          <p><a href="/docs/es/overview">Resumen</a>&emsp;<a href="/docs/es/attribution">Atribución</a>&emsp;<a href="/docs/es/reconciliation">Conciliación</a></p>
+        </div>
+        <ul class="promise">
+          <li>Las reglas de alerta se ejecutan sobre el mismo registro: anomalías de costos, presupuestos de cuenta, límites mínimos de saldo y gasto sin etiquetar. <a href="/es/use-cases/cloud-cost-alerts/">Alertas de costos de nube</a>.</li>
+          <li>Las facturas de proveedores de modelos se colocan junto a las nubes, con el costo por millón de tokens de cada modelo. <a href="/es/use-cases/llm-api-cost-tracking/">Seguimiento de costos de API de LLM</a>.</li>
+          <li>La conciliación compara la factura final de cada proveedor con el registro, en la moneda de la factura.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Sin servidor</p>
+          <h2>Una app de escritorio, no una plataforma que desplegar</h2>
+          <p>La mayoría de las herramientas de costos multinube son un servicio alojado al que envías tus facturas, o un servidor que despliegas y mantienes. CloudBridge es una app que instalas: las facturas van del proveedor a un archivo en tu disco y a ningún otro sitio.</p>
+          <p><a href="/blog/es/cloudbridge-vs-optscale">CloudBridge vs OptScale</a></p>
+        </div>
+        <ul class="promise">
+          <li>Sin cuenta de CloudBridge, sin servicio de sincronización y sin telemetría.</li>
+          <li>Solo lectura: no se crea ni se modifica ningún recurso del proveedor.</li>
+          <li>Pensada para la visión de una sola persona sobre las facturas. Un equipo que necesita paneles compartidos y roles preferirá un servidor FinOps.</li>
+          <li>Código abierto con licencia MIT.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Preguntas que hace la gente</h2>
+      <div class="faq">
+        <details><summary>¿Tengo que desplegar un servidor para ver juntos todos mis costos de nube?</summary><p>No. CloudBridge es una app de escritorio para macOS y Windows. Lee cada proveedor con una credencial de solo lectura y guarda las facturas en un archivo DuckDB en tu disco. No hay ningún servidor, base de datos ni cuenta que configurar.</p></details>
+        <details><summary>¿Qué nubes lee CloudBridge?</summary><p>AWS, Microsoft Azure, Google Cloud, Alibaba Cloud y Cloudflare a través de sus API de facturación o exportaciones, y Volcengine a través de su exportación de facturas. Las facturas de proveedores de modelos de OpenAI, Anthropic y DeepSeek llegan al mismo registro.</p></details>
+        <details><summary>¿Cómo suma facturas en monedas distintas?</summary><p>Los totales se muestran en una sola moneda de informe. Cada cargo conserva su moneda original junto al importe convertido, y un cargo sin tipo de cambio se indica que queda fuera en lugar de suponerlo.</p></details>
+        <details><summary>¿Qué es FOCUS y por qué importa aquí?</summary><p>FOCUS es la especificación abierta de la FinOps Foundation para datos de facturación. CloudBridge nombra sus columnas según ella, así que una instancia ECS de Alibaba Cloud y una instancia EC2 de AWS cuentan como Compute y una sola consulta SQL cubre todos los proveedores. El registro también se puede exportar como CSV FOCUS.</p></details>
+        <details><summary>¿Es CloudBridge una plataforma FinOps para todo un equipo?</summary><p>No. Es un registro en el equipo de una sola persona, sin sincronización y sin servidor compartido. Si una organización necesita paneles compartidos y roles, encaja mejor un servidor FinOps; el artículo <a href="/blog/es/cloudbridge-vs-optscale">CloudBridge vs OptScale</a> compara los dos.</p></details>
+        <details><summary>¿Leer las facturas cuesta algo?</summary><p>Solo donde el proveedor lo cobra: las solicitudes de AWS Cost Explorer y las lecturas de S3, y las consultas de BigQuery de Google Cloud que superan el nivel gratuito mensual. CloudBridge contacta con cada proveedor como máximo una vez por intervalo de actualización, 24 horas de forma predeterminada.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Reúne tus facturas de nube en un solo lugar</h2>
+      <p>Descarga CloudBridge, añade una cuenta para cada nube y lee el mes de todas ellas. O echa un vistazo a la demo primero.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Descargar CloudBridge</a>
+        <a class="button button-quiet" href="/docs/es/getting-started">Primeros pasos</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/es/">Documentación</a>
+    <a href="/blog/es/">Blog</a>
+    <a href="/demo/">Demo</a>
+    <a href="/es/use-cases/cloud-cost-alerts/">Alertas de costos de nube</a>
+    <a href="/es/use-cases/cloudflare-cost-breakdown/">Costos de Cloudflare</a>
+    <a href="/es/use-cases/llm-api-cost-tracking/">Costos de API de LLM</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/multi-cloud-cost-dashboard/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/use-cases/multi-cloud-cost-dashboard/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/multi-cloud-cost-dashboard/" hreflang="fr" lang="fr">Français</a>
+    <a href="/de/use-cases/multi-cloud-cost-dashboard/" hreflang="de" lang="de">Deutsch</a>
+    <a href="/pt/use-cases/multi-cloud-cost-dashboard/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>Del mismo creador</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

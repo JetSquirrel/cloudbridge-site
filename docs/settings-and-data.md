@@ -5,7 +5,7 @@ description: "What CloudBridge stores and where: the DuckDB ledger, accounts, ra
 
 # Settings, data and security
 
-**[中文](zh/settings-and-data.md)**&emsp;**[日本語](ja/settings-and-data.md)**&emsp;**[한국어](ko/settings-and-data.md)**&emsp;**[Français](fr/settings-and-data.md)**&emsp;[Docs](index.md)
+**[中文](zh/settings-and-data.md)**&emsp;**[日本語](ja/settings-and-data.md)**&emsp;**[한국어](ko/settings-and-data.md)**&emsp;**[Français](fr/settings-and-data.md)**&emsp;**[Español](es/settings-and-data.md)**&emsp;**[Deutsch](de/settings-and-data.md)**&emsp;**[Português](pt/settings-and-data.md)**&emsp;[Docs](index.md)
 
 ## Settings {#settings}
 

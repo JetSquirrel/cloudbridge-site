@@ -5,7 +5,7 @@ description: "CloudBridge Analyses place un scan de ressources en lecture seule 
 
 # Analyses
 
-**[English](../insights.md)**&emsp;**[中文](../zh/insights.md)**&emsp;**[日本語](../ja/insights.md)**&emsp;**[한국어](../ko/insights.md)**&emsp;[Documentation](index.md)
+**[English](../insights.md)**&emsp;**[中文](../zh/insights.md)**&emsp;**[日本語](../ja/insights.md)**&emsp;**[한국어](../ko/insights.md)**&emsp;**[Español](../es/insights.md)**&emsp;**[Deutsch](../de/insights.md)**&emsp;**[Português](../pt/insights.md)**&emsp;[Documentation](index.md)
 
 Analyses compare la facture à ce qui tourne réellement, et liste ce qui
 mérite un coup d’œil, chaque élément valorisé à partir de la facture de la

@@ -5,7 +5,7 @@ description: "CloudBridge のキーボードショートカット：⌘1〜⌘0�
 
 # キーボードショートカット
 
-**[English](../shortcuts.md)**&emsp;**[中文](../zh/shortcuts.md)**&emsp;**[한국어](../ko/shortcuts.md)**&emsp;**[Français](../fr/shortcuts.md)**&emsp;[ドキュメント](index.md)
+**[English](../shortcuts.md)**&emsp;**[中文](../zh/shortcuts.md)**&emsp;**[한국어](../ko/shortcuts.md)**&emsp;**[Français](../fr/shortcuts.md)**&emsp;**[Español](../es/shortcuts.md)**&emsp;**[Deutsch](../de/shortcuts.md)**&emsp;**[Português](../pt/shortcuts.md)**&emsp;[ドキュメント](index.md)
 
 macOS では **⌘**、Windows では **Ctrl** を使います。ページのショートカットは
 アプリのどこからでも、テキストフィールドにフォーカスがある間でも動きます。

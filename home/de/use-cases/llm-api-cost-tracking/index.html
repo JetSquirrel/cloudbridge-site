@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API-Kosten von OpenAI, Anthropic und DeepSeek verfolgen | CloudBridge</title>
+<meta name="description" content="Sehen Sie in einem lokalen Journal, was jedes LLM pro Token kostet, über OpenAI, Anthropic, DeepSeek, Model Studio und Volcengine Ark. Kostenlos und Open Source.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/de/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="es" href="https://cloudbridge.jetsquirrel.cloud/es/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="de" href="https://cloudbridge.jetsquirrel.cloud/de/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="pt-BR" href="https://cloudbridge.jetsquirrel.cloud/pt/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/de/use-cases/llm-api-cost-tracking/">
+<meta property="og:title" content="API-Kosten von OpenAI, Anthropic und DeepSeek verfolgen | CloudBridge">
+<meta property="og:description" content="Ausgaben, Tokens und Kosten pro Million Tokens für jedes Modell, für das Sie zahlen, neben Ihrer Cloud-Rechnung, auf Ihrem eigenen Computer.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="Die Übersicht von CloudBridge: Ausgaben des laufenden Monats über Clouds und Modellanbieter hinweg, ein Diagramm der täglichen Ausgaben und die größten Veränderungen">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="API-Kosten von OpenAI, Anthropic und DeepSeek verfolgen | CloudBridge">
+<meta name="twitter:description" content="Ausgaben, Tokens und Kosten pro Million Tokens für jedes Modell, für das Sie zahlen, neben Ihrer Cloud-Rechnung, auf Ihrem eigenen Computer.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge-Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/de/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/de/use-cases/llm-api-cost-tracking/",
+      "name": "API-Kosten von OpenAI, Anthropic und DeepSeek verfolgen",
+      "description": "Sehen Sie in einem lokalen Journal, was jedes LLM pro Token kostet, über OpenAI, Anthropic, DeepSeek, Model Studio und Volcengine Ark. Kostenlos und Open Source.",
+      "inLanguage": "de",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/de/" },
+        { "@type": "ListItem", "position": 2, "name": "LLM-API-Kosten verfolgen", "item": "https://cloudbridge.jetsquirrel.cloud/de/use-cases/llm-api-cost-tracking/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "de",
+      "mainEntity": [
+        { "@type": "Question", "name": "Muss ich CloudBridge meinen OpenAI- oder Anthropic-API-Schlüssel geben?", "acceptedAnswer": { "@type": "Answer", "text": "Nein. OpenAI und Anthropic sind reine Importe: Fügen Sie das Konto mit einem Namen und ohne Zugangsdaten hinzu und importieren Sie dann den Kosten- oder Nutzungsexport, den Sie in der Konsole des Anbieters heruntergeladen haben." } },
+        { "@type": "Question", "name": "Was ist, wenn mein Export Tokens, aber keine Kosten enthält?", "acceptedAnswer": { "@type": "Answer", "text": "Reine Token-Exporte bleiben Nutzungsdaten. CloudBridge zählt ihre Tokens auf der Seite Modelle, macht daraus aber keine geschätzte Rechnung." } },
+        { "@type": "Question", "name": "Welche Modellanbieter liest CloudBridge?", "acceptedAnswer": { "@type": "Answer", "text": "Exporte von OpenAI und Anthropic, DeepSeeks Guthaben-API und Nutzungsdownload, Alibaba Cloud Model Studio über die Alibaba-Cloud-Rechnung und Volcengine Ark über den Volcengine-Rechnungsexport." } },
+        { "@type": "Question", "name": "Kann CloudBridge mich warnen, wenn die Modellausgaben steigen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja. Die Anomalie-Regel für Kostenwachstum markiert eine Quelle und einen Dienst, deren Tagesausgaben an aufeinanderfolgenden Tagen über ihrem 7-Tage-Ausgangswert liegen, und die Regel für das Mindestguthaben warnt, wenn ein Prepaid-Guthaben wie das von DeepSeek knapp wird." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/de/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Website">
+        <a href="/docs/de/">Dokumentation</a>
+        <a class="optional" href="/blog/de/">Blog</a>
+        <a class="optional" href="/demo/">Demo</a>
+        <details class="lang">
+          <summary aria-label="Sprache">Deutsch</summary>
+          <ul>
+            <li><a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr" lang="fr">Français</a></li>
+            <li><a href="/es/use-cases/llm-api-cost-tracking/" hreflang="es" lang="es">Español</a></li>
+            <li><a href="/de/use-cases/llm-api-cost-tracking/" hreflang="de" lang="de" aria-current="true">Deutsch</a></li>
+            <li><a href="/pt/use-cases/llm-api-cost-tracking/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Herunterladen</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Pfadnavigation"><a href="/de/">Startseite</a><span aria-hidden="true">›</span><span>LLM-API-Kosten verfolgen</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">Jedes Modell, für das Sie zahlen, in einer Tabelle</p>
+      <h1>Was jedes Modell wirklich kostet</h1>
+      <p class="lede">Importieren Sie Ihre Nutzungsexporte von OpenAI und Anthropic, ergänzen Sie DeepSeek und die Model-Studio-Positionen aus Ihrer Alibaba-Cloud-Rechnung, und sehen Sie Ausgaben, Tokens und Kosten pro Million Tokens für jedes Modell, neben dem Rest Ihrer Cloud-Rechnung.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge herunterladen</a>
+        <a class="button button-ghost" href="/docs/de/models">Modelle in der Dokumentation</a>
+      </div>
+      <p class="fineprint">Kostenlos und Open Source für macOS und Windows. Kein Konto, keine Synchronisierung, keine Telemetrie.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">So funktioniert es</p>
+      <h2>Vom Konsolenexport zu Kosten pro Token</h2>
+      <p class="intro">Keine API-Schlüssel für OpenAI oder Anthropic: Der Export aus der jeweiligen Konsole genügt.</p>
+      <ol class="steps">
+        <li>
+          <h3>Export herunterladen</h3>
+          <p>OpenAI: Nutzung → Export. Anthropic: Nutzung oder Kosten → Export. DeepSeek: Nutzung → Download.</p>
+        </li>
+        <li>
+          <h3>Importieren</h3>
+          <p>Fügen Sie das Konto mit einem Namen und ohne Zugangsdaten hinzu und klicken Sie dann in der Zeile des Kontos auf Importieren. Wenn Sie einen Monat erneut importieren, wird er ersetzt.</p>
+        </li>
+        <li>
+          <h3>Die Seite Modelle lesen</h3>
+          <p>Kosten und Veränderung jedes Modells, seine Input-, Output- und Cache-Tokens und was es pro Million Tokens kostet.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Quellen</p>
+      <h2>Die Modellrechnungen, die CloudBridge liest</h2>
+      <p class="intro">Token-abgerechnete Positionen aus jeder Quelle erscheinen auf der Seite Modelle; das Modell ist das, welches die Rechnung nennt.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Anbieter</th><th>Wie</th><th>Was hinzukommt</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI</td><td>Nutzungsexport</td><td>Kosten oder Token-Nutzung, pro Projekt und Modell</td></tr>
+            <tr><td>Anthropic (Claude)</td><td>Nutzungs- oder Kostenexport</td><td>Kosten oder Token-Nutzung, pro Workspace und Modell</td></tr>
+            <tr><td>DeepSeek</td><td>Guthaben-API, Nutzungsdownload</td><td>Prepaid-Guthaben; Ausgaben pro Tag und Modell</td></tr>
+            <tr><td>Alibaba Cloud Model Studio</td><td>Export der Rechnungsdetails</td><td>Model-Studio-Kosten (百炼) pro Modell</td></tr>
+            <tr><td>Volcengine Ark</td><td>Export der Rechnungsdetails</td><td>Ark-Kosten (火山方舟) pro Endpunkt und Token-Typ</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/de/bill-import">Rechnungsimport →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">Die Seite Modelle</p>
+          <h2>Token-Ökonomie pro Modell</h2>
+          <p>Die Kennzahlenzeile zeigt KI-Ausgaben, Gesamttokens, die gemischten Kosten pro Million Tokens und den Cache-Anteil. Darunter stehen Kosten und Veränderung jedes Modells, seine Input-, Output- und Cache-Tokens und sein Anteil an den Modellausgaben sowie ein Diagramm der Tokens pro Tag.</p>
+          <p><a href="/docs/de/models">Modelle</a>&emsp;<a href="/demo/">In der Demo ausprobieren</a></p>
+        </div>
+        <ul class="promise">
+          <li>Markiert ein Modell, dessen Cache-Lesezugriffe unter 5 % seiner Input-Seite liegen: Input-Preis gezahlt für das, was Cache-Preis sein könnte.</li>
+          <li>Markiert ein Modell, das mehr als 70 % der Modellausgaben ausmacht.</li>
+          <li>Unterscheidet einen Anstieg des Stückpreises von einem Anstieg der Nutzung.</li>
+          <li>Weist auf ein Modell hin, das ohne Token-Abrechnung berechnet wird und dessen Stückkosten sich nicht berechnen lassen.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Im Blick behalten</p>
+          <h2>Wissen, wenn die Modellausgaben steigen</h2>
+          <p>Die Anomalie-Regel für Kostenwachstum markiert eine Quelle und einen Dienst, deren Tagesausgaben zwei Tage in Folge über ihrem 7-Tage-Ausgangswert liegen. Die Regel für das Mindestguthaben warnt, bevor ein Prepaid-Guthaben wie das von DeepSeek aufgebraucht ist. CloudBridge meldet beides aus der Menüleiste.</p>
+          <p><a href="/de/use-cases/cloud-cost-alerts/">Warnungen zu Cloud-Kosten</a></p>
+        </div>
+        <ul class="promise">
+          <li>Modellausgaben liegen im selben Journal wie AWS, Alibaba Cloud und Cloudflare, eine Übersicht deckt also alles ab.</li>
+          <li>Originalwährungen bleiben neben dem umgerechneten Betrag erhalten; fehlende Wechselkurse werden gemeldet, nicht angenommen.</li>
+          <li>Das Journal ist eine DuckDB-Datei auf Ihrer Festplatte, mit schreibgeschütztem SQL auf der Seite Abfrage.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Häufige Fragen</h2>
+      <div class="faq">
+        <details><summary>Muss ich CloudBridge meinen OpenAI- oder Anthropic-API-Schlüssel geben?</summary><p>Nein. OpenAI und Anthropic sind reine Importe: Fügen Sie das Konto mit einem Namen und ohne Zugangsdaten hinzu und importieren Sie dann den Kosten- oder Nutzungsexport, den Sie in der Konsole des Anbieters heruntergeladen haben.</p></details>
+        <details><summary>Was ist, wenn mein Export Tokens, aber keine Kosten enthält?</summary><p>Reine Token-Exporte bleiben Nutzungsdaten. CloudBridge zählt ihre Tokens auf der Seite Modelle, macht daraus aber keine geschätzte Rechnung.</p></details>
+        <details><summary>Welche Modellanbieter liest CloudBridge?</summary><p>Exporte von OpenAI und Anthropic, DeepSeeks Guthaben-API und Nutzungsdownload, Alibaba Cloud Model Studio über die Alibaba-Cloud-Rechnung und Volcengine Ark über den Volcengine-Rechnungsexport.</p></details>
+        <details><summary>Kann CloudBridge mich warnen, wenn die Modellausgaben steigen?</summary><p>Ja. Die Anomalie-Regel für Kostenwachstum markiert Tagesausgaben über dem 7-Tage-Ausgangswert an aufeinanderfolgenden Tagen, und die Regel für das Mindestguthaben warnt, wenn ein Prepaid-Guthaben wie das von DeepSeek knapp wird.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Sehen Sie Ihre Modellrechnung pro Modell</h2>
+      <p>Laden Sie CloudBridge herunter, importieren Sie die Exporte des letzten Monats und öffnen Sie die Seite Modelle. Oder schauen Sie sich zuerst die Demo an.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge herunterladen</a>
+        <a class="button button-quiet" href="/demo/">Demo ausprobieren</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/de/">Dokumentation</a>
+    <a href="/blog/de/">Blog</a>
+    <a href="/demo/">Demo</a>
+    <a href="/de/use-cases/cloud-cost-alerts/">Warnungen zu Kosten</a>
+    <a href="/de/use-cases/multi-cloud-cost-dashboard/">Multi-Cloud-Kosten</a>
+    <a href="/de/use-cases/cloudflare-cost-breakdown/">Cloudflare-Kosten</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr" lang="fr">Français</a>
+    <a href="/es/use-cases/llm-api-cost-tracking/" hreflang="es" lang="es">Español</a>
+    <a href="/pt/use-cases/llm-api-cost-tracking/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>Vom selben Entwickler</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

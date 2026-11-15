@@ -5,7 +5,7 @@ description: "請求アカウントの BigQuery エクスポートを通じて G
 
 # Google Cloud
 
-**[English](../google-cloud.md)**&emsp;**[中文](../zh/google-cloud.md)**&emsp;**[한국어](../ko/google-cloud.md)**&emsp;**[Français](../fr/google-cloud.md)**&emsp;[ドキュメント](index.md)
+**[English](../google-cloud.md)**&emsp;**[中文](../zh/google-cloud.md)**&emsp;**[한국어](../ko/google-cloud.md)**&emsp;**[Français](../fr/google-cloud.md)**&emsp;**[Español](../es/google-cloud.md)**&emsp;**[Deutsch](../de/google-cloud.md)**&emsp;**[Português](../pt/google-cloud.md)**&emsp;[ドキュメント](index.md)
 
 Google Cloud には「今月いくらかかったか」に答える API がありません。その請求は
 請求アカウントが BigQuery データセットに書き出すエクスポートなので、CloudBridge

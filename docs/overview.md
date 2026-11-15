@@ -5,7 +5,7 @@ description: "How CloudBridge’s Overview reads spend: net and gross, credits, 
 
 # Overview and accounts
 
-**[中文](zh/overview.md)**&emsp;**[日本語](ja/overview.md)**&emsp;**[한국어](ko/overview.md)**&emsp;**[Français](fr/overview.md)**&emsp;[Docs](index.md)
+**[中文](zh/overview.md)**&emsp;**[日本語](ja/overview.md)**&emsp;**[한국어](ko/overview.md)**&emsp;**[Français](fr/overview.md)**&emsp;**[Español](es/overview.md)**&emsp;**[Deutsch](de/overview.md)**&emsp;**[Português](pt/overview.md)**&emsp;[Docs](index.md)
 
 ## The Overview {#overview}
 

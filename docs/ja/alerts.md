@@ -5,7 +5,7 @@ description: "CloudBridge のアラートルール：コスト異常、残高下
 
 # アラート、ルール、予算
 
-**[English](../alerts.md)**&emsp;**[中文](../zh/alerts.md)**&emsp;**[한국어](../ko/alerts.md)**&emsp;**[Français](../fr/alerts.md)**&emsp;[ドキュメント](index.md)
+**[English](../alerts.md)**&emsp;**[中文](../zh/alerts.md)**&emsp;**[한국어](../ko/alerts.md)**&emsp;**[Français](../fr/alerts.md)**&emsp;**[Español](../es/alerts.md)**&emsp;**[Deutsch](../de/alerts.md)**&emsp;**[Português](../pt/alerts.md)**&emsp;[ドキュメント](index.md)
 
 ルールは、アプリを開いたときと各更新の後に台帳に対して評価されます。
 [バックグラウンド更新](background.md)も含みます。これは CloudBridge の動作中、

@@ -5,7 +5,7 @@ description: "CloudBridge が AI モデルのトークン使用量を FOCUS 1.5 
 
 # FOCUS とトークンデータ
 
-**[English](../focus.md)**&emsp;**[中文](../zh/focus.md)**&emsp;**[한국어](../ko/focus.md)**&emsp;**[Français](../fr/focus.md)**&emsp;[ドキュメント](index.md)
+**[English](../focus.md)**&emsp;**[中文](../zh/focus.md)**&emsp;**[한국어](../ko/focus.md)**&emsp;**[Français](../fr/focus.md)**&emsp;**[Español](../es/focus.md)**&emsp;**[Deutsch](../de/focus.md)**&emsp;**[Português](../pt/focus.md)**&emsp;[ドキュメント](index.md)
 
 CloudBridge の台帳は、FinOps Foundation のコストと使用量データのオープンな
 仕様である [FOCUS](https://focus.finops.org/) にちなんで名付けられています。

@@ -5,7 +5,7 @@ description: "Règles d’alerte CloudBridge pour les anomalies de coûts, les s
 
 # Alertes, règles et budgets
 
-**[English](../alerts.md)**&emsp;**[中文](../zh/alerts.md)**&emsp;**[日本語](../ja/alerts.md)**&emsp;**[한국어](../ko/alerts.md)**&emsp;[Documentation](index.md)
+**[English](../alerts.md)**&emsp;**[中文](../zh/alerts.md)**&emsp;**[日本語](../ja/alerts.md)**&emsp;**[한국어](../ko/alerts.md)**&emsp;**[Español](../es/alerts.md)**&emsp;**[Deutsch](../de/alerts.md)**&emsp;**[Português](../pt/alerts.md)**&emsp;[Documentation](index.md)
 
 Les règles sont évaluées sur le registre à l’ouverture de l’application et
 après chaque actualisation — y compris

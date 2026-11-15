@@ -5,7 +5,7 @@ description: "CloudBridge Insights sets a read-only scan of AWS and Cloudflare b
 
 # Insights
 
-**[中文](zh/insights.md)**&emsp;**[日本語](ja/insights.md)**&emsp;**[한국어](ko/insights.md)**&emsp;**[Français](fr/insights.md)**&emsp;[Docs](index.md)
+**[中文](zh/insights.md)**&emsp;**[日本語](ja/insights.md)**&emsp;**[한국어](ko/insights.md)**&emsp;**[Français](fr/insights.md)**&emsp;**[Español](es/insights.md)**&emsp;**[Deutsch](de/insights.md)**&emsp;**[Português](pt/insights.md)**&emsp;[Docs](index.md)
 
 Insights compares the bill with what is actually running, and lists what
 is worth a look, each priced from this period's bill.

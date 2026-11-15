@@ -5,7 +5,7 @@ description: "Installez CloudBridge sous macOS ou Windows, explorez avec la fact
 
 # Pour commencer
 
-**[English](../getting-started.md)**&emsp;**[中文](../zh/getting-started.md)**&emsp;**[日本語](../ja/getting-started.md)**&emsp;**[한국어](../ko/getting-started.md)**&emsp;[Documentation](index.md)
+**[English](../getting-started.md)**&emsp;**[中文](../zh/getting-started.md)**&emsp;**[日本語](../ja/getting-started.md)**&emsp;**[한국어](../ko/getting-started.md)**&emsp;**[Español](../es/getting-started.md)**&emsp;**[Deutsch](../de/getting-started.md)**&emsp;**[Português](../pt/getting-started.md)**&emsp;[Documentation](index.md)
 
 CloudBridge lit vos factures cloud et de fournisseurs de modèles dans un
 registre unique sur votre machine — depuis une API de facturation, ou depuis

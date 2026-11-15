@@ -5,7 +5,7 @@ description: "Alibaba Cloud、Volcengine、OpenAI、Anthropic、DeepSeek の請�
 
 # 請求ファイルの取り込み
 
-**[English](../bill-import.md)**&emsp;**[中文](../zh/bill-import.md)**&emsp;**[한국어](../ko/bill-import.md)**&emsp;**[Français](../fr/bill-import.md)**&emsp;[ドキュメント](index.md)
+**[English](../bill-import.md)**&emsp;**[中文](../zh/bill-import.md)**&emsp;**[한국어](../ko/bill-import.md)**&emsp;**[Français](../fr/bill-import.md)**&emsp;**[Español](../es/bill-import.md)**&emsp;**[Deutsch](../de/bill-import.md)**&emsp;**[Português](../pt/bill-import.md)**&emsp;[ドキュメント](index.md)
 
 プロバイダーのコンソールからダウンロードした請求エクスポートは、取得が生成
 するのと同じ台帳の行に解析されます。下流 — 合計、グラフ、アラート、コスト配賦

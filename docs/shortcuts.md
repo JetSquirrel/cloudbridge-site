@@ -5,7 +5,7 @@ description: "Keyboard shortcuts in CloudBridge: switch pages with ⌘1–⌘0 (
 
 # Keyboard shortcuts
 
-**[中文](zh/shortcuts.md)**&emsp;**[日本語](ja/shortcuts.md)**&emsp;**[한국어](ko/shortcuts.md)**&emsp;**[Français](fr/shortcuts.md)**&emsp;[Docs](index.md)
+**[中文](zh/shortcuts.md)**&emsp;**[日本語](ja/shortcuts.md)**&emsp;**[한국어](ko/shortcuts.md)**&emsp;**[Français](fr/shortcuts.md)**&emsp;**[Español](es/shortcuts.md)**&emsp;**[Deutsch](de/shortcuts.md)**&emsp;**[Português](pt/shortcuts.md)**&emsp;[Docs](index.md)
 
 Use **⌘** on macOS and **Ctrl** on Windows. The page shortcuts work from
 anywhere in the app, including while a text field has focus.

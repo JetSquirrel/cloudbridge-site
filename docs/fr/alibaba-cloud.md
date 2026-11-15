@@ -5,7 +5,7 @@ description: "Connectez Alibaba Cloud (阿里云) à CloudBridge avec un utilisa
 
 # Alibaba Cloud
 
-**[English](../alibaba-cloud.md)**&emsp;**[中文](../zh/alibaba-cloud.md)**&emsp;**[日本語](../ja/alibaba-cloud.md)**&emsp;**[한국어](../ko/alibaba-cloud.md)**&emsp;[Documentation](index.md)
+**[English](../alibaba-cloud.md)**&emsp;**[中文](../zh/alibaba-cloud.md)**&emsp;**[日本語](../ja/alibaba-cloud.md)**&emsp;**[한국어](../ko/alibaba-cloud.md)**&emsp;**[Español](../es/alibaba-cloud.md)**&emsp;**[Deutsch](../de/alibaba-cloud.md)**&emsp;**[Português](../pt/alibaba-cloud.md)**&emsp;[Documentation](index.md)
 
 Alibaba Cloud dispose des deux canaux. L’**API de facturation** donne le
 total de chaque produit pour le mois ; l’**export du détail de facture**

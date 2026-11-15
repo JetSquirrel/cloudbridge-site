@@ -5,7 +5,7 @@ description: "Connectez DeepSeek à CloudBridge avec une clé d’API pour le so
 
 # DeepSeek
 
-**[English](../deepseek.md)**&emsp;**[中文](../zh/deepseek.md)**&emsp;**[日本語](../ja/deepseek.md)**&emsp;**[한국어](../ko/deepseek.md)**&emsp;[Documentation](index.md)
+**[English](../deepseek.md)**&emsp;**[中文](../zh/deepseek.md)**&emsp;**[日本語](../ja/deepseek.md)**&emsp;**[한국어](../ko/deepseek.md)**&emsp;**[Español](../es/deepseek.md)**&emsp;**[Deutsch](../de/deepseek.md)**&emsp;**[Português](../pt/deepseek.md)**&emsp;[Documentation](index.md)
 
 L’API de DeepSeek renvoie un **solde** — crédité et rechargé —, pas une
 répartition des dépenses. Pour le détail des dépenses, importez l’export de

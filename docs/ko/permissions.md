@@ -5,7 +5,7 @@ description: "AWS Cost Explorer와 S3, Azure Cost Management, Google Cloud BigQu
 
 # 공급자 권한
 
-**[English](../permissions.md)**&emsp;**[中文](../zh/permissions.md)**&emsp;**[日本語](../ja/permissions.md)**&emsp;**[Français](../fr/permissions.md)**&emsp;[문서](index.md)
+**[English](../permissions.md)**&emsp;**[中文](../zh/permissions.md)**&emsp;**[日本語](../ja/permissions.md)**&emsp;**[Français](../fr/permissions.md)**&emsp;**[Español](../es/permissions.md)**&emsp;**[Deutsch](../de/permissions.md)**&emsp;**[Português](../pt/permissions.md)**&emsp;[문서](index.md)
 
 채널에 필요한 최소 권한만 가진 전용 자격 증명을 사용하세요. 앱이 읽기 전용으로 동작한다고 해서 제한 없는 키가 읽기 전용이 되지는 않습니다. 키로 무엇을 할 수 있는지는 공급자에 연결된 정책이 결정합니다. 청구서를 읽기 위해 루트 계정 자격 증명을 쓰거나 관리자 권한을 부여하지 마세요.
 

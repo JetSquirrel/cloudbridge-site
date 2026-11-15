@@ -5,7 +5,7 @@ description: "CloudBridge の概要ページが支出をどう読むか：純額
 
 # 概要とアカウント
 
-**[English](../overview.md)**&emsp;**[中文](../zh/overview.md)**&emsp;**[한국어](../ko/overview.md)**&emsp;**[Français](../fr/overview.md)**&emsp;[ドキュメント](index.md)
+**[English](../overview.md)**&emsp;**[中文](../zh/overview.md)**&emsp;**[한국어](../ko/overview.md)**&emsp;**[Français](../fr/overview.md)**&emsp;**[Español](../es/overview.md)**&emsp;**[Deutsch](../de/overview.md)**&emsp;**[Português](../pt/overview.md)**&emsp;[ドキュメント](index.md)
 
 ## 概要 {#overview}
 

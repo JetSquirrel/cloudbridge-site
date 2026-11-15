@@ -5,7 +5,7 @@ description: "CloudBridge 모델 페이지: 각 LLM의 토큰당 비용을 지�
 
 # 모델
 
-**[English](../models.md)**&emsp;**[中文](../zh/models.md)**&emsp;**[日本語](../ja/models.md)**&emsp;**[Français](../fr/models.md)**&emsp;[문서](index.md)
+**[English](../models.md)**&emsp;**[中文](../zh/models.md)**&emsp;**[日本語](../ja/models.md)**&emsp;**[Français](../fr/models.md)**&emsp;**[Español](../es/models.md)**&emsp;**[Deutsch](../de/models.md)**&emsp;**[Português](../pt/models.md)**&emsp;[문서](index.md)
 
 **Models** 페이지는 헤더에서 고른 기간에 대해 청구서의 LLM 부분을 모델별로 읽습니다. OpenAI, Anthropic, DeepSeek 계정은 항상 나타나고, 다른 소스의 행은 토큰으로 계량되는 사용량이 있을 때 나타납니다. Alibaba Cloud Model Studio, Volcengine, Amazon Bedrock 행처럼요. 모델은 청구서의 FOCUS `ModelId`이거나 가져오기가 지정한 모델입니다. 모델을 지정하지 않는 청구서 — Model Studio나 Ark 같은 — 는 제품으로 묶입니다.
 

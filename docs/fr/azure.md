@@ -5,7 +5,7 @@ description: "Connectez un abonnement Microsoft Azure à CloudBridge avec un pri
 
 # Microsoft Azure
 
-**[English](../azure.md)**&emsp;**[中文](../zh/azure.md)**&emsp;**[日本語](../ja/azure.md)**&emsp;**[한국어](../ko/azure.md)**&emsp;[Documentation](index.md)
+**[English](../azure.md)**&emsp;**[中文](../zh/azure.md)**&emsp;**[日本語](../ja/azure.md)**&emsp;**[한국어](../ko/azure.md)**&emsp;**[Español](../es/azure.md)**&emsp;**[Deutsch](../de/azure.md)**&emsp;**[Português](../pt/azure.md)**&emsp;[Documentation](index.md)
 
 CloudBridge lit le **coût réel** d’un abonnement depuis Azure Cost
 Management : ce que chaque service a coûté **par jour**, réparti par type de

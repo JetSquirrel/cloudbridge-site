@@ -5,7 +5,7 @@ description: "한 가지 작업만 담은 IAM 정책으로 Cost Explorer를 통�
 
 # AWS
 
-**[English](../aws.md)**&emsp;**[中文](../zh/aws.md)**&emsp;**[日本語](../ja/aws.md)**&emsp;**[Français](../fr/aws.md)**&emsp;[문서](index.md)
+**[English](../aws.md)**&emsp;**[中文](../zh/aws.md)**&emsp;**[日本語](../ja/aws.md)**&emsp;**[Français](../fr/aws.md)**&emsp;**[Español](../es/aws.md)**&emsp;**[Deutsch](../de/aws.md)**&emsp;**[Português](../pt/aws.md)**&emsp;[문서](index.md)
 
 AWS 계정은 두 가지 방식 중 하나로 장부에 들어옵니다. **Cost Explorer**는 빠른 방법입니다: 액세스 키와 한 가지 작업만 담은 정책이면 청구서가 서비스별·일별 비용으로 들어옵니다. S3의 **Data Export**는 자세한 방법입니다: 모든 행에 리소스 ID, 태그, 연결된 계정이 있고, [인사이트](insights.md)가 리소스에 가격을 매기려면 바로 이것이 필요합니다.
 

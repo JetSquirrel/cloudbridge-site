@@ -5,7 +5,7 @@ description: "CloudBridge Attribution: a Sankey from source to service or model 
 
 # Attribution
 
-**[中文](zh/attribution.md)**&emsp;**[日本語](ja/attribution.md)**&emsp;**[한국어](ko/attribution.md)**&emsp;**[Français](fr/attribution.md)**&emsp;[Docs](index.md)
+**[中文](zh/attribution.md)**&emsp;**[日本語](ja/attribution.md)**&emsp;**[한국어](ko/attribution.md)**&emsp;**[Français](fr/attribution.md)**&emsp;**[Español](es/attribution.md)**&emsp;**[Deutsch](de/attribution.md)**&emsp;**[Português](pt/attribution.md)**&emsp;[Docs](index.md)
 
 The Attribution page draws the month as a Sankey: source, then service or
 model, then business line, with an explicit **Unallocated** node. Flows are

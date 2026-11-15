@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acompanhe custos de API da OpenAI, Anthropic e DeepSeek | CloudBridge</title>
+<meta name="description" content="Veja quanto cada LLM custa por token na OpenAI, Anthropic, DeepSeek, Model Studio e Volcengine Ark, em um único registro local. Gratuito e open source.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/pt/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="es" href="https://cloudbridge.jetsquirrel.cloud/es/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="de" href="https://cloudbridge.jetsquirrel.cloud/de/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="pt-BR" href="https://cloudbridge.jetsquirrel.cloud/pt/use-cases/llm-api-cost-tracking/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/llm-api-cost-tracking/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/pt/use-cases/llm-api-cost-tracking/">
+<meta property="og:title" content="Acompanhe custos de API da OpenAI, Anthropic e DeepSeek | CloudBridge">
+<meta property="og:description" content="Gasto, tokens e custo por milhão de tokens de cada modelo que você paga, ao lado da sua fatura de nuvem, no seu próprio computador.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="A Visão geral do CloudBridge: gastos do mês até agora entre nuvens e provedores de modelos, um gráfico de gastos diários e as maiores variações">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Acompanhe custos de API da OpenAI, Anthropic e DeepSeek | CloudBridge">
+<meta name="twitter:description" content="Gasto, tokens e custo por milhão de tokens de cada modelo que você paga, ao lado da sua fatura de nuvem, no seu próprio computador.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="Blog do CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/pt/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/pt/use-cases/llm-api-cost-tracking/",
+      "name": "Acompanhe custos de API da OpenAI, Anthropic e DeepSeek",
+      "description": "Veja quanto cada LLM custa por token na OpenAI, Anthropic, DeepSeek, Model Studio e Volcengine Ark, em um único registro local. Gratuito e open source.",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/pt/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/pt/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/pt/" },
+        { "@type": "ListItem", "position": 2, "name": "Acompanhamento de custos de API LLM", "item": "https://cloudbridge.jetsquirrel.cloud/pt/use-cases/llm-api-cost-tracking/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "pt-BR",
+      "mainEntity": [
+        { "@type": "Question", "name": "Preciso dar minha chave de API da OpenAI ou da Anthropic ao CloudBridge?", "acceptedAnswer": { "@type": "Answer", "text": "Não. OpenAI e Anthropic são apenas importação: adicione a conta com um nome e sem credenciais, depois importe o export de custo ou de uso baixado do console do provedor." } },
+        { "@type": "Question", "name": "E se meu export tiver tokens mas nenhum custo?", "acceptedAnswer": { "@type": "Answer", "text": "Exports apenas com tokens continuam sendo registros de uso. O CloudBridge conta os tokens deles na página Modelos, mas não os transforma em uma fatura estimada." } },
+        { "@type": "Question", "name": "Quais provedores de modelos ele lê?", "acceptedAnswer": { "@type": "Answer", "text": "Exports da OpenAI e da Anthropic, a API de saldo e o download de uso da DeepSeek, o Alibaba Cloud Model Studio pela fatura da Alibaba Cloud, e o Volcengine Ark pelo export de fatura da Volcengine." } },
+        { "@type": "Question", "name": "Ele consegue me avisar quando o gasto com modelos dispara?", "acceptedAnswer": { "@type": "Answer", "text": "Sim. A regra de anomalia de crescimento de custo sinaliza uma origem e um serviço cujo gasto diário fica acima da referência de 7 dias por dias consecutivos, e a regra de piso de saldo avisa quando um saldo pré-pago como o da DeepSeek fica baixo." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/pt/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="Site">
+        <a href="/docs/pt/">Documentação</a>
+        <a class="optional" href="/blog/pt/">Blog</a>
+        <a class="optional" href="/demo/">Demo</a>
+        <details class="lang">
+          <summary aria-label="Idioma">Português (Brasil)</summary>
+          <ul>
+            <li><a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr" lang="fr">Français</a></li>
+            <li><a href="/es/use-cases/llm-api-cost-tracking/" hreflang="es" lang="es">Español</a></li>
+            <li><a href="/de/use-cases/llm-api-cost-tracking/" hreflang="de" lang="de">Deutsch</a></li>
+            <li><a href="/pt/use-cases/llm-api-cost-tracking/" hreflang="pt-BR" lang="pt-BR" aria-current="true">Português (Brasil)</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Baixar</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="Trilha de navegação"><a href="/pt/">Início</a><span aria-hidden="true">›</span><span>Acompanhamento de custos de API LLM</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">Cada modelo que você paga, em uma tabela</p>
+      <h1>Quanto cada modelo realmente custa</h1>
+      <p class="lede">Importe seus exports de uso da OpenAI e da Anthropic, adicione a DeepSeek e as linhas do Model Studio na sua fatura da Alibaba Cloud, e veja o gasto, os tokens e o custo por milhão de tokens de cada modelo, ao lado do resto da sua fatura de nuvem.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Baixar o CloudBridge</a>
+        <a class="button button-ghost" href="/docs/pt/models">Ler a documentação de Modelos</a>
+      </div>
+      <p class="fineprint">Gratuito e open source para macOS e Windows. Sem conta, sem sincronização, sem telemetria.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Como funciona</p>
+      <h2>De um export do console ao custo por token</h2>
+      <p class="intro">Sem chaves de API para OpenAI ou Anthropic: o export que o console deles oferece já basta.</p>
+      <ol class="steps">
+        <li>
+          <h3>Baixe o export</h3>
+          <p>OpenAI: Uso → Exportar. Anthropic: Uso ou Custo → Exportar. DeepSeek: Uso → Baixar.</p>
+        </li>
+        <li>
+          <h3>Importe</h3>
+          <p>Adicione a conta com um nome e sem credenciais, depois clique em Importar na linha dela. Importar um mês de novo substitui o anterior.</p>
+        </li>
+        <li>
+          <h3>Leia a página Modelos</h3>
+          <p>O custo e a variação de cada modelo, seus tokens de entrada, saída e cache, e quanto custa por milhão de tokens.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Origens</p>
+      <h2>As faturas de modelos que ele lê</h2>
+      <p class="intro">Linhas medidas em tokens de qualquer origem aparecem na página Modelos; o modelo é o que a fatura nomeia.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>Provedor</th><th>Como</th><th>O que acrescenta</th></tr></thead>
+          <tbody>
+            <tr><td>OpenAI</td><td>Export de uso</td><td>Custo ou uso em tokens, por projeto e modelo</td></tr>
+            <tr><td>Anthropic (Claude)</td><td>Export de uso ou de custo</td><td>Custo ou uso em tokens, por workspace e modelo</td></tr>
+            <tr><td>DeepSeek</td><td>API de saldo, download de uso</td><td>Saldo pré-pago; gasto por dia e por modelo</td></tr>
+            <tr><td>Alibaba Cloud Model Studio</td><td>Export de detalhes da fatura</td><td>Custos do Model Studio (百炼) por modelo</td></tr>
+            <tr><td>Volcengine Ark</td><td>Export de detalhes da fatura</td><td>Custos do Ark (火山方舟) por endpoint e tipo de token</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/pt/bill-import">Importação de arquivos de fatura →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">A página Modelos</p>
+          <h2>Economia por token, modelo a modelo</h2>
+          <p>A linha de estatísticas mostra o gasto com IA, o total de tokens, o custo combinado por milhão de tokens e a fatia de cache. Abaixo, o custo e a variação de cada modelo, seus tokens de entrada, saída e cache e sua fatia no gasto com modelos, além de um gráfico de tokens por dia.</p>
+          <p><a href="/docs/pt/models">Modelos</a>&emsp;<a href="/demo/">Experimente na demo</a></p>
+        </div>
+        <ul class="promise">
+          <li>Sinaliza um modelo cujas leituras de cache ficam abaixo de 5% do lado de entrada: preço de entrada pago por algo que poderia ser preço de cache.</li>
+          <li>Sinaliza um modelo que responde por mais de 70% do gasto com modelos.</li>
+          <li>Separa um aumento de preço unitário de um aumento de uso.</li>
+          <li>Aponta um modelo cobrado sem medição de tokens, cujo custo unitário não pode ser calculado.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">Sempre de olho</p>
+          <h2>Saiba quando o gasto com modelos dispara</h2>
+          <p>A regra de anomalia de crescimento de custo sinaliza uma origem e um serviço cujo gasto diário fica acima da referência de 7 dias por dois dias seguidos. A regra de piso de saldo avisa antes de um saldo pré-pago como o da DeepSeek acabar. O CloudBridge publica as duas pela barra de menus.</p>
+          <p><a href="/pt/use-cases/cloud-cost-alerts/">Alertas de custos na nuvem</a></p>
+        </div>
+        <ul class="promise">
+          <li>O gasto com modelos fica no mesmo registro que AWS, Alibaba Cloud e Cloudflare, então uma Visão geral cobre tudo.</li>
+          <li>As moedas originais são preservadas ao lado do valor convertido; taxas de câmbio ausentes são informadas, não presumidas.</li>
+          <li>O registro é um arquivo DuckDB no seu disco, com SQL somente leitura na página Consulta.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>Perguntas que as pessoas fazem</h2>
+      <div class="faq">
+        <details><summary>Preciso dar minha chave de API da OpenAI ou da Anthropic ao CloudBridge?</summary><p>Não. OpenAI e Anthropic são apenas importação: adicione a conta com um nome e sem credenciais, depois importe o export de custo ou de uso baixado do console do provedor.</p></details>
+        <details><summary>E se meu export tiver tokens mas nenhum custo?</summary><p>Exports apenas com tokens continuam sendo registros de uso. O CloudBridge conta os tokens deles na página Modelos, mas não os transforma em uma fatura estimada.</p></details>
+        <details><summary>Quais provedores de modelos ele lê?</summary><p>Exports da OpenAI e da Anthropic, a API de saldo e o download de uso da DeepSeek, o Alibaba Cloud Model Studio pela fatura da Alibaba Cloud, e o Volcengine Ark pelo export de fatura da Volcengine.</p></details>
+        <details><summary>Ele consegue me avisar quando o gasto com modelos dispara?</summary><p>Sim. A regra de anomalia de crescimento de custo sinaliza o gasto diário acima da referência de 7 dias por dias consecutivos, e a regra de piso de saldo avisa quando um saldo pré-pago como o da DeepSeek fica baixo.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Veja sua fatura de modelos, modelo a modelo</h2>
+      <p>Baixe o CloudBridge, importe os exports do mês passado e abra a página Modelos. Ou dê uma olhada na demo primeiro.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">Baixar o CloudBridge</a>
+        <a class="button button-quiet" href="/demo/">Experimente a demo</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/pt/">Documentação</a>
+    <a href="/blog/pt/">Blog</a>
+    <a href="/demo/">Demo</a>
+    <a href="/pt/use-cases/cloud-cost-alerts/">Alertas de custos na nuvem</a>
+    <a href="/pt/use-cases/multi-cloud-cost-dashboard/">Custos multi-cloud</a>
+    <a href="/pt/use-cases/cloudflare-cost-breakdown/">Custos Cloudflare</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/llm-api-cost-tracking/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/llm-api-cost-tracking/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/llm-api-cost-tracking/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/ko/use-cases/llm-api-cost-tracking/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/llm-api-cost-tracking/" hreflang="fr" lang="fr">Français</a>
+    <a href="/es/use-cases/llm-api-cost-tracking/" hreflang="es" lang="es">Español</a>
+    <a href="/de/use-cases/llm-api-cost-tracking/" hreflang="de" lang="de">Deutsch</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>Do mesmo criador</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -5,7 +5,7 @@ description: "通过结算账号导出到 BigQuery 的账单接入 Google Cloud�
 
 # Google Cloud
 
-**[English](../google-cloud.md)**&emsp;**[日本語](../ja/google-cloud.md)**&emsp;**[한국어](../ko/google-cloud.md)**&emsp;**[Français](../fr/google-cloud.md)**&emsp;[文档](index.md)
+**[English](../google-cloud.md)**&emsp;**[日本語](../ja/google-cloud.md)**&emsp;**[한국어](../ko/google-cloud.md)**&emsp;**[Français](../fr/google-cloud.md)**&emsp;**[Español](../es/google-cloud.md)**&emsp;**[Deutsch](../de/google-cloud.md)**&emsp;**[Português](../pt/google-cloud.md)**&emsp;[文档](index.md)
 
 Google Cloud 没有能直接回答"这个月花了多少"的 API。它的账单是结算账号写进 BigQuery
 数据集的导出，CloudBridge 读的就是这个：每个月一次查询，得到按服务、SKU、项目和区域
