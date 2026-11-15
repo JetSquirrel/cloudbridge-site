@@ -15,7 +15,8 @@ schedule, and tells you when something fires.
 
 On macOS and Windows, closing the window leaves CloudBridge in the menu bar
 (the notification area on Windows). The icon's title is the month's spend,
-`$2.8k`, and the cloud carries an exclamation mark while any alert is open.
+`$2.8k`. The icon is an arch bridge with three dots, and an exclamation mark
+replaces the dots while any alert is open.
 
 Click it for a panel with the month to date, the month-end forecast, the
 open alerts and the services that moved most against last month, with

@@ -72,6 +72,20 @@ zone de notification comprise : réduisez-la plutôt que de la fermer. Les
 versions suivantes n’ouvrent aucune console et portent leur icône dans le
 `.exe`, la barre de titre et la barre des tâches.
 
+## Toutes les requêtes échouent sous Windows {#windows-query}
+
+Dans la version 0.8.0 sous Windows, chaque requête de la page Query s’arrête
+sur une erreur d’E/S, car la page ouvre une seconde fois le fichier du
+registre. CloudBridge 0.9.0 corrige cela. Vos données ne sont pas affectées.
+
+## L’installation du scanner s’arrête en cours de route {#scanner-install}
+
+Le scanner d’Insights représente un téléchargement d’environ 45 Mo. Dans la
+version 0.8.0, une connexion coupée en cours de route arrête l’installation
+avec *io: unexpected end of file* : cliquez de nouveau sur **Set up and
+scan**. À partir de 0.9.0, CloudBridge réessaie de lui-même jusqu’à trois fois
+un téléchargement interrompu ou expiré, ou une erreur de serveur.
+
 ## Erreurs d’import {#import-errors}
 
 - **« not UTF-8 text »** — les consoles Alibaba Cloud et Volcengine peuvent

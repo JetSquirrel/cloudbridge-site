@@ -63,6 +63,19 @@ Closing that console quits CloudBridge, notification-area icon included, so
 minimize it rather than close it. Later releases open no console and carry
 their icon in the `.exe`, the title bar and the taskbar.
 
+## Every query fails on Windows {#windows-query}
+
+In 0.8.0 on Windows, every query on the Query page stops with an IO error,
+because the page opens the ledger file a second time. CloudBridge 0.9.0 fixes
+it. Your data is not affected.
+
+## Installing the scanner stops partway {#scanner-install}
+
+The Insights scanner is about a 45 MB download. In 0.8.0, a connection cut
+partway through stops the install with *io: unexpected end of file*: click
+**Set up and scan** again. From 0.9.0, CloudBridge retries a dropped or timed-out download
+or a server error up to three times on their own.
+
 ## Import errors {#import-errors}
 
 - **"not UTF-8 text"** — Alibaba Cloud and Volcengine consoles can produce

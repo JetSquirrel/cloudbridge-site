@@ -59,6 +59,7 @@ features:
 | 비용이 어느 비즈니스 라인에 속하는지 확인 | [비용 귀속](attribution.md) |
 | LLM 모델별 토큰당 비용 확인 | [모델](models.md) |
 | 중지된 인스턴스, 유휴 주소, 주인 없는 리소스 찾기 | [인사이트](insights.md) |
+| 공급자의 청구서를 장부와 대사하기 | [청구서 대사](reconciliation.md) |
 | SQL로 장부에 질문하기 | [쿼리](query.md) |
 | 지출이 튀거나 예산에 근접할 때 알림 받기 | [알림, 규칙, 예산](alerts.md) |
 | 루프를 도는 Worker나 Durable Object를 청구서가 아니라 첫날에 알기 | [폭주 조기 발견](cloudflare.md#runaway) |

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>CloudBridge : vos factures cloud et IA au même endroit</title>
-<meta name="description" content="CloudBridge est une application de bureau gratuite et open source qui rassemble vos factures AWS, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic et DeepSeek dans une base de données locale et vous alerte lorsque les coûts augmentent. Sans inscription, sans synchronisation, sans télémétrie.">
+<meta name="description" content="CloudBridge est une application de bureau gratuite et open source qui rassemble vos factures AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare, Volcengine, OpenAI, Anthropic et DeepSeek dans une base de données locale et vous alerte lorsque les coûts augmentent. Sans inscription, sans synchronisation, sans télémétrie.">
 <link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/fr/">
 <link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/">
 <link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/">
@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/fr/">
 <meta property="og:title" content="CloudBridge : vos factures cloud et IA au même endroit">
-<meta property="og:description" content="Rassemblez vos factures AWS, Alibaba Cloud, Cloudflare et de vos fournisseurs d’IA dans une base locale et soyez alerté lorsque les coûts grimpent. Gratuit et open source, pour macOS et Windows.">
+<meta property="og:description" content="Rassemblez vos factures AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare et de vos fournisseurs d’IA dans une base locale et soyez alerté lorsque les coûts grimpent. Gratuit et open source, pour macOS et Windows.">
 <meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
@@ -28,7 +28,7 @@
 <meta property="og:locale" content="fr_FR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CloudBridge : vos factures cloud et IA au même endroit">
-<meta name="twitter:description" content="Rassemblez vos factures AWS, Alibaba Cloud, Cloudflare et de vos fournisseurs d’IA dans une base locale et soyez alerté lorsque les coûts grimpent. Gratuit et open source, pour macOS et Windows.">
+<meta name="twitter:description" content="Rassemblez vos factures AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare et de vos fournisseurs d’IA dans une base locale et soyez alerté lorsque les coûts grimpent. Gratuit et open source, pour macOS et Windows.">
 <meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
 <link rel="alternate" type="text/plain" title="llms.txt" href="https://cloudbridge.jetsquirrel.cloud/llms.txt">
 <link rel="alternate" type="application/atom+xml" title="Blog CloudBridge" href="https://cloudbridge.jetsquirrel.cloud/blog/fr/feed.xml">
@@ -50,7 +50,7 @@
   "isAccessibleForFree": true,
   "image": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
   "screenshot": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
-  "featureList": ["Lecture des API de facturation AWS (Cost Explorer ou Data Exports FOCUS), Alibaba Cloud et Cloudflare", "Import des exports de factures d’Alibaba Cloud, Volcengine, OpenAI, Anthropic et DeepSeek", "Une base DuckDB locale avec les noms de colonnes FOCUS, devises d’origine conservées", "La facture quotidienne de Cloudflare répartie entre buckets R2, Workers, bases D1 et Durable Objects", "Icône dans la barre de menus avec les dépenses du mois, actualisation quotidienne en arrière-plan et notifications système", "Règles d’alerte pour les anomalies de coûts, les seuils de solde, les dépenses sans étiquette et les budgets de compte", "Attribution aux lignes métier, une page Modèles pour l’économie par jeton et du SQL en lecture seule", "Analyses : une analyse en lecture seule des ressources AWS et Cloudflare, valorisée à partir de la facture", "Sans inscription, sans synchronisation, sans télémétrie ; identifiants dans le trousseau du système"],
+  "featureList": ["Lecture des API de facturation AWS (Cost Explorer ou Data Exports FOCUS), Azure, Alibaba Cloud et Cloudflare, ainsi que de l’export de facturation BigQuery de Google Cloud", "Import des exports de factures d’Alibaba Cloud, Volcengine, OpenAI, Anthropic et DeepSeek", "Une base DuckDB locale avec les noms de colonnes FOCUS, devises d’origine conservées", "La facture quotidienne de Cloudflare répartie entre buckets R2, Workers, bases D1 et Durable Objects", "Icône dans la barre de menus avec les dépenses du mois, actualisation quotidienne en arrière-plan et notifications système", "Règles d’alerte pour les anomalies de coûts, les seuils de solde, les dépenses sans étiquette et les budgets de compte", "Attribution aux lignes métier, une page Modèles pour l’économie par jeton et du SQL en lecture seule", "Analyses : une analyse en lecture seule des ressources AWS et Cloudflare, valorisée à partir de la facture", "Sans inscription, sans synchronisation, sans télémétrie ; identifiants dans le trousseau du système"],
   "author": { "@type": "Person", "name": "JetSquirrel", "url": "https://github.com/JetSquirrel" },
   "inLanguage": "fr"
 }
@@ -92,7 +92,7 @@
               <li><a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
               <li><a href="/ja/" hreflang="ja" lang="ja">日本語</a></li>
               <li><a href="/ko/" hreflang="ko" lang="ko">한국어</a></li>
-              <li><a href="/fr/" hreflang="fr-FR" lang="fr" aria-current="true">Français</a></li>
+              <li><a href="/fr/" hreflang="fr" lang="fr" aria-current="true">Français</a></li>
             </ul>
           </details>
           <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download="short">Télécharger</a>
@@ -100,7 +100,7 @@
       </div>
       <div class="hero-copy">
         <h1>Toutes vos factures cloud et IA <span class="accent">au même endroit.</span></h1>
-        <p class="lede">CloudBridge est une application de bureau qui rassemble vos factures AWS, Alibaba Cloud, Cloudflare, OpenAI, Anthropic et DeepSeek, montre ce que vous payez et vous alerte lorsque les coûts s’envolent. Tout est stocké sur votre ordinateur.</p>
+        <p class="lede">CloudBridge est une application de bureau qui rassemble vos factures AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare, OpenAI, Anthropic et DeepSeek, montre ce que vous payez et vous alerte lorsque les coûts s’envolent. Tout est stocké sur votre ordinateur.</p>
         <div class="hero-actions">
           <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Télécharger pour Mac</a>
           <a class="button button-ghost" href="/demo/">Essayer la démo</a>
@@ -233,6 +233,8 @@
           <p class="group">Clouds</p>
           <ul class="platform-grid">
             <li><img src="/logos/aws.svg" alt="" width="32" height="32"><div><b>AWS</b><small>Cost Explorer, Data Exports</small></div></li>
+            <li><img src="/logos/azure.svg" alt="" width="32" height="32"><div><b>Azure</b><small>API Cost Management</small></div></li>
+            <li><img src="/logos/google-cloud.svg" alt="" width="32" height="32"><div><b>Google Cloud</b><small>Export de facturation BigQuery</small></div></li>
             <li><img src="/logos/alibaba-cloud.svg" alt="" width="32" height="32"><div><b>Alibaba Cloud</b><small>API de facturation, import de factures</small></div></li>
             <li><img src="/logos/cloudflare.svg" alt="" width="32" height="32"><div><b>Cloudflare</b><small>Usage quotidien, par ressource</small></div></li>
             <li><img src="/logos/volcengine.svg" alt="" width="32" height="32"><div><b>Volcengine</b><small>Import de factures, endpoints Ark</small></div></li>
@@ -351,6 +353,8 @@
       <h2>Cas d’usage courants</h2>
       <ul class="use-cases">
         <li><a href="/fr/use-cases/cloud-cost-alerts/"><b>Alertes de coûts cloud</b>Découvrez quand une facture AWS, Cloudflare ou d’API d’IA s’envole, sans attendre la facture.</a></li>
+        <li><a href="/fr/use-cases/multi-cloud-cost-dashboard/"><b>Tableau de bord des coûts multi-cloud</b>Placez les factures AWS, Azure, Google Cloud, Alibaba Cloud et Cloudflare dans un seul registre, sans faire tourner de serveur.</a></li>
+        <li><a href="/fr/use-cases/cloudflare-cost-breakdown/"><b>Coûts Cloudflare par ressource</b>Voyez quel Worker, bucket R2, base D1 ou Durable Object est derrière votre facture Cloudflare.</a></li>
         <li><a href="/fr/use-cases/llm-api-cost-tracking/"><b>Suivi des coûts d’API LLM</b>Voyez le coût par jeton de chaque modèle OpenAI, Anthropic, DeepSeek ou Model Studio, à partir des exports que vous avez déjà.</a></li>
       </ul>
     </div>
@@ -391,6 +395,8 @@
     <a href="/docs/fr/">Documentation</a>
     <a href="/blog/fr/">Blog</a>
     <a href="/fr/use-cases/cloud-cost-alerts/">Alertes de coûts</a>
+    <a href="/fr/use-cases/multi-cloud-cost-dashboard/">Coûts multi-cloud</a>
+    <a href="/fr/use-cases/cloudflare-cost-breakdown/">Coûts Cloudflare</a>
     <a href="/fr/use-cases/llm-api-cost-tracking/">Coûts d’API LLM</a>
     <a href="/demo/">Démo</a>
     <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
@@ -401,6 +407,11 @@
     <a href="/ja/" hreflang="ja" lang="ja">日本語</a>
     <a href="/ko/" hreflang="ko" lang="ko">한국어</a>
     <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>Du même auteur</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
   </div>
 </footer>
 

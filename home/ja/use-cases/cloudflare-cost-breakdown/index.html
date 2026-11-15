@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worker、R2 バケット、Durable Object ごとの Cloudflare コスト | CloudBridge</title>
+<meta name="description" content="どの Worker、R2 バケット、D1 データベース、Durable Object が Cloudflare の請求額の原因なのかを確認できます。リソースごとに分割した日次の課金使用量を、お使いのコンピューター上に保存します。">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/cloudflare-cost-breakdown/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/cloudflare-cost-breakdown/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloudflare-cost-breakdown/">
+<meta property="og:title" content="Worker、R2 バケット、Durable Object ごとの Cloudflare コスト | CloudBridge">
+<meta property="og:description" content="Cloudflare の請求書はサービス単位で止まります。CloudBridge は 1 日ごとの請求額を Worker、R2 バケット、D1 データベース、Durable Object に分割します。無料・オープンソース・ローカル。">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge の概要画面：クラウドとモデルプロバイダーごとの月初来の支出、日次支出のグラフ、変動の大きい項目">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Worker、R2 バケット、Durable Object ごとの Cloudflare コスト | CloudBridge">
+<meta name="twitter:description" content="Cloudflare の請求書はサービス単位で止まります。CloudBridge は 1 日ごとの請求額を Worker、R2 バケット、D1 データベース、Durable Object に分割します。無料・オープンソース・ローカル。">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/ja/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloudflare-cost-breakdown/",
+      "name": "Worker、R2 バケット、Durable Object ごとの Cloudflare コスト",
+      "description": "どの Worker、R2 バケット、D1 データベース、Durable Object が Cloudflare の請求額の原因なのかを確認できます。リソースごとに分割した日次の課金使用量を、お使いのコンピューター上に保存します。",
+      "inLanguage": "ja",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "Cloudflare コストの内訳", "item": "https://cloudbridge.jetsquirrel.cloud/ja/use-cases/cloudflare-cost-breakdown/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "ja",
+      "mainEntity": [
+        { "@type": "Question", "name": "Cloudflare の請求書には、Worker や R2 バケットごとのコストが表示されますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。請求書はサービス単位で止まります。その日に請求された R2 Class B オペレーションや Durable Object の行数は分かっても、どのバケットやネームスペースが使ったのかは分かりません。CloudBridge は Cloudflare の GraphQL Analytics API から各リソースの使用量を読み取り、その割合で 1 日ごとの請求額を分割します。" } },
+        { "@type": "Question", "name": "リソース別の分割はどのくらい正確ですか？", "acceptedAnswer": { "@type": "Answer", "text": "各部分の合計は Cloudflare が請求した金額と一致し、推定値として表示されます。Cloudflare の分析データはサンプリングされており、無料枠は特定のリソースではなくアカウントに属します。" } },
+        { "@type": "Question", "name": "API トークンにはどの権限が必要ですか？", "acceptedAnswer": { "@type": "Answer", "text": "請求書の読み取りに「Account, Billing, Read」、分割に「Account, Account Analytics, Read」が必要です。どちらも読み取り専用です。インサイトのリソーススキャンにはさらにいくつかの Read 権限が必要で、拒否された権限はその旨が表示されます。" } },
+        { "@type": "Question", "name": "Cloudflare Enterprise アカウントでも使えますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。Cloudflare の課金使用量 API は従量課金（セルフサーブ）アカウントのみを対象としており、まだアルファ版の API です。CloudBridge は Enterprise アカウントを未対応として報告します。" } },
+        { "@type": "Question", "name": "CloudBridge は暴走した Worker や Durable Object を停止できますか？", "acceptedAnswer": { "@type": "Answer", "text": "いいえ。読み取りのみを行います。高額な日を読み取った最初の更新でアラートを出し、インサイトで請求の原因となっている Worker やネームスペースを表示するので、Cloudflare のダッシュボードで停止できます。" } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/ja/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="サイト">
+        <a href="/docs/ja/">ドキュメント</a>
+        <a class="optional" href="/blog/ja/">ブログ</a>
+        <a class="optional" href="/demo/">デモ</a>
+        <details class="lang">
+          <summary aria-label="言語">日本語</summary>
+          <ul>
+            <li><a href="/use-cases/cloudflare-cost-breakdown/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/cloudflare-cost-breakdown/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/cloudflare-cost-breakdown/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li>
+            <li><a href="/ko/use-cases/cloudflare-cost-breakdown/" hreflang="ko" lang="ko">한국어</a></li>
+            <li><a href="/fr/use-cases/cloudflare-cost-breakdown/" hreflang="fr" lang="fr">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">ダウンロード</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="パンくずリスト"><a href="/ja/">ホーム</a><span aria-hidden="true">›</span><span>Cloudflare コストの内訳</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">請求書に書かれるのはサービス名で、リソース名ではありません</p>
+      <h1>Cloudflare の請求額の裏側にある Worker、バケット、Durable Object を特定</h1>
+      <p class="lede">CloudBridge は Cloudflare の日次の課金使用量を読み取り、R2 バケット、Worker、D1 データベース、Durable Object のネームスペースごとに 1 日ごとの請求額を分割して、お使いのコンピューター上の台帳に記録します。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-ghost" href="/docs/ja/cloudflare">Cloudflare のドキュメントを読む</a>
+      </div>
+      <p class="fineprint">macOS と Windows 向けの無料オープンソース。アカウントも同期もテレメトリもありません。</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">仕組み</p>
+      <h2>API トークンからリソース別のコストまで</h2>
+      <p class="intro">読み取り専用のトークンが 1 つあれば十分です。トークンはシステムのキーチェーンに保存されます。</p>
+      <ol class="steps">
+        <li>
+          <h3>トークンを作成</h3>
+          <p>Account → Billing → Read を持つカスタム API トークンを作成します。リソース別の分割には Account → Account Analytics → Read も追加します。</p>
+        </li>
+        <li>
+          <h3>アカウントを追加</h3>
+          <p>アカウント ID とトークンを入力します。CloudBridge が課金使用量（サービスごと、日ごとの支出）を読み取ります。</p>
+        </li>
+        <li>
+          <h3>分割結果を確認</h3>
+          <p>1 日ごとの請求額が、そのメーターを使ったリソースに按分されます。インサイトには各リソースの割合と、今期間の使用量が表示されます。</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">分割</p>
+      <h2>何を、何に対して分割するか</h2>
+      <p class="intro">Cloudflare の請求書には「R2 Class B operations, 734 on 3 October」とだけ書かれているかもしれません。CloudBridge は GraphQL Analytics API に問い合わせて、どのバケットがその操作を行ったのかを特定します。</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>請求書の項目</th><th>分割の対象</th><th>基準</th></tr></thead>
+          <tbody>
+            <tr><td>R2 の Class A / Class B オペレーション、ストレージ</td><td>R2 バケット</td><td>そのメーターに対する各バケットの使用量</td></tr>
+            <tr><td>Workers のリクエストと CPU</td><td>Worker</td><td>各 Worker のリクエスト数</td></tr>
+            <tr><td>D1 の読み取り・書き込み行数、ストレージ</td><td>D1 データベース</td><td>そのメーターに対する各データベースの使用量</td></tr>
+            <tr><td>Durable Objects のリクエスト、実行時間、行数、ストレージ</td><td>Durable Object のネームスペース</td><td>そのメーターに対する各ネームスペースの使用量</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/ja/cloudflare#split">リソース別に分割 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">数値の意味</p>
+          <h2>合計は請求額と一致します</h2>
+          <p>分割は Cloudflare が請求した金額を分けるだけで、価格を新たに作ることはありません。分析データはサンプリングされ、無料枠は特定のリソースではなくアカウントに属するため、各行は推定値として表示されます。</p>
+          <p><a href="/docs/ja/insights">インサイト</a>&emsp;<a href="/docs/ja/permissions#cloudflare">トークンの権限</a></p>
+        </div>
+        <ul class="promise">
+          <li>KV や Queues のように分析データで分割できないメーターは、アカウント単位の行としてそのまま残ります。</li>
+          <li>無料枠内の使用量もコスト 0 として記録します。暴走はそこから始まるからです。</li>
+          <li>Account Analytics の権限がなくても請求書は読み取れます。分割されないだけです。</li>
+          <li>対象は従量課金（セルフサーブ）アカウントのみです。Cloudflare の課金使用量 API はアルファ版で、Enterprise には対応していません。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">暴走の発見</p>
+          <h2>Worker がループし始めた最初の日に気づく</h2>
+          <p>従量課金の Cloudflare アカウントには、支出上限で停止する仕組みがありません。アカウントに月次予算を設定し、月末予測に基づくアカウント予算ルールを追加してください。最初の高額な日が月全体に投影され、それを読み取った最初の更新でアラートが発火します。</p>
+          <p><a href="/docs/ja/cloudflare#runaway">暴走を捉える</a>&emsp;<a href="/ja/use-cases/cloud-cost-alerts/">クラウド費用アラート</a></p>
+        </div>
+        <ul class="promise">
+          <li>実際の事例：休眠していたプロジェクトの Durable Object アラームが、誰も気づかないうちに 10,811 ドル請求されました。<a href="/blog/ja/cloudflare-durable-object-runaway">記事を読む</a>。</li>
+          <li>更新間隔を 6 時間に短縮し、「ログイン時に開く」を有効にして CloudBridge をメニューバーに常駐させます。</li>
+          <li>アラートが発火したら、インサイトで各 Worker とネームスペースの割合が表示されるので、原因の 1 つが浮かび上がります。</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">プライバシー</p>
+          <h2>請求書はお使いのマシンに残ります</h2>
+          <p>台帳はディスク上の DuckDB ファイルで、トークンは OS のキーチェーンに保存されます。CloudBridge は Cloudflare から読み取るだけで、請求書は AWS、Azure、Google Cloud、モデルプロバイダーの請求書と同じ列に並びます。</p>
+        </div>
+        <ul class="promise">
+          <li>CloudBridge のアカウントも同期サービスもテレメトリもありません。</li>
+          <li>読み取り専用のトークン。Cloudflare アカウント側で何かが作成・変更されることはありません。</li>
+          <li>MIT のオープンソース。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>よくある質問</h2>
+      <div class="faq">
+        <details><summary>Cloudflare の請求書には、Worker や R2 バケットごとのコストが表示されますか？</summary><p>いいえ。請求書はサービス単位で止まります。その日に請求された R2 Class B オペレーションや Durable Object の行数は分かっても、どのバケットやネームスペースが使ったのかは分かりません。CloudBridge は Cloudflare の GraphQL Analytics API から各リソースの使用量を読み取り、その割合で 1 日ごとの請求額を分割します。</p></details>
+        <details><summary>リソース別の分割はどのくらい正確ですか？</summary><p>各部分の合計は Cloudflare が請求した金額と一致し、推定値として表示されます。Cloudflare の分析データはサンプリングされており、無料枠は特定のリソースではなくアカウントに属します。</p></details>
+        <details><summary>API トークンにはどの権限が必要ですか？</summary><p>請求書の読み取りに「Account, Billing, Read」、分割に「Account, Account Analytics, Read」が必要です。どちらも読み取り専用です。インサイトのリソーススキャンにはさらにいくつかの Read 権限が必要で、拒否された権限はその旨が表示されます。</p></details>
+        <details><summary>Cloudflare Enterprise アカウントでも使えますか？</summary><p>いいえ。Cloudflare の課金使用量 API は従量課金（セルフサーブ）アカウントのみを対象としており、まだアルファ版の API です。CloudBridge は Enterprise アカウントを未対応として報告します。</p></details>
+        <details><summary>CloudBridge は暴走した Worker や Durable Object を停止できますか？</summary><p>いいえ。読み取りのみを行います。高額な日を読み取った最初の更新でアラートを出し、インサイトで請求の原因となっている Worker やネームスペースを表示するので、Cloudflare のダッシュボードで停止できます。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>Cloudflare のリソースごとのコストを確認</h2>
+      <p>CloudBridge をダウンロードし、Cloudflare アカウントを追加して、インサイトを開いてください。まずデモを見て回ることもできます。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge をダウンロード</a>
+        <a class="button button-quiet" href="/demo/">デモを試す</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/ja/">ドキュメント</a>
+    <a href="/blog/ja/">ブログ</a>
+    <a href="/demo/">デモ</a>
+    <a href="/ja/use-cases/cloud-cost-alerts/">クラウド費用アラート</a>
+    <a href="/ja/use-cases/multi-cloud-cost-dashboard/">マルチクラウドのコスト</a>
+    <a href="/ja/use-cases/llm-api-cost-tracking/">LLM API コスト</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/cloudflare-cost-breakdown/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/cloudflare-cost-breakdown/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ko/use-cases/cloudflare-cost-breakdown/" hreflang="ko" lang="ko">한국어</a>
+    <a href="/fr/use-cases/cloudflare-cost-breakdown/" hreflang="fr" lang="fr">Français</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>同じ作り手から</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

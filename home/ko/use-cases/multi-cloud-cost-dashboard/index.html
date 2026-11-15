@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWS, Azure, Google Cloud를 한눈에 보는 멀티 클라우드 비용 대시보드 | CloudBridge</title>
+<meta name="description" content="AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare 청구서를 FOCUS 열을 쓰는 하나의 로컬 원장에 모읍니다. 서버를 두지 않는 무료 오픈소스 데스크톱 앱입니다.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="ja" href="https://cloudbridge.jetsquirrel.cloud/ja/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="ko" href="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="fr" href="https://cloudbridge.jetsquirrel.cloud/fr/use-cases/multi-cloud-cost-dashboard/">
+<link rel="alternate" hreflang="x-default" href="https://cloudbridge.jetsquirrel.cloud/use-cases/multi-cloud-cost-dashboard/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="stylesheet" href="/styles.css">
+<meta name="theme-color" content="#f6f1e8">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CloudBridge">
+<meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/">
+<meta property="og:title" content="AWS, Azure, Google Cloud를 한눈에 보는 멀티 클라우드 비용 대시보드 | CloudBridge">
+<meta property="og:description" content="모든 클라우드 청구서를 여러분의 컴퓨터에 있는 하나의 원장에 같은 FOCUS 열로 모으고, 하나의 통화로 합계를 봅니다. 서버를 두지 않는 무료 오픈소스.">
+<meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="675">
+<meta property="og:image:alt" content="CloudBridge 개요 화면: 여러 클라우드와 모델 서비스의 이번 달 누적 지출, 일별 지출 차트, 가장 크게 변한 항목">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:locale:alternate" content="zh_CN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AWS, Azure, Google Cloud를 한눈에 보는 멀티 클라우드 비용 대시보드 | CloudBridge">
+<meta name="twitter:description" content="모든 클라우드 청구서를 여러분의 컴퓨터에 있는 하나의 원장에 같은 FOCUS 열로 모으고, 하나의 통화로 합계를 봅니다. 서버를 두지 않는 무료 오픈소스.">
+<meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
+<link rel="alternate" type="application/atom+xml" title="CloudBridge 블로그" href="https://cloudbridge.jetsquirrel.cloud/blog/ko/feed.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "url": "https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/",
+      "name": "AWS, Azure, Google Cloud를 한눈에 보는 멀티 클라우드 비용 대시보드",
+      "description": "AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare 청구서를 FOCUS 열을 쓰는 하나의 로컬 원장에 모읍니다. 서버를 두지 않는 무료 오픈소스 데스크톱 앱입니다.",
+      "inLanguage": "ko",
+      "isPartOf": { "@type": "WebSite", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" },
+      "about": { "@type": "SoftwareApplication", "name": "CloudBridge", "url": "https://cloudbridge.jetsquirrel.cloud/" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "CloudBridge", "item": "https://cloudbridge.jetsquirrel.cloud/" },
+        { "@type": "ListItem", "position": 2, "name": "멀티 클라우드 비용 대시보드", "item": "https://cloudbridge.jetsquirrel.cloud/ko/use-cases/multi-cloud-cost-dashboard/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "inLanguage": "ko",
+      "mainEntity": [
+        { "@type": "Question", "name": "모든 클라우드 비용을 한곳에서 보려면 서버를 배포해야 하나요?", "acceptedAnswer": { "@type": "Answer", "text": "아니요. CloudBridge는 macOS와 Windows용 데스크톱 앱입니다. 읽기 전용 자격 증명으로 각 공급자의 청구서를 읽어 여러분의 디스크에 있는 DuckDB 파일에 보관합니다. 준비할 서버도, 데이터베이스도, 계정도 없습니다." } },
+        { "@type": "Question", "name": "CloudBridge는 어떤 클라우드를 읽나요?", "acceptedAnswer": { "@type": "Answer", "text": "AWS, Microsoft Azure, Google Cloud, Alibaba Cloud, Cloudflare를 각자의 청구 API나 내보내기로 읽고, Volcengine은 청구서 내보내기로 읽습니다. OpenAI, Anthropic, DeepSeek의 모델 서비스 청구서도 같은 원장에 들어옵니다." } },
+        { "@type": "Question", "name": "서로 다른 통화의 청구서를 어떻게 합산하나요?", "acceptedAnswer": { "@type": "Answer", "text": "합계는 하나의 기준 통화로 표시됩니다. 각 청구 항목은 환산 금액 옆에 원래 통화를 함께 보관하며, 환율이 없는 청구 항목은 임의로 환산하지 않고 합계에서 빠졌다고 알려 줍니다." } },
+        { "@type": "Question", "name": "FOCUS가 무엇이고, 여기서 왜 중요한가요?", "acceptedAnswer": { "@type": "Answer", "text": "FOCUS는 FinOps Foundation이 만든 청구 데이터 공개 사양입니다. CloudBridge는 그 이름을 따라 열을 정의하므로, Alibaba Cloud ECS 인스턴스와 AWS EC2 인스턴스가 모두 Compute로 집계되고 SQL 쿼리 하나로 모든 공급자를 다룰 수 있습니다. 원장은 FOCUS CSV로 내보낼 수도 있습니다." } },
+        { "@type": "Question", "name": "CloudBridge는 팀 전체를 위한 FinOps 플랫폼인가요?", "acceptedAnswer": { "@type": "Answer", "text": "아니요. 한 사람의 컴퓨터에 있는 원장이며, 동기화도 공유 서버도 없습니다. 조직에 공유 대시보드와 역할 관리가 필요하다면 FinOps 서버가 더 맞습니다. CloudBridge vs OptScale 글에서 둘을 비교합니다." } },
+        { "@type": "Question", "name": "청구서를 읽는 데 비용이 드나요?", "acceptedAnswer": { "@type": "Answer", "text": "공급자가 요금을 받는 경우에만 듭니다. AWS Cost Explorer 요청과 S3 읽기, 그리고 월 무료 한도를 넘는 Google Cloud BigQuery 쿼리입니다. CloudBridge는 새로 고침 주기(기본 24시간)마다 각 공급자에 최대 한 번만 요청합니다." } }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <a class="brand" href="/ko/"><img src="/assets/logo-160.png" alt="" width="32" height="32">CloudBridge</a>
+      <nav aria-label="사이트">
+        <a href="/docs/ko/">문서</a>
+        <a class="optional" href="/blog/ko/">블로그</a>
+        <a class="optional" href="/demo/">데모</a>
+        <details class="lang">
+          <summary aria-label="언어">한국어</summary>
+          <ul>
+            <li><a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a></li>
+            <li><a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
+            <li><a href="/ja/use-cases/multi-cloud-cost-dashboard/" hreflang="ja" lang="ja">日本語</a></li>
+            <li><a href="/ko/use-cases/multi-cloud-cost-dashboard/" hreflang="ko" lang="ko" aria-current="true">한국어</a></li>
+            <li><a href="/fr/use-cases/multi-cloud-cost-dashboard/" hreflang="fr" lang="fr">Français</a></li>
+          </ul>
+        </details>
+        <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">다운로드</a>
+      </nav>
+    </div>
+    <nav class="breadcrumbs" aria-label="이동 경로"><a href="/ko/">홈</a><span aria-hidden="true">›</span><span>멀티 클라우드 비용 대시보드</span></nav>
+    <div class="use-case-copy">
+      <p class="kicker">AWS, Azure, Google Cloud, Alibaba Cloud, Cloudflare를 나란히</p>
+      <h1>모든 클라우드 청구서를 위한 하나의 원장</h1>
+      <p class="lede">CloudBridge는 각 클라우드의 청구서를 일 단위로 읽어 여러분의 컴퓨터에 있는 하나의 데이터베이스에 같은 열과 하나의 기준 통화로 담습니다. 서버를 돌리지 않고도 모든 클라우드의 이번 달을 볼 수 있습니다.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge 다운로드</a>
+        <a class="button button-ghost" href="/demo/">데모 체험하기</a>
+      </div>
+      <p class="fineprint">macOS와 Windows용 무료 오픈소스. 계정도, 동기화도, 텔레메트리도 없습니다.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">소스</p>
+      <h2>클라우드마다 연결하는 방식</h2>
+      <p class="intro">모든 연결은 청구에 한정된 읽기 전용 자격 증명을 쓰며, 시스템 키링에 보관됩니다.</p>
+      <div class="table-scroll">
+        <table class="rule-table">
+          <thead><tr><th>클라우드</th><th>연결 방식</th><th>얻는 것</th></tr></thead>
+          <tbody>
+            <tr><td><a href="/docs/ko/aws">AWS</a></td><td>한 가지 작업만 담은 IAM 정책을 쓰는 Cost Explorer, 또는 S3에 있는 FOCUS Data Export</td><td>서비스별 일별 비용, 내보내기를 쓰면 리소스 ID와 태그까지</td></tr>
+            <tr><td><a href="/docs/ko/azure">Microsoft Azure</a></td><td>Cost Management Reader 권한을 가진 서비스 주체</td><td>서비스와 청구 유형별 일별 실제 비용</td></tr>
+            <tr><td><a href="/docs/ko/google-cloud">Google Cloud</a></td><td>BigQuery 청구 내보내기를 읽는 서비스 계정</td><td>서비스, SKU, 프로젝트, 리전별 일별 비용, 크레딧은 별도 행</td></tr>
+            <tr><td><a href="/docs/ko/alibaba-cloud">Alibaba Cloud</a></td><td>읽기 전용 RAM 사용자, 또는 청구서 상세 내보내기</td><td>API에서는 제품별 합계, 내보내기에서는 인스턴스 단위 행</td></tr>
+            <tr><td><a href="/docs/ko/cloudflare">Cloudflare</a></td><td>Billing Read 권한이 있는 API 토큰</td><td>Worker, 버킷, Durable Object별로 나눈 일별 과금 사용량</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="section-link"><a href="/docs/ko/permissions">공급자별 최소 권한 →</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="row">
+        <div>
+          <p class="eyebrow">하나의 형식</p>
+          <h2>모든 청구서를 같은 열에</h2>
+          <p>청구서는 어떻게 들어오든 FinOps FOCUS 표준의 열 이름으로 저장됩니다. Alibaba Cloud ECS 인스턴스와 AWS EC2 인스턴스는 모두 Compute로 집계되고, SQL 쿼리 하나로 모든 공급자를 다룰 수 있습니다.</p>
+          <p><a href="/docs/ko/query">쿼리</a>&emsp;<a href="/docs/ko/focus">FOCUS와 토큰 데이터</a></p>
+        </div>
+        <ul class="promise">
+          <li><code>billed_cost</code>, <code>effective_cost</code>, <code>service_category</code>, <code>region_id</code> 같은 열은 모든 소스에서 같은 의미입니다.</li>
+          <li>합계는 하나의 기준 통화로 표시되고, 각 청구 항목은 환산 금액 옆에 원래 통화를 함께 보관합니다.</li>
+          <li>크레딧, 환불, 일회성 구매는 사용량에 더하지 않고 그 자체로 보관합니다.</li>
+          <li>원장은 DuckDB 파일이라 읽기 전용 SQL로 조회하거나 FOCUS CSV로 내보낼 수 있습니다.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">청구서 읽기</p>
+          <h2>누가, 무엇에 썼는지</h2>
+          <p>개요 화면은 이번 달 누적, 예상, 모든 소스에서 가장 크게 변한 항목을 보여 줍니다. 귀속은 지출을 사업 부문에 연결하고, 태그, 서비스, 리전, FOCUS 서비스 분류별로 나눠 줍니다.</p>
+          <p><a href="/docs/ko/overview">개요</a>&emsp;<a href="/docs/ko/attribution">귀속</a>&emsp;<a href="/docs/ko/reconciliation">대사</a></p>
+        </div>
+        <ul class="promise">
+          <li>알림 규칙은 같은 원장 위에서 실행됩니다. 비용 이상, 계정 예산, 잔액 하한, 태그 없는 지출. <a href="/ko/use-cases/cloud-cost-alerts/">클라우드 비용 알림</a>.</li>
+          <li>모델 서비스 청구서는 클라우드 옆에 모델별 백만 토큰당 비용과 함께 놓입니다. <a href="/ko/use-cases/llm-api-cost-tracking/">LLM API 비용 추적</a>.</li>
+          <li>대사는 각 공급자의 최종 인보이스를 인보이스 통화로 원장과 비교합니다.</li>
+        </ul>
+      </div>
+
+      <div class="row">
+        <div>
+          <p class="eyebrow">서버 없음</p>
+          <h2>배포하는 플랫폼이 아니라 설치하는 앱</h2>
+          <p>대부분의 멀티 클라우드 비용 도구는 청구서를 보내야 하는 호스팅 서비스이거나, 직접 배포하고 유지해야 하는 서버입니다. CloudBridge는 설치하는 앱이라, 청구서는 공급자에서 여러분의 디스크에 있는 파일로만 가고 그 밖으로 나가지 않습니다.</p>
+          <p><a href="/blog/ko/cloudbridge-vs-optscale">CloudBridge vs OptScale</a></p>
+        </div>
+        <ul class="promise">
+          <li>CloudBridge 계정도, 동기화 서비스도, 텔레메트리도 없습니다.</li>
+          <li>읽기 전용입니다. 공급자 쪽에서 리소스를 만들거나 바꾸지 않습니다.</li>
+          <li>한 사람이 청구서를 보는 용도로 만들어졌습니다. 공유 대시보드와 역할이 필요한 팀에는 FinOps 서버가 더 맞습니다.</li>
+          <li>MIT 라이선스 오픈소스입니다.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">FAQ</p>
+      <h2>자주 받는 질문</h2>
+      <div class="faq">
+        <details><summary>모든 클라우드 비용을 한곳에서 보려면 서버를 배포해야 하나요?</summary><p>아니요. CloudBridge는 macOS와 Windows용 데스크톱 앱입니다. 읽기 전용 자격 증명으로 각 공급자의 청구서를 읽어 여러분의 디스크에 있는 DuckDB 파일에 보관합니다. 준비할 서버도, 데이터베이스도, 계정도 없습니다.</p></details>
+        <details><summary>CloudBridge는 어떤 클라우드를 읽나요?</summary><p>AWS, Microsoft Azure, Google Cloud, Alibaba Cloud, Cloudflare를 각자의 청구 API나 내보내기로 읽고, Volcengine은 청구서 내보내기로 읽습니다. OpenAI, Anthropic, DeepSeek의 모델 서비스 청구서도 같은 원장에 들어옵니다.</p></details>
+        <details><summary>서로 다른 통화의 청구서를 어떻게 합산하나요?</summary><p>합계는 하나의 기준 통화로 표시됩니다. 각 청구 항목은 환산 금액 옆에 원래 통화를 함께 보관하며, 환율이 없는 청구 항목은 임의로 환산하지 않고 합계에서 빠졌다고 알려 줍니다.</p></details>
+        <details><summary>FOCUS가 무엇이고, 여기서 왜 중요한가요?</summary><p>FOCUS는 FinOps Foundation이 만든 청구 데이터 공개 사양입니다. CloudBridge는 그 이름을 따라 열을 정의하므로, Alibaba Cloud ECS 인스턴스와 AWS EC2 인스턴스가 모두 Compute로 집계되고 SQL 쿼리 하나로 모든 공급자를 다룰 수 있습니다. 원장은 FOCUS CSV로 내보낼 수도 있습니다.</p></details>
+        <details><summary>CloudBridge는 팀 전체를 위한 FinOps 플랫폼인가요?</summary><p>아니요. 한 사람의 컴퓨터에 있는 원장이며, 동기화도 공유 서버도 없습니다. 조직에 공유 대시보드와 역할 관리가 필요하다면 FinOps 서버가 더 맞습니다. <a href="/blog/ko/cloudbridge-vs-optscale">CloudBridge vs OptScale</a> 글에서 둘을 비교합니다.</p></details>
+        <details><summary>청구서를 읽는 데 비용이 드나요?</summary><p>공급자가 요금을 받는 경우에만 듭니다. AWS Cost Explorer 요청과 S3 읽기, 그리고 월 무료 한도를 넘는 Google Cloud BigQuery 쿼리입니다. CloudBridge는 새로 고침 주기(기본 24시간)마다 각 공급자에 최대 한 번만 요청합니다.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap">
+      <h2>클라우드 청구서를 한곳에 모으세요</h2>
+      <p>CloudBridge를 내려받아 클라우드마다 계정을 추가하고, 모든 클라우드의 이번 달을 확인하세요. 먼저 데모를 둘러봐도 좋습니다.</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest">CloudBridge 다운로드</a>
+        <a class="button button-quiet" href="/docs/ko/getting-started">시작하기</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>CloudBridge</span>
+    <a href="/docs/ko/">문서</a>
+    <a href="/blog/ko/">블로그</a>
+    <a href="/demo/">데모</a>
+    <a href="/ko/use-cases/cloud-cost-alerts/">클라우드 비용 알림</a>
+    <a href="/ko/use-cases/cloudflare-cost-breakdown/">Cloudflare 비용</a>
+    <a href="/ko/use-cases/llm-api-cost-tracking/">LLM API 비용</a>
+    <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
+    <span class="spacer"></span>
+    <a href="/use-cases/multi-cloud-cost-dashboard/" hreflang="en" lang="en">English</a>
+    <a href="/zh/use-cases/multi-cloud-cost-dashboard/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
+    <a href="/ja/use-cases/multi-cloud-cost-dashboard/" hreflang="ja" lang="ja">日本語</a>
+    <a href="/fr/use-cases/multi-cloud-cost-dashboard/" hreflang="fr" lang="fr">Français</a>
+    <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>같은 제작자의 다른 제품</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
+  </div>
+</footer>
+</body>
+</html>

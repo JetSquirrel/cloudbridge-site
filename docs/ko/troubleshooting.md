@@ -34,6 +34,14 @@ Windows 빌드는 코드 서명이 없으므로 SmartScreen이 *Windows protecte
 
 0.7.1까지의 Windows 릴리스는 CloudBridge 옆에 검은 콘솔 창을 열고, `.exe`에는 CloudBridge 아이콘이 아니라 일반 아이콘이 표시됩니다. 그 콘솔을 닫으면 알림 영역 아이콘을 포함해 CloudBridge가 종료되므로 닫지 말고 최소화하세요. 이후 릴리스는 콘솔을 열지 않고 `.exe`, 제목 표시줄, 작업 표시줄에 자체 아이콘을 담습니다.
 
+## Windows에서 모든 쿼리가 실패합니다 {#windows-query}
+
+Windows의 0.8.0에서는 쿼리 페이지가 장부 파일을 두 번째로 열기 때문에 쿼리 페이지의 모든 쿼리가 IO 오류로 멈춥니다. CloudBridge 0.9.0이 이를 고칩니다. 데이터는 영향을 받지 않습니다.
+
+## 스캐너 설치가 중간에 멈춥니다 {#scanner-install}
+
+인사이트 스캐너는 약 45MB 다운로드입니다. 0.8.0에서는 연결이 도중에 끊기면 *io: unexpected end of file*과 함께 설치가 멈춥니다: **Set up and scan**을 다시 클릭하세요. 0.9.0부터는 CloudBridge가 끊기거나 시간 초과된 다운로드 또는 서버 오류를 스스로 최대 세 번 재시도합니다.
+
 ## 가져오기 오류 {#import-errors}
 
 - **"not UTF-8 text"** — Alibaba Cloud와 Volcengine 콘솔은 GBK 내보내기를 만들 수 있습니다. UTF-8로 다시 내보내거나, 가져오기 전에 파일을 CSV UTF-8로 저장하세요.

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <title>CloudBridge：クラウドと AI の請求書を一か所で確認</title>
-<meta name="description" content="CloudBridge は、AWS、Alibaba Cloud、Cloudflare、Volcengine、OpenAI、Anthropic、DeepSeek の請求書をローカルのデータベースに集約し、コストが急増したときに知らせてくれる無料のオープンソースデスクトップアプリです。登録も同期もテレメトリもありません。">
+<meta name="description" content="CloudBridge は、AWS、Azure、Google Cloud、Alibaba Cloud、Cloudflare、Volcengine、OpenAI、Anthropic、DeepSeek の請求書をローカルのデータベースに集約し、コストが急増したときに知らせてくれる無料のオープンソースデスクトップアプリです。登録も同期もテレメトリもありません。">
 <link rel="canonical" href="https://cloudbridge.jetsquirrel.cloud/ja/">
 <link rel="alternate" hreflang="en" href="https://cloudbridge.jetsquirrel.cloud/">
 <link rel="alternate" hreflang="zh-CN" href="https://cloudbridge.jetsquirrel.cloud/zh/">
@@ -20,7 +20,7 @@
 <meta property="og:site_name" content="CloudBridge">
 <meta property="og:url" content="https://cloudbridge.jetsquirrel.cloud/ja/">
 <meta property="og:title" content="CloudBridge：クラウドと AI の請求書を一か所で確認">
-<meta property="og:description" content="AWS、Alibaba Cloud、Cloudflare、AI プロバイダーの請求書をローカルのデータベースに集約し、コストが急増したら通知します。無料のオープンソースで、macOS と Windows に対応。">
+<meta property="og:description" content="AWS、Azure、Google Cloud、Cloudflare、AI プロバイダーの請求書をローカルのデータベースに集約し、コストが急増したら通知します。無料のオープンソースで、macOS と Windows に対応。">
 <meta property="og:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="675">
@@ -28,7 +28,7 @@
 <meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CloudBridge：クラウドと AI の請求書を一か所で確認">
-<meta name="twitter:description" content="AWS、Alibaba Cloud、Cloudflare、AI プロバイダーの請求書をローカルのデータベースに集約し、コストが急増したら通知します。無料のオープンソースで、macOS と Windows に対応。">
+<meta name="twitter:description" content="AWS、Azure、Google Cloud、Cloudflare、AI プロバイダーの請求書をローカルのデータベースに集約し、コストが急増したら通知します。無料のオープンソースで、macOS と Windows に対応。">
 <meta name="twitter:image" content="https://cloudbridge.jetsquirrel.cloud/og-image.png">
 <link rel="alternate" type="text/plain" title="llms.txt" href="https://cloudbridge.jetsquirrel.cloud/llms.txt">
 <link rel="alternate" type="application/atom+xml" title="CloudBridge Blog" href="https://cloudbridge.jetsquirrel.cloud/blog/ja/feed.xml">
@@ -50,7 +50,7 @@
   "isAccessibleForFree": true,
   "image": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
   "screenshot": "https://cloudbridge.jetsquirrel.cloud/og-image.png",
-  "featureList": ["AWS（Cost Explorer または FOCUS Data Exports）、Alibaba Cloud、Cloudflare の課金 API を読み取る", "Alibaba Cloud、Volcengine、OpenAI、Anthropic、DeepSeek の請求書エクスポートを取り込む", "FOCUS の列名を持つローカルの DuckDB データベース。元の通貨も保持", "Cloudflare の日次請求を R2 バケット、Workers、D1 データベース、Durable Objects に分割", "月初来の支出を表示するメニューバーアイコン、日次のバックグラウンド更新、システム通知", "コスト異常、残高の下限、タグなし支出、アカウント予算のアラートルール", "事業ラインへの帰属、トークンあたりの経済性を示すモデルページ、読み取り専用 SQL", "インサイト：AWS と Cloudflare の読み取り専用リソーススキャン。請求書から価格を算出", "登録も同期もテレメトリもなし。認証情報は OS のキーチェーンに保存"],
+  "featureList": ["AWS（Cost Explorer または FOCUS Data Exports）、Azure、Alibaba Cloud、Cloudflare の課金 API と、Google Cloud の BigQuery の課金エクスポートを読み取る", "Alibaba Cloud、Volcengine、OpenAI、Anthropic、DeepSeek の請求書エクスポートを取り込む", "FOCUS の列名を持つローカルの DuckDB データベース。元の通貨も保持", "Cloudflare の日次請求を R2 バケット、Workers、D1 データベース、Durable Objects に分割", "月初来の支出を表示するメニューバーアイコン、日次のバックグラウンド更新、システム通知", "コスト異常、残高の下限、タグなし支出、アカウント予算のアラートルール", "事業ラインへの帰属、トークンあたりの経済性を示すモデルページ、読み取り専用 SQL", "インサイト：AWS と Cloudflare の読み取り専用リソーススキャン。請求書から価格を算出", "登録も同期もテレメトリもなし。認証情報は OS のキーチェーンに保存"],
   "author": { "@type": "Person", "name": "JetSquirrel", "url": "https://github.com/JetSquirrel" },
   "inLanguage": "ja"
 }
@@ -92,7 +92,7 @@
               <li><a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a></li>
               <li><a href="/ja/" hreflang="ja" lang="ja" aria-current="true">日本語</a></li>
               <li><a href="/ko/" hreflang="ko" lang="ko">한국어</a></li>
-              <li><a href="/fr/" hreflang="fr-FR" lang="fr">Français</a></li>
+              <li><a href="/fr/" hreflang="fr" lang="fr">Français</a></li>
             </ul>
           </details>
           <a class="button button-light" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download="short">ダウンロード</a>
@@ -100,7 +100,7 @@
       </div>
       <div class="hero-copy">
         <h1>クラウドと AI の請求書を、<span class="accent">一か所で。</span></h1>
-        <p class="lede">CloudBridge は、AWS、Alibaba Cloud、Cloudflare、OpenAI、Anthropic、DeepSeek の請求書を集め、何にいくら使っているかを表示し、コストが急増したときに知らせるデスクトップアプリです。データはすべてお使いのコンピューターに保存されます。</p>
+        <p class="lede">CloudBridge は、AWS、Azure、Google Cloud、Alibaba Cloud、Cloudflare、OpenAI、Anthropic、DeepSeek の請求書を集め、何にいくら使っているかを表示し、コストが急増したときに知らせるデスクトップアプリです。データはすべてお使いのコンピューターに保存されます。</p>
         <div class="hero-actions">
           <a class="button button-primary" href="https://github.com/JetSquirrel/cloudbridge/releases/latest/download/cloudbridge-macos-arm64.dmg" data-download>Mac 版をダウンロード</a>
           <a class="button button-ghost" href="/demo/">デモを試す</a>
@@ -233,6 +233,8 @@
           <p class="group">クラウド</p>
           <ul class="platform-grid">
             <li><img src="/logos/aws.svg" alt="" width="32" height="32"><div><b>AWS</b><small>Cost Explorer、Data Exports</small></div></li>
+            <li><img src="/logos/azure.svg" alt="" width="32" height="32"><div><b>Azure</b><small>Cost Management API</small></div></li>
+            <li><img src="/logos/google-cloud.svg" alt="" width="32" height="32"><div><b>Google Cloud</b><small>BigQuery の課金エクスポート</small></div></li>
             <li><img src="/logos/alibaba-cloud.svg" alt="" width="32" height="32"><div><b>Alibaba Cloud</b><small>課金 API、請求書の取り込み</small></div></li>
             <li><img src="/logos/cloudflare.svg" alt="" width="32" height="32"><div><b>Cloudflare</b><small>日次使用量、リソース別</small></div></li>
             <li><img src="/logos/volcengine.svg" alt="" width="32" height="32"><div><b>Volcengine</b><small>請求書の取り込み、Ark エンドポイント</small></div></li>
@@ -351,6 +353,8 @@
       <h2>よくあるユースケース</h2>
       <ul class="use-cases">
         <li><a href="/ja/use-cases/cloud-cost-alerts/"><b>クラウド費用のアラート</b>AWS、Cloudflare、AI API の請求が急に増えたときに、請求書を待たずに気づけます。</a></li>
+        <li><a href="/ja/use-cases/multi-cloud-cost-dashboard/"><b>マルチクラウドのコストダッシュボード</b>AWS、Azure、Google Cloud、Alibaba Cloud、Cloudflare の請求書を、サーバーを動かさずに 1 つの台帳にまとめます。</a></li>
+        <li><a href="/ja/use-cases/cloudflare-cost-breakdown/"><b>Cloudflare コストの内訳</b>どの Worker、R2 バケット、D1 データベース、Durable Object が Cloudflare の請求額の原因なのかを確認できます。</a></li>
         <li><a href="/ja/use-cases/llm-api-cost-tracking/"><b>LLM API のコスト管理</b>OpenAI、Anthropic、DeepSeek、Model Studio の各モデルのトークンあたりコストを、手元にあるエクスポートから確認できます。</a></li>
       </ul>
     </div>
@@ -391,6 +395,8 @@
     <a href="/docs/ja/">ドキュメント</a>
     <a href="/blog/ja/">ブログ</a>
     <a href="/ja/use-cases/cloud-cost-alerts/">コストアラート</a>
+    <a href="/ja/use-cases/multi-cloud-cost-dashboard/">マルチクラウドのコスト</a>
+    <a href="/ja/use-cases/cloudflare-cost-breakdown/">Cloudflare のコスト</a>
     <a href="/ja/use-cases/llm-api-cost-tracking/">LLM API コスト</a>
     <a href="/demo/">デモ</a>
     <a href="https://github.com/JetSquirrel/cloudbridge">GitHub</a>
@@ -399,8 +405,13 @@
     <a href="/" hreflang="en" lang="en">English</a>
     <a href="/zh/" hreflang="zh-CN" lang="zh-CN">简体中文</a>
     <a href="/ko/" hreflang="ko" lang="ko">한국어</a>
-    <a href="/fr/" hreflang="fr-FR" lang="fr">Français</a>
+    <a href="/fr/" hreflang="fr" lang="fr">Français</a>
     <span>MIT</span>
+  </div>
+  <div class="wrap siblings">
+    <span>同じ作り手から</span>
+    <a href="https://ducklocal.app">DuckLocal ↗</a>
+    <a href="https://khonsugraph.com">KhonsuGraph ↗</a>
   </div>
 </footer>
 

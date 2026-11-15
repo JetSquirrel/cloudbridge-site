@@ -30,7 +30,9 @@ Voir [FOCUS et données de tokens](focus.md).
   l’entrée : entrée non mise en cache, tokens écrits dans le cache, et, pour
   une facture qui compte l’entrée et la sortie ensemble, ce total. Son
   infobulle indique lequel de ces éléments il contient. Les lignes avec des
-  tokens mais sans coût comptent quand même dans les colonnes de tokens.
+  tokens mais sans coût comptent quand même dans les colonnes de tokens. Le
+  mois en cours se compare aux mêmes jours du mois dernier, pas à tout le
+  mois.
 - **Tokens par jour** trace le volume quotidien de tokens.
 
 ## Constats {#findings}

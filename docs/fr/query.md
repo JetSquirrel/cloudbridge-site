@@ -27,6 +27,9 @@ uniquement.
   100 000 lignes, moins pour les résultats larges — et la ligne d’état
   indique quand un résultat a été tronqué. Ajoutez un `LIMIT` ou une
   agrégation pour tout voir.
+- Un résultat reste à l’écran une fois que vous modifiez le SQL ou changez la
+  devise de rapport, marqué comme ne correspondant plus à ce qui est affiché
+  sur la page.
 
 ## Colonnes utiles {#columns}
 

@@ -16,7 +16,7 @@ période.
 Cliquez sur **Set up and scan**. La première fois, CloudBridge demande
 confirmation avant d’installer son scanner de ressources,
 [corkscrew](https://github.com/JetSquirrel/corkscrew/tree/cloudbridge-dist)
-— open source, notre fork maintenu, environ 30 Mo, conservé dans le dossier
+— open source, notre fork maintenu, environ 45 Mo, conservé dans le dossier
 de données propre à CloudBridge et vérifié par rapport à une somme de
 contrôle intégrée à l’application. Ensuite, il scanne :
 
@@ -54,9 +54,31 @@ la période, du plus coûteux au moins coûteux. Avec
 [la facture découpée par ressource](cloudflare.md#split), c’est là qu’un
 espace de noms ou un bucket qui s’emballe apparaît nommément.
 
+## Configuration de sécurité {#security}
+
+Depuis CloudBridge 0.9.0, une section distincte signale les groupes de
+sécurité AWS qui ouvrent SSH ou RDP à tout Internet (`0.0.0.0/0` ou `::/0`).
+Elle lit le scan, ne change rien dans votre cloud et ne demande aucune source
+supplémentaire. Ce n’est ni un contrôle de conformité ni un audit de sécurité
+complet, et ses constats ne sont jamais additionnés à ceux de coûts.
+
+Chaque groupe affiche **Finding**, **Not evaluated** ou
+**Evaluated, no finding**. Ouvrez une ligne pour voir la règle constatée,
+pourquoi elle compte et ce qu’il faut vérifier à la main. Une règle publique
+ne prouve pas une exposition : confirmez que le groupe est rattaché à quelque
+chose.
+
+**Not evaluated** signifie que les règles entrantes n’ont pas pu être lues,
+non que le groupe soit sûr. Sans scan, avec un scan partiel ou un scan qui n’a
+listé aucun groupe, la section le dit plutôt que de paraître propre.
+
 ## Le résumé d’abord {#summary}
 
 Chaque carte s’ouvre sur ses types de ressources, avec les nombres et le
 coût. Cliquez sur un type pour lister ses ressources, cinquante à la fois
 avec **Show more** ; cliquez de nouveau dessus pour le refermer. Un gros
 compte reste à une ligne par type tant que vous ne demandez pas le détail.
+
+Chaque constat affiche son ID complet avec un bouton de copie, son compte et
+un lien vers ses frais, pour que vous puissiez le vérifier par rapport à la
+facture.

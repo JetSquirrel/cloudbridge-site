@@ -67,6 +67,14 @@ une alerte un moment ; **Dismiss** la ferme. Une alerte ouverte est marquée
 **resolved** quand une évaluation ultérieure constate que sa condition ne
 tient plus.
 
+**See the charges** ouvre le service de l’alerte dans [Requête](query.md),
+tous mois confondus.
+
+Un solde bas est une seule alerte plutôt qu’une nouvelle carte chaque jour.
+Elle conserve les derniers chiffres jusqu’à ce que le solde se rétablisse ou
+que vous la fermiez, et les cartes plus anciennes pour le même solde
+fusionnent avec elle à la vérification suivante.
+
 ## Notifications {#notifications}
 
 Chaque alerte qui se déclenche pendant que CloudBridge tourne est annoncée

@@ -59,6 +59,7 @@ features:
 | Voir à quelle ligne métier appartient un coût | [Imputation](attribution.md) |
 | Voir ce que coûte chaque modèle de LLM par token | [Modèles](models.md) |
 | Trouver les instances arrêtées, les adresses inactives et les ressources que personne ne revendique | [Analyses](insights.md) |
+| Vérifier la facture d’un fournisseur par rapport au registre | [Rapprochement](reconciliation.md) |
 | Poser une question au registre en SQL | [Requête](query.md) |
 | Être prévenu quand les dépenses bondissent ou qu’un budget est proche | [Alertes, règles et budgets](alerts.md) |
 | Entendre parler d’un Worker ou d’un Durable Object qui boucle dès le premier jour, pas sur la facture | [Repérer un emballement](cloudflare.md#runaway) |

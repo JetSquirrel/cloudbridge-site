@@ -16,8 +16,8 @@ déclenche.
 
 Sous macOS et Windows, fermer la fenêtre laisse CloudBridge dans la barre des
 menus (la zone de notification sous Windows). Le titre de l’icône est la
-dépense du mois, `$2.8k`, et le nuage porte un point d’exclamation tant
-qu’une alerte est ouverte.
+dépense du mois, `$2.8k`. L’icône est un pont en arc à trois points, et un
+point d’exclamation remplace les points tant qu’une alerte est ouverte.
 
 Cliquez dessus pour ouvrir un panneau avec le mois en cours, la prévision de
 fin de mois, les alertes ouvertes et les services qui ont le plus bougé par

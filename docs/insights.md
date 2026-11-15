@@ -15,7 +15,7 @@ is worth a look, each priced from this period's bill.
 Click **Set up and scan**. The first time, CloudBridge asks before
 installing its resource scanner,
 [corkscrew](https://github.com/JetSquirrel/corkscrew/tree/cloudbridge-dist)
-— open source, our maintained fork, about 30 MB, kept in CloudBridge's own
+— open source, our maintained fork, about 45 MB, kept in CloudBridge's own
 data folder and checked against a checksum built into the app. After that
 it scans:
 
@@ -50,8 +50,27 @@ type's and each resource's share of the bill and its usage this period,
 costliest first. With [the bill split by resource](cloudflare.md#split),
 that is where a runaway namespace or bucket shows up by name.
 
+## Security configuration {#security}
+
+From CloudBridge 0.9.0, a separate section flags AWS security groups that open
+SSH or RDP to the whole internet (`0.0.0.0/0` or `::/0`). It reads the scan,
+changes nothing in your cloud, and needs no extra feed. It isn't a compliance
+check or a full security review, and its findings are never summed with cost
+findings.
+
+Each group reads **Finding**, **Not evaluated** or **Evaluated, no finding**.
+Open a row for the rule it saw, why it matters and what to check by hand. A
+public rule isn't proof of exposure: confirm the group is attached to something.
+
+**Not evaluated** means the inbound rules could not be read, not that the group
+is safe. With no scan, a partial scan, or a scan that listed no groups, the section
+says so rather than reading as clean.
+
 ## Summary first {#summary}
 
 Every card opens on its resource types, with counts and cost. Click a type
 to list its resources, fifty at a time with **Show more**; click it again
 to close it. A large account stays one row per type until you ask.
+
+Each finding shows its full ID with a copy button, its account and a link to
+its charges, so you can check it against the bill.

@@ -12,6 +12,7 @@ description: "CloudBridge가 무엇을 어디에 저장하는지: DuckDB 장부,
 | 설정 | 하는 일 |
 | --- | --- |
 | Appearance → Theme | 라이트/다크 테마, 실행 간 유지 |
+| Appearance → Language | [인터페이스 언어](#language): System, English 또는 简体中文 |
 | Reporting → Currency | 모든 합계에 쓸 USD 또는 CNY, 비용은 자체 통화 유지 |
 | Refreshing → Refresh interval | 한 달을 다시 가져오기까지 6, 12, 24(기본), 48시간 |
 | Background | [로그인 시 시작, 백그라운드 새로 고침, 알림](background.md) |
@@ -19,6 +20,14 @@ description: "CloudBridge가 무엇을 어디에 저장하는지: DuckDB 장부,
 | Demo data | 12개월 이력이 있는 샘플 계정 다섯 개(AWS, Alibaba Cloud, DeepSeek, OpenAI, Anthropic)를 불러오거나 지우기 |
 
 **Refresh**는 새로 고침 간격보다 오래된 달을 가져오고, **Force Refresh**는 전부 가져오며 공급자 요금이 발생할 수 있습니다. 둘 다 가져온 달을 덮어쓰지 않습니다. 데모 계정은 `demo-` 접두사를 쓰고 자격 증명이 없으며 새로 고침에서 건너뜁니다.
+
+## 인터페이스 언어 {#language}
+
+CloudBridge 0.9.0 이상은 简体中文로 번역되어 있습니다: 모든 페이지와 대화 상자, 메뉴 막대 패널과 그 메뉴, 시스템 알림까지요. **Settings → Appearance → Language**에서 언어를 고르기 전까지 앱은 시스템 언어를 따르며, 변경은 즉시 적용됩니다. 브라우저 데모는 브라우저 언어를 따르며 사이드바 하단에 전환 스위치가 있습니다.
+
+- 트레이 메뉴는 앱이 다음에 시작될 때 새 언어를 반영합니다.
+- 알림은 발동할 때의 언어를 유지합니다. 잔액 부족 알림은 예외로, 최신 수치와 현재 언어로 다시 작성됩니다.
+- 금액과 통화 형식은 이전과 같습니다.
 
 ## 데이터 위치 {#storage}
 
@@ -28,7 +37,7 @@ description: "CloudBridge가 무엇을 어디에 저장하는지: DuckDB 장부,
 | Windows | `%APPDATA%\CloudBridge\data\` |
 | Linux(소스 빌드) | `~/.local/share/CloudBridge/` |
 
-- `billing.duckdb` — 청구 장부, 각 비용의 원래 통화 포함;
+- `billing.duckdb` — 청구 장부, 각 비용의 원래 통화, [월말 스냅샷](overview.md#snapshots), [청구서](reconciliation.md) 포함;
 - `cloudbridge.duckdb` — 계정, 예산, 규칙, 알림 상태;
 - `raw/` — 모든 공급자 응답과 가져온 파일을 소스, 계정, 월별로. 매핑 수정 시 추가 요청 없이 다시 읽을 수 있습니다(**Accounts → Replay normalization**);
 - `inventory/` 및 `tools/` — 인사이트 스캔 결과와, 설치된 경우 스캐너;

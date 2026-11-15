@@ -18,6 +18,7 @@ token 按 FOCUS 属性 `TokenDirection` 和 `TokenCacheAction` 区分，而不�
 - 统计行显示 **AI spend**（AI 花费）、总 **tokens**、**blended $/1M**（总花费除以
   全部 token，按每百万计）和 **cache share**（从提示缓存读取的输入 token 占全部输入
   token 的比例，写入缓存的也算在输入里）。
+- 本月至今的变化，比较的是上月的相同天数，而不是上月全月。
 - **Per model** 列出每个模型的花费及其变化、IN/OUT/CACHE token、综合每百万成本和
   它在模型总花费里的占比。CACHE 是从缓存读取的 token；IN 是其余的输入：未缓存的输入、
   写入缓存的 token，以及输入输出合在一起计数的账单的总数，悬停提示会说明包含哪些。

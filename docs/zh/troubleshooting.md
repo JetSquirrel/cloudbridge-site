@@ -53,6 +53,17 @@ Windows 版本没有代码签名，所以 SmartScreen 会提示 *Windows protect
 CloudBridge 连同通知区域图标一起退出，所以请把它最小化，不要关闭。之后的版本不再打开
 控制台，`.exe`、标题栏和任务栏都会显示 CloudBridge 的图标。
 
+## Windows 上所有查询都失败 {#windows-query}
+
+0.8.0 的 Windows 版中，Query 页面的每条查询都会报 IO 错误而停止，原因是这个页面把账本
+文件又打开了一次。CloudBridge 0.9.0 已修复。你的数据不受影响。
+
+## 安装扫描器时中途停止 {#scanner-install}
+
+资源洞察的扫描器要下载约 45 MB。在 0.8.0 中，如果下载时连接中断，安装会停止并显示
+*io: unexpected end of file*，再点一次 **Set up and scan** 即可。从 0.9.0 起，遇到下载
+中断、超时或服务器错误时，会自动重试，最多三次。
+
 ## 导入报错 {#import-errors}
 
 - **"not UTF-8 text"** —— 阿里云和火山引擎控制台可能导出 GBK 编码的文件。

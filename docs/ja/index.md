@@ -59,6 +59,7 @@ features:
 | あるコストがどのビジネスラインに属するか知る | [コスト配賦](attribution.md) |
 | LLM モデルごとのトークン単価を知る | [モデル](models.md) |
 | 停止したインスタンス、遊んでいるアドレス、持ち主のいないリソースを見つける | [インサイト](insights.md) |
+| プロバイダーの請求書を台帳と照合する | [照合](reconciliation.md) |
 | 台帳に SQL で問い合わせる | [クエリ](query.md) |
 | 支出が跳ねたとき、予算が近いときに知らせてほしい | [アラート、ルール、予算](alerts.md) |
 | 暴走する Worker や Durable Object を、請求書ではなく初日に知る | [暴走を捕まえる](cloudflare.md#runaway) |

@@ -12,6 +12,7 @@ description: "Ce que CloudBridge stocke et où : le registre DuckDB, les compte
 | Réglage | Ce qu’il fait |
 | --- | --- |
 | Appearance → Theme | Thèmes clair et sombre, mémorisés d’un lancement à l’autre |
+| Appearance → Language | [La langue de l’interface](#language) : System, English ou 简体中文 |
 | Reporting → Currency | USD ou CNY pour tous les totaux ; les frais gardent leur propre devise |
 | Refreshing → Refresh interval | 6, 12, 24 (par défaut) ou 48 heures avant qu’un mois soit récupéré à nouveau |
 | Background | [Ouverture à la connexion, actualisation en arrière-plan, notifications d’alerte](background.md) |
@@ -24,6 +25,22 @@ fournisseur. Ni l’un ni l’autre n’écrase un mois importé. Les comptes de
 démonstration utilisent le préfixe `demo-`, ne portent aucun identifiant et
 sont ignorés par les actualisations.
 
+## Langue de l’interface {#language}
+
+CloudBridge 0.9.0 et les versions ultérieures sont traduits en 简体中文 :
+chaque page et boîte de dialogue, le panneau de la barre des menus, son menu
+et les notifications système. Tant que vous ne choisissez pas de langue sous
+**Settings → Appearance → Language**, l’application suit celle du système, et
+un changement s’applique aussitôt. La démo dans le navigateur suit la langue
+du navigateur et dispose d’un sélecteur en pied de sa barre latérale.
+
+- Le menu de la barre d’état reprend une nouvelle langue au prochain démarrage
+  de l’application.
+- Une alerte conserve la langue dans laquelle elle s’est déclenchée. L’alerte de
+  solde bas fait exception : elle est réécrite avec ses derniers chiffres, dans
+  la langue courante.
+- Les montants et les devises sont formatés comme avant.
+
 ## Où vivent les données {#storage}
 
 | Plateforme | Emplacement |
@@ -33,7 +50,8 @@ sont ignorés par les actualisations.
 | Linux (versions compilées depuis les sources) | `~/.local/share/CloudBridge/` |
 
 - `billing.duckdb` — le registre de facturation, avec la devise d’origine de
-  chaque frais ;
+  chaque frais, les [instantanés de fin de mois](overview.md#snapshots) et les
+  [factures](reconciliation.md) ;
 - `cloudbridge.duckdb` — comptes, budgets, règles et état des alertes ;
 - `raw/` — chaque réponse de fournisseur et chaque fichier importé, par
   source, compte et mois, pour qu’une correction de correspondance puisse les
